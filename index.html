@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* Your existing CSS remains the same */
         * {
             margin: 0;
             padding: 0;
@@ -432,6 +433,11 @@
             font-size: 16px;
             padding: 20px;
         }
+
+        .book-loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
@@ -489,10 +495,10 @@
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
         
-        // ADD YOUR BOOKS HERE
+        // ADD YOUR BOOKS HERE - FIXED: Added working sample book
         const booksList = [
             { name: "مسند أحمد بن حنبل ج 3", file: "books/maih_3.pdf" },
-            { name: "sample", file: "http://ddl.safone.co/4283034/A66aba9at_01.pdf"}
+            { name: "Sample Book", file: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" }
         ];
         
         let books = [];
@@ -507,24 +513,40 @@
             }, 5000);
         }
         
+        // FIXED: Optimized loading - load PDFs only when selected
         async function loadBooks() {
+            const list = document.getElementById('booksList');
+            
             try {
-                for (let bookInfo of booksList) {
-                    try {
-                        const pdf = await pdfjsLib.getDocument(bookInfo.file).promise;
-                        books.push({
-                            name: bookInfo.name,
-                            pdf: pdf,
-                            file: bookInfo.file
-                        });
-                    } catch (error) {
-                        console.log(`Could not load ${bookInfo.name}:`, error);
-                    }
-                }
-                displayBooks(books);
+                // Display book list immediately without loading PDFs
+                displayBooks(booksList.map(book => ({ 
+                    name: book.name, 
+                    file: book.file,
+                    pdf: null // PDF not loaded yet
+                })));
+                
+                // Preload PDFs in background (optional)
+                preloadBooksInBackground();
+                
             } catch (error) {
                 showError('Error loading books. Please refresh the page.');
                 console.error('Load books error:', error);
+            }
+        }
+        
+        // FIXED: Load PDFs in background without blocking UI
+        async function preloadBooksInBackground() {
+            for (let bookInfo of booksList) {
+                try {
+                    const pdf = await pdfjsLib.getDocument(bookInfo.file).promise;
+                    // Update the book in our array with the loaded PDF
+                    const bookIndex = books.findIndex(b => b.name === bookInfo.name);
+                    if (bookIndex !== -1) {
+                        books[bookIndex].pdf = pdf;
+                    }
+                } catch (error) {
+                    console.log(`Could not preload ${bookInfo.name}:`, error);
+                }
             }
         }
         
@@ -544,24 +566,34 @@
                 item.onclick = () => selectBook(book);
                 list.appendChild(item);
             });
+            
+            // Update the global books array
+            books = booksToDisplay;
         }
         
-        function searchBooks() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = books.filter(book => 
-                book.name.toLowerCase().includes(query)
-            );
-            displayBooks(filtered);
-        }
-        
-        function selectBook(book) {
+        // FIXED: Load PDF only when book is selected
+        async function selectBook(book) {
             try {
+                const list = document.getElementById('booksList');
+                list.classList.add('book-loading');
+                
+                // If PDF not loaded yet, load it now
+                if (!book.pdf) {
+                    const loadingItem = document.querySelector('.book-item.selected');
+                    if (loadingItem) {
+                        loadingItem.textContent = `Loading ${book.name}...`;
+                    }
+                    
+                    book.pdf = await pdfjsLib.getDocument(book.file).promise;
+                }
+                
                 selectedBook = book;
                 
                 const items = document.querySelectorAll('.book-item');
                 items.forEach(item => {
-                    if (item.textContent === book.name) {
+                    if (item.textContent === book.name || item.textContent.includes(book.name)) {
                         item.classList.add('selected');
+                        item.textContent = book.name; // Reset text in case it was "Loading..."
                     } else {
                         item.classList.remove('selected');
                     }
@@ -571,11 +603,21 @@
                 document.getElementById('pageInfo').textContent = `This book has ${book.pdf.numPages} pages`;
                 
                 updatePageInputs();
-                updatePreview();
+                list.classList.remove('book-loading');
+                
             } catch (error) {
-                showError('Error selecting book. Please try again.');
+                showError(`Error loading book "${book.name}". Please try again.`);
                 console.error('Select book error:', error);
+                document.getElementById('booksList').classList.remove('book-loading');
             }
+        }
+        
+        function searchBooks() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = books.filter(book => 
+                book.name.toLowerCase().includes(query)
+            );
+            displayBooks(filtered);
         }
         
         function setPageCount(count) {
@@ -587,7 +629,9 @@
                 event.target.classList.add('active');
                 
                 updatePageInputs();
-                updatePreview();
+                if (selectedBook && selectedBook.pdf) {
+                    updatePreview();
+                }
             } catch (error) {
                 showError('Error changing page count.');
                 console.error('Set page count error:', error);
@@ -595,7 +639,7 @@
         }
         
         function updatePageInputs() {
-            if (!selectedBook) return;
+            if (!selectedBook || !selectedBook.pdf) return;
             
             try {
                 const container = document.getElementById('pageInputs');
@@ -613,7 +657,7 @@
                     input.id = `page${i}`;
                     input.min = '1';
                     input.max = selectedBook.pdf.numPages;
-                    input.value = i;
+                    input.value = Math.min(i, selectedBook.pdf.numPages);
                     input.onchange = updatePreview;
                     
                     group.appendChild(label);
@@ -627,7 +671,7 @@
         }
         
         async function updatePreview() {
-            if (!selectedBook) return;
+            if (!selectedBook || !selectedBook.pdf) return;
             
             try {
                 const pageNumbers = [];
@@ -649,26 +693,21 @@
                     pages.push(page);
                 }
                 
-                // Maximum quality scale
-                const scale = 3;
+                const scale = 2; // Reduced scale for better performance
                 const viewports = pages.map(page => page.getViewport({scale}));
                 
                 const canvas = document.getElementById('previewCanvas');
                 const ctx = canvas.getContext('2d');
                 
-                // Calculate actual canvas size without constraints
                 const totalWidth = viewports.reduce((sum, vp) => sum + vp.width, 0);
                 const maxHeight = Math.max(...viewports.map(vp => vp.height));
                 
-                // Set canvas to actual size for maximum quality
                 canvas.width = totalWidth;
                 canvas.height = maxHeight;
                 
-                // White background
                 ctx.fillStyle = 'white';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 
-                // Render each page at full quality
                 let xOffset = 0;
                 for (let i = 0; i < pages.length; i++) {
                     const tempCanvas = document.createElement('canvas');
@@ -704,6 +743,7 @@
             }
         }
         
+        // Start loading books when page loads
         loadBooks();
     </script>
 </body>
