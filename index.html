@@ -3,574 +3,709 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF to Collage Generator</title>
+    <title>Sijjeen - Book Collage Maker</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            color: white;
+            font-family: 'Amiri', 'Scheherazade New', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 10px;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
+            background: white;
+            border-radius: 20px;
             padding: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
         
-        header {
-            text-align: center;
-            margin-bottom: 40px;
+        @media (min-width: 768px) {
+            body {
+                padding: 20px;
+            }
+            .container {
+                padding: 40px;
+            }
         }
         
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .title {
+            color: #667eea;
+            font-size: 2em;
+            font-weight: bold;
+        }
+        
+        @media (min-width: 768px) {
+            .title {
+                font-size: 2.5em;
+            }
+        }
+        
+        .durood {
+            color: #667eea;
+            font-size: 0.9em;
+            text-align: right;
+            line-height: 1.8;
+            direction: rtl;
+            max-width: 300px;
+        }
+        
+        @media (min-width: 768px) {
+            .durood {
+                font-size: 1.1em;
+            }
         }
         
         .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 0.9em;
         }
         
-        .app-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        @media (min-width: 768px) {
+            .subtitle {
+                margin-bottom: 30px;
+                font-size: 1em;
+            }
         }
         
-        .control-panel {
-            flex: 1;
-            min-width: 300px;
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto 20px;
+            position: relative;
         }
         
-        .preview-panel {
-            flex: 2;
-            min-width: 300px;
-            display: flex;
-            flex-direction: column;
+        @media (min-width: 768px) {
+            .search-bar {
+                margin-bottom: 30px;
+            }
         }
         
-        .step {
-            margin-bottom: 25px;
+        .search-bar input {
+            width: 100%;
+            padding: 12px 50px 12px 15px;
+            font-size: 16px;
+            border: 2px solid #667eea;
+            border-radius: 50px;
+            outline: none;
+            font-family: 'Amiri', 'Scheherazade New', serif;
         }
         
-        h2 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-            padding-bottom: 8px;
+        @media (min-width: 768px) {
+            .search-bar input {
+                padding: 15px 50px 15px 20px;
+            }
         }
         
-        .option-buttons {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+        .search-bar input:focus {
+            border-color: #764ba2;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
         }
         
-        .btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            padding: 12px 20px;
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #667eea;
+            font-size: 18px;
+        }
+        
+        @media (min-width: 768px) {
+            .search-icon {
+                right: 20px;
+                font-size: 20px;
+            }
+        }
+        
+        .books-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            padding: 5px;
+        }
+        
+        @media (min-width: 768px) {
+            .books-list {
+                max-height: 400px;
+                margin-bottom: 30px;
+                padding: 10px;
+            }
+        }
+        
+        .book-item {
+            padding: 12px 15px;
+            margin: 5px 0;
+            background: white;
+            border: 2px solid #e0e0e0;
             border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            flex: 1;
-            min-width: 80px;
+            transition: all 0.3s;
+            font-size: 16px;
+            text-align: left;
+            direction: ltr;
         }
         
-        .btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
+        @media (min-width: 768px) {
+            .book-item {
+                padding: 15px 20px;
+            }
         }
         
-        .btn.active {
-            background: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        .book-item:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: translateX(5px);
         }
         
-        .pdf-selector {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: none;
-            background: rgba(255, 255, 255, 0.9);
-            font-size: 1rem;
+        .book-item.selected {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .collage-settings {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .collage-settings {
+                padding: 25px;
+                margin-bottom: 30px;
+            }
+        }
+        
+        .setting-group {
             margin-bottom: 15px;
+        }
+        
+        @media (min-width: 768px) {
+            .setting-group {
+                margin-bottom: 20px;
+            }
+        }
+        
+        .setting-group label {
+            display: block;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+        
+        @media (min-width: 768px) {
+            .setting-group label {
+                font-size: 16px;
+            }
+        }
+        
+        .page-count-btns {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        @media (min-width: 768px) {
+            .page-count-btns {
+                gap: 10px;
+            }
+        }
+        
+        .page-count-btn {
+            padding: 8px 20px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-family: 'Amiri', 'Scheherazade New', serif;
+        }
+        
+        @media (min-width: 768px) {
+            .page-count-btn {
+                padding: 10px 25px;
+                font-size: 16px;
+            }
+        }
+        
+        .page-count-btn:hover {
+            background: #f0f4ff;
+        }
+        
+        .page-count-btn.active {
+            background: #667eea;
+            color: white;
         }
         
         .page-inputs {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
+            align-items: center;
         }
         
-        .page-input {
-            flex: 1;
-            min-width: 120px;
+        @media (min-width: 768px) {
+            .page-inputs {
+                gap: 15px;
+            }
         }
         
-        .page-input label {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 0.9rem;
-        }
-        
-        .page-input input {
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            border: none;
-            background: rgba(255, 255, 255, 0.9);
-        }
-        
-        .action-btn {
-            background: #ff6b6b;
-            color: white;
-            border: none;
-            padding: 15px 25px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            width: 100%;
-            margin-top: 10px;
-        }
-        
-        .action-btn:hover {
-            background: #ff5252;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
-        }
-        
-        .action-btn:disabled {
-            background: rgba(255, 255, 255, 0.2);
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        
-        .canvas-container {
-            flex: 1;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
+        .page-input-group {
             display: flex;
             align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            min-height: 400px;
-            margin-bottom: 20px;
+            gap: 8px;
         }
         
-        #collageCanvas {
-            max-width: 100%;
-            max-height: 100%;
+        @media (min-width: 768px) {
+            .page-input-group {
+                gap: 10px;
+            }
+        }
+        
+        .page-input-group span {
+            font-size: 14px;
+        }
+        
+        .page-input-group input {
+            padding: 8px;
+            font-size: 14px;
+            border: 2px solid #667eea;
             border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            width: 70px;
+            text-align: center;
+            font-family: 'Amiri', 'Scheherazade New', serif;
         }
         
-        .download-section {
+        @media (min-width: 768px) {
+            .page-input-group input {
+                padding: 10px;
+                font-size: 16px;
+                width: 80px;
+            }
+        }
+        
+        .preview-btn {
+            background: #667eea;
+            color: white;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-family: 'Amiri', 'Scheherazade New', serif;
+        }
+        
+        @media (min-width: 768px) {
+            .preview-btn {
+                padding: 10px 30px;
+                font-size: 16px;
+            }
+        }
+        
+        .preview-btn:hover {
+            background: #764ba2;
+        }
+        
+        .preview-section {
             text-align: center;
+            margin-top: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .preview-section {
+                margin-top: 30px;
+            }
+        }
+        
+        .preview-container {
+            display: inline-block;
+            margin: 20px 0;
+            max-width: 100%;
+            overflow-x: auto;
+        }
+        
+        .preview-canvas {
+            border: 3px solid #667eea;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: block;
+            max-width: 100%;
+            height: auto;
         }
         
         .download-btn {
-            background: #4cd964;
+            background: #28a745;
             color: white;
+            padding: 12px 30px;
             border: none;
-            padding: 15px 25px;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 1.1rem;
+            font-size: 16px;
             font-weight: bold;
-            transition: all 0.3s ease;
-            width: 100%;
-            max-width: 300px;
+            margin-top: 15px;
+            transition: all 0.3s;
+            font-family: 'Amiri', 'Scheherazade New', serif;
+        }
+        
+        @media (min-width: 768px) {
+            .download-btn {
+                padding: 15px 40px;
+                font-size: 18px;
+                margin-top: 20px;
+            }
         }
         
         .download-btn:hover {
-            background: #44c454;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(76, 217, 100, 0.4);
+            background: #218838;
+            transform: translateY(-2px);
         }
         
-        .download-btn:disabled {
-            background: rgba(255, 255, 255, 0.2);
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+        .hidden {
+            display: none;
         }
         
-        .status {
-            margin-top: 15px;
-            padding: 10px;
+        .info-text {
+            color: #666;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        
+        .error-message {
+            background: #fee;
+            border: 2px solid #fcc;
+            color: #c33;
+            padding: 10px 15px;
             border-radius: 8px;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        
+        .no-results {
             text-align: center;
-            font-weight: bold;
+            padding: 30px;
+            color: #999;
+            font-size: 16px;
         }
         
-        .status.success {
-            background: rgba(76, 217, 100, 0.3);
+        @media (min-width: 768px) {
+            .no-results {
+                padding: 40px;
+                font-size: 18px;
+            }
         }
         
-        .status.error {
-            background: rgba(255, 107, 107, 0.3);
-        }
-        
-        footer {
+        .loading {
             text-align: center;
-            margin-top: 40px;
-            opacity: 0.7;
-            font-size: 0.9rem;
-        }
-        
-        @media (max-width: 768px) {
-            .app-container {
-                flex-direction: column;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
+            color: #667eea;
+            font-size: 16px;
+            padding: 20px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>PDF to Collage Generator</h1>
-            <p class="subtitle">Transform your PDF pages into beautiful collages</p>
-        </header>
+        <div class="header">
+            <div class="title">📚 Sijjeen</div>
+            <div class="durood">
+                اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ<br>
+                كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ<br>
+                إِنَّكَ حَمِيدٌ مَجِيدٌ
+            </div>
+        </div>
+        <p class="subtitle">Create beautiful book collages</p>
         
-        <div class="app-container">
-            <div class="control-panel">
-                <div class="step">
-                    <h2>1. Select Collage Layout</h2>
-                    <div class="option-buttons">
-                        <button class="btn" data-layout="2">2 Pages</button>
-                        <button class="btn" data-layout="3">3 Pages</button>
-                        <button class="btn active" data-layout="4">4 Pages</button>
-                    </div>
-                </div>
-                
-                <div class="step">
-                    <h2>2. Choose PDF</h2>
-                    <select class="pdf-selector" id="pdfSelector">
-                        <option value="">Select a PDF from the database</option>
-                        <!-- PDF options will be populated by JavaScript -->
-                    </select>
-                </div>
-                
-                <div class="step">
-                    <h2>3. Select Pages</h2>
-                    <div class="page-inputs" id="pageInputs">
-                        <!-- Page inputs will be generated based on layout selection -->
-                    </div>
-                </div>
-                
-                <div class="step">
-                    <button class="action-btn" id="generateBtn" disabled>Generate Collage</button>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search books..." oninput="searchBooks()">
+            <span class="search-icon">🔍</span>
+        </div>
+        
+        <h2 style="color: #667eea; margin-bottom: 15px; font-size: 1.3em;">Select a Book</h2>
+        <div id="booksList" class="books-list">
+            <div class="loading">Loading books...</div>
+        </div>
+        
+        <div id="errorContainer"></div>
+        
+        <div id="collageSettings" class="collage-settings hidden">
+            <div class="setting-group">
+                <label>How many pages do you want in your collage?</label>
+                <div class="page-count-btns">
+                    <button class="page-count-btn active" onclick="setPageCount(2)">2 Pages</button>
+                    <button class="page-count-btn" onclick="setPageCount(3)">3 Pages</button>
+                    <button class="page-count-btn" onclick="setPageCount(4)">4 Pages</button>
                 </div>
             </div>
             
-            <div class="preview-panel">
-                <div class="canvas-container">
-                    <canvas id="collageCanvas">Your browser does not support the canvas element.</canvas>
-                </div>
-                
-                <div class="download-section">
-                    <button class="download-btn" id="downloadBtn" disabled>Download Collage</button>
-                    <div class="status" id="statusMessage"></div>
-                </div>
+            <div class="setting-group">
+                <label>Select page numbers:</label>
+                <div id="pageInputs" class="page-inputs"></div>
             </div>
+            
+            <p class="info-text" id="pageInfo"></p>
         </div>
         
-        <footer>
-            <p>PDF to Collage Generator &copy; 2023 | All PDFs are stored in the /books folder</p>
-        </footer>
+        <div id="previewSection" class="preview-section hidden">
+            <h2 style="color: #667eea; margin-bottom: 20px; font-size: 1.3em;">Preview</h2>
+            <div class="preview-container">
+                <canvas id="previewCanvas" class="preview-canvas"></canvas>
+            </div>
+            <br>
+            <button class="download-btn" onclick="downloadCollage()">💾 Download Collage</button>
+        </div>
     </div>
 
     <script>
-        // DOM Elements
-        const layoutButtons = document.querySelectorAll('.btn[data-layout]');
-        const pdfSelector = document.getElementById('pdfSelector');
-        const pageInputsContainer = document.getElementById('pageInputs');
-        const generateBtn = document.getElementById('generateBtn');
-        const downloadBtn = document.getElementById('downloadBtn');
-        const canvas = document.getElementById('collageCanvas');
-        const statusMessage = document.getElementById('statusMessage');
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
         
-        // State variables
-        let selectedLayout = 4;
-        let selectedPdf = '';
-        let pageNumbers = [];
-        let collageGenerated = false;
+        // ADD YOUR BOOKS HERE - Use direct download links from Telegram
+        const booksList = [
+            { name: "Musnad Imam Ahmad Ibn Hanbal ", file: "books/maih_3.pdf",},
+            { name: "Tabaqat Ibn Saad 1", file: "books/tis1.pdf"}
+            // Add more books like: { name: "Book Name in Arabic", file: "http://direct-link.pdf" }
+        ];
         
-        // Initialize the app
-        function init() {
-            // Set up layout selection
-            layoutButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    layoutButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    selectedLayout = parseInt(button.getAttribute('data-layout'));
-                    updatePageInputs();
-                    resetState();
-                });
-            });
-            
-            // Set up PDF selector
-            loadPdfOptions();
-            pdfSelector.addEventListener('change', () => {
-                selectedPdf = pdfSelector.value;
-                updateGenerateButtonState();
-                resetState();
-            });
-            
-            // Set up generate button
-            generateBtn.addEventListener('click', generateCollage);
-            
-            // Set up download button
-            downloadBtn.addEventListener('click', downloadCollage);
-            
-            // Initialize page inputs
-            updatePageInputs();
+        let books = [];
+        let selectedBook = null;
+        let pageCount = 2;
+        
+        function showError(message) {
+            const container = document.getElementById('errorContainer');
+            container.innerHTML = `<div class="error-message">${message}</div>`;
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 5000);
         }
         
-        // Load PDF options from the /books folder
-        function loadPdfOptions() {
-            // In a real implementation, you would fetch this from your server
-            // For demonstration, we'll use sample PDFs
-            const samplePdfs = [
-                "books/tis1.pdf",
-                "books/maih_3.pdf",
-                "https://drive.google.com/uc?export=download&id=1l_ht3wdsZrydYVM5-uOTMNQNqdTnXPSL",
-                "Presentation Slides.pdf"
-            ];
-            
-            samplePdfs.forEach(pdf => {
-                const option = document.createElement('option');
-                option.value = pdf;
-                option.textContent = pdf;
-                pdfSelector.appendChild(option);
-            });
-        }
-        
-        // Update page inputs based on selected layout
-        function updatePageInputs() {
-            pageInputsContainer.innerHTML = '';
-            pageNumbers = [];
-            
-            for (let i = 0; i < selectedLayout; i++) {
-                const pageInput = document.createElement('div');
-                pageInput.className = 'page-input';
-                
-                const label = document.createElement('label');
-                label.textContent = `Page ${i + 1}`;
-                
-                const input = document.createElement('input');
-                input.type = 'number';
-                input.min = '1';
-                input.placeholder = 'Page number';
-                input.addEventListener('input', () => {
-                    updateGenerateButtonState();
-                    resetState();
-                });
-                
-                pageInput.appendChild(label);
-                pageInput.appendChild(input);
-                pageInputsContainer.appendChild(pageInput);
+        async function loadBooks() {
+            try {
+                for (let bookInfo of booksList) {
+                    try {
+                        const pdf = await pdfjsLib.getDocument(bookInfo.file).promise;
+                        books.push({
+                            name: bookInfo.name,
+                            pdf: pdf,
+                            file: bookInfo.file
+                        });
+                    } catch (error) {
+                        console.log(`Could not load ${bookInfo.name}:`, error);
+                    }
+                }
+                displayBooks(books);
+            } catch (error) {
+                showError('Error loading books. Please refresh the page.');
+                console.error('Load books error:', error);
             }
         }
         
-        // Update generate button state based on form completion
-        function updateGenerateButtonState() {
-            const pageInputs = document.querySelectorAll('.page-input input');
-            let allFilled = true;
+        function displayBooks(booksToDisplay) {
+            const list = document.getElementById('booksList');
+            list.innerHTML = '';
             
-            pageInputs.forEach(input => {
-                if (!input.value || parseInt(input.value) < 1) {
-                    allFilled = false;
-                }
+            if (booksToDisplay.length === 0) {
+                list.innerHTML = '<div class="no-results">No books found</div>';
+                return;
+            }
+            
+            booksToDisplay.forEach((book) => {
+                const item = document.createElement('div');
+                item.className = 'book-item';
+                item.textContent = book.name;
+                item.onclick = () => selectBook(book);
+                list.appendChild(item);
             });
-            
-            generateBtn.disabled = !(allFilled && selectedPdf);
         }
         
-        // Reset state when inputs change
-        function resetState() {
-            collageGenerated = false;
-            downloadBtn.disabled = true;
-            statusMessage.textContent = '';
-            statusMessage.className = 'status';
+        function searchBooks() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = books.filter(book => 
+                book.name.toLowerCase().includes(query)
+            );
+            displayBooks(filtered);
         }
         
-        // Generate the collage
-        function generateCollage() {
-            // Get page numbers from inputs
-            const pageInputs = document.querySelectorAll('.page-input input');
-            pageNumbers = Array.from(pageInputs).map(input => parseInt(input.value));
-            
-            // In a real implementation, you would:
-            // 1. Fetch the selected PDF from the server
-            // 2. Extract the specified pages as images
-            // 3. Render them on the canvas
-            
-            // For demonstration, we'll simulate this process
-            statusMessage.textContent = 'Generating collage...';
-            statusMessage.className = 'status';
-            
-            // Simulate processing time
-            setTimeout(() => {
-                // Set canvas dimensions based on layout
-                const container = canvas.parentElement;
-                const containerWidth = container.clientWidth;
-                const containerHeight = container.clientHeight;
+        function selectBook(book) {
+            try {
+                selectedBook = book;
                 
-                // Calculate dimensions to maintain aspect ratio and quality
-                let canvasWidth, canvasHeight;
+                const items = document.querySelectorAll('.book-item');
+                items.forEach(item => {
+                    if (item.textContent === book.name) {
+                        item.classList.add('selected');
+                    } else {
+                        item.classList.remove('selected');
+                    }
+                });
                 
-                if (selectedLayout === 2) {
-                    // 2 pages side by side
-                    canvasWidth = containerWidth;
-                    canvasHeight = Math.min(containerHeight, containerWidth / 2);
-                } else if (selectedLayout === 3) {
-                    // 3 pages in a row (or 2+1 depending on aspect ratio)
-                    canvasWidth = containerWidth;
-                    canvasHeight = Math.min(containerHeight, containerWidth / 3);
-                } else {
-                    // 4 pages in a 2x2 grid
-                    canvasWidth = containerWidth;
-                    canvasHeight = containerWidth; // Square for 2x2 grid
+                document.getElementById('collageSettings').classList.remove('hidden');
+                document.getElementById('pageInfo').textContent = `This book has ${book.pdf.numPages} pages`;
+                
+                updatePageInputs();
+                updatePreview();
+            } catch (error) {
+                showError('Error selecting book. Please try again.');
+                console.error('Select book error:', error);
+            }
+        }
+        
+        function setPageCount(count) {
+            try {
+                pageCount = count;
+                
+                const buttons = document.querySelectorAll('.page-count-btn');
+                buttons.forEach(btn => btn.classList.remove('active'));
+                event.target.classList.add('active');
+                
+                updatePageInputs();
+                updatePreview();
+            } catch (error) {
+                showError('Error changing page count.');
+                console.error('Set page count error:', error);
+            }
+        }
+        
+        function updatePageInputs() {
+            if (!selectedBook) return;
+            
+            try {
+                const container = document.getElementById('pageInputs');
+                container.innerHTML = '';
+                
+                for (let i = 1; i <= pageCount; i++) {
+                    const group = document.createElement('div');
+                    group.className = 'page-input-group';
+                    
+                    const label = document.createElement('span');
+                    label.textContent = `Page ${i}:`;
+                    
+                    const input = document.createElement('input');
+                    input.type = 'number';
+                    input.id = `page${i}`;
+                    input.min = '1';
+                    input.max = selectedBook.pdf.numPages;
+                    input.value = i;
+                    input.onchange = updatePreview;
+                    
+                    group.appendChild(label);
+                    group.appendChild(input);
+                    container.appendChild(group);
+                }
+            } catch (error) {
+                showError('Error updating page inputs.');
+                console.error('Update page inputs error:', error);
+            }
+        }
+        
+        async function updatePreview() {
+            if (!selectedBook) return;
+            
+            try {
+                const pageNumbers = [];
+                for (let i = 1; i <= pageCount; i++) {
+                    const input = document.getElementById(`page${i}`);
+                    if (!input) return;
+                    
+                    const pageNum = parseInt(input.value);
+                    if (isNaN(pageNum) || pageNum < 1 || pageNum > selectedBook.pdf.numPages) {
+                        showError(`Page ${i} must be between 1 and ${selectedBook.pdf.numPages}`);
+                        return;
+                    }
+                    pageNumbers.push(pageNum);
                 }
                 
-                // Ensure canvas doesn't exceed container
-                if (canvasHeight > containerHeight) {
-                    canvasHeight = containerHeight;
-                    canvasWidth = canvasHeight * (selectedLayout === 4 ? 1 : selectedLayout);
+                const pages = [];
+                for (let pageNum of pageNumbers) {
+                    const page = await selectedBook.pdf.getPage(pageNum);
+                    pages.push(page);
                 }
                 
-                canvas.width = canvasWidth;
-                canvas.height = canvasHeight;
+                // Maximum quality scale
+                const scale = 3;
+                const viewports = pages.map(page => page.getViewport({scale}));
                 
+                const canvas = document.getElementById('previewCanvas');
                 const ctx = canvas.getContext('2d');
                 
-                // Clear canvas
+                // Calculate actual canvas size without constraints
+                const totalWidth = viewports.reduce((sum, vp) => sum + vp.width, 0);
+                const maxHeight = Math.max(...viewports.map(vp => vp.height));
+                
+                // Set canvas to actual size for maximum quality
+                canvas.width = totalWidth;
+                canvas.height = maxHeight;
+                
+                // White background
                 ctx.fillStyle = 'white';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 
-                // Draw simulated PDF pages
-                if (selectedLayout === 2) {
-                    // Two pages side by side
-                    const pageWidth = canvas.width / 2;
-                    const pageHeight = canvas.height;
+                // Render each page at full quality
+                let xOffset = 0;
+                for (let i = 0; i < pages.length; i++) {
+                    const tempCanvas = document.createElement('canvas');
+                    tempCanvas.width = viewports[i].width;
+                    tempCanvas.height = viewports[i].height;
                     
-                    drawSimulatedPage(ctx, 0, 0, pageWidth, pageHeight, pageNumbers[0]);
-                    drawSimulatedPage(ctx, pageWidth, 0, pageWidth, pageHeight, pageNumbers[1]);
+                    await pages[i].render({
+                        canvasContext: tempCanvas.getContext('2d'),
+                        viewport: viewports[i]
+                    }).promise;
                     
-                } else if (selectedLayout === 3) {
-                    // Three pages side by side
-                    const pageWidth = canvas.width / 3;
-                    const pageHeight = canvas.height;
-                    
-                    drawSimulatedPage(ctx, 0, 0, pageWidth, pageHeight, pageNumbers[0]);
-                    drawSimulatedPage(ctx, pageWidth, 0, pageWidth, pageHeight, pageNumbers[1]);
-                    drawSimulatedPage(ctx, pageWidth * 2, 0, pageWidth, pageHeight, pageNumbers[2]);
-                    
-                } else {
-                    // Four pages in a 2x2 grid
-                    const pageWidth = canvas.width / 2;
-                    const pageHeight = canvas.height / 2;
-                    
-                    drawSimulatedPage(ctx, 0, 0, pageWidth, pageHeight, pageNumbers[0]);
-                    drawSimulatedPage(ctx, pageWidth, 0, pageWidth, pageHeight, pageNumbers[1]);
-                    drawSimulatedPage(ctx, 0, pageHeight, pageWidth, pageHeight, pageNumbers[2]);
-                    drawSimulatedPage(ctx, pageWidth, pageHeight, pageWidth, pageHeight, pageNumbers[3]);
+                    ctx.drawImage(tempCanvas, xOffset, 0);
+                    xOffset += viewports[i].width;
                 }
                 
-                // Update UI
-                collageGenerated = true;
-                downloadBtn.disabled = false;
-                statusMessage.textContent = 'Collage generated successfully!';
-                statusMessage.className = 'status success';
-                
-            }, 1500);
-        }
-        
-        // Draw a simulated PDF page (in a real app, this would be an actual PDF page)
-        function drawSimulatedPage(ctx, x, y, width, height, pageNum) {
-            // Draw page background
-            ctx.fillStyle = '#f8f8f8';
-            ctx.fillRect(x, y, width, height);
-            
-            // Draw page border
-            ctx.strokeStyle = '#ddd';
-            ctx.lineWidth = 1;
-            ctx.strokeRect(x, y, width, height);
-            
-            // Draw page content simulation
-            ctx.fillStyle = '#333';
-            ctx.font = `${Math.min(width / 15, 20)}px Arial`;
-            ctx.textAlign = 'center';
-            ctx.fillText(`PDF: ${selectedPdf}`, x + width/2, y + height/2 - 20);
-            ctx.fillText(`Page ${pageNum}`, x + width/2, y + height/2 + 10);
-            
-            // Draw some lines to simulate text
-            ctx.strokeStyle = '#aaa';
-            ctx.lineWidth = 1;
-            
-            const lineCount = 8;
-            const lineSpacing = height / (lineCount + 2);
-            
-            for (let i = 1; i <= lineCount; i++) {
-                const lineY = y + (i * lineSpacing);
-                const lineLength = width * (0.7 + Math.random() * 0.2);
-                const lineX = x + (width - lineLength) / 2;
-                
-                ctx.beginPath();
-                ctx.moveTo(lineX, lineY);
-                ctx.lineTo(lineX + lineLength, lineY);
-                ctx.stroke();
+                document.getElementById('previewSection').classList.remove('hidden');
+            } catch (error) {
+                showError('Error creating preview. Please check your page numbers.');
+                console.error('Update preview error:', error);
             }
         }
         
-        // Download the collage
         function downloadCollage() {
-            if (!collageGenerated) return;
-            
             try {
-                // Create a temporary link for download
+                const canvas = document.getElementById('previewCanvas');
                 const link = document.createElement('a');
-                link.download = `collage-${selectedPdf.replace('.pdf', '')}.png`;
-                link.href = canvas.toDataURL('image/png');
+                link.download = 'sijjeen-collage.png';
+                link.href = canvas.toDataURL('image/png', 1.0);
                 link.click();
-                
-                statusMessage.textContent = 'Collage downloaded successfully!';
-                statusMessage.className = 'status success';
             } catch (error) {
-                statusMessage.textContent = 'Error downloading collage. Please try again.';
-                statusMessage.className = 'status error';
+                showError('Error downloading collage. Please try again.');
                 console.error('Download error:', error);
             }
         }
         
-        // Initialize the application
-        document.addEventListener('DOMContentLoaded', init);
+        loadBooks();
     </script>
 </body>
 </html>
