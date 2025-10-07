@@ -32,15 +32,6 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
         
-        @media (min-width: 768px) {
-            body {
-                padding: 20px;
-            }
-            .container {
-                padding: 40px;
-            }
-        }
-        
         .header {
             display: flex;
             justify-content: space-between;
@@ -56,12 +47,6 @@
             font-weight: bold;
         }
         
-        @media (min-width: 768px) {
-            .title {
-                font-size: 2.5em;
-            }
-        }
-        
         .durood {
             color: #667eea;
             font-size: 0.9em;
@@ -71,73 +56,11 @@
             max-width: 300px;
         }
         
-        @media (min-width: 768px) {
-            .durood {
-                font-size: 1.1em;
-            }
-        }
-        
         .subtitle {
             text-align: center;
             color: #666;
             margin-bottom: 20px;
             font-size: 0.9em;
-        }
-        
-        @media (min-width: 768px) {
-            .subtitle {
-                margin-bottom: 30px;
-                font-size: 1em;
-            }
-        }
-        
-        .search-bar {
-            max-width: 600px;
-            margin: 0 auto 20px;
-            position: relative;
-        }
-        
-        @media (min-width: 768px) {
-            .search-bar {
-                margin-bottom: 30px;
-            }
-        }
-        
-        .search-bar input {
-            width: 100%;
-            padding: 12px 50px 12px 15px;
-            font-size: 16px;
-            border: 2px solid #667eea;
-            border-radius: 50px;
-            outline: none;
-            font-family: 'Amiri', 'Scheherazade New', serif;
-        }
-        
-        @media (min-width: 768px) {
-            .search-bar input {
-                padding: 15px 50px 15px 20px;
-            }
-        }
-        
-        .search-bar input:focus {
-            border-color: #764ba2;
-            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
-        }
-        
-        .search-icon {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #667eea;
-            font-size: 18px;
-        }
-        
-        @media (min-width: 768px) {
-            .search-icon {
-                right: 20px;
-                font-size: 20px;
-            }
         }
         
         .books-list {
@@ -147,14 +70,6 @@
             border-radius: 10px;
             margin-bottom: 20px;
             padding: 5px;
-        }
-        
-        @media (min-width: 768px) {
-            .books-list {
-                max-height: 400px;
-                margin-bottom: 30px;
-                padding: 10px;
-            }
         }
         
         .book-item {
@@ -167,19 +82,11 @@
             transition: all 0.3s;
             font-size: 16px;
             text-align: left;
-            direction: ltr;
-        }
-        
-        @media (min-width: 768px) {
-            .book-item {
-                padding: 15px 20px;
-            }
         }
         
         .book-item:hover {
             border-color: #667eea;
             background: #f0f4ff;
-            transform: translateX(5px);
         }
         
         .book-item.selected {
@@ -196,21 +103,8 @@
             margin-bottom: 20px;
         }
         
-        @media (min-width: 768px) {
-            .collage-settings {
-                padding: 25px;
-                margin-bottom: 30px;
-            }
-        }
-        
         .setting-group {
             margin-bottom: 15px;
-        }
-        
-        @media (min-width: 768px) {
-            .setting-group {
-                margin-bottom: 20px;
-            }
         }
         
         .setting-group label {
@@ -221,22 +115,10 @@
             font-size: 15px;
         }
         
-        @media (min-width: 768px) {
-            .setting-group label {
-                font-size: 16px;
-            }
-        }
-        
         .page-count-btns {
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
-        }
-        
-        @media (min-width: 768px) {
-            .page-count-btns {
-                gap: 10px;
-            }
         }
         
         .page-count-btn {
@@ -252,17 +134,6 @@
             font-family: 'Amiri', 'Scheherazade New', serif;
         }
         
-        @media (min-width: 768px) {
-            .page-count-btn {
-                padding: 10px 25px;
-                font-size: 16px;
-            }
-        }
-        
-        .page-count-btn:hover {
-            background: #f0f4ff;
-        }
-        
         .page-count-btn.active {
             background: #667eea;
             color: white;
@@ -275,22 +146,10 @@
             align-items: center;
         }
         
-        @media (min-width: 768px) {
-            .page-inputs {
-                gap: 15px;
-            }
-        }
-        
         .page-input-group {
             display: flex;
             align-items: center;
             gap: 8px;
-        }
-        
-        @media (min-width: 768px) {
-            .page-input-group {
-                gap: 10px;
-            }
         }
         
         .page-input-group span {
@@ -307,32 +166,17 @@
             font-family: 'Amiri', 'Scheherazade New', serif;
         }
         
-        @media (min-width: 768px) {
-            .page-input-group input {
-                padding: 10px;
-                font-size: 16px;
-                width: 80px;
-            }
-        }
-        
         .preview-btn {
             background: #667eea;
             color: white;
-            padding: 8px 20px;
+            padding: 10px 20px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: bold;
             transition: all 0.3s;
             font-family: 'Amiri', 'Scheherazade New', serif;
-        }
-        
-        @media (min-width: 768px) {
-            .preview-btn {
-                padding: 10px 30px;
-                font-size: 16px;
-            }
         }
         
         .preview-btn:hover {
@@ -342,12 +186,6 @@
         .preview-section {
             text-align: center;
             margin-top: 20px;
-        }
-        
-        @media (min-width: 768px) {
-            .preview-section {
-                margin-top: 30px;
-            }
         }
         
         .preview-container {
@@ -392,14 +230,6 @@
             font-family: 'Amiri', 'Scheherazade New', serif;
         }
         
-        @media (min-width: 768px) {
-            .download-btn {
-                padding: 15px 40px;
-                font-size: 18px;
-                margin-top: 20px;
-            }
-        }
-        
         .download-btn:hover {
             background: #218838;
             transform: translateY(-2px);
@@ -432,56 +262,11 @@
             font-size: 16px;
         }
         
-        @media (min-width: 768px) {
-            .no-results {
-                padding: 40px;
-                font-size: 18px;
-            }
-        }
-        
         .loading {
             text-align: center;
             color: #667eea;
             font-size: 16px;
             padding: 20px;
-        }
-        
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: #e0e0e0;
-            border-radius: 4px;
-            margin: 10px 0;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: #667eea;
-            width: 0%;
-            transition: width 0.3s;
-        }
-        
-        .file-upload {
-            margin: 15px 0;
-            text-align: center;
-        }
-        
-        .file-upload-btn {
-            background: #17a2b8;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-            transition: all 0.3s;
-            font-family: 'Amiri', 'Scheherazade New', serif;
-        }
-        
-        .file-upload-btn:hover {
-            background: #138496;
         }
         
         .highlight-controls {
@@ -496,6 +281,7 @@
             gap: 10px;
             margin: 10px 0;
             flex-wrap: wrap;
+            justify-content: center;
         }
         
         .color-btn {
@@ -513,25 +299,26 @@
         }
         
         .highlight-yellow {
-            background-color: rgba(255, 255, 0, 0.5);
+            background-color: #ffff00;
         }
         
         .highlight-red {
-            background-color: rgba(255, 0, 0, 0.5);
+            background-color: #ff0000;
         }
         
         .highlight-cyan {
-            background-color: rgba(0, 255, 255, 0.5);
+            background-color: #00ffff;
         }
         
         .highlight-lime {
-            background-color: rgba(0, 255, 0, 0.5);
+            background-color: #00ff00;
         }
         
         .highlight-instructions {
             font-size: 14px;
             color: #666;
             margin-top: 10px;
+            text-align: center;
         }
         
         .highlight-actions {
@@ -539,6 +326,7 @@
             gap: 10px;
             margin-top: 10px;
             flex-wrap: wrap;
+            justify-content: center;
         }
         
         .action-btn {
@@ -569,6 +357,16 @@
         .toggle-btn:hover {
             background: #5a6268;
         }
+        
+        .resize-handle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #000;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -582,16 +380,6 @@
             </div>
         </div>
         <p class="subtitle">Create beautiful book collages with highlighting</p>
-        
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search books..." oninput="searchBooks()">
-            <span class="search-icon">🔍</span>
-        </div>
-        
-        <div class="file-upload">
-            <input type="file" id="fileInput" accept=".pdf" class="hidden">
-            <button class="file-upload-btn" onclick="document.getElementById('fileInput').click()">📁 Upload Your Own PDF</button>
-        </div>
         
         <h2 style="color: #667eea; margin-bottom: 15px; font-size: 1.3em;">Select a Book</h2>
         <div id="booksList" class="books-list">
@@ -615,25 +403,21 @@
                 <div id="pageInputs" class="page-inputs"></div>
             </div>
             
-            <div class="progress-bar hidden" id="progressBar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-            
             <p class="info-text" id="pageInfo"></p>
             
             <button class="preview-btn" onclick="updatePreview()">Generate Preview</button>
         </div>
         
         <div id="highlightSection" class="highlight-controls hidden">
-            <h3 style="color: #667eea; margin-bottom: 10px;">Highlight Text</h3>
+            <h3 style="color: #667eea; margin-bottom: 10px; text-align: center;">Highlight Text</h3>
             <div class="highlight-colors">
-                <div class="color-btn highlight-yellow active" data-color="rgba(255, 255, 0, 0.5)" onclick="setHighlightColor(this)"></div>
-                <div class="color-btn highlight-red" data-color="rgba(255, 0, 0, 0.5)" onclick="setHighlightColor(this)"></div>
-                <div class="color-btn highlight-cyan" data-color="rgba(0, 255, 255, 0.5)" onclick="setHighlightColor(this)"></div>
-                <div class="color-btn highlight-lime" data-color="rgba(0, 255, 0, 0.5)" onclick="setHighlightColor(this)"></div>
+                <div class="color-btn highlight-yellow active" data-color="#ffff00" onclick="setHighlightColor(this)"></div>
+                <div class="color-btn highlight-red" data-color="#ff0000" onclick="setHighlightColor(this)"></div>
+                <div class="color-btn highlight-cyan" data-color="#00ffff" onclick="setHighlightColor(this)"></div>
+                <div class="color-btn highlight-lime" data-color="#00ff00" onclick="setHighlightColor(this)"></div>
             </div>
             <p class="highlight-instructions">
-                Tap and drag on the preview to create highlights. Drag corners to resize.
+                Click/tap and drag to create highlights. Click on existing highlights to resize them.
             </p>
             <div class="highlight-actions">
                 <button class="action-btn clear-btn" onclick="clearHighlights()">Clear All Highlights</button>
@@ -655,17 +439,17 @@
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
         
-        // ADD YOUR BOOKS HERE - Use direct download links
+        // Local books in the books/ folder
         const booksList = [
-            { name: "MUSNAD 1", file: "books/maih_3.pdf" }
-            // Add more books like: { name: "Book Name in Arabic", file: "http://direct-link.pdf" }
+            { name: "MUSNAD 1", file: "books/maih_3.pdf" },
+            { name: "Tabaqat Ibn Saad 1", file: "books/tis1.pdf" }
         ];
         
         let books = [];
         let selectedBook = null;
         let pageCount = 2;
         let highlights = [];
-        let currentHighlightColor = "rgba(255, 255, 0, 0.5)";
+        let currentHighlightColor = "#ffff00";
         let isHighlightMode = true;
         let isDrawing = false;
         let currentRect = null;
@@ -674,9 +458,26 @@
         let isResizing = false;
         let resizeHandle = -1;
         let canvasScale = 1;
-        
-        // Handle file upload
-        document.getElementById('fileInput').addEventListener('change', handleFileUpload);
+
+        async function loadBooks() {
+            try {
+                for (let bookInfo of booksList) {
+                    try {
+                        const pdf = await pdfjsLib.getDocument(bookInfo.file).promise;
+                        books.push({
+                            name: bookInfo.name,
+                            pdf: pdf,
+                            file: bookInfo.file
+                        });
+                    } catch (error) {
+                        console.log(`Could not load ${bookInfo.name}:`, error);
+                    }
+                }
+                displayBooks(books);
+            } catch (error) {
+                showError('Error loading books. Please refresh the page.');
+            }
+        }
         
         function showError(message) {
             const container = document.getElementById('errorContainer');
@@ -684,98 +485,6 @@
             setTimeout(() => {
                 container.innerHTML = '';
             }, 5000);
-        }
-        
-        function showProgress(percent) {
-            const progressBar = document.getElementById('progressBar');
-            const progressFill = document.getElementById('progressFill');
-            
-            if (percent === 0) {
-                progressBar.classList.remove('hidden');
-            }
-            
-            progressFill.style.width = `${percent}%`;
-            
-            if (percent >= 100) {
-                setTimeout(() => {
-                    progressBar.classList.add('hidden');
-                }, 500);
-            }
-        }
-        
-        async function handleFileUpload(event) {
-            const file = event.target.files[0];
-            if (!file || file.type !== 'application/pdf') {
-                showError('Please select a valid PDF file.');
-                return;
-            }
-            
-            try {
-                showProgress(0);
-                const arrayBuffer = await file.arrayBuffer();
-                showProgress(30);
-                
-                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-                showProgress(70);
-                
-                const newBook = {
-                    name: file.name.replace('.pdf', ''),
-                    pdf: pdf,
-                    file: URL.createObjectURL(file),
-                    isUploaded: true
-                };
-                
-                books.push(newBook);
-                displayBooks(books);
-                showProgress(100);
-                
-                // Auto-select the uploaded book
-                selectBook(newBook);
-            } catch (error) {
-                showError('Error loading PDF file. Please try another file.');
-                console.error('File upload error:', error);
-            }
-        }
-        
-        async function loadBooks() {
-            try {
-                showProgress(0);
-                const totalBooks = booksList.length;
-                let loadedCount = 0;
-                
-                // Clear existing books first
-                books = [];
-                
-                for (let bookInfo of booksList) {
-                    try {
-                        console.log(`Loading: ${bookInfo.name}`);
-                        const pdf = await pdfjsLib.getDocument(bookInfo.file).promise;
-                        books.push({
-                            name: bookInfo.name,
-                            pdf: pdf,
-                            file: bookInfo.file
-                        });
-                        console.log(`Successfully loaded: ${bookInfo.name}`);
-                        
-                        loadedCount++;
-                        showProgress((loadedCount / totalBooks) * 70);
-                    } catch (error) {
-                        console.error(`Failed to load ${bookInfo.name}:`, error);
-                        loadedCount++;
-                        showProgress((loadedCount / totalBooks) * 70);
-                    }
-                }
-                
-                displayBooks(books);
-                showProgress(100);
-                
-                if (books.length === 0) {
-                    showError('No books could be loaded. Please check your internet connection and try again.');
-                }
-            } catch (error) {
-                showError('Error loading books. Please refresh the page.');
-                console.error('Load books error:', error);
-            }
         }
         
         function displayBooks(booksToDisplay) {
@@ -790,86 +499,63 @@
             booksToDisplay.forEach((book) => {
                 const item = document.createElement('div');
                 item.className = 'book-item';
-                item.textContent = book.name + (book.isUploaded ? ' (Uploaded)' : '');
+                item.textContent = book.name;
                 item.onclick = () => selectBook(book);
                 list.appendChild(item);
             });
         }
         
-        function searchBooks() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = books.filter(book => 
-                book.name.toLowerCase().includes(query)
-            );
-            displayBooks(filtered);
-        }
-        
         function selectBook(book) {
-            try {
-                selectedBook = book;
-                
-                const items = document.querySelectorAll('.book-item');
-                items.forEach(item => {
-                    if (item.textContent === book.name + (book.isUploaded ? ' (Uploaded)' : '')) {
-                        item.classList.add('selected');
-                    } else {
-                        item.classList.remove('selected');
-                    }
-                });
-                
-                document.getElementById('collageSettings').classList.remove('hidden');
-                document.getElementById('pageInfo').textContent = `This book has ${book.pdf.numPages} pages`;
-                
-                updatePageInputs();
-            } catch (error) {
-                showError('Error selecting book. Please try again.');
-                console.error('Select book error:', error);
-            }
+            selectedBook = book;
+            
+            const items = document.querySelectorAll('.book-item');
+            items.forEach(item => {
+                if (item.textContent === book.name) {
+                    item.classList.add('selected');
+                } else {
+                    item.classList.remove('selected');
+                }
+            });
+            
+            document.getElementById('collageSettings').classList.remove('hidden');
+            document.getElementById('pageInfo').textContent = `This book has ${book.pdf.numPages} pages`;
+            
+            updatePageInputs();
         }
         
         function setPageCount(count) {
-            try {
-                pageCount = count;
-                
-                const buttons = document.querySelectorAll('.page-count-btn');
-                buttons.forEach(btn => btn.classList.remove('active'));
-                event.target.classList.add('active');
-                
-                updatePageInputs();
-            } catch (error) {
-                showError('Error changing page count.');
-                console.error('Set page count error:', error);
-            }
+            pageCount = count;
+            
+            const buttons = document.querySelectorAll('.page-count-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            updatePageInputs();
         }
         
         function updatePageInputs() {
             if (!selectedBook) return;
             
-            try {
-                const container = document.getElementById('pageInputs');
-                container.innerHTML = '';
+            const container = document.getElementById('pageInputs');
+            container.innerHTML = '';
+            
+            for (let i = 1; i <= pageCount; i++) {
+                const group = document.createElement('div');
+                group.className = 'page-input-group';
                 
-                for (let i = 1; i <= pageCount; i++) {
-                    const group = document.createElement('div');
-                    group.className = 'page-input-group';
-                    
-                    const label = document.createElement('span');
-                    label.textContent = `Page ${i}:`;
-                    
-                    const input = document.createElement('input');
-                    input.type = 'number';
-                    input.id = `page${i}`;
-                    input.min = '1';
-                    input.max = selectedBook.pdf.numPages;
-                    input.value = i;
-                    
-                    group.appendChild(label);
-                    group.appendChild(input);
-                    container.appendChild(group);
-                }
-            } catch (error) {
-                showError('Error updating page inputs.');
-                console.error('Update page inputs error:', error);
+                const label = document.createElement('span');
+                label.textContent = `Page ${i}:`;
+                
+                const input = document.createElement('input');
+                input.type = 'number';
+                input.id = `page${i}`;
+                input.min = '1';
+                input.max = selectedBook.pdf.numPages;
+                input.value = i;
+                
+                group.appendChild(label);
+                group.appendChild(input);
+                container.appendChild(group);
             }
         }
         
@@ -877,12 +563,9 @@
             if (!selectedBook) return;
             
             try {
-                showProgress(0);
                 const pageNumbers = [];
                 for (let i = 1; i <= pageCount; i++) {
                     const input = document.getElementById(`page${i}`);
-                    if (!input) return;
-                    
                     const pageNum = parseInt(input.value);
                     if (isNaN(pageNum) || pageNum < 1 || pageNum > selectedBook.pdf.numPages) {
                         showError(`Page ${i} must be between 1 and ${selectedBook.pdf.numPages}`);
@@ -892,33 +575,27 @@
                 }
                 
                 const pages = [];
-                for (let i = 0; i < pageNumbers.length; i++) {
-                    const pageNum = pageNumbers[i];
+                for (let pageNum of pageNumbers) {
                     const page = await selectedBook.pdf.getPage(pageNum);
                     pages.push(page);
-                    showProgress((i / pageNumbers.length) * 80);
                 }
                 
-                // Adjust scale based on number of pages for better performance
-                const scale = pageCount <= 2 ? 2 : 1.5;
+                const scale = 2;
                 const viewports = pages.map(page => page.getViewport({scale}));
                 
                 const canvas = document.getElementById('previewCanvas');
                 const ctx = canvas.getContext('2d');
                 
-                // Calculate canvas size
                 const totalWidth = viewports.reduce((sum, vp) => sum + vp.width, 0);
                 const maxHeight = Math.max(...viewports.map(vp => vp.height));
                 
-                // Set canvas dimensions
                 canvas.width = totalWidth;
                 canvas.height = maxHeight;
                 
-                // Calculate display scale for mobile devices
+                // Calculate display scale
                 const maxDisplayWidth = Math.min(window.innerWidth - 40, 1200);
                 canvasScale = maxDisplayWidth / totalWidth;
                 
-                // Set display dimensions
                 canvas.style.width = totalWidth * canvasScale + 'px';
                 canvas.style.height = maxHeight * canvasScale + 'px';
                 
@@ -940,8 +617,6 @@
                     
                     ctx.drawImage(tempCanvas, xOffset, 0);
                     xOffset += viewports[i].width;
-                    
-                    showProgress(80 + (i / pages.length) * 20);
                 }
                 
                 // Set up highlight canvas
@@ -951,25 +626,22 @@
                 highlightCanvas.style.width = canvas.style.width;
                 highlightCanvas.style.height = canvas.style.height;
                 
-                // Reset highlights for new preview
+                // Reset highlights
                 highlights = [];
+                selectedRectIndex = -1;
                 drawHighlights();
                 
                 document.getElementById('previewSection').classList.remove('hidden');
                 document.getElementById('highlightSection').classList.remove('hidden');
-                showProgress(100);
                 
-                // Set up highlight canvas events
                 setupHighlightCanvas();
             } catch (error) {
                 showError('Error creating preview. Please check your page numbers.');
-                console.error('Update preview error:', error);
             }
         }
         
         function setupHighlightCanvas() {
             const canvas = document.getElementById('highlightCanvas');
-            const ctx = canvas.getContext('2d');
             
             // Clear previous event listeners
             canvas.onmousedown = null;
@@ -1011,6 +683,7 @@
                     if (isPointInRect(x, y, h)) {
                         selectedRectIndex = i;
                         isDrawing = false;
+                        drawHighlights(); // Redraw to show resize handles
                         return;
                     }
                 }
@@ -1093,7 +766,7 @@
         }
         
         function getResizeHandles(rect) {
-            const size = 15;
+            const size = 12;
             return [
                 { x: rect.x - size/2, y: rect.y - size/2, width: size, height: size }, // top-left
                 { x: rect.x + rect.width - size/2, y: rect.y - size/2, width: size, height: size }, // top-right
@@ -1137,9 +810,10 @@
             
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // Draw all highlights with multiply blend mode
+            // Set multiply blend mode
             ctx.globalCompositeOperation = 'multiply';
             
+            // Draw all highlights with solid colors
             highlights.forEach((rect, index) => {
                 ctx.fillStyle = rect.color;
                 ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
@@ -1147,10 +821,12 @@
                 // Draw resize handles for selected rectangle
                 if (index === selectedRectIndex) {
                     const handles = getResizeHandles(rect);
-                    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+                    ctx.globalCompositeOperation = 'source-over';
+                    ctx.fillStyle = '#000';
                     handles.forEach(handle => {
                         ctx.fillRect(handle.x, handle.y, handle.width, handle.height);
                     });
+                    ctx.globalCompositeOperation = 'multiply';
                 }
             });
             
@@ -1183,7 +859,6 @@
         
         function downloadCollage() {
             try {
-                // Create a temporary canvas to combine the preview and highlights
                 const previewCanvas = document.getElementById('previewCanvas');
                 const highlightCanvas = document.getElementById('highlightCanvas');
                 const tempCanvas = document.createElement('canvas');
@@ -1206,7 +881,6 @@
                 link.click();
             } catch (error) {
                 showError('Error downloading collage. Please try again.');
-                console.error('Download error:', error);
             }
         }
         
