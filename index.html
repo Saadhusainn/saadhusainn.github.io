@@ -354,6 +354,7 @@
             margin: 20px 0;
             max-width: 100%;
             overflow-x: auto;
+            position: relative;
         }
         
         .preview-canvas {
@@ -363,6 +364,63 @@
             display: block;
             max-width: 100%;
             height: auto;
+            cursor: crosshair;
+        }
+        
+        .highlight-controls {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .color-btn {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #ccc;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .color-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .color-btn.active {
+            border-color: #667eea;
+            border-width: 4px;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+        }
+        
+        .tool-btn {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-family: 'Amiri', 'Scheherazade New', serif;
+        }
+        
+        .tool-btn:hover {
+            background: #764ba2;
+        }
+        
+        .tool-btn.danger {
+            background: #dc3545;
+        }
+        
+        .tool-btn.danger:hover {
+            background: #c82333;
         }
         
         .download-btn {
@@ -478,6 +536,20 @@
         
         <div id="previewSection" class="preview-section hidden">
             <h2 style="color: #667eea; margin-bottom: 20px; font-size: 1.3em;">Preview</h2>
+            
+            <div class="highlight-controls">
+                <span style="font-weight: bold; color: #667eea;">Highlight Color:</span>
+                <button class="color-btn active" style="background: rgba(255, 255, 0, 0.4);" onclick="selectColor('yellow')" title="Yellow"></button>
+                <button class="color-btn" style="background: rgba(255, 0, 0, 0.4);" onclick="selectColor('red')" title="Red"></button>
+                <button class="color-btn" style="background: rgba(0, 255, 255, 0.4);" onclick="selectColor('cyan')" title="Cyan"></button>
+                <button class="color-btn" style="background: rgba(0, 255, 0, 0.4);" onclick="selectColor('lime')" title="Lime"></button>
+                <button class="tool-btn danger" onclick="clearHighlights()">🗑️ Clear All</button>
+            </div>
+            
+            <p style="color: #666; font-size: 14px; text-align: center; margin: 10px 0;">
+                Click and drag to create highlights. Click corners to resize. Click center to delete.
+            </p>
+            
             <div class="preview-container">
                 <canvas id="previewCanvas" class="preview-canvas"></canvas>
             </div>
@@ -491,15 +563,33 @@
         
         // ADD YOUR BOOKS HERE - Use direct download links from Telegram
         const booksList = [
-            { name: "Musnad 3", file: "books/maih_3.pdf},
-            { name: "TIS 1", file: "books/tis1.pdf},
-            { name: "Tabaqat 1", file: "https://files.catbox.moe/7ozmf1.pdf"}
+            { name: "MUSNAD 3", file:"books/maih_3.pdf" },
+            { name: "Tabaqat Ibn Saad 1", file:"books/tis1"}
             // Add more books like: { name: "Book Name in Arabic", file: "http://direct-link.pdf" }
         ];
         
         let books = [];
         let selectedBook = null;
         let pageCount = 2;
+        let highlights = [];
+        let currentColor = 'yellow';
+        let isDrawing = false;
+        let isDragging = false;
+        let isResizing = false;
+        let currentHighlight = null;
+        let resizeCorner = null;
+        let startX = 0;
+        let startY = 0;
+        let dragOffsetX = 0;
+        let dragOffsetY = 0;
+        let baseCanvasData = null;
+        
+        const colorMap = {
+            'yellow': 'rgba(255, 255, 0, 0.4)',
+            'red': 'rgba(255, 0, 0, 0.4)',
+            'cyan': 'rgba(0, 255, 255, 0.4)',
+            'lime': 'rgba(0, 255, 0, 0.4)'
+        };
         
         function showError(message) {
             const container = document.getElementById('errorContainer');
@@ -513,26 +603,40 @@
             try {
                 for (let bookInfo of booksList) {
                     try {
-                        // Use CORS proxy for external URLs
                         let fileUrl = bookInfo.file;
+                        
+                        // For external URLs, fetch as ArrayBuffer to avoid CORS issues
                         if (fileUrl.startsWith('http://') || fileUrl.startsWith('https://')) {
-                            // Use AllOrigins proxy to bypass CORS
-                            fileUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(fileUrl)}`;
+                            const response = await fetch(fileUrl);
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            const arrayBuffer = await response.arrayBuffer();
+                            const pdf = await pdfjsLib.getDocument({
+                                data: arrayBuffer
+                            }).promise;
+                            
+                            books.push({
+                                name: bookInfo.name,
+                                pdf: pdf,
+                                file: bookInfo.file
+                            });
+                        } else {
+                            // Local files
+                            const pdf = await pdfjsLib.getDocument(fileUrl).promise;
+                            books.push({
+                                name: bookInfo.name,
+                                pdf: pdf,
+                                file: bookInfo.file
+                            });
                         }
-                        
-                        const pdf = await pdfjsLib.getDocument({
-                            url: fileUrl,
-                            withCredentials: false
-                        }).promise;
-                        
-                        books.push({
-                            name: bookInfo.name,
-                            pdf: pdf,
-                            file: bookInfo.file
-                        });
                     } catch (error) {
-                        console.log(`Could not load ${bookInfo.name}:`, error);
+                        console.error(`Failed to load ${bookInfo.name}:`, error.message);
                     }
+                }
+                
+                if (books.length === 0) {
+                    showError('No books could be loaded. Please check your links.');
                 }
                 displayBooks(books);
             } catch (error) {
@@ -704,7 +808,252 @@
             }
         }
         
-        function downloadCollage() {
+        function selectColor(color) {
+            currentColor = color;
+            const buttons = document.querySelectorAll('.color-btn');
+            buttons.forEach((btn, i) => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+        
+        function clearHighlights() {
+            highlights = [];
+            redrawCanvas();
+        }
+        
+        function setupCanvasEvents() {
+            const canvas = document.getElementById('previewCanvas');
+            
+            canvas.onmousedown = handleMouseDown;
+            canvas.onmousemove = handleMouseMove;
+            canvas.onmouseup = handleMouseUp;
+            canvas.onmouseleave = handleMouseUp;
+            
+            // Touch support for mobile
+            canvas.ontouchstart = (e) => {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const rect = canvas.getBoundingClientRect();
+                const mouseEvent = {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY,
+                    target: canvas
+                };
+                handleMouseDown(mouseEvent);
+            };
+            
+            canvas.ontouchmove = (e) => {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const mouseEvent = {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                };
+                handleMouseMove(mouseEvent);
+            };
+            
+            canvas.ontouchend = (e) => {
+                e.preventDefault();
+                handleMouseUp();
+            };
+        }
+        
+        function getCanvasCoords(e) {
+            const canvas = document.getElementById('previewCanvas');
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            
+            return {
+                x: (e.clientX - rect.left) * scaleX,
+                y: (e.clientY - rect.top) * scaleY
+            };
+        }
+        
+        function handleMouseDown(e) {
+            const coords = getCanvasCoords(e);
+            const x = coords.x;
+            const y = coords.y;
+            
+            // Check if clicking on a highlight's corner (resize)
+            for (let i = highlights.length - 1; i >= 0; i--) {
+                const h = highlights[i];
+                const corner = getCornerAtPoint(h, x, y);
+                if (corner) {
+                    isResizing = true;
+                    currentHighlight = h;
+                    resizeCorner = corner;
+                    startX = x;
+                    startY = y;
+                    return;
+                }
+            }
+            
+            // Check if clicking inside a highlight (delete)
+            for (let i = highlights.length - 1; i >= 0; i--) {
+                const h = highlights[i];
+                if (x >= h.x && x <= h.x + h.width && y >= h.y && y <= h.y + h.height) {
+                    highlights.splice(i, 1);
+                    redrawCanvas();
+                    return;
+                }
+            }
+            
+            // Start drawing new highlight
+            isDrawing = true;
+            startX = x;
+            startY = y;
+            currentHighlight = {
+                x: x,
+                y: y,
+                width: 0,
+                height: 0,
+                color: currentColor
+            };
+        }
+        
+        function handleMouseMove(e) {
+            const coords = getCanvasCoords(e);
+            const x = coords.x;
+            const y = coords.y;
+            
+            if (isResizing && currentHighlight) {
+                resizeHighlight(currentHighlight, x, y);
+                redrawCanvas();
+            } else if (isDrawing) {
+                currentHighlight.width = x - startX;
+                currentHighlight.height = y - startY;
+                redrawCanvas();
+            }
+        }
+        
+        function handleMouseUp() {
+            if (isDrawing && currentHighlight) {
+                // Normalize negative dimensions
+                if (currentHighlight.width < 0) {
+                    currentHighlight.x += currentHighlight.width;
+                    currentHighlight.width = Math.abs(currentHighlight.width);
+                }
+                if (currentHighlight.height < 0) {
+                    currentHighlight.y += currentHighlight.height;
+                    currentHighlight.height = Math.abs(currentHighlight.height);
+                }
+                
+                // Only add if it has some size
+                if (currentHighlight.width > 5 && currentHighlight.height > 5) {
+                    highlights.push(currentHighlight);
+                }
+                currentHighlight = null;
+            }
+            
+            isDrawing = false;
+            isResizing = false;
+            isDragging = false;
+            currentHighlight = null;
+            resizeCorner = null;
+            redrawCanvas();
+        }
+        
+        function getCornerAtPoint(highlight, x, y) {
+            const cornerSize = 20;
+            const corners = [
+                { name: 'tl', x: highlight.x, y: highlight.y },
+                { name: 'tr', x: highlight.x + highlight.width, y: highlight.y },
+                { name: 'bl', x: highlight.x, y: highlight.y + highlight.height },
+                { name: 'br', x: highlight.x + highlight.width, y: highlight.y + highlight.height }
+            ];
+            
+            for (let corner of corners) {
+                if (Math.abs(x - corner.x) < cornerSize && Math.abs(y - corner.y) < cornerSize) {
+                    return corner.name;
+                }
+            }
+            return null;
+        }
+        
+        function resizeHighlight(highlight, x, y) {
+            if (resizeCorner === 'tl') {
+                const newWidth = highlight.width + (highlight.x - x);
+                const newHeight = highlight.height + (highlight.y - y);
+                if (newWidth > 10 && newHeight > 10) {
+                    highlight.x = x;
+                    highlight.y = y;
+                    highlight.width = newWidth;
+                    highlight.height = newHeight;
+                }
+            } else if (resizeCorner === 'tr') {
+                const newHeight = highlight.height + (highlight.y - y);
+                if (x - highlight.x > 10 && newHeight > 10) {
+                    highlight.y = y;
+                    highlight.width = x - highlight.x;
+                    highlight.height = newHeight;
+                }
+            } else if (resizeCorner === 'bl') {
+                const newWidth = highlight.width + (highlight.x - x);
+                if (newWidth > 10 && y - highlight.y > 10) {
+                    highlight.x = x;
+                    highlight.width = newWidth;
+                    highlight.height = y - highlight.y;
+                }
+            } else if (resizeCorner === 'br') {
+                if (x - highlight.x > 10 && y - highlight.y > 10) {
+                    highlight.width = x - highlight.x;
+                    highlight.height = y - highlight.y;
+                }
+            }
+        }
+        
+        function redrawCanvas() {
+            const canvas = document.getElementById('previewCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Restore base image
+            if (baseCanvasData) {
+                ctx.putImageData(baseCanvasData, 0, 0);
+            }
+            
+            // Draw all highlights with multiply blend mode
+            ctx.globalCompositeOperation = 'multiply';
+            
+            for (let h of highlights) {
+                ctx.fillStyle = colorMap[h.color];
+                ctx.fillRect(h.x, h.y, h.width, h.height);
+            }
+            
+            // Draw current highlight if drawing
+            if (isDrawing && currentHighlight) {
+                ctx.fillStyle = colorMap[currentHighlight.color];
+                ctx.fillRect(currentHighlight.x, currentHighlight.y, currentHighlight.width, currentHighlight.height);
+            }
+            
+            // Draw resize handles
+            ctx.globalCompositeOperation = 'source-over';
+            for (let h of highlights) {
+                drawResizeHandles(ctx, h);
+            }
+        }
+        
+        function drawResizeHandles(ctx, highlight) {
+            const handleSize = 10;
+            ctx.fillStyle = '#667eea';
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = 2;
+            
+            const corners = [
+                { x: highlight.x, y: highlight.y },
+                { x: highlight.x + highlight.width, y: highlight.y },
+                { x: highlight.x, y: highlight.y + highlight.height },
+                { x: highlight.x + highlight.width, y: highlight.y + highlight.height }
+            ];
+            
+            for (let corner of corners) {
+                ctx.beginPath();
+                ctx.arc(corner.x, corner.y, handleSize, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.stroke();
+            }
+        }
             try {
                 const canvas = document.getElementById('previewCanvas');
                 const link = document.createElement('a');
