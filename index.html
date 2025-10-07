@@ -354,6 +354,7 @@
             margin: 20px 0;
             max-width: 100%;
             overflow-x: auto;
+            position: relative;
         }
         
         .preview-canvas {
@@ -363,6 +364,15 @@
             display: block;
             max-width: 100%;
             height: auto;
+        }
+        
+        .highlight-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: 3px solid #667eea;
+            border-radius: 10px;
+            cursor: crosshair;
         }
         
         .download-btn {
@@ -470,6 +480,91 @@
         .file-upload-btn:hover {
             background: #138496;
         }
+        
+        .highlight-controls {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 15px;
+            margin: 15px 0;
+        }
+        
+        .highlight-colors {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+        
+        .color-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .color-btn.active {
+            border-color: #333;
+            transform: scale(1.1);
+        }
+        
+        .highlight-yellow {
+            background-color: rgba(255, 255, 0, 0.5);
+        }
+        
+        .highlight-red {
+            background-color: rgba(255, 0, 0, 0.5);
+        }
+        
+        .highlight-cyan {
+            background-color: rgba(0, 255, 255, 0.5);
+        }
+        
+        .highlight-lime {
+            background-color: rgba(0, 255, 0, 0.5);
+        }
+        
+        .highlight-instructions {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+        }
+        
+        .highlight-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .action-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-family: 'Amiri', 'Scheherazade New', serif;
+        }
+        
+        .clear-btn {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .clear-btn:hover {
+            background: #c82333;
+        }
+        
+        .toggle-btn {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .toggle-btn:hover {
+            background: #5a6268;
+        }
     </style>
 </head>
 <body>
@@ -482,7 +577,7 @@
                 إِنَّكَ حَمِيدٌ مَجِيدٌ
             </div>
         </div>
-        <p class="subtitle">Create beautiful book collages</p>
+        <p class="subtitle">Create beautiful book collages with highlighting</p>
         
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Search books..." oninput="searchBooks()">
@@ -525,10 +620,28 @@
             <button class="preview-btn" onclick="updatePreview()">Generate Preview</button>
         </div>
         
+        <div id="highlightSection" class="highlight-controls hidden">
+            <h3 style="color: #667eea; margin-bottom: 10px;">Highlight Text</h3>
+            <div class="highlight-colors">
+                <div class="color-btn highlight-yellow active" data-color="rgba(255, 255, 0, 0.5)" onclick="setHighlightColor(this)"></div>
+                <div class="color-btn highlight-red" data-color="rgba(255, 0, 0, 0.5)" onclick="setHighlightColor(this)"></div>
+                <div class="color-btn highlight-cyan" data-color="rgba(0, 255, 255, 0.5)" onclick="setHighlightColor(this)"></div>
+                <div class="color-btn highlight-lime" data-color="rgba(0, 255, 0, 0.5)" onclick="setHighlightColor(this)"></div>
+            </div>
+            <p class="highlight-instructions">
+                Click and drag on the preview to create highlights. Drag corners to resize.
+            </p>
+            <div class="highlight-actions">
+                <button class="action-btn clear-btn" onclick="clearHighlights()">Clear All Highlights</button>
+                <button class="action-btn toggle-btn" id="toggleHighlightBtn" onclick="toggleHighlightMode()">Disable Highlighting</button>
+            </div>
+        </div>
+        
         <div id="previewSection" class="preview-section hidden">
             <h2 style="color: #667eea; margin-bottom: 20px; font-size: 1.3em;">Preview</h2>
             <div class="preview-container">
                 <canvas id="previewCanvas" class="preview-canvas"></canvas>
+                <canvas id="highlightCanvas" class="highlight-canvas"></canvas>
             </div>
             <br>
             <button class="download-btn" onclick="downloadCollage()">💾 Download Collage</button>
@@ -541,16 +654,23 @@
         // ADD YOUR BOOKS HERE - Use direct download links
         const booksList = [
             { name: "MUSNAD 1", file: "books/maih_3.pdf" },
-            { name: "Catbox", file: "https://files.catbox.moe/7ozmf1"},
-            { name: "Catbox.pdf", file: "https://files.catbox.moe/7ozmf1.pdf"},
             { name: "Tabaqat Ibn Saad 1", file: "https://drive.google.com/uc?export=download&id=1l_ht3wdsZrydYVM5-uOTMNQNqdTnXPSL" },
-            { name: "Tabaqat Ibn Saad 11", file: "https://www.mediafire.com/file/2enp90fmzt2h6dt/tis1.pdf" }
+            { name: "Tabaqat Ibn Saad 11", file: "https://files.catbox.moe/2enp90.pdf" }
             // Add more books like: { name: "Book Name in Arabic", file: "http://direct-link.pdf" }
         ];
         
         let books = [];
         let selectedBook = null;
         let pageCount = 2;
+        let highlights = [];
+        let currentHighlightColor = "rgba(255, 255, 0, 0.5)";
+        let isHighlightMode = true;
+        let isDrawing = false;
+        let currentRect = null;
+        let startX, startY;
+        let selectedRectIndex = -1;
+        let isResizing = false;
+        let resizeHandle = -1;
         
         // Handle file upload
         document.getElementById('fileInput').addEventListener('change', handleFileUpload);
@@ -804,20 +924,226 @@
                     showProgress(80 + (i / pages.length) * 20);
                 }
                 
+                // Set up highlight canvas
+                const highlightCanvas = document.getElementById('highlightCanvas');
+                highlightCanvas.width = canvas.width;
+                highlightCanvas.height = canvas.height;
+                highlightCanvas.style.width = canvas.width + 'px';
+                highlightCanvas.style.height = canvas.height + 'px';
+                
+                // Reset highlights for new preview
+                highlights = [];
+                drawHighlights();
+                
                 document.getElementById('previewSection').classList.remove('hidden');
+                document.getElementById('highlightSection').classList.remove('hidden');
                 showProgress(100);
+                
+                // Set up highlight canvas events
+                setupHighlightCanvas();
             } catch (error) {
                 showError('Error creating preview. Please check your page numbers.');
                 console.error('Update preview error:', error);
             }
         }
         
+        function setupHighlightCanvas() {
+            const canvas = document.getElementById('highlightCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Clear previous event listeners
+            canvas.onmousedown = null;
+            canvas.onmousemove = null;
+            canvas.onmouseup = null;
+            
+            canvas.onmousedown = (e) => {
+                if (!isHighlightMode) return;
+                
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // Check if clicking on a resize handle
+                for (let i = 0; i < highlights.length; i++) {
+                    const h = highlights[i];
+                    const handles = getResizeHandles(h);
+                    
+                    for (let j = 0; j < handles.length; j++) {
+                        if (isPointInRect(x, y, handles[j])) {
+                            isResizing = true;
+                            resizeHandle = j;
+                            selectedRectIndex = i;
+                            return;
+                        }
+                    }
+                    
+                    // Check if clicking on the rectangle itself
+                    if (isPointInRect(x, y, h)) {
+                        selectedRectIndex = i;
+                        isDrawing = false;
+                        return;
+                    }
+                }
+                
+                // Start drawing a new rectangle
+                isDrawing = true;
+                startX = x;
+                startY = y;
+                currentRect = {
+                    x: x,
+                    y: y,
+                    width: 0,
+                    height: 0,
+                    color: currentHighlightColor
+                };
+                highlights.push(currentRect);
+                selectedRectIndex = highlights.length - 1;
+            };
+            
+            canvas.onmousemove = (e) => {
+                if (!isHighlightMode) return;
+                
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                if (isResizing && selectedRectIndex >= 0) {
+                    const h = highlights[selectedRectIndex];
+                    resizeRectangle(h, resizeHandle, x, y);
+                    drawHighlights();
+                    return;
+                }
+                
+                if (isDrawing && currentRect) {
+                    currentRect.width = x - startX;
+                    currentRect.height = y - startY;
+                    drawHighlights();
+                }
+            };
+            
+            canvas.onmouseup = () => {
+                isDrawing = false;
+                isResizing = false;
+                resizeHandle = -1;
+            };
+        }
+        
+        function isPointInRect(x, y, rect) {
+            return x >= rect.x && x <= rect.x + rect.width &&
+                   y >= rect.y && y <= rect.y + rect.height;
+        }
+        
+        function getResizeHandles(rect) {
+            const size = 8;
+            return [
+                { x: rect.x - size/2, y: rect.y - size/2, width: size, height: size }, // top-left
+                { x: rect.x + rect.width - size/2, y: rect.y - size/2, width: size, height: size }, // top-right
+                { x: rect.x - size/2, y: rect.y + rect.height - size/2, width: size, height: size }, // bottom-left
+                { x: rect.x + rect.width - size/2, y: rect.y + rect.height - size/2, width: size, height: size } // bottom-right
+            ];
+        }
+        
+        function resizeRectangle(rect, handleIndex, x, y) {
+            switch(handleIndex) {
+                case 0: // top-left
+                    rect.width += rect.x - x;
+                    rect.height += rect.y - y;
+                    rect.x = x;
+                    rect.y = y;
+                    break;
+                case 1: // top-right
+                    rect.width = x - rect.x;
+                    rect.height += rect.y - y;
+                    rect.y = y;
+                    break;
+                case 2: // bottom-left
+                    rect.width += rect.x - x;
+                    rect.height = y - rect.y;
+                    rect.x = x;
+                    break;
+                case 3: // bottom-right
+                    rect.width = x - rect.x;
+                    rect.height = y - rect.y;
+                    break;
+            }
+            
+            // Ensure minimum size
+            if (rect.width < 5) rect.width = 5;
+            if (rect.height < 5) rect.height = 5;
+        }
+        
+        function drawHighlights() {
+            const canvas = document.getElementById('highlightCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw all highlights with multiply blend mode
+            ctx.globalCompositeOperation = 'multiply';
+            
+            highlights.forEach((rect, index) => {
+                ctx.fillStyle = rect.color;
+                ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
+                
+                // Draw resize handles for selected rectangle
+                if (index === selectedRectIndex) {
+                    const handles = getResizeHandles(rect);
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+                    handles.forEach(handle => {
+                        ctx.fillRect(handle.x, handle.y, handle.width, handle.height);
+                    });
+                }
+            });
+            
+            // Reset blend mode
+            ctx.globalCompositeOperation = 'source-over';
+        }
+        
+        function setHighlightColor(button) {
+            document.querySelectorAll('.color-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            button.classList.add('active');
+            currentHighlightColor = button.getAttribute('data-color');
+        }
+        
+        function clearHighlights() {
+            highlights = [];
+            selectedRectIndex = -1;
+            drawHighlights();
+        }
+        
+        function toggleHighlightMode() {
+            isHighlightMode = !isHighlightMode;
+            const btn = document.getElementById('toggleHighlightBtn');
+            btn.textContent = isHighlightMode ? 'Disable Highlighting' : 'Enable Highlighting';
+            
+            const canvas = document.getElementById('highlightCanvas');
+            canvas.style.cursor = isHighlightMode ? 'crosshair' : 'default';
+        }
+        
         function downloadCollage() {
             try {
-                const canvas = document.getElementById('previewCanvas');
+                // Create a temporary canvas to combine the preview and highlights
+                const previewCanvas = document.getElementById('previewCanvas');
+                const highlightCanvas = document.getElementById('highlightCanvas');
+                const tempCanvas = document.createElement('canvas');
+                const tempCtx = tempCanvas.getContext('2d');
+                
+                tempCanvas.width = previewCanvas.width;
+                tempCanvas.height = previewCanvas.height;
+                
+                // Draw the preview
+                tempCtx.drawImage(previewCanvas, 0, 0);
+                
+                // Draw highlights with multiply blend mode
+                tempCtx.globalCompositeOperation = 'multiply';
+                tempCtx.drawImage(highlightCanvas, 0, 0);
+                
+                // Create download link
                 const link = document.createElement('a');
                 link.download = `${selectedBook.name}-collage.png`;
-                link.href = canvas.toDataURL('image/png', 1.0);
+                link.href = tempCanvas.toDataURL('image/png', 1.0);
                 link.click();
             } catch (error) {
                 showError('Error downloading collage. Please try again.');
