@@ -195,6 +195,7 @@
         .preview-container {
             display: inline-block;
             margin: 20px 0;
+            position: relative;
         }
         
         .preview-canvas {
@@ -203,6 +204,21 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             max-width: 100%;
             height: auto;
+        }
+
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2em;
+            color: #667eea;
+            border-radius: 10px;
         }
         
         .download-btn {
@@ -224,7 +240,7 @@
         }
         
         .hidden {
-            display: none;
+            display: none !important;
         }
         
         .info-text {
@@ -268,11 +284,11 @@
                 <div id="pageInputs" class="page-inputs">
                     <div class="page-input-group">
                         <span>Page 1:</span>
-                        <input type="number" id="page1" min="1" value="1" onchange="updatePreview()">
+                        <input type="number" id="page1" min="1" value="1" onchange="debouncedUpdatePreview()">
                     </div>
                     <div class="page-input-group">
                         <span>Page 2:</span>
-                        <input type="number" id="page2" min="1" value="2" onchange="updatePreview()">
+                        <input type="number" id="page2" min="1" value="2" onchange="debouncedUpdatePreview()">
                     </div>
                 </div>
             </div>
@@ -284,37 +300,54 @@
             <h2 style="color: #667eea; margin-bottom: 20px;">Preview</h2>
             <div class="preview-container">
                 <canvas id="previewCanvas" class="preview-canvas"></canvas>
+                <div id="loadingOverlay" class="loading-overlay hidden">
+                    Rendering pages... ⏳
+                </div>
             </div>
             <br>
-            <button class="download-btn" onclick="downloadCollage()">💾 Download Collage</button>
+            <button class="download-btn" onclick="downloadCollage()">💾 Download High-Res Collage</button>
         </div>
+
+        <canvas id="highResCanvas" class="hidden"></canvas>
     </div>
 
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
         
+        // --- BOOK DATA ---
         // ADD YOUR BOOKS HERE
         const booksList = [
             { name: "مسند أحمد بن حنبل", file: "books/maih_3.pdf" },
+            { name: "صحيح البخاري", file: "books/sahih_bukhari.pdf" }, // Example entry
+            { name: "سنن أبي داود", file: "books/sunan_abi_dawud.pdf" }, // Example entry
+            // Add more books as { name: "Book Title", file: "path/to/book.pdf" }
         ];
         
         let books = [];
         let selectedBook = null;
+        let selectedPdfDocument = null; // Will hold the loaded PDF object
         let pageCount = 2;
+
+        // --- UTILITY FUNCTIONS ---
         
-        async function loadBooks() {
-            for (let bookInfo of booksList) {
-                try {
-                    const pdf = await pdfjsLib.getDocument(bookInfo.file).promise;
-                    books.push({
-                        name: bookInfo.name,
-                        pdf: pdf,
-                        file: bookInfo.file
-                    });
-                } catch (error) {
-                    console.log(`Could not load ${bookInfo.name}`);
-                }
-            }
+        // Simple debounce function to prevent excessive updates
+        const debounce = (func, delay) => {
+            let timeout;
+            return function(...args) {
+                const context = this;
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(context, args), delay);
+            };
+        };
+
+        // --- CORE APPLICATION LOGIC ---
+
+        function loadBooks() {
+            // Load only names and files initially (fast load)
+            books = booksList.map(bookInfo => ({
+                name: bookInfo.name,
+                file: bookInfo.file
+            }));
             displayBooks(books);
         }
         
@@ -327,7 +360,7 @@
                 return;
             }
             
-            booksToDisplay.forEach((book, index) => {
+            booksToDisplay.forEach((book) => {
                 const item = document.createElement('div');
                 item.className = 'book-item';
                 item.textContent = book.name;
@@ -344,26 +377,38 @@
             displayBooks(filtered);
         }
         
-        function selectBook(book) {
+        async function selectBook(book) {
+            // Un-select previous book if any
+            const items = document.querySelectorAll('.book-item');
+            items.forEach(item => item.classList.remove('selected'));
+            
+            // Select current book in the list
+            const currentItem = Array.from(items).find(item => item.textContent === book.name);
+            if (currentItem) currentItem.classList.add('selected');
+
+            document.getElementById('loadingOverlay').classList.remove('hidden');
+            document.getElementById('previewSection').classList.remove('hidden');
+            
             selectedBook = book;
             
-            // Update UI
-            const items = document.querySelectorAll('.book-item');
-            items.forEach(item => {
-                if (item.textContent === book.name) {
-                    item.classList.add('selected');
-                } else {
-                    item.classList.remove('selected');
-                }
-            });
-            
-            // Show settings
-            document.getElementById('collageSettings').classList.remove('hidden');
-            document.getElementById('pageInfo').textContent = `This book has ${book.pdf.numPages} pages`;
-            
-            // Update page input max values
-            updatePageInputs();
-            updatePreview();
+            // CRITICAL FIX: Load the PDF document only when selected
+            try {
+                selectedPdfDocument = await pdfjsLib.getDocument(book.file).promise;
+                
+                // Show settings
+                document.getElementById('collageSettings').classList.remove('hidden');
+                document.getElementById('pageInfo').textContent = `This book has ${selectedPdfDocument.numPages} pages`;
+                
+                // Update page input max values
+                updatePageInputs();
+                updatePreview(1.5); // Initial preview
+            } catch (error) {
+                console.error(`Could not load ${book.name}:`, error);
+                document.getElementById('pageInfo').textContent = `ERROR: Could not load the PDF file. Check the file path: ${book.file}`;
+                document.getElementById('collageSettings').classList.add('hidden');
+                document.getElementById('loadingOverlay').classList.add('hidden');
+                selectedPdfDocument = null;
+            }
         }
         
         function setPageCount(count) {
@@ -372,15 +417,17 @@
             // Update buttons
             const buttons = document.querySelectorAll('.page-count-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            // Use event.currentTarget to reliably get the button that was clicked
+            const clickedButton = Array.from(buttons).find(btn => parseInt(btn.textContent) === count);
+            if(clickedButton) clickedButton.classList.add('active');
             
-            // Update page inputs
+            // Update page inputs and render preview
             updatePageInputs();
-            updatePreview();
+            updatePreview(1.5);
         }
         
         function updatePageInputs() {
-            if (!selectedBook) return;
+            if (!selectedPdfDocument) return;
             
             const container = document.getElementById('pageInputs');
             container.innerHTML = '';
@@ -396,27 +443,39 @@
                 input.type = 'number';
                 input.id = `page${i}`;
                 input.min = '1';
-                input.max = selectedBook.pdf.numPages;
-                input.value = i;
-                input.onchange = updatePreview;
+                input.max = selectedPdfDocument.numPages;
+                // Keep existing value if it exists, otherwise use i
+                const currentValue = document.getElementById(`page${i}`) ? document.getElementById(`page${i}`).value : i;
+                input.value = Math.min(Math.max(1, currentValue), selectedPdfDocument.numPages);
+                input.oninput = debouncedUpdatePreview; // Use oninput for continuous checks, debounced
                 
                 group.appendChild(label);
                 group.appendChild(input);
                 container.appendChild(group);
             }
         }
+
+        // Debounced version of updatePreview for input fields
+        const debouncedUpdatePreview = debounce(() => updatePreview(1.5), 500);
         
-        async function updatePreview() {
-            if (!selectedBook) return;
+        async function updatePreview(scale) {
+            if (!selectedPdfDocument) return;
             
+            const isPreview = (scale < 4.0); // Flag to check if we are rendering for screen preview
+            const canvas = isPreview ? document.getElementById('previewCanvas') : document.getElementById('highResCanvas');
+            const overlay = document.getElementById('loadingOverlay');
+
+            if (isPreview) overlay.classList.remove('hidden');
+
             const pageNumbers = [];
             for (let i = 1; i <= pageCount; i++) {
                 const input = document.getElementById(`page${i}`);
                 if (!input) return;
                 
                 const pageNum = parseInt(input.value);
-                if (pageNum < 1 || pageNum > selectedBook.pdf.numPages) {
-                    alert(`Page ${i} must be between 1 and ${selectedBook.pdf.numPages}`);
+                if (pageNum < 1 || pageNum > selectedPdfDocument.numPages) {
+                    if (isPreview) alert(`Page ${i} must be between 1 and ${selectedPdfDocument.numPages}`);
+                    if (isPreview) overlay.classList.add('hidden');
                     return;
                 }
                 pageNumbers.push(pageNum);
@@ -425,20 +484,18 @@
             // Load all pages
             const pages = [];
             for (let pageNum of pageNumbers) {
-                const page = await selectedBook.pdf.getPage(pageNum);
+                const page = await selectedPdfDocument.getPage(pageNum);
                 pages.push(page);
             }
             
-            const scale = 1.5;
             const viewports = pages.map(page => page.getViewport({scale}));
-            
-            const canvas = document.getElementById('previewCanvas');
             const ctx = canvas.getContext('2d');
             
             // Calculate dimensions - all pages side by side with ZERO gap
             const totalWidth = viewports.reduce((sum, vp) => sum + vp.width, 0);
             const maxHeight = Math.max(...viewports.map(vp => vp.height));
             
+            // Set canvas size (this clears the canvas)
             canvas.width = totalWidth;
             canvas.height = maxHeight;
             
@@ -449,27 +506,41 @@
             // Render each page
             let xOffset = 0;
             for (let i = 0; i < pages.length; i++) {
-                const tempCanvas = document.createElement('canvas');
-                tempCanvas.width = viewports[i].width;
-                tempCanvas.height = viewports[i].height;
-                
+                // Render the page onto the main canvas directly
                 await pages[i].render({
-                    canvasContext: tempCanvas.getContext('2d'),
-                    viewport: viewports[i]
+                    canvasContext: ctx,
+                    viewport: viewports[i],
+                    transform: [viewports[i].transform[0], viewports[i].transform[1], viewports[i].transform[2], viewports[i].transform[3], viewports[i].transform[4] + xOffset, viewports[i].transform[5]]
                 }).promise;
                 
-                ctx.drawImage(tempCanvas, xOffset, 0);
                 xOffset += viewports[i].width; // Zero gap between pages
             }
             
-            document.getElementById('previewSection').classList.remove('hidden');
+            if (isPreview) overlay.classList.add('hidden');
         }
         
-        function downloadCollage() {
-            const canvas = document.getElementById('previewCanvas');
+        async function downloadCollage() {
+            document.getElementById('loadingOverlay').classList.remove('hidden');
+
+            // CRITICAL FIX: Render to the hidden canvas at a high resolution (4.0)
+            await updatePreview(4.0); 
+
+            document.getElementById('loadingOverlay').classList.add('hidden');
+
+            const highResCanvas = document.getElementById('highResCanvas');
+            
+            // Create a temporary link element to trigger the download
             const link = document.createElement('a');
-            link.download = 'sijjeen-collage.png';
-            link.href = canvas.toDataURL();
+            
+            // Generate a more descriptive filename
+            const pageNumbers = [];
+            for (let i = 1; i <= pageCount; i++) {
+                pageNumbers.push(document.getElementById(`page${i}`).value);
+            }
+            const filename = `sijjeen-${selectedBook.name.replace(/\s/g, '-')}-P${pageNumbers.join('_')}.png`;
+
+            link.download = filename;
+            link.href = highResCanvas.toDataURL('image/png', 0.9); // Use PNG for quality
             link.click();
         }
         
