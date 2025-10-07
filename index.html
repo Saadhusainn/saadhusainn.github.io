@@ -29,17 +29,66 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
         
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            gap: 20px;
+        }
+        
+        .title-section {
+            flex: 0 0 auto;
+        }
+        
+        .durood-section {
+            flex: 1;
+            max-width: 500px;
+        }
+        
         h1 {
-            text-align: center;
+            text-align: left;
             color: #667eea;
             margin-bottom: 10px;
             font-size: 2.5em;
         }
         
         .subtitle {
-            text-align: center;
+            text-align: left;
             color: #666;
-            margin-bottom: 30px;
+            margin-bottom: 0;
+        }
+        
+        .durood {
+            text-align: center;
+            margin: 0;
+            padding: 15px;
+            background: #f8f9ff;
+            border-radius: 10px;
+            border: 2px solid #667eea;
+        }
+        
+        .durood h3 {
+            color: #667eea;
+            margin-bottom: 8px;
+            font-family: 'Amiri', serif;
+            font-size: 16px;
+        }
+        
+        .durood p {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.6;
+            font-weight: 700;
+            font-family: 'Amiri', serif;
+            direction: rtl;
+            margin: 0;
+        }
+        
+        .durood p:last-child {
+            font-size: 13px;
+            color: #666;
+            margin-top: 8px;
         }
         
         .search-bar {
@@ -200,15 +249,16 @@
         .preview-container {
             display: inline-block;
             margin: 20px 0;
+            max-width: 100%;
+            overflow-x: auto;
         }
         
         .preview-canvas {
             border: 3px solid #667eea;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            max-width: 100%;
             height: auto;
-            width: 100%;
+            display: block;
         }
         
         /* Mobile responsiveness */
@@ -222,8 +272,28 @@
                 border-radius: 15px;
             }
             
+            .header-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+                margin-bottom: 20px;
+            }
+            
+            .title-section {
+                text-align: center;
+            }
+            
+            .durood-section {
+                max-width: 100%;
+            }
+            
             h1 {
                 font-size: 2em;
+                text-align: center;
+            }
+            
+            .subtitle {
+                text-align: center;
             }
             
             .durood {
@@ -329,17 +399,23 @@
 </head>
 <body>
     <div class="container">
-        <h1>📚 Sijjeen</h1>
-        <div class="durood" style="text-align: center; margin: 20px 0; padding: 20px; background: #f8f9ff; border-radius: 10px; border: 2px solid #667eea;">
-            <h3 style="color: #667eea; margin-bottom: 10px; font-family: 'Amiri', serif;">دعاء قبل البدء</h3>
-            <p style="font-size: 18px; color: #333; line-height: 1.8; font-weight: 700; font-family: 'Amiri', serif; direction: rtl;">
-                اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ
-            </p>
-            <p style="font-size: 16px; color: #666; margin-top: 10px; font-family: 'Amiri', serif; direction: rtl;">
-                اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ
-            </p>
+        <div class="header-container">
+            <div class="title-section">
+                <h1>📚 Sijjeen</h1>
+                <p class="subtitle">Create beautiful book scans</p>
+            </div>
+            <div class="durood-section">
+                <div class="durood">
+                    <h3>دعاء قبل البدء</h3>
+                    <p>
+                        اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ
+                    </p>
+                    <p>
+                        اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ
+                    </p>
+                </div>
+            </div>
         </div>
-        <p class="subtitle">Create beautiful book scans</p>
         
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Search books..." oninput="searchBooks()">
@@ -581,9 +657,25 @@
             canvas.width = totalWidth;
             canvas.height = maxHeight;
             
-            // Set display size for proper scaling
-            canvas.style.width = (totalWidth / devicePixelRatio / baseScale) + 'px';
-            canvas.style.height = (maxHeight / devicePixelRatio / baseScale) + 'px';
+            // Set display size to maintain natural proportions - let canvas expand with content
+            // Calculate appropriate display size based on viewport width
+            const containerWidth = Math.min(1200, window.innerWidth - 80); // Max container width minus padding
+            const aspectRatio = totalWidth / maxHeight;
+            
+            let displayWidth, displayHeight;
+            
+            if (totalWidth > containerWidth * devicePixelRatio * baseScale) {
+                // Scale down only if too wide for container
+                displayWidth = containerWidth;
+                displayHeight = containerWidth / aspectRatio;
+            } else {
+                // Use natural size
+                displayWidth = totalWidth / devicePixelRatio / baseScale;
+                displayHeight = maxHeight / devicePixelRatio / baseScale;
+            }
+            
+            canvas.style.width = displayWidth + 'px';
+            canvas.style.height = displayHeight + 'px';
             
             // White background
             ctx.fillStyle = 'white';
