@@ -20,7 +20,7 @@
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             background: white;
             border-radius: 20px;
@@ -41,91 +41,163 @@
             margin-bottom: 30px;
         }
         
-        .books-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            font-size: 16px;
+            border: 2px solid #667eea;
+            border-radius: 50px;
+            outline: none;
+        }
+        
+        .search-bar input:focus {
+            border-color: #764ba2;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #667eea;
+            font-size: 20px;
+        }
+        
+        .books-list {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            padding: 10px;
+        }
+        
+        .book-item {
+            padding: 15px 20px;
+            margin: 5px 0;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 16px;
+        }
+        
+        .book-item:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: translateX(5px);
+        }
+        
+        .book-item.selected {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .collage-settings {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
             margin-bottom: 30px;
         }
         
-        .book-card {
+        .setting-group {
+            margin-bottom: 20px;
+        }
+        
+        .setting-group label {
+            display: block;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .page-count-btns {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .page-count-btn {
+            padding: 10px 25px;
+            border: 2px solid #667eea;
             background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 15px;
+            color: #667eea;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
             transition: all 0.3s;
-            text-align: center;
         }
         
-        .book-card:hover {
-            border-color: #667eea;
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
-        
-        .book-card.selected {
-            border-color: #667eea;
+        .page-count-btn:hover {
             background: #f0f4ff;
         }
         
-        .book-card canvas {
-            max-width: 100%;
-            height: auto;
-            border-radius: 5px;
-            margin-bottom: 10px;
+        .page-count-btn.active {
+            background: #667eea;
+            color: white;
         }
         
-        .book-name {
-            font-size: 14px;
-            color: #333;
-            font-weight: bold;
-            word-wrap: break-word;
+        .page-inputs {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
         }
         
-        .page-selector {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            text-align: center;
+        .page-input-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
-        .page-selector input {
+        .page-input-group input {
             padding: 10px;
             font-size: 16px;
             border: 2px solid #667eea;
             border-radius: 8px;
-            width: 100px;
+            width: 80px;
             text-align: center;
         }
         
-        .page-selector button {
+        .preview-btn {
             background: #667eea;
             color: white;
-            padding: 10px 25px;
+            padding: 10px 30px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-size: 16px;
-            margin-left: 10px;
+            font-weight: bold;
             transition: all 0.3s;
         }
         
-        .page-selector button:hover {
+        .preview-btn:hover {
             background: #764ba2;
         }
         
-        .collage-section {
+        .preview-section {
             text-align: center;
+            margin-top: 30px;
         }
         
-        .collage-container {
+        .preview-container {
             display: inline-block;
-            margin-top: 20px;
+            margin: 20px 0;
         }
         
-        .collage-canvas {
+        .preview-canvas {
             border: 3px solid #667eea;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
@@ -157,8 +229,14 @@
         
         .info-text {
             color: #666;
-            text-align: center;
             margin: 10px 0;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 18px;
         }
     </style>
 </head>
@@ -167,20 +245,45 @@
         <h1>📚 Sijjeen</h1>
         <p class="subtitle">Create beautiful book collages</p>
         
-        <h2 style="color: #667eea; margin-bottom: 15px;">Available Books</h2>
-        <div id="booksGrid" class="books-grid"></div>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search books..." oninput="searchBooks()">
+            <span class="search-icon">🔍</span>
+        </div>
         
-        <div id="pageSelector" class="page-selector hidden">
-            <h3 style="color: #667eea; margin-bottom: 15px;">Select Page Number</h3>
-            <input type="number" id="pageNumber" min="2" value="2" placeholder="Page #">
-            <button onclick="createCollage()">Create Collage</button>
+        <h2 style="color: #667eea; margin-bottom: 15px;">Select a Book</h2>
+        <div id="booksList" class="books-list"></div>
+        
+        <div id="collageSettings" class="collage-settings hidden">
+            <div class="setting-group">
+                <label>How many pages do you want in your collage?</label>
+                <div class="page-count-btns">
+                    <button class="page-count-btn active" onclick="setPageCount(2)">2 Pages</button>
+                    <button class="page-count-btn" onclick="setPageCount(3)">3 Pages</button>
+                    <button class="page-count-btn" onclick="setPageCount(4)">4 Pages</button>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label>Select page numbers:</label>
+                <div id="pageInputs" class="page-inputs">
+                    <div class="page-input-group">
+                        <span>Page 1:</span>
+                        <input type="number" id="page1" min="1" value="1" onchange="updatePreview()">
+                    </div>
+                    <div class="page-input-group">
+                        <span>Page 2:</span>
+                        <input type="number" id="page2" min="1" value="2" onchange="updatePreview()">
+                    </div>
+                </div>
+            </div>
+            
             <p class="info-text" id="pageInfo"></p>
         </div>
         
-        <div id="collageSection" class="collage-section hidden">
-            <h2 style="color: #667eea; margin-bottom: 20px;">Your Collage</h2>
-            <div class="collage-container">
-                <canvas id="collageCanvas" class="collage-canvas"></canvas>
+        <div id="previewSection" class="preview-section hidden">
+            <h2 style="color: #667eea; margin-bottom: 20px;">Preview</h2>
+            <div class="preview-container">
+                <canvas id="previewCanvas" class="preview-canvas"></canvas>
             </div>
             <br>
             <button class="download-btn" onclick="downloadCollage()">💾 Download Collage</button>
@@ -190,14 +293,16 @@
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
         
-        // ADD YOUR BOOKS HERE - Put your PDF files in a "books" folder
+        // ADD YOUR BOOKS HERE
         const booksList = [
-            { name: "LETTER PRIVATE", file: "books/musnad Al imam Ahmad vol. 3.pdf" },
-            // Add more books like: { name: "Book Name", file: "books/filename.pdf" }
+            { name: "Sample Book 1", file: "books/book1.pdf" },
+            { name: "Sample Book 2", file: "books/book2.pdf" },
+            { name: "Sample Book 3", file: "books/book3.pdf" }
         ];
         
         let books = [];
         let selectedBook = null;
+        let pageCount = 2;
         
         async function loadBooks() {
             for (let bookInfo of booksList) {
@@ -212,115 +317,158 @@
                     console.log(`Could not load ${bookInfo.name}`);
                 }
             }
-            displayBooks();
+            displayBooks(books);
         }
         
-        async function displayBooks() {
-            const grid = document.getElementById('booksGrid');
-            grid.innerHTML = '';
+        function displayBooks(booksToDisplay) {
+            const list = document.getElementById('booksList');
+            list.innerHTML = '';
             
-            if (books.length === 0) {
-                grid.innerHTML = '<p class="info-text">No books available yet. Upload PDFs to the "books" folder!</p>';
+            if (booksToDisplay.length === 0) {
+                list.innerHTML = '<div class="no-results">No books found</div>';
                 return;
             }
             
-            for (let i = 0; i < books.length; i++) {
-                const book = books[i];
-                const card = document.createElement('div');
-                card.className = 'book-card';
-                card.onclick = () => selectBook(i);
-                
-                const canvas = document.createElement('canvas');
-                const page = await book.pdf.getPage(1);
-                const viewport = page.getViewport({scale: 0.5});
-                
-                canvas.width = viewport.width;
-                canvas.height = viewport.height;
-                
-                const context = canvas.getContext('2d');
-                await page.render({
-                    canvasContext: context,
-                    viewport: viewport
-                }).promise;
-                
-                const nameDiv = document.createElement('div');
-                nameDiv.className = 'book-name';
-                nameDiv.textContent = book.name;
-                
-                card.appendChild(canvas);
-                card.appendChild(nameDiv);
-                grid.appendChild(card);
-            }
+            booksToDisplay.forEach((book, index) => {
+                const item = document.createElement('div');
+                item.className = 'book-item';
+                item.textContent = book.name;
+                item.onclick = () => selectBook(book);
+                list.appendChild(item);
+            });
         }
         
-        function selectBook(index) {
-            selectedBook = books[index];
-            
-            const cards = document.querySelectorAll('.book-card');
-            cards.forEach(card => card.classList.remove('selected'));
-            cards[index].classList.add('selected');
-            
-            document.getElementById('pageSelector').classList.remove('hidden');
-            document.getElementById('pageInfo').textContent = `Total pages: ${selectedBook.pdf.numPages}`;
-            document.getElementById('pageNumber').max = selectedBook.pdf.numPages;
+        function searchBooks() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = books.filter(book => 
+                book.name.toLowerCase().includes(query)
+            );
+            displayBooks(filtered);
         }
         
-        async function createCollage() {
+        function selectBook(book) {
+            selectedBook = book;
+            
+            // Update UI
+            const items = document.querySelectorAll('.book-item');
+            items.forEach(item => {
+                if (item.textContent === book.name) {
+                    item.classList.add('selected');
+                } else {
+                    item.classList.remove('selected');
+                }
+            });
+            
+            // Show settings
+            document.getElementById('collageSettings').classList.remove('hidden');
+            document.getElementById('pageInfo').textContent = `This book has ${book.pdf.numPages} pages`;
+            
+            // Update page input max values
+            updatePageInputs();
+            updatePreview();
+        }
+        
+        function setPageCount(count) {
+            pageCount = count;
+            
+            // Update buttons
+            const buttons = document.querySelectorAll('.page-count-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update page inputs
+            updatePageInputs();
+            updatePreview();
+        }
+        
+        function updatePageInputs() {
             if (!selectedBook) return;
             
-            const pageNum = parseInt(document.getElementById('pageNumber').value);
+            const container = document.getElementById('pageInputs');
+            container.innerHTML = '';
             
-            if (pageNum < 2 || pageNum > selectedBook.pdf.numPages) {
-                alert('Please enter a valid page number!');
-                return;
+            for (let i = 1; i <= pageCount; i++) {
+                const group = document.createElement('div');
+                group.className = 'page-input-group';
+                
+                const label = document.createElement('span');
+                label.textContent = `Page ${i}:`;
+                
+                const input = document.createElement('input');
+                input.type = 'number';
+                input.id = `page${i}`;
+                input.min = '1';
+                input.max = selectedBook.pdf.numPages;
+                input.value = i;
+                input.onchange = updatePreview;
+                
+                group.appendChild(label);
+                group.appendChild(input);
+                container.appendChild(group);
+            }
+        }
+        
+        async function updatePreview() {
+            if (!selectedBook) return;
+            
+            const pageNumbers = [];
+            for (let i = 1; i <= pageCount; i++) {
+                const input = document.getElementById(`page${i}`);
+                if (!input) return;
+                
+                const pageNum = parseInt(input.value);
+                if (pageNum < 1 || pageNum > selectedBook.pdf.numPages) {
+                    alert(`Page ${i} must be between 1 and ${selectedBook.pdf.numPages}`);
+                    return;
+                }
+                pageNumbers.push(pageNum);
             }
             
-            const coverPage = await selectedBook.pdf.getPage(1);
-            const selectedPage = await selectedBook.pdf.getPage(pageNum);
+            // Load all pages
+            const pages = [];
+            for (let pageNum of pageNumbers) {
+                const page = await selectedBook.pdf.getPage(pageNum);
+                pages.push(page);
+            }
             
-            const scale = 2;
+            const scale = 1.5;
+            const viewports = pages.map(page => page.getViewport({scale}));
             
-            const coverViewport = coverPage.getViewport({scale});
-            const pageViewport = selectedPage.getViewport({scale});
-            
-            const canvas = document.getElementById('collageCanvas');
+            const canvas = document.getElementById('previewCanvas');
             const ctx = canvas.getContext('2d');
             
-            // Zero padding - pages directly side by side
-            canvas.width = coverViewport.width + pageViewport.width;
-            canvas.height = Math.max(coverViewport.height, pageViewport.height);
+            // Calculate dimensions - all pages side by side with ZERO gap
+            const totalWidth = viewports.reduce((sum, vp) => sum + vp.width, 0);
+            const maxHeight = Math.max(...viewports.map(vp => vp.height));
+            
+            canvas.width = totalWidth;
+            canvas.height = maxHeight;
             
             // White background
             ctx.fillStyle = 'white';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // Render cover page
-            const coverCanvas = document.createElement('canvas');
-            coverCanvas.width = coverViewport.width;
-            coverCanvas.height = coverViewport.height;
-            await coverPage.render({
-                canvasContext: coverCanvas.getContext('2d'),
-                viewport: coverViewport
-            }).promise;
+            // Render each page
+            let xOffset = 0;
+            for (let i = 0; i < pages.length; i++) {
+                const tempCanvas = document.createElement('canvas');
+                tempCanvas.width = viewports[i].width;
+                tempCanvas.height = viewports[i].height;
+                
+                await pages[i].render({
+                    canvasContext: tempCanvas.getContext('2d'),
+                    viewport: viewports[i]
+                }).promise;
+                
+                ctx.drawImage(tempCanvas, xOffset, 0);
+                xOffset += viewports[i].width; // Zero gap between pages
+            }
             
-            // Render selected page
-            const pageCanvas = document.createElement('canvas');
-            pageCanvas.width = pageViewport.width;
-            pageCanvas.height = pageViewport.height;
-            await selectedPage.render({
-                canvasContext: pageCanvas.getContext('2d'),
-                viewport: pageViewport
-            }).promise;
-            
-            // Draw both pages with ZERO gap
-            ctx.drawImage(coverCanvas, 0, 0);
-            ctx.drawImage(pageCanvas, coverViewport.width, 0);
-            
-            document.getElementById('collageSection').classList.remove('hidden');
+            document.getElementById('previewSection').classList.remove('hidden');
         }
         
         function downloadCollage() {
-            const canvas = document.getElementById('collageCanvas');
+            const canvas = document.getElementById('previewCanvas');
             const link = document.createElement('a');
             link.download = 'sijjeen-collage.png';
             link.href = canvas.toDataURL();
