@@ -491,8 +491,10 @@
         
         // ADD YOUR BOOKS HERE - Use direct download links from Telegram
         const booksList = [
-            { name: "Musnad Imam Ahmad Ibn Hanbal ", file: "books/maih_3.pdf",},
-            { name: "Tabaqat Ibn Saad 1", file: "books/tis1.pdf"}
+            { name: "Musnad 3", file: "books/maih_3.pdf},
+                { name: "TIS 1", file: "books/tis1.pdf},
+                 { name: "Tabaqat 1", file: "https://t.me/sijjeen/615"},
+             { name: "Tabaqat 11", file: "https://drive.google.com/uc?export=download&id=1l_ht3wdsZrydYVM5-uOTMNQNqdTnXPSL"}
             // Add more books like: { name: "Book Name in Arabic", file: "http://direct-link.pdf" }
         ];
         
@@ -512,7 +514,18 @@
             try {
                 for (let bookInfo of booksList) {
                     try {
-                        const pdf = await pdfjsLib.getDocument(bookInfo.file).promise;
+                        // Use CORS proxy for external URLs
+                        let fileUrl = bookInfo.file;
+                        if (fileUrl.startsWith('http://') || fileUrl.startsWith('https://')) {
+                            // Use AllOrigins proxy to bypass CORS
+                            fileUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(fileUrl)}`;
+                        }
+                        
+                        const pdf = await pdfjsLib.getDocument({
+                            url: fileUrl,
+                            withCredentials: false
+                        }).promise;
+                        
                         books.push({
                             name: bookInfo.name,
                             pdf: pdf,
