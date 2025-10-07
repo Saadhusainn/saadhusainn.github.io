@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sijjeen - Book Collage Maker</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,7 +13,7 @@
         }
         
         body {
-            font-family: 'Amiri', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
@@ -34,15 +33,12 @@
             color: #667eea;
             margin-bottom: 10px;
             font-size: 2.5em;
-            font-family: 'Amiri', serif;
-            font-weight: 700;
         }
         
         .subtitle {
             text-align: center;
             color: #666;
             margin-bottom: 30px;
-            font-family: 'Amiri', serif;
         }
         
         .search-bar {
@@ -92,10 +88,6 @@
             cursor: pointer;
             transition: all 0.3s;
             font-size: 16px;
-            font-family: 'Amiri', serif;
-            font-weight: 400;
-            direction: rtl; /* For proper Arabic text rendering */
-            text-align: right;
         }
         
         .book-item:hover {
@@ -108,7 +100,7 @@
             border-color: #667eea;
             background: #667eea;
             color: white;
-            font-weight: 700;
+            font-weight: bold;
         }
         
         .collage-settings {
@@ -128,7 +120,6 @@
             color: #667eea;
             margin-bottom: 10px;
             font-size: 16px;
-            font-family: 'Amiri', serif;
         }
         
         .page-count-btns {
@@ -147,7 +138,6 @@
             font-size: 16px;
             font-weight: bold;
             transition: all 0.3s;
-            font-family: 'Amiri', serif;
         }
         
         .page-count-btn:hover {
@@ -191,7 +181,6 @@
             font-size: 16px;
             font-weight: bold;
             transition: all 0.3s;
-            font-family: 'Amiri', serif;
         }
         
         .preview-btn:hover {
@@ -227,7 +216,6 @@
             font-weight: bold;
             margin-top: 20px;
             transition: all 0.3s;
-            font-family: 'Amiri', serif;
         }
         
         .download-btn:hover {
@@ -242,7 +230,6 @@
         .info-text {
             color: #666;
             margin: 10px 0;
-            font-family: 'Amiri', serif;
         }
         
         .no-results {
@@ -250,14 +237,6 @@
             padding: 40px;
             color: #999;
             font-size: 18px;
-            font-family: 'Amiri', serif;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 20px;
-            color: #667eea;
-            font-style: italic;
         }
     </style>
 </head>
@@ -271,10 +250,8 @@
             <span class="search-icon">🔍</span>
         </div>
         
-        <h2 style="color: #667eea; margin-bottom: 15px; font-family: 'Amiri', serif;">Select a Book</h2>
-        <div id="booksList" class="books-list">
-            <div class="loading">Loading books...</div>
-        </div>
+        <h2 style="color: #667eea; margin-bottom: 15px;">Select a Book</h2>
+        <div id="booksList" class="books-list"></div>
         
         <div id="collageSettings" class="collage-settings hidden">
             <div class="setting-group">
@@ -304,7 +281,7 @@
         </div>
         
         <div id="previewSection" class="preview-section hidden">
-            <h2 style="color: #667eea; margin-bottom: 20px; font-family: 'Amiri', serif;">Preview</h2>
+            <h2 style="color: #667eea; margin-bottom: 20px;">Preview</h2>
             <div class="preview-container">
                 <canvas id="previewCanvas" class="preview-canvas"></canvas>
             </div>
@@ -316,25 +293,29 @@
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
         
-        // ADD YOUR BOOKS HERE - Include numPages if known for faster loading (optional)
+        // ADD YOUR BOOKS HERE
         const booksList = [
-            { name: "مسند أحمد بن حنبل", file: "books/maih_3.pdf", numPages: null }, // Set numPages if known, e.g., 1234
+            { name: "مسند أحمد بن حنبل", file: "books/maih_3.pdf" },
         ];
         
         let books = [];
         let selectedBook = null;
         let pageCount = 2;
         
-        // Initialize books list immediately without loading PDFs
-        function initializeBooks() {
-            books = booksList.map(bookInfo => ({
-                name: bookInfo.name,
-                file: bookInfo.file,
-                numPages: bookInfo.numPages, // Will be updated on load if null
-                pdf: null // PDF loaded on demand
-            }));
+        async function loadBooks() {
+            for (let bookInfo of booksList) {
+                try {
+                    const pdf = await pdfjsLib.getDocument(bookInfo.file).promise;
+                    books.push({
+                        name: bookInfo.name,
+                        pdf: pdf,
+                        file: bookInfo.file
+                    });
+                } catch (error) {
+                    console.log(`Could not load ${bookInfo.name}`);
+                }
+            }
             displayBooks(books);
-            document.querySelector('.loading').remove(); // Remove loading message
         }
         
         function displayBooks(booksToDisplay) {
@@ -363,38 +344,9 @@
             displayBooks(filtered);
         }
         
-        async function selectBook(book) {
-            if (selectedBook === book && book.pdf) {
-                // Already loaded, just update UI
-                updateUIForBook(book);
-                return;
-            }
-            
+        function selectBook(book) {
             selectedBook = book;
             
-            // Load PDF only if not already loaded
-            if (!book.pdf) {
-                try {
-                    // Show loading indicator on the book item
-                    const items = document.querySelectorAll('.book-item');
-                    items.forEach(item => item.style.opacity = '0.7');
-                    
-                    book.pdf = await pdfjsLib.getDocument(book.file).promise;
-                    book.numPages = book.pdf.numPages; // Cache numPages
-                    
-                    // Restore opacity
-                    items.forEach(item => item.style.opacity = '1');
-                } catch (error) {
-                    console.error(`Could not load ${book.name}:`, error);
-                    alert(`Failed to load ${book.name}. Please try again.`);
-                    return;
-                }
-            }
-            
-            updateUIForBook(book);
-        }
-        
-        function updateUIForBook(book) {
             // Update UI
             const items = document.querySelectorAll('.book-item');
             items.forEach(item => {
@@ -428,7 +380,7 @@
         }
         
         function updatePageInputs() {
-            if (!selectedBook || !selectedBook.pdf) return;
+            if (!selectedBook) return;
             
             const container = document.getElementById('pageInputs');
             container.innerHTML = '';
@@ -455,7 +407,7 @@
         }
         
         async function updatePreview() {
-            if (!selectedBook || !selectedBook.pdf) return;
+            if (!selectedBook) return;
             
             const pageNumbers = [];
             for (let i = 1; i <= pageCount; i++) {
@@ -477,8 +429,7 @@
                 pages.push(page);
             }
             
-            // Increased scale for highest resolution (3.0x for crisp output; adjust if too heavy)
-            const scale = 3.0;
+            const scale = 1.5;
             const viewports = pages.map(page => page.getViewport({scale}));
             
             const canvas = document.getElementById('previewCanvas');
@@ -518,12 +469,12 @@
             const canvas = document.getElementById('previewCanvas');
             const link = document.createElement('a');
             link.download = 'sijjeen-collage.png';
-            link.href = canvas.toDataURL('image/png', 1.0); // PNG is lossless; quality=1.0 ensures max
+            link.href = canvas.toDataURL();
             link.click();
         }
         
-        // Initialize on page load (instant book list display)
-        initializeBooks();
+        // Load books on page load
+        loadBooks();
     </script>
 </body>
 </html>
