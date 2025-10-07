@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sijjeen - Book Collage Maker</title>
+    <title>Sijjeen - Book Scan Maker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <style>
         * {
@@ -88,6 +89,10 @@
             cursor: pointer;
             transition: all 0.3s;
             font-size: 16px;
+            font-family: 'Amiri', serif;
+            font-weight: 700;
+            text-align: right;
+            direction: rtl;
         }
         
         .book-item:hover {
@@ -103,7 +108,7 @@
             font-weight: bold;
         }
         
-        .collage-settings {
+        .scan-settings {
             background: #f8f9fa;
             padding: 25px;
             border-radius: 15px;
@@ -203,6 +208,88 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             max-width: 100%;
             height: auto;
+            width: 100%;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px;
+                border-radius: 15px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .durood {
+                padding: 15px !important;
+                margin: 15px 0 !important;
+            }
+            
+            .durood h3 {
+                font-size: 16px !important;
+            }
+            
+            .durood p {
+                font-size: 14px !important;
+                line-height: 1.6 !important;
+            }
+            
+            .search-bar {
+                margin-bottom: 20px;
+            }
+            
+            .search-bar input {
+                padding: 12px 45px 12px 15px;
+                font-size: 16px;
+            }
+            
+            .books-list {
+                max-height: 300px;
+            }
+            
+            .book-item {
+                padding: 12px 15px;
+                font-size: 15px;
+            }
+            
+            .scan-settings {
+                padding: 20px;
+            }
+            
+            .page-count-btns {
+                justify-content: center;
+            }
+            
+            .page-count-btn {
+                padding: 8px 20px;
+                font-size: 14px;
+            }
+            
+            .page-inputs {
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            .page-input-group input {
+                width: 60px;
+                padding: 8px;
+                font-size: 14px;
+            }
+            
+            .preview-canvas {
+                border-width: 2px;
+            }
+            
+            .download-btn {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
         }
         
         .download-btn {
@@ -243,7 +330,16 @@
 <body>
     <div class="container">
         <h1>📚 Sijjeen</h1>
-        <p class="subtitle">Create beautiful book collages</p>
+        <div class="durood" style="text-align: center; margin: 20px 0; padding: 20px; background: #f8f9ff; border-radius: 10px; border: 2px solid #667eea;">
+            <h3 style="color: #667eea; margin-bottom: 10px; font-family: 'Amiri', serif;">دعاء قبل البدء</h3>
+            <p style="font-size: 18px; color: #333; line-height: 1.8; font-weight: 700; font-family: 'Amiri', serif; direction: rtl;">
+                اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ
+            </p>
+            <p style="font-size: 16px; color: #666; margin-top: 10px; font-family: 'Amiri', serif; direction: rtl;">
+                اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ
+            </p>
+        </div>
+        <p class="subtitle">Create beautiful book scans</p>
         
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Search books..." oninput="searchBooks()">
@@ -253,9 +349,9 @@
         <h2 style="color: #667eea; margin-bottom: 15px;">Select a Book</h2>
         <div id="booksList" class="books-list"></div>
         
-        <div id="collageSettings" class="collage-settings hidden">
+        <div id="scanSettings" class="scan-settings hidden">
             <div class="setting-group">
-                <label>How many pages do you want in your collage?</label>
+                <label>How many pages do you want in your scan?</label>
                 <div class="page-count-btns">
                     <button class="page-count-btn active" onclick="setPageCount(2)">2 Pages</button>
                     <button class="page-count-btn" onclick="setPageCount(3)">3 Pages</button>
@@ -286,7 +382,7 @@
                 <canvas id="previewCanvas" class="preview-canvas"></canvas>
             </div>
             <br>
-            <button class="download-btn" onclick="downloadCollage()">💾 Download Collage</button>
+            <button class="download-btn" onclick="downloadScan()">💾 Download Scan</button>
         </div>
     </div>
 
@@ -301,21 +397,31 @@
         let books = [];
         let selectedBook = null;
         let pageCount = 2;
+        let pdfCache = new Map();
         
         async function loadBooks() {
-            for (let bookInfo of booksList) {
+            // Show book names immediately without loading PDFs
+            books = booksList.map(bookInfo => ({
+                name: bookInfo.name,
+                file: bookInfo.file,
+                pdf: null,
+                loading: false
+            }));
+            displayBooks(books);
+            
+            // Load PDFs in parallel in the background
+            const loadPromises = booksList.map(async (bookInfo, index) => {
                 try {
                     const pdf = await pdfjsLib.getDocument(bookInfo.file).promise;
-                    books.push({
-                        name: bookInfo.name,
-                        pdf: pdf,
-                        file: bookInfo.file
-                    });
+                    books[index].pdf = pdf;
+                    pdfCache.set(bookInfo.file, pdf);
                 } catch (error) {
                     console.log(`Could not load ${bookInfo.name}`);
+                    books[index].pdf = null;
                 }
-            }
-            displayBooks(books);
+            });
+            
+            await Promise.all(loadPromises);
         }
         
         function displayBooks(booksToDisplay) {
@@ -345,20 +451,45 @@
         }
         
         function selectBook(book) {
+            // Check if PDF is loaded
+            if (!book.pdf) {
+                // Show loading state
+                const items = document.querySelectorAll('.book-item');
+                items.forEach(item => {
+                    if (item.textContent === book.name) {
+                        item.innerHTML = book.name + ' <span style="color: #999;">(Loading...)</span>';
+                    }
+                });
+                
+                // Wait for PDF to load
+                const waitForPdf = setInterval(() => {
+                    if (book.pdf) {
+                        clearInterval(waitForPdf);
+                        selectBookWithPdf(book);
+                    }
+                }, 100);
+                return;
+            }
+            
+            selectBookWithPdf(book);
+        }
+        
+        function selectBookWithPdf(book) {
             selectedBook = book;
             
             // Update UI
             const items = document.querySelectorAll('.book-item');
             items.forEach(item => {
-                if (item.textContent === book.name) {
+                if (item.textContent === book.name || item.innerHTML.includes(book.name)) {
                     item.classList.add('selected');
+                    item.innerHTML = book.name; // Remove loading text
                 } else {
                     item.classList.remove('selected');
                 }
             });
             
             // Show settings
-            document.getElementById('collageSettings').classList.remove('hidden');
+            document.getElementById('scanSettings').classList.remove('hidden');
             document.getElementById('pageInfo').textContent = `This book has ${book.pdf.numPages} pages`;
             
             // Update page input max values
@@ -429,11 +560,19 @@
                 pages.push(page);
             }
             
-            const scale = 1.5;
+            // Use device-appropriate scale for mobile vs desktop
+            const devicePixelRatio = window.devicePixelRatio || 1;
+            const isMobile = window.innerWidth <= 768;
+            const baseScale = isMobile ? 2.0 : 3.0; // Lower scale for mobile to prevent memory issues
+            const scale = baseScale * devicePixelRatio;
             const viewports = pages.map(page => page.getViewport({scale}));
             
             const canvas = document.getElementById('previewCanvas');
             const ctx = canvas.getContext('2d');
+            
+            // Enable high-quality rendering
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
             
             // Calculate dimensions - all pages side by side with ZERO gap
             const totalWidth = viewports.reduce((sum, vp) => sum + vp.width, 0);
@@ -442,19 +581,28 @@
             canvas.width = totalWidth;
             canvas.height = maxHeight;
             
+            // Set display size for proper scaling
+            canvas.style.width = (totalWidth / devicePixelRatio / baseScale) + 'px';
+            canvas.style.height = (maxHeight / devicePixelRatio / baseScale) + 'px';
+            
             // White background
             ctx.fillStyle = 'white';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // Render each page
+            // Render each page with maximum quality
+            // Pages are rendered left to right: Page 1 is leftmost, Page 2 is next, etc.
             let xOffset = 0;
             for (let i = 0; i < pages.length; i++) {
                 const tempCanvas = document.createElement('canvas');
                 tempCanvas.width = viewports[i].width;
                 tempCanvas.height = viewports[i].height;
                 
+                const tempCtx = tempCanvas.getContext('2d');
+                tempCtx.imageSmoothingEnabled = true;
+                tempCtx.imageSmoothingQuality = 'high';
+                
                 await pages[i].render({
-                    canvasContext: tempCanvas.getContext('2d'),
+                    canvasContext: tempCtx,
                     viewport: viewports[i]
                 }).promise;
                 
@@ -465,11 +613,22 @@
             document.getElementById('previewSection').classList.remove('hidden');
         }
         
-        function downloadCollage() {
+        function downloadScan() {
             const canvas = document.getElementById('previewCanvas');
             const link = document.createElement('a');
-            link.download = 'sijjeen-collage.png';
-            link.href = canvas.toDataURL();
+            
+            // Ask user for preferred format
+            const format = confirm('Click OK for PNG (lossless) or Cancel for JPEG (smaller file)') ? 'png' : 'jpeg';
+            
+            if (format === 'png') {
+                link.download = 'sijjeen-scan-hq.png';
+                link.href = canvas.toDataURL('image/png');
+            } else {
+                link.download = 'sijjeen-scan-hq.jpg';
+                // Use maximum quality for JPEG (1.0 = 100% quality)
+                link.href = canvas.toDataURL('image/jpeg', 1.0);
+            }
+            
             link.click();
         }
         
