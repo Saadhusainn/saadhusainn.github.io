@@ -20,6 +20,7 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 10px;
+            touch-action: manipulation;
         }
         
         .container {
@@ -355,6 +356,7 @@
             max-width: 100%;
             overflow-x: auto;
             position: relative;
+            -webkit-overflow-scrolling: touch;
         }
         
         .preview-canvas {
@@ -373,6 +375,7 @@
             border: 3px solid #667eea;
             border-radius: 10px;
             cursor: crosshair;
+            touch-action: none;
         }
         
         .download-btn {
@@ -535,6 +538,7 @@
             display: flex;
             gap: 10px;
             margin-top: 10px;
+            flex-wrap: wrap;
         }
         
         .action-btn {
@@ -629,7 +633,7 @@
                 <div class="color-btn highlight-lime" data-color="rgba(0, 255, 0, 0.5)" onclick="setHighlightColor(this)"></div>
             </div>
             <p class="highlight-instructions">
-                Click and drag on the preview to create highlights. Drag corners to resize.
+                Tap and drag on the preview to create highlights. Drag corners to resize.
             </p>
             <div class="highlight-actions">
                 <button class="action-btn clear-btn" onclick="clearHighlights()">Clear All Highlights</button>
@@ -654,7 +658,8 @@
         // ADD YOUR BOOKS HERE - Use direct download links
         const booksList = [
             { name: "MUSNAD 1", file: "books/maih_3.pdf" },
-            { name: "Tabaqat Ibn Saad 1", file: "books/tis1.pdf" }
+            { name: "Tabaqat Ibn Saad 1", file: "https://drive.google.com/uc?export=download&id=1l_ht3wdsZrydYVM5-uOTMNQNqdTnXPSL" },
+            { name: "Tabaqat Ibn Saad 11", file: "https://files.catbox.moe/2enp90.pdf" }
             // Add more books like: { name: "Book Name in Arabic", file: "http://direct-link.pdf" }
         ];
         
@@ -670,6 +675,7 @@
         let selectedRectIndex = -1;
         let isResizing = false;
         let resizeHandle = -1;
+        let canvasScale = 1;
         
         // Handle file upload
         document.getElementById('fileInput').addEventListener('change', handleFileUpload);
@@ -739,19 +745,24 @@
                 const totalBooks = booksList.length;
                 let loadedCount = 0;
                 
+                // Clear existing books first
+                books = [];
+                
                 for (let bookInfo of booksList) {
                     try {
+                        console.log(`Loading: ${bookInfo.name}`);
                         const pdf = await pdfjsLib.getDocument(bookInfo.file).promise;
                         books.push({
                             name: bookInfo.name,
                             pdf: pdf,
                             file: bookInfo.file
                         });
+                        console.log(`Successfully loaded: ${bookInfo.name}`);
                         
                         loadedCount++;
                         showProgress((loadedCount / totalBooks) * 70);
                     } catch (error) {
-                        console.log(`Could not load ${bookInfo.name}:`, error);
+                        console.error(`Failed to load ${bookInfo.name}:`, error);
                         loadedCount++;
                         showProgress((loadedCount / totalBooks) * 70);
                     }
@@ -759,6 +770,10 @@
                 
                 displayBooks(books);
                 showProgress(100);
+                
+                if (books.length === 0) {
+                    showError('No books could be loaded. Please check your internet connection and try again.');
+                }
             } catch (error) {
                 showError('Error loading books. Please refresh the page.');
                 console.error('Load books error:', error);
@@ -901,6 +916,14 @@
                 canvas.width = totalWidth;
                 canvas.height = maxHeight;
                 
+                // Calculate display scale for mobile devices
+                const maxDisplayWidth = Math.min(window.innerWidth - 40, 1200);
+                canvasScale = maxDisplayWidth / totalWidth;
+                
+                // Set display dimensions
+                canvas.style.width = totalWidth * canvasScale + 'px';
+                canvas.style.height = maxHeight * canvasScale + 'px';
+                
                 // White background
                 ctx.fillStyle = 'white';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -927,8 +950,8 @@
                 const highlightCanvas = document.getElementById('highlightCanvas');
                 highlightCanvas.width = canvas.width;
                 highlightCanvas.height = canvas.height;
-                highlightCanvas.style.width = canvas.width + 'px';
-                highlightCanvas.style.height = canvas.height + 'px';
+                highlightCanvas.style.width = canvas.style.width;
+                highlightCanvas.style.height = canvas.style.height;
                 
                 // Reset highlights for new preview
                 highlights = [];
@@ -954,13 +977,23 @@
             canvas.onmousedown = null;
             canvas.onmousemove = null;
             canvas.onmouseup = null;
+            canvas.ontouchstart = null;
+            canvas.ontouchmove = null;
+            canvas.ontouchend = null;
             
-            canvas.onmousedown = (e) => {
-                if (!isHighlightMode) return;
-                
+            function getCanvasCoordinates(clientX, clientY) {
                 const rect = canvas.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+                
+                return {
+                    x: (clientX - rect.left) * scaleX,
+                    y: (clientY - rect.top) * scaleY
+                };
+            }
+            
+            function handleStart(x, y) {
+                if (!isHighlightMode) return;
                 
                 // Check if clicking on a resize handle
                 for (let i = 0; i < highlights.length; i++) {
@@ -997,14 +1030,10 @@
                 };
                 highlights.push(currentRect);
                 selectedRectIndex = highlights.length - 1;
-            };
+            }
             
-            canvas.onmousemove = (e) => {
+            function handleMove(x, y) {
                 if (!isHighlightMode) return;
-                
-                const rect = canvas.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
                 
                 if (isResizing && selectedRectIndex >= 0) {
                     const h = highlights[selectedRectIndex];
@@ -1018,12 +1047,45 @@
                     currentRect.height = y - startY;
                     drawHighlights();
                 }
-            };
+            }
             
-            canvas.onmouseup = () => {
+            function handleEnd() {
                 isDrawing = false;
                 isResizing = false;
                 resizeHandle = -1;
+            }
+            
+            // Mouse events
+            canvas.onmousedown = (e) => {
+                const coords = getCanvasCoordinates(e.clientX, e.clientY);
+                handleStart(coords.x, coords.y);
+            };
+            
+            canvas.onmousemove = (e) => {
+                const coords = getCanvasCoordinates(e.clientX, e.clientY);
+                handleMove(coords.x, coords.y);
+            };
+            
+            canvas.onmouseup = handleEnd;
+            
+            // Touch events for mobile
+            canvas.ontouchstart = (e) => {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const coords = getCanvasCoordinates(touch.clientX, touch.clientY);
+                handleStart(coords.x, coords.y);
+            };
+            
+            canvas.ontouchmove = (e) => {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const coords = getCanvasCoordinates(touch.clientX, touch.clientY);
+                handleMove(coords.x, coords.y);
+            };
+            
+            canvas.ontouchend = (e) => {
+                e.preventDefault();
+                handleEnd();
             };
         }
         
@@ -1033,7 +1095,7 @@
         }
         
         function getResizeHandles(rect) {
-            const size = 8;
+            const size = 15;
             return [
                 { x: rect.x - size/2, y: rect.y - size/2, width: size, height: size }, // top-left
                 { x: rect.x + rect.width - size/2, y: rect.y - size/2, width: size, height: size }, // top-right
