@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sijjeen - Book Scan Maker</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <title>Sijjeen - Book Collage Maker</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,10 +16,10 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Amiri', 'Scheherazade New', serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 10px;
         }
         
         .container {
@@ -25,85 +27,95 @@
             margin: 0 auto;
             background: white;
             border-radius: 20px;
-            padding: 40px;
+            padding: 20px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
         
-        .header-container {
+        @media (min-width: 768px) {
+            body {
+                padding: 20px;
+            }
+            .container {
+                padding: 40px;
+            }
+        }
+        
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 30px;
-            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
         
-        .title-section {
-            flex: 0 0 auto;
-        }
-        
-        .durood-section {
-            flex: 1;
-            max-width: 500px;
-        }
-        
-        h1 {
-            text-align: left;
+        .title {
             color: #667eea;
-            margin-bottom: 10px;
-            font-size: 2.5em;
+            font-size: 2em;
+            font-weight: bold;
         }
         
-        .subtitle {
-            text-align: left;
-            color: #666;
-            margin-bottom: 0;
+        @media (min-width: 768px) {
+            .title {
+                font-size: 2.5em;
+            }
         }
         
         .durood {
-            text-align: center;
-            margin: 0;
-            padding: 15px;
-            background: #f8f9ff;
-            border-radius: 10px;
-            border: 2px solid #667eea;
-        }
-        
-        .durood h3 {
             color: #667eea;
-            margin-bottom: 8px;
-            font-family: 'Amiri', serif;
-            font-size: 16px;
-        }
-        
-        .durood p {
-            font-size: 14px;
-            color: #333;
-            line-height: 1.6;
-            font-weight: 700;
-            font-family: 'Amiri', serif;
+            font-size: 0.9em;
+            text-align: right;
+            line-height: 1.8;
             direction: rtl;
-            margin: 0;
+            max-width: 300px;
         }
         
-        .durood p:last-child {
-            font-size: 13px;
+        @media (min-width: 768px) {
+            .durood {
+                font-size: 1.1em;
+            }
+        }
+        
+        .subtitle {
+            text-align: center;
             color: #666;
-            margin-top: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+        }
+        
+        @media (min-width: 768px) {
+            .subtitle {
+                margin-bottom: 30px;
+                font-size: 1em;
+            }
         }
         
         .search-bar {
             max-width: 600px;
-            margin: 0 auto 30px;
+            margin: 0 auto 20px;
             position: relative;
+        }
+        
+        @media (min-width: 768px) {
+            .search-bar {
+                margin-bottom: 30px;
+            }
         }
         
         .search-bar input {
             width: 100%;
-            padding: 15px 50px 15px 20px;
+            padding: 12px 50px 12px 15px;
             font-size: 16px;
             border: 2px solid #667eea;
             border-radius: 50px;
             outline: none;
+            font-family: 'Amiri', 'Scheherazade New', serif;
+        }
+        
+        @media (min-width: 768px) {
+            .search-bar input {
+                padding: 15px 50px 15px 20px;
+            }
         }
         
         .search-bar input:focus {
@@ -113,24 +125,39 @@
         
         .search-icon {
             position: absolute;
-            right: 20px;
+            right: 15px;
             top: 50%;
             transform: translateY(-50%);
             color: #667eea;
-            font-size: 20px;
+            font-size: 18px;
+        }
+        
+        @media (min-width: 768px) {
+            .search-icon {
+                right: 20px;
+                font-size: 20px;
+            }
         }
         
         .books-list {
-            max-height: 400px;
+            max-height: 300px;
             overflow-y: auto;
             border: 2px solid #e0e0e0;
             border-radius: 10px;
-            margin-bottom: 30px;
-            padding: 10px;
+            margin-bottom: 20px;
+            padding: 5px;
+        }
+        
+        @media (min-width: 768px) {
+            .books-list {
+                max-height: 400px;
+                margin-bottom: 30px;
+                padding: 10px;
+            }
         }
         
         .book-item {
-            padding: 15px 20px;
+            padding: 12px 15px;
             margin: 5px 0;
             background: white;
             border: 2px solid #e0e0e0;
@@ -138,10 +165,14 @@
             cursor: pointer;
             transition: all 0.3s;
             font-size: 16px;
-            font-family: 'Amiri', serif;
-            font-weight: 700;
-            text-align: right;
-            direction: rtl;
+            text-align: left;
+            direction: ltr;
+        }
+        
+        @media (min-width: 768px) {
+            .book-item {
+                padding: 15px 20px;
+            }
         }
         
         .book-item:hover {
@@ -157,15 +188,28 @@
             font-weight: bold;
         }
         
-        .scan-settings {
+        .collage-settings {
             background: #f8f9fa;
-            padding: 25px;
+            padding: 15px;
             border-radius: 15px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .collage-settings {
+                padding: 25px;
+                margin-bottom: 30px;
+            }
         }
         
         .setting-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+        }
+        
+        @media (min-width: 768px) {
+            .setting-group {
+                margin-bottom: 20px;
+            }
         }
         
         .setting-group label {
@@ -173,25 +217,45 @@
             font-weight: bold;
             color: #667eea;
             margin-bottom: 10px;
-            font-size: 16px;
+            font-size: 15px;
+        }
+        
+        @media (min-width: 768px) {
+            .setting-group label {
+                font-size: 16px;
+            }
         }
         
         .page-count-btns {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
         }
         
+        @media (min-width: 768px) {
+            .page-count-btns {
+                gap: 10px;
+            }
+        }
+        
         .page-count-btn {
-            padding: 10px 25px;
+            padding: 8px 20px;
             border: 2px solid #667eea;
             background: white;
             color: #667eea;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: bold;
             transition: all 0.3s;
+            font-family: 'Amiri', 'Scheherazade New', serif;
+        }
+        
+        @media (min-width: 768px) {
+            .page-count-btn {
+                padding: 10px 25px;
+                font-size: 16px;
+            }
         }
         
         .page-count-btn:hover {
@@ -205,36 +269,69 @@
         
         .page-inputs {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             flex-wrap: wrap;
             align-items: center;
+        }
+        
+        @media (min-width: 768px) {
+            .page-inputs {
+                gap: 15px;
+            }
         }
         
         .page-input-group {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+        }
+        
+        @media (min-width: 768px) {
+            .page-input-group {
+                gap: 10px;
+            }
+        }
+        
+        .page-input-group span {
+            font-size: 14px;
         }
         
         .page-input-group input {
-            padding: 10px;
-            font-size: 16px;
+            padding: 8px;
+            font-size: 14px;
             border: 2px solid #667eea;
             border-radius: 8px;
-            width: 80px;
+            width: 70px;
             text-align: center;
+            font-family: 'Amiri', 'Scheherazade New', serif;
+        }
+        
+        @media (min-width: 768px) {
+            .page-input-group input {
+                padding: 10px;
+                font-size: 16px;
+                width: 80px;
+            }
         }
         
         .preview-btn {
             background: #667eea;
             color: white;
-            padding: 10px 30px;
+            padding: 8px 20px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: bold;
             transition: all 0.3s;
+            font-family: 'Amiri', 'Scheherazade New', serif;
+        }
+        
+        @media (min-width: 768px) {
+            .preview-btn {
+                padding: 10px 30px;
+                font-size: 16px;
+            }
         }
         
         .preview-btn:hover {
@@ -243,7 +340,13 @@
         
         .preview-section {
             text-align: center;
-            margin-top: 30px;
+            margin-top: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .preview-section {
+                margin-top: 30px;
+            }
         }
         
         .preview-container {
@@ -257,122 +360,31 @@
             border: 3px solid #667eea;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            height: auto;
             display: block;
-        }
-        
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            
-            .container {
-                padding: 20px;
-                border-radius: 15px;
-            }
-            
-            .header-container {
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
-                margin-bottom: 20px;
-            }
-            
-            .title-section {
-                text-align: center;
-            }
-            
-            .durood-section {
-                max-width: 100%;
-            }
-            
-            h1 {
-                font-size: 2em;
-                text-align: center;
-            }
-            
-            .subtitle {
-                text-align: center;
-            }
-            
-            .durood {
-                padding: 15px !important;
-                margin: 15px 0 !important;
-            }
-            
-            .durood h3 {
-                font-size: 16px !important;
-            }
-            
-            .durood p {
-                font-size: 14px !important;
-                line-height: 1.6 !important;
-            }
-            
-            .search-bar {
-                margin-bottom: 20px;
-            }
-            
-            .search-bar input {
-                padding: 12px 45px 12px 15px;
-                font-size: 16px;
-            }
-            
-            .books-list {
-                max-height: 300px;
-            }
-            
-            .book-item {
-                padding: 12px 15px;
-                font-size: 15px;
-            }
-            
-            .scan-settings {
-                padding: 20px;
-            }
-            
-            .page-count-btns {
-                justify-content: center;
-            }
-            
-            .page-count-btn {
-                padding: 8px 20px;
-                font-size: 14px;
-            }
-            
-            .page-inputs {
-                justify-content: center;
-                gap: 10px;
-            }
-            
-            .page-input-group input {
-                width: 60px;
-                padding: 8px;
-                font-size: 14px;
-            }
-            
-            .preview-canvas {
-                border-width: 2px;
-            }
-            
-            .download-btn {
-                padding: 12px 30px;
-                font-size: 16px;
-            }
+            max-width: 100%;
+            height: auto;
         }
         
         .download-btn {
             background: #28a745;
             color: white;
-            padding: 15px 40px;
+            padding: 12px 30px;
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
-            margin-top: 20px;
+            margin-top: 15px;
             transition: all 0.3s;
+            font-family: 'Amiri', 'Scheherazade New', serif;
+        }
+        
+        @media (min-width: 768px) {
+            .download-btn {
+                padding: 15px 40px;
+                font-size: 18px;
+                margin-top: 20px;
+            }
         }
         
         .download-btn:hover {
@@ -387,47 +399,68 @@
         .info-text {
             color: #666;
             margin: 10px 0;
+            font-size: 14px;
+        }
+        
+        .error-message {
+            background: #fee;
+            border: 2px solid #fcc;
+            color: #c33;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 14px;
         }
         
         .no-results {
             text-align: center;
-            padding: 40px;
+            padding: 30px;
             color: #999;
-            font-size: 18px;
+            font-size: 16px;
+        }
+        
+        @media (min-width: 768px) {
+            .no-results {
+                padding: 40px;
+                font-size: 18px;
+            }
+        }
+        
+        .loading {
+            text-align: center;
+            color: #667eea;
+            font-size: 16px;
+            padding: 20px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header-container">
-            <div class="title-section">
-                <h1>📚 Sijjeen</h1>
-                <p class="subtitle">Create beautiful book scans</p>
-            </div>
-            <div class="durood-section">
-                <div class="durood">
-                    <h3>دعاء قبل البدء</h3>
-                    <p>
-                        اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ
-                    </p>
-                    <p>
-                        اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ
-                    </p>
-                </div>
+        <div class="header">
+            <div class="title">📚 Sijjeen</div>
+            <div class="durood">
+                اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ<br>
+                كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ<br>
+                إِنَّكَ حَمِيدٌ مَجِيدٌ
             </div>
         </div>
+        <p class="subtitle">Create beautiful book collages</p>
         
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Search books..." oninput="searchBooks()">
             <span class="search-icon">🔍</span>
         </div>
         
-        <h2 style="color: #667eea; margin-bottom: 15px;">Select a Book</h2>
-        <div id="booksList" class="books-list"></div>
+        <h2 style="color: #667eea; margin-bottom: 15px; font-size: 1.3em;">Select a Book</h2>
+        <div id="booksList" class="books-list">
+            <div class="loading">Loading books...</div>
+        </div>
         
-        <div id="scanSettings" class="scan-settings hidden">
+        <div id="errorContainer"></div>
+        
+        <div id="collageSettings" class="collage-settings hidden">
             <div class="setting-group">
-                <label>How many pages do you want in your scan?</label>
+                <label>How many pages do you want in your collage?</label>
                 <div class="page-count-btns">
                     <button class="page-count-btn active" onclick="setPageCount(2)">2 Pages</button>
                     <button class="page-count-btn" onclick="setPageCount(3)">3 Pages</button>
@@ -437,28 +470,19 @@
             
             <div class="setting-group">
                 <label>Select page numbers:</label>
-                <div id="pageInputs" class="page-inputs">
-                    <div class="page-input-group">
-                        <span>Page 1:</span>
-                        <input type="number" id="page1" min="1" value="1" onchange="updatePreview()">
-                    </div>
-                    <div class="page-input-group">
-                        <span>Page 2:</span>
-                        <input type="number" id="page2" min="1" value="2" onchange="updatePreview()">
-                    </div>
-                </div>
+                <div id="pageInputs" class="page-inputs"></div>
             </div>
             
             <p class="info-text" id="pageInfo"></p>
         </div>
         
         <div id="previewSection" class="preview-section hidden">
-            <h2 style="color: #667eea; margin-bottom: 20px;">Preview</h2>
+            <h2 style="color: #667eea; margin-bottom: 20px; font-size: 1.3em;">Preview</h2>
             <div class="preview-container">
                 <canvas id="previewCanvas" class="preview-canvas"></canvas>
             </div>
             <br>
-            <button class="download-btn" onclick="downloadScan()">💾 Download Scan</button>
+            <button class="download-btn" onclick="downloadCollage()">💾 Download Collage</button>
         </div>
     </div>
 
@@ -467,38 +491,42 @@
         
         // ADD YOUR BOOKS HERE
         const booksList = [
-            { name: "مسند أحمد بن حنبل ج3", file: "books/maih_3.pdf" },
-            { name: "الطبقات الكبرى لابن سعد ج 1", file: "https://t.me/SIJJEEN/615"},
+            { name: "Sample Book 1", file: "books/book1.pdf" },
+            { name: "Sample Book 2", file: "books/book2.pdf" },
+            { name: "Sample Book 3", file: "books/book3.pdf" }
         ];
         
         let books = [];
         let selectedBook = null;
         let pageCount = 2;
-        let pdfCache = new Map();
+        
+        function showError(message) {
+            const container = document.getElementById('errorContainer');
+            container.innerHTML = `<div class="error-message">${message}</div>`;
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 5000);
+        }
         
         async function loadBooks() {
-            // Show book names immediately without loading PDFs
-            books = booksList.map(bookInfo => ({
-                name: bookInfo.name,
-                file: bookInfo.file,
-                pdf: null,
-                loading: false
-            }));
-            displayBooks(books);
-            
-            // Load PDFs in parallel in the background
-            const loadPromises = booksList.map(async (bookInfo, index) => {
-                try {
-                    const pdf = await pdfjsLib.getDocument(bookInfo.file).promise;
-                    books[index].pdf = pdf;
-                    pdfCache.set(bookInfo.file, pdf);
-                } catch (error) {
-                    console.log(`Could not load ${bookInfo.name}`);
-                    books[index].pdf = null;
+            try {
+                for (let bookInfo of booksList) {
+                    try {
+                        const pdf = await pdfjsLib.getDocument(bookInfo.file).promise;
+                        books.push({
+                            name: bookInfo.name,
+                            pdf: pdf,
+                            file: bookInfo.file
+                        });
+                    } catch (error) {
+                        console.log(`Could not load ${bookInfo.name}:`, error);
+                    }
                 }
-            });
-            
-            await Promise.all(loadPromises);
+                displayBooks(books);
+            } catch (error) {
+                showError('Error loading books. Please refresh the page.');
+                console.error('Load books error:', error);
+            }
         }
         
         function displayBooks(booksToDisplay) {
@@ -510,7 +538,7 @@
                 return;
             }
             
-            booksToDisplay.forEach((book, index) => {
+            booksToDisplay.forEach((book) => {
                 const item = document.createElement('div');
                 item.className = 'book-item';
                 item.textContent = book.name;
@@ -528,204 +556,155 @@
         }
         
         function selectBook(book) {
-            // Check if PDF is loaded
-            if (!book.pdf) {
-                // Show loading state
+            try {
+                selectedBook = book;
+                
                 const items = document.querySelectorAll('.book-item');
                 items.forEach(item => {
                     if (item.textContent === book.name) {
-                        item.innerHTML = book.name + ' <span style="color: #999;">(Loading...)</span>';
+                        item.classList.add('selected');
+                    } else {
+                        item.classList.remove('selected');
                     }
                 });
                 
-                // Wait for PDF to load
-                const waitForPdf = setInterval(() => {
-                    if (book.pdf) {
-                        clearInterval(waitForPdf);
-                        selectBookWithPdf(book);
-                    }
-                }, 100);
-                return;
+                document.getElementById('collageSettings').classList.remove('hidden');
+                document.getElementById('pageInfo').textContent = `This book has ${book.pdf.numPages} pages`;
+                
+                updatePageInputs();
+                updatePreview();
+            } catch (error) {
+                showError('Error selecting book. Please try again.');
+                console.error('Select book error:', error);
             }
-            
-            selectBookWithPdf(book);
-        }
-        
-        function selectBookWithPdf(book) {
-            selectedBook = book;
-            
-            // Update UI
-            const items = document.querySelectorAll('.book-item');
-            items.forEach(item => {
-                if (item.textContent === book.name || item.innerHTML.includes(book.name)) {
-                    item.classList.add('selected');
-                    item.innerHTML = book.name; // Remove loading text
-                } else {
-                    item.classList.remove('selected');
-                }
-            });
-            
-            // Show settings
-            document.getElementById('scanSettings').classList.remove('hidden');
-            document.getElementById('pageInfo').textContent = `This book has ${book.pdf.numPages} pages`;
-            
-            // Update page input max values
-            updatePageInputs();
-            updatePreview();
         }
         
         function setPageCount(count) {
-            pageCount = count;
-            
-            // Update buttons
-            const buttons = document.querySelectorAll('.page-count-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            // Update page inputs
-            updatePageInputs();
-            updatePreview();
+            try {
+                pageCount = count;
+                
+                const buttons = document.querySelectorAll('.page-count-btn');
+                buttons.forEach(btn => btn.classList.remove('active'));
+                event.target.classList.add('active');
+                
+                updatePageInputs();
+                updatePreview();
+            } catch (error) {
+                showError('Error changing page count.');
+                console.error('Set page count error:', error);
+            }
         }
         
         function updatePageInputs() {
             if (!selectedBook) return;
             
-            const container = document.getElementById('pageInputs');
-            container.innerHTML = '';
-            
-            for (let i = 1; i <= pageCount; i++) {
-                const group = document.createElement('div');
-                group.className = 'page-input-group';
+            try {
+                const container = document.getElementById('pageInputs');
+                container.innerHTML = '';
                 
-                const label = document.createElement('span');
-                label.textContent = `Page ${i}:`;
-                
-                const input = document.createElement('input');
-                input.type = 'number';
-                input.id = `page${i}`;
-                input.min = '1';
-                input.max = selectedBook.pdf.numPages;
-                input.value = i;
-                input.onchange = updatePreview;
-                
-                group.appendChild(label);
-                group.appendChild(input);
-                container.appendChild(group);
+                for (let i = 1; i <= pageCount; i++) {
+                    const group = document.createElement('div');
+                    group.className = 'page-input-group';
+                    
+                    const label = document.createElement('span');
+                    label.textContent = `Page ${i}:`;
+                    
+                    const input = document.createElement('input');
+                    input.type = 'number';
+                    input.id = `page${i}`;
+                    input.min = '1';
+                    input.max = selectedBook.pdf.numPages;
+                    input.value = i;
+                    input.onchange = updatePreview;
+                    
+                    group.appendChild(label);
+                    group.appendChild(input);
+                    container.appendChild(group);
+                }
+            } catch (error) {
+                showError('Error updating page inputs.');
+                console.error('Update page inputs error:', error);
             }
         }
         
         async function updatePreview() {
             if (!selectedBook) return;
             
-            const pageNumbers = [];
-            for (let i = 1; i <= pageCount; i++) {
-                const input = document.getElementById(`page${i}`);
-                if (!input) return;
-                
-                const pageNum = parseInt(input.value);
-                if (pageNum < 1 || pageNum > selectedBook.pdf.numPages) {
-                    alert(`Page ${i} must be between 1 and ${selectedBook.pdf.numPages}`);
-                    return;
+            try {
+                const pageNumbers = [];
+                for (let i = 1; i <= pageCount; i++) {
+                    const input = document.getElementById(`page${i}`);
+                    if (!input) return;
+                    
+                    const pageNum = parseInt(input.value);
+                    if (isNaN(pageNum) || pageNum < 1 || pageNum > selectedBook.pdf.numPages) {
+                        showError(`Page ${i} must be between 1 and ${selectedBook.pdf.numPages}`);
+                        return;
+                    }
+                    pageNumbers.push(pageNum);
                 }
-                pageNumbers.push(pageNum);
-            }
-            
-            // Load all pages
-            const pages = [];
-            for (let pageNum of pageNumbers) {
-                const page = await selectedBook.pdf.getPage(pageNum);
-                pages.push(page);
-            }
-            
-            // Use device-appropriate scale for mobile vs desktop
-            const devicePixelRatio = window.devicePixelRatio || 1;
-            const isMobile = window.innerWidth <= 768;
-            const baseScale = isMobile ? 2.0 : 3.0; // Lower scale for mobile to prevent memory issues
-            const scale = baseScale * devicePixelRatio;
-            const viewports = pages.map(page => page.getViewport({scale}));
-            
-            const canvas = document.getElementById('previewCanvas');
-            const ctx = canvas.getContext('2d');
-            
-            // Enable high-quality rendering
-            ctx.imageSmoothingEnabled = true;
-            ctx.imageSmoothingQuality = 'high';
-            
-            // Calculate dimensions - all pages side by side with ZERO gap
-            const totalWidth = viewports.reduce((sum, vp) => sum + vp.width, 0);
-            const maxHeight = Math.max(...viewports.map(vp => vp.height));
-            
-            canvas.width = totalWidth;
-            canvas.height = maxHeight;
-            
-            // Set display size to maintain natural proportions - let canvas expand with content
-            // Calculate appropriate display size based on viewport width
-            const containerWidth = Math.min(1200, window.innerWidth - 80); // Max container width minus padding
-            const aspectRatio = totalWidth / maxHeight;
-            
-            let displayWidth, displayHeight;
-            
-            if (totalWidth > containerWidth * devicePixelRatio * baseScale) {
-                // Scale down only if too wide for container
-                displayWidth = containerWidth;
-                displayHeight = containerWidth / aspectRatio;
-            } else {
-                // Use natural size
-                displayWidth = totalWidth / devicePixelRatio / baseScale;
-                displayHeight = maxHeight / devicePixelRatio / baseScale;
-            }
-            
-            canvas.style.width = displayWidth + 'px';
-            canvas.style.height = displayHeight + 'px';
-            
-            // White background
-            ctx.fillStyle = 'white';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            // Render each page with maximum quality
-            // Pages are rendered left to right: Page 1 is leftmost, Page 2 is next, etc.
-            let xOffset = 0;
-            for (let i = 0; i < pages.length; i++) {
-                const tempCanvas = document.createElement('canvas');
-                tempCanvas.width = viewports[i].width;
-                tempCanvas.height = viewports[i].height;
                 
-                const tempCtx = tempCanvas.getContext('2d');
-                tempCtx.imageSmoothingEnabled = true;
-                tempCtx.imageSmoothingQuality = 'high';
+                const pages = [];
+                for (let pageNum of pageNumbers) {
+                    const page = await selectedBook.pdf.getPage(pageNum);
+                    pages.push(page);
+                }
                 
-                await pages[i].render({
-                    canvasContext: tempCtx,
-                    viewport: viewports[i]
-                }).promise;
+                // Maximum quality scale
+                const scale = 3;
+                const viewports = pages.map(page => page.getViewport({scale}));
                 
-                ctx.drawImage(tempCanvas, xOffset, 0);
-                xOffset += viewports[i].width; // Zero gap between pages
+                const canvas = document.getElementById('previewCanvas');
+                const ctx = canvas.getContext('2d');
+                
+                // Calculate actual canvas size without constraints
+                const totalWidth = viewports.reduce((sum, vp) => sum + vp.width, 0);
+                const maxHeight = Math.max(...viewports.map(vp => vp.height));
+                
+                // Set canvas to actual size for maximum quality
+                canvas.width = totalWidth;
+                canvas.height = maxHeight;
+                
+                // White background
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Render each page at full quality
+                let xOffset = 0;
+                for (let i = 0; i < pages.length; i++) {
+                    const tempCanvas = document.createElement('canvas');
+                    tempCanvas.width = viewports[i].width;
+                    tempCanvas.height = viewports[i].height;
+                    
+                    await pages[i].render({
+                        canvasContext: tempCanvas.getContext('2d'),
+                        viewport: viewports[i]
+                    }).promise;
+                    
+                    ctx.drawImage(tempCanvas, xOffset, 0);
+                    xOffset += viewports[i].width;
+                }
+                
+                document.getElementById('previewSection').classList.remove('hidden');
+            } catch (error) {
+                showError('Error creating preview. Please check your page numbers.');
+                console.error('Update preview error:', error);
             }
-            
-            document.getElementById('previewSection').classList.remove('hidden');
         }
         
-        function downloadScan() {
-            const canvas = document.getElementById('previewCanvas');
-            const link = document.createElement('a');
-            
-            // Ask user for preferred format
-            const format = confirm('Click OK for PNG (lossless) or Cancel for JPEG (smaller file)') ? 'png' : 'jpeg';
-            
-            if (format === 'png') {
-                link.download = 'sijjeen-scan-hq.png';
-                link.href = canvas.toDataURL('image/png');
-            } else {
-                link.download = 'sijjeen-scan-hq.jpg';
-                // Use maximum quality for JPEG (1.0 = 100% quality)
-                link.href = canvas.toDataURL('image/jpeg', 1.0);
+        function downloadCollage() {
+            try {
+                const canvas = document.getElementById('previewCanvas');
+                const link = document.createElement('a');
+                link.download = 'sijjeen-collage.png';
+                link.href = canvas.toDataURL('image/png', 1.0);
+                link.click();
+            } catch (error) {
+                showError('Error downloading collage. Please try again.');
+                console.error('Download error:', error);
             }
-            
-            link.click();
         }
         
-        // Load books on page load
         loadBooks();
     </script>
 </body>
