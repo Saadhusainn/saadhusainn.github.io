@@ -483,30 +483,34 @@
     </div>
 
     <script>
-        // FIXED: Correct PDF worker URL
+        // Correct PDF worker URL
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
         
-        // Book structure - ONLY USE WORKING URLs
+        // Book structure - ONLY LOCAL FILES FROM YOUR GITHUB REPO
         const booksStructure = {
-            // Local single volume books (use relative paths)
+            // Single volume books (direct files)
             "single": [
-                { name: "صحيح البخاري", file: "sahih-bukhari.pdf" },
-                { name: "صحيح مسلم", file: "sahih-muslim.pdf" },
-                { name: "سنن الترمذي", file: "sunan-tirmidhi.pdf" }
+                { name: "MUSNAD AHMAD vol. 3", file: "books/maih_3.pdf" }
             ],
-            // Archive.org books with working URLs
-            "archive": [
-                {
-                    name: "مسند أحمد بن حنبل",
-                    folder: "https://archive.org/download/musnadahmed/",
+            // Multi-volume books (organized in folders)
+            "multi": [
+                { 
+                    name: "مسند أحمد بن حنبل", 
+                    folder: "books/musnad-ahmad/",
                     volumes: 50,
-                    pattern: "ahmd_{vol}.pdf"
+                    pattern: "maih_{vol}.pdf"
                 },
-                {
-                    name: "صحيح البخاري",
-                    folder: "https://archive.org/download/sahih-bukhari-pdf/",
+                { 
+                    name: "سنن أبي داود", 
+                    folder: "books/sunan-abu-dawud/",
                     volumes: 4,
-                    pattern: "sahih-bukhari-vol{vol}.pdf"
+                    pattern: "sunan_abudawud_vol{vol}.pdf"
+                },
+                { 
+                    name: "موطأ الإمام مالك", 
+                    folder: "books/muwatta-malik/",
+                    volumes: 2,
+                    pattern: "muwatta_vol{vol}.pdf"
                 }
             ]
         };
@@ -527,21 +531,19 @@
 
         async function loadBooks() {
             try {
-                // Load local single volume books
+                // Load single volume books
                 booksStructure.single.forEach(book => {
                     books.push({
                         ...book,
-                        type: 'single',
-                        source: 'local'
+                        type: 'single'
                     });
                 });
                 
-                // Load Archive.org books
-                booksStructure.archive.forEach(book => {
+                // Load multi-volume books
+                booksStructure.multi.forEach(book => {
                     books.push({
                         ...book,
-                        type: 'multi',
-                        source: 'archive'
+                        type: 'multi'
                     });
                 });
                 
@@ -609,7 +611,7 @@
             } else {
                 document.getElementById('volumesSection').classList.add('hidden');
                 document.getElementById('collageSettings').classList.remove('hidden');
-                loadBookFile(book.file, book.name, book.source);
+                loadBookFile(book.file, book.name);
             }
         }
         
@@ -634,7 +636,7 @@
                     volumeItem.classList.add('selected');
                     
                     const filePath = book.folder + volumeFile;
-                    loadBookFile(filePath, `${book.name} - Volume ${i}`, book.source);
+                    loadBookFile(filePath, `${book.name} - Volume ${i}`);
                 };
                 volumesList.appendChild(volumeItem);
             }
@@ -643,40 +645,12 @@
             document.getElementById('collageSettings').classList.add('hidden');
         }
         
-        async function loadBookFile(filePath, displayName, source) {
+        async function loadBookFile(filePath, displayName) {
             try {
                 showSuccess('Loading book...');
                 
-                let pdf;
-                
-                if (source === 'archive') {
-                    // Try multiple CORS proxies
-                    const proxies = [
-                        'https://api.allorigins.win/raw?url=',
-                        'https://cors-anywhere.herokuapp.com/',
-                        'https://corsproxy.io/?'
-                    ];
-                    
-                    let lastError = null;
-                    
-                    for (const proxy of proxies) {
-                        try {
-                            const proxyUrl = proxy + encodeURIComponent(filePath);
-                            pdf = await pdfjsLib.getDocument(proxyUrl).promise;
-                            break; // Success, break the loop
-                        } catch (error) {
-                            lastError = error;
-                            continue; // Try next proxy
-                        }
-                    }
-                    
-                    if (!pdf) {
-                        throw new Error(`All CORS proxies failed. Last error: ${lastError?.message}`);
-                    }
-                } else {
-                    // Local file
-                    pdf = await pdfjsLib.getDocument(filePath).promise;
-                }
+                // Load local file directly
+                const pdf = await pdfjsLib.getDocument(filePath).promise;
                 
                 selectedBook.pdf = pdf;
                 selectedBook.displayName = displayName;
@@ -687,7 +661,7 @@
                 showSuccess('✅ Book loaded successfully!');
                 
             } catch (error) {
-                showError(`Error loading book: ${error.message}`);
+                showError(`Error loading book: ${error.message}. Please check if the file exists.`);
             }
         }
         
