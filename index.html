@@ -96,6 +96,47 @@
             font-weight: bold;
         }
         
+        .book-folder {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+        }
+        
+        .volume-count {
+            font-size: 0.8em;
+            color: #666;
+            margin-left: 10px;
+        }
+        
+        .volumes-list {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            margin: 10px 0;
+            padding: 5px;
+        }
+        
+        .volume-item {
+            padding: 10px 15px;
+            margin: 3px 0;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .volume-item:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+        
+        .volume-item.selected {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+        
         .collage-settings {
             background: #f8f9fa;
             padding: 15px;
@@ -357,16 +398,6 @@
         .toggle-btn:hover {
             background: #5a6268;
         }
-        
-        .resize-handle {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background: #000;
-            border: 2px solid #fff;
-            border-radius: 50%;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
@@ -381,9 +412,14 @@
         </div>
         <p class="subtitle">Create beautiful book collages with highlighting</p>
         
-        <h2 style="color: #667eea; margin-bottom: 15px; font-size: 1.3em;">Select a Book</h2>
+        <h2 style="color: #667eea; margin-bottom: 15px; font-size: 1.3em;">Available Books</h2>
         <div id="booksList" class="books-list">
             <div class="loading">Loading books...</div>
+        </div>
+        
+        <div id="volumesSection" class="hidden">
+            <h3 style="color: #667eea; margin-bottom: 10px;">Select Volume</h3>
+            <div id="volumesList" class="volumes-list"></div>
         </div>
         
         <div id="errorContainer"></div>
@@ -437,14 +473,48 @@
     </div>
 
     <script>
+        // FIXED: Correct PDF worker URL
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
         
-        // Local books in the books/ folder
-        const booksList = [
-            { name: "MUSNAD 1", file: "books/maih_3.pdf" },
-            { name: "Tabaqat Ibn Saad 1", file: "books/tis1.pdf" },
-            { name: "Musnad Ahmad vol. 1", file: "https://archive.org/download/musnadahmed/ahmd_01.pdf"}
-        ];
+        // Book structure - YOU CAN ADD YOUR BOOKS HERE
+        const booksStructure = {
+            // Local single volume books
+            "single": [
+                { name: "صحيح البخاري", file: "books/sahih-bukhari.pdf" },
+                { name: "صحيح مسلم", file: "books/sahih-muslim.pdf" },
+                { name: "سنن الترمذي", file: "books/sunan-tirmidhi.pdf" }
+            ],
+            // Local multi-volume books
+            "multi": [
+                { 
+                    name: "مسند أحمد بن حنبل", 
+                    folder: "books/musnad-ahmad/",
+                    volumes: 50,
+                    pattern: "maih_{vol}.pdf"
+                }
+            ],
+            // Archive.org books (hidden from users - you manage these)
+            "archive": [
+                {
+                    name: "مسند أحمد بن حنبل (كامل)",
+                    folder: "https://archive.org/download/musnadahmed/",
+                    volumes: 50,
+                    pattern: "ahmd_{vol}.pdf"
+                },
+                {
+                    name: "صحيح البخاري (طبعة جديدة)",
+                    folder: "https://archive.org/download/sahih-bukhari-new/",
+                    volumes: 4,
+                    pattern: "bukhari_vol{vol}.pdf"
+                },
+                {
+                    name: "سنن أبي داود",
+                    folder: "https://archive.org/download/sunan-abu-dawud/",
+                    volumes: 4,
+                    pattern: "sunan_abudawud_vol{vol}.pdf"
+                }
+            ]
+        };
         
         let books = [];
         let selectedBook = null;
@@ -462,21 +532,36 @@
 
         async function loadBooks() {
             try {
-                for (let bookInfo of booksList) {
-                    try {
-                        const pdf = await pdfjsLib.getDocument(bookInfo.file).promise;
-                        books.push({
-                            name: bookInfo.name,
-                            pdf: pdf,
-                            file: bookInfo.file
-                        });
-                    } catch (error) {
-                        console.log(`Could not load ${bookInfo.name}:`, error);
-                    }
-                }
+                // Load local single volume books
+                booksStructure.single.forEach(book => {
+                    books.push({
+                        ...book,
+                        type: 'single',
+                        source: 'local'
+                    });
+                });
+                
+                // Load local multi-volume books
+                booksStructure.multi.forEach(book => {
+                    books.push({
+                        ...book,
+                        type: 'multi', 
+                        source: 'local'
+                    });
+                });
+                
+                // Load Archive.org books (appear as normal books to users)
+                booksStructure.archive.forEach(book => {
+                    books.push({
+                        ...book,
+                        type: 'multi',
+                        source: 'archive'
+                    });
+                });
+                
                 displayBooks(books);
             } catch (error) {
-                showError('Error loading books. Please refresh the page.');
+                showError('Error loading books structure.');
             }
         }
         
@@ -500,7 +585,17 @@
             booksToDisplay.forEach((book) => {
                 const item = document.createElement('div');
                 item.className = 'book-item';
-                item.textContent = book.name;
+                
+                if (book.type === 'multi') {
+                    item.classList.add('book-folder');
+                    item.innerHTML = `
+                        📁 ${book.name}
+                        <span class="volume-count">(${book.volumes} volumes)</span>
+                    `;
+                } else {
+                    item.innerHTML = `📄 ${book.name}`;
+                }
+                
                 item.onclick = () => selectBook(book);
                 list.appendChild(item);
             });
@@ -511,17 +606,72 @@
             
             const items = document.querySelectorAll('.book-item');
             items.forEach(item => {
-                if (item.textContent === book.name) {
-                    item.classList.add('selected');
-                } else {
-                    item.classList.remove('selected');
-                }
+                item.classList.remove('selected');
             });
+            event.target.closest('.book-item').classList.add('selected');
             
-            document.getElementById('collageSettings').classList.remove('hidden');
-            document.getElementById('pageInfo').textContent = `This book has ${book.pdf.numPages} pages`;
+            if (book.type === 'multi') {
+                showVolumes(book);
+            } else {
+                document.getElementById('volumesSection').classList.add('hidden');
+                document.getElementById('collageSettings').classList.remove('hidden');
+                loadBookFile(book.file, book.name, book.source);
+            }
+        }
+        
+        function showVolumes(book) {
+            const volumesSection = document.getElementById('volumesSection');
+            const volumesList = document.getElementById('volumesList');
             
-            updatePageInputs();
+            volumesList.innerHTML = '';
+            
+            // Generate volume list
+            for (let i = 1; i <= book.volumes; i++) {
+                const volumeNumber = i.toString().padStart(2, '0'); // 01, 02, etc.
+                const volumeFile = book.pattern.replace('{vol}', volumeNumber);
+                const volumeItem = document.createElement('div');
+                volumeItem.className = 'volume-item';
+                volumeItem.innerHTML = `📖 Volume ${i}`;
+                
+                volumeItem.onclick = () => {
+                    // Remove previous selections
+                    document.querySelectorAll('.volume-item').forEach(item => {
+                        item.classList.remove('selected');
+                    });
+                    volumeItem.classList.add('selected');
+                    
+                    const filePath = book.folder + volumeFile;
+                    loadBookFile(filePath, `${book.name} - Volume ${i}`, book.source);
+                };
+                volumesList.appendChild(volumeItem);
+            }
+            
+            volumesSection.classList.remove('hidden');
+            document.getElementById('collageSettings').classList.add('hidden');
+        }
+        
+        async function loadBookFile(filePath, displayName, source) {
+            try {
+                let pdf;
+                
+                if (source === 'archive') {
+                    // Use CORS proxy for Archive.org
+                    const proxyUrl = 'https://corsproxy.io/?';
+                    pdf = await pdfjsLib.getDocument(proxyUrl + encodeURIComponent(filePath)).promise;
+                } else {
+                    // Local file
+                    pdf = await pdfjsLib.getDocument(filePath).promise;
+                }
+                
+                selectedBook.pdf = pdf;
+                selectedBook.displayName = displayName;
+                
+                document.getElementById('pageInfo').textContent = `This book has ${pdf.numPages} pages`;
+                document.getElementById('collageSettings').classList.remove('hidden');
+                
+            } catch (error) {
+                showError(`Error loading book: ${error.message}`);
+            }
         }
         
         function setPageCount(count) {
@@ -535,7 +685,7 @@
         }
         
         function updatePageInputs() {
-            if (!selectedBook) return;
+            if (!selectedBook || !selectedBook.pdf) return;
             
             const container = document.getElementById('pageInputs');
             container.innerHTML = '';
@@ -561,7 +711,7 @@
         }
         
         async function updatePreview() {
-            if (!selectedBook) return;
+            if (!selectedBook || !selectedBook.pdf) return;
             
             try {
                 const pageNumbers = [];
@@ -593,18 +743,15 @@
                 canvas.width = totalWidth;
                 canvas.height = maxHeight;
                 
-                // Calculate display scale
                 const maxDisplayWidth = Math.min(window.innerWidth - 40, 1200);
                 canvasScale = maxDisplayWidth / totalWidth;
                 
                 canvas.style.width = totalWidth * canvasScale + 'px';
                 canvas.style.height = maxHeight * canvasScale + 'px';
                 
-                // White background
                 ctx.fillStyle = 'white';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 
-                // Render each page
                 let xOffset = 0;
                 for (let i = 0; i < pages.length; i++) {
                     const tempCanvas = document.createElement('canvas');
@@ -620,14 +767,12 @@
                     xOffset += viewports[i].width;
                 }
                 
-                // Set up highlight canvas
                 const highlightCanvas = document.getElementById('highlightCanvas');
                 highlightCanvas.width = canvas.width;
                 highlightCanvas.height = canvas.height;
                 highlightCanvas.style.width = canvas.style.width;
                 highlightCanvas.style.height = canvas.style.height;
                 
-                // Reset highlights
                 highlights = [];
                 selectedRectIndex = -1;
                 drawHighlights();
@@ -644,14 +789,6 @@
         function setupHighlightCanvas() {
             const canvas = document.getElementById('highlightCanvas');
             
-            // Clear previous event listeners
-            canvas.onmousedown = null;
-            canvas.onmousemove = null;
-            canvas.onmouseup = null;
-            canvas.ontouchstart = null;
-            canvas.ontouchmove = null;
-            canvas.ontouchend = null;
-            
             function getCanvasCoordinates(clientX, clientY) {
                 const rect = canvas.getBoundingClientRect();
                 const scaleX = canvas.width / rect.width;
@@ -666,7 +803,6 @@
             function handleStart(x, y) {
                 if (!isHighlightMode) return;
                 
-                // Check if clicking on a resize handle
                 for (let i = 0; i < highlights.length; i++) {
                     const h = highlights[i];
                     const handles = getResizeHandles(h);
@@ -680,16 +816,14 @@
                         }
                     }
                     
-                    // Check if clicking on the rectangle itself
                     if (isPointInRect(x, y, h)) {
                         selectedRectIndex = i;
                         isDrawing = false;
-                        drawHighlights(); // Redraw to show resize handles
+                        drawHighlights();
                         return;
                     }
                 }
                 
-                // Start drawing a new rectangle
                 isDrawing = true;
                 startX = x;
                 startY = y;
@@ -727,7 +861,6 @@
                 resizeHandle = -1;
             }
             
-            // Mouse events
             canvas.onmousedown = (e) => {
                 const coords = getCanvasCoordinates(e.clientX, e.clientY);
                 handleStart(coords.x, coords.y);
@@ -740,7 +873,6 @@
             
             canvas.onmouseup = handleEnd;
             
-            // Touch events for mobile
             canvas.ontouchstart = (e) => {
                 e.preventDefault();
                 const touch = e.touches[0];
@@ -769,38 +901,37 @@
         function getResizeHandles(rect) {
             const size = 12;
             return [
-                { x: rect.x - size/2, y: rect.y - size/2, width: size, height: size }, // top-left
-                { x: rect.x + rect.width - size/2, y: rect.y - size/2, width: size, height: size }, // top-right
-                { x: rect.x - size/2, y: rect.y + rect.height - size/2, width: size, height: size }, // bottom-left
-                { x: rect.x + rect.width - size/2, y: rect.y + rect.height - size/2, width: size, height: size } // bottom-right
+                { x: rect.x - size/2, y: rect.y - size/2, width: size, height: size },
+                { x: rect.x + rect.width - size/2, y: rect.y - size/2, width: size, height: size },
+                { x: rect.x - size/2, y: rect.y + rect.height - size/2, width: size, height: size },
+                { x: rect.x + rect.width - size/2, y: rect.y + rect.height - size/2, width: size, height: size }
             ];
         }
         
         function resizeRectangle(rect, handleIndex, x, y) {
             switch(handleIndex) {
-                case 0: // top-left
+                case 0:
                     rect.width += rect.x - x;
                     rect.height += rect.y - y;
                     rect.x = x;
                     rect.y = y;
                     break;
-                case 1: // top-right
+                case 1:
                     rect.width = x - rect.x;
                     rect.height += rect.y - y;
                     rect.y = y;
                     break;
-                case 2: // bottom-left
+                case 2:
                     rect.width += rect.x - x;
                     rect.height = y - rect.y;
                     rect.x = x;
                     break;
-                case 3: // bottom-right
+                case 3:
                     rect.width = x - rect.x;
                     rect.height = y - rect.y;
                     break;
             }
             
-            // Ensure minimum size
             if (rect.width < 5) rect.width = 5;
             if (rect.height < 5) rect.height = 5;
         }
@@ -811,15 +942,12 @@
             
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // Set multiply blend mode
             ctx.globalCompositeOperation = 'multiply';
             
-            // Draw all highlights with solid colors
             highlights.forEach((rect, index) => {
                 ctx.fillStyle = rect.color;
                 ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
                 
-                // Draw resize handles for selected rectangle
                 if (index === selectedRectIndex) {
                     const handles = getResizeHandles(rect);
                     ctx.globalCompositeOperation = 'source-over';
@@ -831,7 +959,6 @@
                 }
             });
             
-            // Reset blend mode
             ctx.globalCompositeOperation = 'source-over';
         }
         
@@ -868,16 +995,13 @@
                 tempCanvas.width = previewCanvas.width;
                 tempCanvas.height = previewCanvas.height;
                 
-                // Draw the preview
                 tempCtx.drawImage(previewCanvas, 0, 0);
                 
-                // Draw highlights with multiply blend mode
                 tempCtx.globalCompositeOperation = 'multiply';
                 tempCtx.drawImage(highlightCanvas, 0, 0);
                 
-                // Create download link
                 const link = document.createElement('a');
-                link.download = `${selectedBook.name}-collage.png`;
+                link.download = `${selectedBook.displayName || selectedBook.name}-collage.png`;
                 link.href = tempCanvas.toDataURL('image/png', 1.0);
                 link.click();
             } catch (error) {
