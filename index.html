@@ -96,80 +96,6 @@
             font-weight: bold;
         }
         
-        .book-folder {
-            background: #f8f9fa;
-            border-left: 4px solid #667eea;
-        }
-        
-        .volume-count {
-            font-size: 0.8em;
-            color: #666;
-            margin-left: 10px;
-        }
-        
-        .volumes-list {
-            max-height: 200px;
-            overflow-y: auto;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            margin: 10px 0;
-            padding: 5px;
-        }
-        
-        .volume-item {
-            padding: 10px 15px;
-            margin: 3px 0;
-            background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .volume-item:hover {
-            border-color: #667eea;
-            background: #f0f4ff;
-        }
-        
-        .volume-item.selected {
-            border-color: #667eea;
-            background: #667eea;
-            color: white;
-        }
-        
-        .archive-section {
-            background: #e7f3ff;
-            padding: 15px;
-            border-radius: 15px;
-            margin: 15px 0;
-            border: 2px solid #667eea;
-        }
-        
-        .archive-input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 2px solid #667eea;
-            border-radius: 8px;
-            font-family: 'Amiri', 'Scheherazade New', serif;
-        }
-        
-        .archive-btn {
-            background: #667eea;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-            font-family: 'Amiri', 'Scheherazade New', serif;
-        }
-        
-        .archive-btn:hover {
-            background: #764ba2;
-        }
-        
         .collage-settings {
             background: #f8f9fa;
             padding: 15px;
@@ -431,6 +357,16 @@
         .toggle-btn:hover {
             background: #5a6268;
         }
+        
+        .resize-handle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #000;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -445,24 +381,9 @@
         </div>
         <p class="subtitle">Create beautiful book collages with highlighting</p>
         
-        <!-- Archive.org Integration -->
-        <div class="archive-section">
-            <h3 style="color: #667eea; margin-bottom: 10px;">Load from Archive.org</h3>
-            <p style="color: #666; font-size: 14px; margin-bottom: 10px;">
-                Enter Archive.org PDF URL (e.g., https://archive.org/download/musnad-ahmad/maih_1.pdf)
-            </p>
-            <input type="text" id="archiveUrl" class="archive-input" placeholder="https://archive.org/download/...">
-            <button class="archive-btn" onclick="loadFromArchive()">Load PDF</button>
-        </div>
-        
-        <h2 style="color: #667eea; margin-bottom: 15px; font-size: 1.3em;">Available Books</h2>
+        <h2 style="color: #667eea; margin-bottom: 15px; font-size: 1.3em;">Select a Book</h2>
         <div id="booksList" class="books-list">
             <div class="loading">Loading books...</div>
-        </div>
-        
-        <div id="volumesSection" class="hidden">
-            <h3 style="color: #667eea; margin-bottom: 10px;">Select Volume</h3>
-            <div id="volumesList" class="volumes-list"></div>
         </div>
         
         <div id="errorContainer"></div>
@@ -516,38 +437,14 @@
     </div>
 
     <script>
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.worker.min.js';
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
         
-        // Book structure with folders for multi-volume books
-        const booksStructure = {
-            // Single volume books (directly in books folder)
-            "single": [
-                { name: "مسند احمد بن حنبل ج 3", file: "books/maih_3.pdf" },
-                { name: "Musnad vol.1", file: "https://archive.org/details/musnadahmed/ahmd_01/" },
-                { name: "سنن الترمذي", file: "books/sunan-tirmidhi.pdf" }
-            ],
-            // Multi-volume books (organized in folders)
-            "multi": [
-                { 
-                    name: "مسند أحمد بن حنبل", 
-                    folder: "books/musnad-ahmad/",
-                    volumes: 50,
-                    pattern: "maih_{vol}.pdf"
-                },
-                { 
-                    name: "سنن أبي داود", 
-                    folder: "books/sunan-abu-dawud/",
-                    volumes: 4,
-                    pattern: "sunan_abudawud_vol{vol}.pdf"
-                },
-                { 
-                    name: "المعجم الكبير", 
-                    folder: "books/al-mujam-al-kabir/",
-                    volumes: 25,
-                    pattern: "mujam_kabir_vol{vol}.pdf"
-                }
-            ]
-        };
+        // Local books in the books/ folder
+        const booksList = [
+            { name: "MUSNAD 1", file: "books/maih_3.pdf" },
+            { name: "Tabaqat Ibn Saad 1", file: "books/tis1.pdf" },
+            { name: "Musnad Ahmad vol. 1", file: "https://archive.org/download/musnadahmed/ahmd_01.pdf"}
+        ];
         
         let books = [];
         let selectedBook = null;
@@ -565,29 +462,21 @@
 
         async function loadBooks() {
             try {
-                // Load single volume books
-                booksStructure.single.forEach(book => {
-                    books.push({
-                        name: book.name,
-                        file: book.file,
-                        type: 'single'
-                    });
-                });
-                
-                // Load multi-volume books as folders
-                booksStructure.multi.forEach(book => {
-                    books.push({
-                        name: book.name,
-                        folder: book.folder,
-                        volumes: book.volumes,
-                        pattern: book.pattern,
-                        type: 'multi'
-                    });
-                });
-                
+                for (let bookInfo of booksList) {
+                    try {
+                        const pdf = await pdfjsLib.getDocument(bookInfo.file).promise;
+                        books.push({
+                            name: bookInfo.name,
+                            pdf: pdf,
+                            file: bookInfo.file
+                        });
+                    } catch (error) {
+                        console.log(`Could not load ${bookInfo.name}:`, error);
+                    }
+                }
                 displayBooks(books);
             } catch (error) {
-                showError('Error loading books structure.');
+                showError('Error loading books. Please refresh the page.');
             }
         }
         
@@ -611,17 +500,7 @@
             booksToDisplay.forEach((book) => {
                 const item = document.createElement('div');
                 item.className = 'book-item';
-                
-                if (book.type === 'multi') {
-                    item.classList.add('book-folder');
-                    item.innerHTML = `
-                        📁 ${book.name}
-                        <span class="volume-count">(${book.volumes} volumes)</span>
-                    `;
-                } else {
-                    item.innerHTML = `📄 ${book.name}`;
-                }
-                
+                item.textContent = book.name;
                 item.onclick = () => selectBook(book);
                 list.appendChild(item);
             });
@@ -632,88 +511,17 @@
             
             const items = document.querySelectorAll('.book-item');
             items.forEach(item => {
-                item.classList.remove('selected');
+                if (item.textContent === book.name) {
+                    item.classList.add('selected');
+                } else {
+                    item.classList.remove('selected');
+                }
             });
-            event.target.closest('.book-item').classList.add('selected');
             
-            if (book.type === 'multi') {
-                showVolumes(book);
-            } else {
-                document.getElementById('volumesSection').classList.add('hidden');
-                document.getElementById('collageSettings').classList.remove('hidden');
-                loadBookFile(book.file, book.name);
-            }
-        }
-        
-        function showVolumes(book) {
-            const volumesSection = document.getElementById('volumesSection');
-            const volumesList = document.getElementById('volumesList');
+            document.getElementById('collageSettings').classList.remove('hidden');
+            document.getElementById('pageInfo').textContent = `This book has ${book.pdf.numPages} pages`;
             
-            volumesList.innerHTML = '';
-            
-            // Generate volume list
-            for (let i = 1; i <= book.volumes; i++) {
-                const volumeFile = book.pattern.replace('{vol}', i);
-                const volumeItem = document.createElement('div');
-                volumeItem.className = 'volume-item';
-                volumeItem.innerHTML = `📖 Volume ${i}`;
-                volumeItem.onclick = () => {
-                    // Remove previous selections
-                    document.querySelectorAll('.volume-item').forEach(item => {
-                        item.classList.remove('selected');
-                    });
-                    volumeItem.classList.add('selected');
-                    
-                    const filePath = book.folder + volumeFile;
-                    loadBookFile(filePath, `${book.name} - Volume ${i}`);
-                };
-                volumesList.appendChild(volumeItem);
-            }
-            
-            volumesSection.classList.remove('hidden');
-            document.getElementById('collageSettings').classList.add('hidden');
-        }
-        
-        async function loadBookFile(filePath, displayName) {
-            try {
-                const pdf = await pdfjsLib.getDocument(filePath).promise;
-                selectedBook.pdf = pdf;
-                selectedBook.displayName = displayName;
-                
-                document.getElementById('pageInfo').textContent = `This book has ${pdf.numPages} pages`;
-                document.getElementById('collageSettings').classList.remove('hidden');
-            } catch (error) {
-                showError(`Error loading book: ${error.message}`);
-            }
-        }
-        
-        async function loadFromArchive() {
-            const url = document.getElementById('archiveUrl').value.trim();
-            if (!url) {
-                showError('Please enter an Archive.org URL');
-                return;
-            }
-            
-            try {
-                // Add CORS proxy for Archive.org
-                const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-                const pdf = await pdfjsLib.getDocument(proxyUrl + url).promise;
-                
-                selectedBook = {
-                    name: "Archive.org Book",
-                    pdf: pdf,
-                    displayName: "Archive.org Book",
-                    type: 'archive'
-                };
-                
-                document.getElementById('pageInfo').textContent = `This book has ${pdf.numPages} pages`;
-                document.getElementById('collageSettings').classList.remove('hidden');
-                document.getElementById('volumesSection').classList.add('hidden');
-                
-                showError('Book loaded successfully from Archive.org!');
-            } catch (error) {
-                showError('Error loading from Archive.org. Please check the URL and try again.');
-            }
+            updatePageInputs();
         }
         
         function setPageCount(count) {
@@ -727,7 +535,7 @@
         }
         
         function updatePageInputs() {
-            if (!selectedBook || !selectedBook.pdf) return;
+            if (!selectedBook) return;
             
             const container = document.getElementById('pageInputs');
             container.innerHTML = '';
@@ -753,7 +561,7 @@
         }
         
         async function updatePreview() {
-            if (!selectedBook || !selectedBook.pdf) return;
+            if (!selectedBook) return;
             
             try {
                 const pageNumbers = [];
@@ -833,9 +641,16 @@
             }
         }
         
-        // [Rest of the highlighting functions remain the same as previous version]
         function setupHighlightCanvas() {
             const canvas = document.getElementById('highlightCanvas');
+            
+            // Clear previous event listeners
+            canvas.onmousedown = null;
+            canvas.onmousemove = null;
+            canvas.onmouseup = null;
+            canvas.ontouchstart = null;
+            canvas.ontouchmove = null;
+            canvas.ontouchend = null;
             
             function getCanvasCoordinates(clientX, clientY) {
                 const rect = canvas.getBoundingClientRect();
@@ -869,7 +684,7 @@
                     if (isPointInRect(x, y, h)) {
                         selectedRectIndex = i;
                         isDrawing = false;
-                        drawHighlights();
+                        drawHighlights(); // Redraw to show resize handles
                         return;
                     }
                 }
@@ -954,10 +769,10 @@
         function getResizeHandles(rect) {
             const size = 12;
             return [
-                { x: rect.x - size/2, y: rect.y - size/2, width: size, height: size },
-                { x: rect.x + rect.width - size/2, y: rect.y - size/2, width: size, height: size },
-                { x: rect.x - size/2, y: rect.y + rect.height - size/2, width: size, height: size },
-                { x: rect.x + rect.width - size/2, y: rect.y + rect.height - size/2, width: size, height: size }
+                { x: rect.x - size/2, y: rect.y - size/2, width: size, height: size }, // top-left
+                { x: rect.x + rect.width - size/2, y: rect.y - size/2, width: size, height: size }, // top-right
+                { x: rect.x - size/2, y: rect.y + rect.height - size/2, width: size, height: size }, // bottom-left
+                { x: rect.x + rect.width - size/2, y: rect.y + rect.height - size/2, width: size, height: size } // bottom-right
             ];
         }
         
@@ -985,6 +800,7 @@
                     break;
             }
             
+            // Ensure minimum size
             if (rect.width < 5) rect.width = 5;
             if (rect.height < 5) rect.height = 5;
         }
@@ -995,12 +811,15 @@
             
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
+            // Set multiply blend mode
             ctx.globalCompositeOperation = 'multiply';
             
+            // Draw all highlights with solid colors
             highlights.forEach((rect, index) => {
                 ctx.fillStyle = rect.color;
                 ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
                 
+                // Draw resize handles for selected rectangle
                 if (index === selectedRectIndex) {
                     const handles = getResizeHandles(rect);
                     ctx.globalCompositeOperation = 'source-over';
@@ -1012,6 +831,7 @@
                 }
             });
             
+            // Reset blend mode
             ctx.globalCompositeOperation = 'source-over';
         }
         
@@ -1048,13 +868,16 @@
                 tempCanvas.width = previewCanvas.width;
                 tempCanvas.height = previewCanvas.height;
                 
+                // Draw the preview
                 tempCtx.drawImage(previewCanvas, 0, 0);
                 
+                // Draw highlights with multiply blend mode
                 tempCtx.globalCompositeOperation = 'multiply';
                 tempCtx.drawImage(highlightCanvas, 0, 0);
                 
+                // Create download link
                 const link = document.createElement('a');
-                link.download = `${selectedBook.displayName || selectedBook.name}-collage.png`;
+                link.download = `${selectedBook.name}-collage.png`;
                 link.href = tempCanvas.toDataURL('image/png', 1.0);
                 link.click();
             } catch (error) {
