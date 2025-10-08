@@ -63,6 +63,36 @@
             font-size: 0.9em;
         }
         
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 12px 50px 12px 15px;
+            font-size: 16px;
+            border: 2px solid #667eea;
+            border-radius: 50px;
+            outline: none;
+            font-family: 'Amiri', 'Scheherazade New', serif;
+        }
+        
+        .search-bar input:focus {
+            border-color: #764ba2;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #667eea;
+            font-size: 18px;
+        }
+        
         .books-list {
             max-height: 300px;
             overflow-y: auto;
@@ -87,6 +117,7 @@
         .book-item:hover {
             border-color: #667eea;
             background: #f0f4ff;
+            transform: translateX(5px);
         }
         
         .book-item.selected {
@@ -129,6 +160,7 @@
         .volume-item:hover {
             border-color: #667eea;
             background: #f0f4ff;
+            transform: translateX(3px);
         }
         
         .volume-item.selected {
@@ -142,6 +174,7 @@
             padding: 15px;
             border-radius: 15px;
             margin-bottom: 20px;
+            animation: fadeInUp 0.5s ease-out;
         }
         
         .setting-group {
@@ -175,9 +208,15 @@
             font-family: 'Amiri', 'Scheherazade New', serif;
         }
         
+        .page-count-btn:hover {
+            background: #f0f4ff;
+            transform: translateY(-2px);
+        }
+        
         .page-count-btn.active {
             background: #667eea;
             color: white;
+            transform: translateY(-2px);
         }
         
         .page-inputs {
@@ -185,6 +224,7 @@
             gap: 10px;
             flex-wrap: wrap;
             align-items: center;
+            animation: fadeIn 0.5s ease-out;
         }
         
         .page-input-group {
@@ -218,15 +258,18 @@
             font-weight: bold;
             transition: all 0.3s;
             font-family: 'Amiri', 'Scheherazade New', serif;
+            animation: pulse 2s infinite;
         }
         
         .preview-btn:hover {
             background: #764ba2;
+            transform: translateY(-2px);
         }
         
         .preview-section {
             text-align: center;
             margin-top: 20px;
+            animation: fadeInUp 0.5s ease-out;
         }
         
         .preview-container {
@@ -294,6 +337,7 @@
             border-radius: 8px;
             margin: 10px 0;
             font-size: 14px;
+            animation: shake 0.5s ease-in-out;
         }
         
         .success-message {
@@ -304,6 +348,7 @@
             border-radius: 8px;
             margin: 10px 0;
             font-size: 14px;
+            animation: bounceIn 0.5s ease-out;
         }
         
         .no-results {
@@ -320,11 +365,23 @@
             padding: 20px;
         }
         
+        .loading-spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 10px;
+        }
+        
         .highlight-controls {
             background: #f8f9fa;
             padding: 15px;
             border-radius: 15px;
             margin: 15px 0;
+            animation: fadeInUp 0.5s ease-out;
         }
         
         .highlight-colors {
@@ -344,25 +401,29 @@
             transition: all 0.3s;
         }
         
-        .color-btn.active {
-            border-color: #333;
+        .color-btn:hover {
             transform: scale(1.1);
         }
         
+        .color-btn.active {
+            border-color: #333;
+            transform: scale(1.2);
+        }
+        
         .highlight-yellow {
-            background-color: rgba(255, 255, 0, 0.3);
+            background-color: #ffff00;
         }
         
         .highlight-red {
-            background-color: rgba(255, 0, 0, 0.3);
+            background-color: #ff0000;
         }
         
         .highlight-cyan {
-            background-color: rgba(0, 255, 255, 0.3);
+            background-color: #00ffff;
         }
         
         .highlight-lime {
-            background-color: rgba(0, 255, 0, 0.3);
+            background-color: #00ff00;
         }
         
         .highlight-instructions {
@@ -391,6 +452,10 @@
             font-family: 'Amiri', 'Scheherazade New', serif;
         }
         
+        .action-btn:hover {
+            transform: translateY(-2px);
+        }
+        
         .clear-btn {
             background: #dc3545;
             color: white;
@@ -408,6 +473,64 @@
         .toggle-btn:hover {
             background: #5a6268;
         }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
+            }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
     </style>
 </head>
 <body>
@@ -422,9 +545,18 @@
         </div>
         <p class="subtitle">Create beautiful book collages with highlighting</p>
         
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search books..." oninput="searchBooks()">
+            <span class="search-icon">🔍</span>
+        </div>
+        
         <h2 style="color: #667eea; margin-bottom: 15px; font-size: 1.3em;">Available Books</h2>
         <div id="booksList" class="books-list">
-            <div class="loading">Loading books...</div>
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                Loading books...
+            </div>
         </div>
         
         <div id="volumesSection" class="hidden">
@@ -457,10 +589,10 @@
         <div id="highlightSection" class="highlight-controls hidden">
             <h3 style="color: #667eea; margin-bottom: 10px; text-align: center;">Highlight Text</h3>
             <div class="highlight-colors">
-                <div class="color-btn highlight-yellow active" data-color="rgba(255, 255, 0, 0.3)" onclick="setHighlightColor(this)"></div>
-                <div class="color-btn highlight-red" data-color="rgba(255, 0, 0, 0.3)" onclick="setHighlightColor(this)"></div>
-                <div class="color-btn highlight-cyan" data-color="rgba(0, 255, 255, 0.3)" onclick="setHighlightColor(this)"></div>
-                <div class="color-btn highlight-lime" data-color="rgba(0, 255, 0, 0.3)" onclick="setHighlightColor(this)"></div>
+                <div class="color-btn highlight-yellow active" data-color="#ffff00" onclick="setHighlightColor(this)"></div>
+                <div class="color-btn highlight-red" data-color="#ff0000" onclick="setHighlightColor(this)"></div>
+                <div class="color-btn highlight-cyan" data-color="#00ffff" onclick="setHighlightColor(this)"></div>
+                <div class="color-btn highlight-lime" data-color="#00ff00" onclick="setHighlightColor(this)"></div>
             </div>
             <p class="highlight-instructions">
                 Click/tap and drag to create highlights. Click on existing highlights to resize them.
@@ -490,7 +622,11 @@
         const booksStructure = {
             // Single volume books (direct files)
             "single": [
-                { name: "MUSNAD AHMAD vol. 3", file: "books/maih_3.pdf" }
+                { name: "صحيح البخاري", file: "books/maih_3.pdf" },
+                { name: "صحيح مسلم", file: "books/tis1.pdf" },
+                { name: "سنن الترمذي", file: "books/sunan-tirmidhi.pdf" },
+                { name: "سنن النسائي", file: "books/sunan-nasai.pdf" },
+                { name: "سنن ابن ماجة", file: "books/sunan-ibn-majah.pdf" }
             ],
             // Multi-volume books (organized in folders)
             "multi": [
@@ -519,7 +655,7 @@
         let selectedBook = null;
         let pageCount = 2;
         let highlights = [];
-        let currentHighlightColor = "rgba(255, 255, 0, 0.3)";
+        let currentHighlightColor = "#ffff00";
         let isHighlightMode = true;
         let isDrawing = false;
         let currentRect = null;
@@ -531,6 +667,18 @@
 
         async function loadBooks() {
             try {
+                // Show loading animation
+                const list = document.getElementById('booksList');
+                list.innerHTML = `
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        Loading books...
+                    </div>
+                `;
+                
+                // Simulate loading delay for better UX
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
                 // Load single volume books
                 booksStructure.single.forEach(book => {
                     books.push({
@@ -551,6 +699,14 @@
             } catch (error) {
                 showError('Error loading books structure.');
             }
+        }
+        
+        function searchBooks() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = books.filter(book => 
+                book.name.toLowerCase().includes(query)
+            );
+            displayBooks(filtered);
         }
         
         function showError(message) {
@@ -574,7 +730,7 @@
             list.innerHTML = '';
             
             if (booksToDisplay.length === 0) {
-                list.innerHTML = '<div class="no-results">No books found</div>';
+                list.innerHTML = '<div class="no-results">No books found matching your search</div>';
                 return;
             }
             
@@ -610,7 +766,6 @@
                 showVolumes(book);
             } else {
                 document.getElementById('volumesSection').classList.add('hidden');
-                document.getElementById('collageSettings').classList.remove('hidden');
                 loadBookFile(book.file, book.name);
             }
         }
@@ -647,16 +802,29 @@
         
         async function loadBookFile(filePath, displayName) {
             try {
-                showSuccess('Loading book...');
+                // Show loading animation
+                const container = document.getElementById('errorContainer');
+                container.innerHTML = `
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        Loading book...
+                    </div>
+                `;
                 
                 // Load local file directly
                 const pdf = await pdfjsLib.getDocument(filePath).promise;
                 
-                selectedBook.pdf = pdf;
-                selectedBook.displayName = displayName;
+                selectedBook = {
+                    ...selectedBook,
+                    pdf: pdf,
+                    displayName: displayName
+                };
                 
                 document.getElementById('pageInfo').textContent = `This book has ${pdf.numPages} pages`;
                 document.getElementById('collageSettings').classList.remove('hidden');
+                
+                // FIXED: Automatically show page inputs when book loads
+                updatePageInputs();
                 
                 showSuccess('✅ Book loaded successfully!');
                 
@@ -716,6 +884,15 @@
                     pageNumbers.push(pageNum);
                 }
                 
+                // Show loading animation
+                const container = document.getElementById('errorContainer');
+                container.innerHTML = `
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        Generating preview...
+                    </div>
+                `;
+                
                 const pages = [];
                 for (let pageNum of pageNumbers) {
                     const page = await selectedBook.pdf.getPage(pageNum);
@@ -772,6 +949,9 @@
                 document.getElementById('highlightSection').classList.remove('hidden');
                 
                 setupHighlightCanvas();
+                
+                showSuccess('✅ Preview generated successfully!');
+                
             } catch (error) {
                 showError('Error creating preview. Please check your page numbers.');
             }
@@ -936,7 +1116,7 @@
             // Set multiply blend mode for real-time preview
             ctx.globalCompositeOperation = 'multiply';
             
-            // Draw all highlights with transparent colors
+            // Draw all highlights with solid colors
             highlights.forEach((rect, index) => {
                 ctx.fillStyle = rect.color;
                 ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
