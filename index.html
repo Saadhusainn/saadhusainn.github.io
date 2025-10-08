@@ -132,6 +132,13 @@
             border-left: 4px solid #667eea;
         }
         
+        .book-meta {
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 5px;
+            line-height: 1.4;
+        }
+        
         .volume-count {
             font-size: 0.8em;
             color: #666;
@@ -245,25 +252,12 @@
             width: 70px;
             text-align: center;
             font-family: 'Amiri', 'Scheherazade New', serif;
-        }
-        
-        .preview-btn {
-            background: #667eea;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
             transition: all 0.3s;
-            font-family: 'Amiri', 'Scheherazade New', serif;
-            animation: pulse 2s infinite;
         }
         
-        .preview-btn:hover {
-            background: #764ba2;
-            transform: translateY(-2px);
+        .page-input-group input:focus {
+            border-color: #764ba2;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
         }
         
         .preview-section {
@@ -509,18 +503,6 @@
             }
         }
 
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4);
-            }
-            70% {
-                box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
-            }
-        }
-
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -582,8 +564,6 @@
             </div>
             
             <p class="info-text" id="pageInfo"></p>
-            
-            <button class="preview-btn" onclick="updatePreview()">Generate Preview</button>
         </div>
         
         <div id="highlightSection" class="highlight-controls hidden">
@@ -618,7 +598,7 @@
         // Correct PDF worker URL
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
         
-        // Book structure - ONLY LOCAL FILES FROM YOUR GITHUB REPO
+        // Enhanced Book structure with publisher and language info
         const booksStructure = {
             // Single volume books (direct files)
             "single": [
@@ -630,13 +610,17 @@
                     name: "المصنف لعبد الرزاق", 
                     folder: "https://jkzrxmubfuyhuwlbpfoj.supabase.co/storage/v1/object/public/sijjeen1/Musannaf%20abd%20al-Razzaq/",
                     volumes: 10,
-                    pattern: "{vol}-6836.pdf"
+                    pattern: "{vol}-6836.pdf",
+                    publisher: "دار التصيل",
+                    language: "العربية"
                 },
                 { 
                     name: "مسند الحميدي", 
                     folder: "https://jkzrxmubfuyhuwlbpfoj.supabase.co/storage/v1/object/public/sijjeen1/Musnad%20humaydi/",
                     volumes: 2,
-                    pattern: "mh{vol}.pdf"
+                    pattern: "mh{vol}.pdf",
+                    publisher: "دار المامون للتراث",
+                    language: "العربية"
                 }
             ]
         };
@@ -654,6 +638,7 @@
         let isResizing = false;
         let resizeHandle = -1;
         let canvasScale = 1;
+        let previewTimeout = null;
 
         async function loadBooks() {
             try {
@@ -694,7 +679,9 @@
         function searchBooks() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             const filtered = books.filter(book => 
-                book.name.toLowerCase().includes(query)
+                book.name.toLowerCase().includes(query) ||
+                (book.publisher && book.publisher.toLowerCase().includes(query)) ||
+                (book.language && book.language.toLowerCase().includes(query))
             );
             displayBooks(filtered);
         }
@@ -730,12 +717,32 @@
                 
                 if (book.type === 'multi') {
                     item.classList.add('book-folder');
+                    let metaHTML = '';
+                    if (book.publisher || book.language) {
+                        metaHTML = `<div class="book-meta">`;
+                        if (book.publisher) metaHTML += `<strong>الناشر:</strong> ${book.publisher}<br>`;
+                        if (book.language) metaHTML += `<strong>اللغة:</strong> ${book.language}`;
+                        metaHTML += `</div>`;
+                    }
+                    
                     item.innerHTML = `
                         📁 ${book.name}
                         <span class="volume-count">(${book.volumes} volumes)</span>
+                        ${metaHTML}
                     `;
                 } else {
-                    item.innerHTML = `📄 ${book.name}`;
+                    let metaHTML = '';
+                    if (book.publisher || book.language) {
+                        metaHTML = `<div class="book-meta">`;
+                        if (book.publisher) metaHTML += `<strong>الناشر:</strong> ${book.publisher}<br>`;
+                        if (book.language) metaHTML += `<strong>اللغة:</strong> ${book.language}`;
+                        metaHTML += `</div>`;
+                    }
+                    
+                    item.innerHTML = `
+                        📄 ${book.name}
+                        ${metaHTML}
+                    `;
                 }
                 
                 item.onclick = () => selectBook(book);
@@ -772,7 +779,19 @@
                 const volumeFile = book.pattern.replace('{vol}', volumeNumber);
                 const volumeItem = document.createElement('div');
                 volumeItem.className = 'volume-item';
-                volumeItem.innerHTML = `📖 Volume ${i}`;
+                
+                let metaHTML = '';
+                if (book.publisher || book.language) {
+                    metaHTML = `<div class="book-meta" style="font-size: 0.7em; margin-top: 3px;">`;
+                    if (book.publisher) metaHTML += `<strong>الناشر:</strong> ${book.publisher}<br>`;
+                    if (book.language) metaHTML += `<strong>اللغة:</strong> ${book.language}`;
+                    metaHTML += `</div>`;
+                }
+                
+                volumeItem.innerHTML = `
+                    📖 Volume ${i}
+                    ${metaHTML}
+                `;
                 
                 volumeItem.onclick = () => {
                     document.querySelectorAll('.volume-item').forEach(item => {
@@ -801,7 +820,7 @@
                     </div>
                 `;
                 
-                // Load local file directly
+                // Load file directly
                 const pdf = await pdfjsLib.getDocument(filePath).promise;
                 
                 selectedBook = {
@@ -813,10 +832,13 @@
                 document.getElementById('pageInfo').textContent = `This book has ${pdf.numPages} pages`;
                 document.getElementById('collageSettings').classList.remove('hidden');
                 
-                // FIXED: Automatically show page inputs when book loads
+                // Automatically show page inputs when book loads
                 updatePageInputs();
                 
-                showSuccess('✅ Book loaded successfully!');
+                // Auto-generate preview
+                await updatePreview();
+                
+                showSuccess('✅ Book loaded successfully! Preview generated automatically.');
                 
             } catch (error) {
                 showError(`Error loading book: ${error.message}. Please check if the file exists.`);
@@ -831,6 +853,8 @@
             event.target.classList.add('active');
             
             updatePageInputs();
+            // Auto-update preview when page count changes
+            debouncedUpdatePreview();
         }
         
         function updatePageInputs() {
@@ -852,11 +876,22 @@
                 input.min = '1';
                 input.max = selectedBook.pdf.numPages;
                 input.value = i;
+                input.oninput = debouncedUpdatePreview; // Live preview on input change
                 
                 group.appendChild(label);
                 group.appendChild(input);
                 container.appendChild(group);
             }
+        }
+        
+        // Debounce function to prevent too many preview updates
+        function debouncedUpdatePreview() {
+            if (previewTimeout) {
+                clearTimeout(previewTimeout);
+            }
+            previewTimeout = setTimeout(() => {
+                updatePreview();
+            }, 500); // 500ms delay
         }
         
         async function updatePreview() {
@@ -866,22 +901,18 @@
                 const pageNumbers = [];
                 for (let i = 1; i <= pageCount; i++) {
                     const input = document.getElementById(`page${i}`);
+                    if (!input) continue;
+                    
                     const pageNum = parseInt(input.value);
                     if (isNaN(pageNum) || pageNum < 1 || pageNum > selectedBook.pdf.numPages) {
-                        showError(`Page ${i} must be between 1 and ${selectedBook.pdf.numPages}`);
-                        return;
+                        // Don't show error for live updates, just skip invalid pages
+                        continue;
                     }
                     pageNumbers.push(pageNum);
                 }
                 
-                // Show loading animation
-                const container = document.getElementById('errorContainer');
-                container.innerHTML = `
-                    <div class="loading">
-                        <div class="loading-spinner"></div>
-                        Generating preview...
-                    </div>
-                `;
+                // Skip if no valid page numbers
+                if (pageNumbers.length === 0) return;
                 
                 const pages = [];
                 for (let pageNum of pageNumbers) {
@@ -889,7 +920,8 @@
                     pages.push(page);
                 }
                 
-                const scale = 2;
+                // MAXIMUM QUALITY: Increased scale for higher resolution
+                const scale = 4; // Increased from 2 to 4 for maximum quality
                 const viewports = pages.map(page => page.getViewport({scale}));
                 
                 const canvas = document.getElementById('previewCanvas');
@@ -898,18 +930,22 @@
                 const totalWidth = viewports.reduce((sum, vp) => sum + vp.width, 0);
                 const maxHeight = Math.max(...viewports.map(vp => vp.height));
                 
+                // Set canvas to high resolution
                 canvas.width = totalWidth;
                 canvas.height = maxHeight;
                 
+                // Calculate display scale for screen (different from render scale)
                 const maxDisplayWidth = Math.min(window.innerWidth - 40, 1200);
                 canvasScale = maxDisplayWidth / totalWidth;
                 
                 canvas.style.width = totalWidth * canvasScale + 'px';
                 canvas.style.height = maxHeight * canvasScale + 'px';
                 
+                // White background
                 ctx.fillStyle = 'white';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 
+                // Render each page at maximum quality
                 let xOffset = 0;
                 for (let i = 0; i < pages.length; i++) {
                     const tempCanvas = document.createElement('canvas');
@@ -925,14 +961,14 @@
                     xOffset += viewports[i].width;
                 }
                 
+                // Set up highlight canvas
                 const highlightCanvas = document.getElementById('highlightCanvas');
                 highlightCanvas.width = canvas.width;
                 highlightCanvas.height = canvas.height;
                 highlightCanvas.style.width = canvas.style.width;
                 highlightCanvas.style.height = canvas.style.height;
                 
-                highlights = [];
-                selectedRectIndex = -1;
+                // Preserve existing highlights
                 drawHighlights();
                 
                 document.getElementById('previewSection').classList.remove('hidden');
@@ -940,10 +976,8 @@
                 
                 setupHighlightCanvas();
                 
-                showSuccess('✅ Preview generated successfully!');
-                
             } catch (error) {
-                showError('Error creating preview. Please check your page numbers.');
+                console.error('Error updating preview:', error);
             }
         }
         
@@ -1156,10 +1190,11 @@
                 const tempCanvas = document.createElement('canvas');
                 const tempCtx = tempCanvas.getContext('2d');
                 
+                // Use maximum quality for download
                 tempCanvas.width = previewCanvas.width;
                 tempCanvas.height = previewCanvas.height;
                 
-                // Draw the preview
+                // Draw the preview at maximum quality
                 tempCtx.drawImage(previewCanvas, 0, 0);
                 
                 // Draw highlights with multiply blend mode (NO resize handles in final download)
@@ -1173,7 +1208,7 @@
                 
                 const link = document.createElement('a');
                 link.download = `${selectedBook.displayName || selectedBook.name}-collage.png`;
-                link.href = tempCanvas.toDataURL('image/png', 1.0);
+                link.href = tempCanvas.toDataURL('image/png', 1.0); // Maximum quality PNG
                 link.click();
             } catch (error) {
                 showError('Error downloading collage. Please try again.');
