@@ -622,31 +622,21 @@
         const booksStructure = {
             // Single volume books (direct files)
             "single": [
-                { name: "مسند أحمد بن حنبل ج 3 [مؤسسة الرسالة]", file: "books/maih_3.pdf" },
-                { name: "الطبقات الكبرى لابن سعد ج 1 [مكتبة الخانجي]", file: "books/tis1.pdf" },
-                { name: "سنن الترمذي", file: "https://sbtjrgjrqghfrqtnmlmn.supabase.co/storage/v1/object/public/sijjeen1/musnad%20ahmad/ahmd_01.pdf" },
-                { name: "سنن النسائي", file: "books/sunan-nasai.pdf" },
-                { name: "سنن ابن ماجة", file: "books/sunan-ibn-majah.pdf" }
+                
             ],
             // Multi-volume books (organized in folders)
             "multi": [
                 { 
-                    name: "مسند أحمد بن حنبل", 
-                    folder: "https://sbtjrgjrqghfrqtnmlmn.supabase.co/storage/v1/object/public/sijjeen1/musnad%20ahmad/",
-                    volumes: 50,
-                    pattern: "ahmd_{vol}.pdf"
+                    name: "المصنف لعبد الرزاق", 
+                    folder: "https://jkzrxmubfuyhuwlbpfoj.supabase.co/storage/v1/object/public/sijjeen1/Musannaf%20abd%20al-Razzaq/",
+                    volumes: 10,
+                    pattern: "{vol}-6836.pdf"
                 },
                 { 
-                    name: "سنن أبي داود", 
-                    folder: "books/sunan-abu-dawud/",
-                    volumes: 4,
-                    pattern: "sunan_abudawud_vol{vol}.pdf"
-                },
-                { 
-                    name: "موطأ الإمام مالك", 
-                    folder: "books/muwatta-malik/",
+                    name: "مسند الحميدي", 
+                    folder: "https://jkzrxmubfuyhuwlbpfoj.supabase.co/storage/v1/object/public/sijjeen1/Musnad%20humaydi/",
                     volumes: 2,
-                    pattern: "muwatta_vol{vol}.pdf"
+                    pattern: "mh{vol}.pdf"
                 }
             ]
         };
