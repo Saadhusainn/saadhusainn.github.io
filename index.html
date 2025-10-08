@@ -296,6 +296,16 @@
             font-size: 14px;
         }
         
+        .success-message {
+            background: #efe;
+            border: 2px solid #cfc;
+            color: #363;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        
         .no-results {
             text-align: center;
             padding: 30px;
@@ -340,19 +350,19 @@
         }
         
         .highlight-yellow {
-            background-color: #ffff00;
+            background-color: rgba(255, 255, 0, 0.3);
         }
         
         .highlight-red {
-            background-color: #ff0000;
+            background-color: rgba(255, 0, 0, 0.3);
         }
         
         .highlight-cyan {
-            background-color: #00ffff;
+            background-color: rgba(0, 255, 255, 0.3);
         }
         
         .highlight-lime {
-            background-color: #00ff00;
+            background-color: rgba(0, 255, 0, 0.3);
         }
         
         .highlight-instructions {
@@ -447,10 +457,10 @@
         <div id="highlightSection" class="highlight-controls hidden">
             <h3 style="color: #667eea; margin-bottom: 10px; text-align: center;">Highlight Text</h3>
             <div class="highlight-colors">
-                <div class="color-btn highlight-yellow active" data-color="#ffff00" onclick="setHighlightColor(this)"></div>
-                <div class="color-btn highlight-red" data-color="#ff0000" onclick="setHighlightColor(this)"></div>
-                <div class="color-btn highlight-cyan" data-color="#00ffff" onclick="setHighlightColor(this)"></div>
-                <div class="color-btn highlight-lime" data-color="#00ff00" onclick="setHighlightColor(this)"></div>
+                <div class="color-btn highlight-yellow active" data-color="rgba(255, 255, 0, 0.3)" onclick="setHighlightColor(this)"></div>
+                <div class="color-btn highlight-red" data-color="rgba(255, 0, 0, 0.3)" onclick="setHighlightColor(this)"></div>
+                <div class="color-btn highlight-cyan" data-color="rgba(0, 255, 255, 0.3)" onclick="setHighlightColor(this)"></div>
+                <div class="color-btn highlight-lime" data-color="rgba(0, 255, 0, 0.3)" onclick="setHighlightColor(this)"></div>
             </div>
             <p class="highlight-instructions">
                 Click/tap and drag to create highlights. Click on existing highlights to resize them.
@@ -476,42 +486,27 @@
         // FIXED: Correct PDF worker URL
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
         
-        // Book structure - YOU CAN ADD YOUR BOOKS HERE
+        // Book structure - ONLY USE WORKING URLs
         const booksStructure = {
-            // Local single volume books
+            // Local single volume books (use relative paths)
             "single": [
-                { name: "صحيح البخاري", file: "books/sahih-bukhari.pdf" },
-                { name: "صحيح مسلم", file: "books/sahih-muslim.pdf" },
-                { name: "سنن الترمذي", file: "books/sunan-tirmidhi.pdf" }
+                { name: "صحيح البخاري", file: "sahih-bukhari.pdf" },
+                { name: "صحيح مسلم", file: "sahih-muslim.pdf" },
+                { name: "سنن الترمذي", file: "sunan-tirmidhi.pdf" }
             ],
-            // Local multi-volume books
-            "multi": [
-                { 
-                    name: "مسند أحمد بن حنبل", 
-                    folder: "books/musnad-ahmad/",
-                    volumes: 50,
-                    pattern: "maih_{vol}.pdf"
-                }
-            ],
-            // Archive.org books (hidden from users - you manage these)
+            // Archive.org books with working URLs
             "archive": [
                 {
-                    name: "مسند أحمد بن حنبل (كامل)",
+                    name: "مسند أحمد بن حنبل",
                     folder: "https://archive.org/download/musnadahmed/",
                     volumes: 50,
                     pattern: "ahmd_{vol}.pdf"
                 },
                 {
-                    name: "صحيح البخاري (طبعة جديدة)",
-                    folder: "https://archive.org/download/sahih-bukhari-new/",
+                    name: "صحيح البخاري",
+                    folder: "https://archive.org/download/sahih-bukhari-pdf/",
                     volumes: 4,
-                    pattern: "bukhari_vol{vol}.pdf"
-                },
-                {
-                    name: "سنن أبي داود",
-                    folder: "https://archive.org/download/sunan-abu-dawud/",
-                    volumes: 4,
-                    pattern: "sunan_abudawud_vol{vol}.pdf"
+                    pattern: "sahih-bukhari-vol{vol}.pdf"
                 }
             ]
         };
@@ -520,7 +515,7 @@
         let selectedBook = null;
         let pageCount = 2;
         let highlights = [];
-        let currentHighlightColor = "#ffff00";
+        let currentHighlightColor = "rgba(255, 255, 0, 0.3)";
         let isHighlightMode = true;
         let isDrawing = false;
         let currentRect = null;
@@ -541,16 +536,7 @@
                     });
                 });
                 
-                // Load local multi-volume books
-                booksStructure.multi.forEach(book => {
-                    books.push({
-                        ...book,
-                        type: 'multi', 
-                        source: 'local'
-                    });
-                });
-                
-                // Load Archive.org books (appear as normal books to users)
+                // Load Archive.org books
                 booksStructure.archive.forEach(book => {
                     books.push({
                         ...book,
@@ -571,6 +557,14 @@
             setTimeout(() => {
                 container.innerHTML = '';
             }, 5000);
+        }
+        
+        function showSuccess(message) {
+            const container = document.getElementById('errorContainer');
+            container.innerHTML = `<div class="success-message">${message}</div>`;
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 3000);
         }
         
         function displayBooks(booksToDisplay) {
@@ -627,14 +621,13 @@
             
             // Generate volume list
             for (let i = 1; i <= book.volumes; i++) {
-                const volumeNumber = i.toString().padStart(2, '0'); // 01, 02, etc.
+                const volumeNumber = i.toString().padStart(2, '0');
                 const volumeFile = book.pattern.replace('{vol}', volumeNumber);
                 const volumeItem = document.createElement('div');
                 volumeItem.className = 'volume-item';
                 volumeItem.innerHTML = `📖 Volume ${i}`;
                 
                 volumeItem.onclick = () => {
-                    // Remove previous selections
                     document.querySelectorAll('.volume-item').forEach(item => {
                         item.classList.remove('selected');
                     });
@@ -652,12 +645,34 @@
         
         async function loadBookFile(filePath, displayName, source) {
             try {
+                showSuccess('Loading book...');
+                
                 let pdf;
                 
                 if (source === 'archive') {
-                    // Use CORS proxy for Archive.org
-                    const proxyUrl = 'https://corsproxy.io/?';
-                    pdf = await pdfjsLib.getDocument(proxyUrl + encodeURIComponent(filePath)).promise;
+                    // Try multiple CORS proxies
+                    const proxies = [
+                        'https://api.allorigins.win/raw?url=',
+                        'https://cors-anywhere.herokuapp.com/',
+                        'https://corsproxy.io/?'
+                    ];
+                    
+                    let lastError = null;
+                    
+                    for (const proxy of proxies) {
+                        try {
+                            const proxyUrl = proxy + encodeURIComponent(filePath);
+                            pdf = await pdfjsLib.getDocument(proxyUrl).promise;
+                            break; // Success, break the loop
+                        } catch (error) {
+                            lastError = error;
+                            continue; // Try next proxy
+                        }
+                    }
+                    
+                    if (!pdf) {
+                        throw new Error(`All CORS proxies failed. Last error: ${lastError?.message}`);
+                    }
                 } else {
                     // Local file
                     pdf = await pdfjsLib.getDocument(filePath).promise;
@@ -668,6 +683,8 @@
                 
                 document.getElementById('pageInfo').textContent = `This book has ${pdf.numPages} pages`;
                 document.getElementById('collageSettings').classList.remove('hidden');
+                
+                showSuccess('✅ Book loaded successfully!');
                 
             } catch (error) {
                 showError(`Error loading book: ${error.message}`);
@@ -942,12 +959,15 @@
             
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
+            // Set multiply blend mode for real-time preview
             ctx.globalCompositeOperation = 'multiply';
             
+            // Draw all highlights with transparent colors
             highlights.forEach((rect, index) => {
                 ctx.fillStyle = rect.color;
                 ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
                 
+                // Draw resize handles for selected rectangle (only in preview, not in download)
                 if (index === selectedRectIndex) {
                     const handles = getResizeHandles(rect);
                     ctx.globalCompositeOperation = 'source-over';
@@ -995,10 +1015,17 @@
                 tempCanvas.width = previewCanvas.width;
                 tempCanvas.height = previewCanvas.height;
                 
+                // Draw the preview
                 tempCtx.drawImage(previewCanvas, 0, 0);
                 
+                // Draw highlights with multiply blend mode (NO resize handles in final download)
                 tempCtx.globalCompositeOperation = 'multiply';
-                tempCtx.drawImage(highlightCanvas, 0, 0);
+                
+                // Redraw highlights without resize handles
+                highlights.forEach(rect => {
+                    tempCtx.fillStyle = rect.color;
+                    tempCtx.fillRect(rect.x, rect.y, rect.width, rect.height);
+                });
                 
                 const link = document.createElement('a');
                 link.download = `${selectedBook.displayName || selectedBook.name}-collage.png`;
