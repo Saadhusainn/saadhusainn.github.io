@@ -450,6 +450,12 @@
             transform: translateY(-2px);
         }
         
+        .action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
         .clear-btn {
             background: #dc3545;
             color: white;
@@ -466,6 +472,24 @@
         
         .toggle-btn:hover {
             background: #5a6268;
+        }
+        
+        .undo-btn {
+            background: #ffc107;
+            color: black;
+        }
+        
+        .undo-btn:hover {
+            background: #e0a800;
+        }
+        
+        .redo-btn {
+            background: #17a2b8;
+            color: white;
+        }
+        
+        .redo-btn:hover {
+            background: #138496;
         }
 
         /* Animations */
@@ -505,7 +529,7 @@
 
         @keyframes spin {
             0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+           100% { transform: rotate(360deg); }
         }
 
         @keyframes shake {
@@ -578,7 +602,9 @@
                 Click/tap and drag to create highlights. Click on existing highlights to resize them.
             </p>
             <div class="highlight-actions">
-                <button class="action-btn clear-btn" onclick="clearHighlights()">Clear All Highlights</button>
+                <button class="action-btn undo-btn" id="undoBtn" onclick="undoHighlight()" disabled>↶ Undo</button>
+                <button class="action-btn redo-btn" id="redoBtn" onclick="redoHighlight()" disabled>↷ Redo</button>
+                <button class="action-btn clear-btn" onclick="clearHighlights()">Clear All</button>
                 <button class="action-btn toggle-btn" id="toggleHighlightBtn" onclick="toggleHighlightMode()">Disable Highlighting</button>
             </div>
         </div>
@@ -611,7 +637,7 @@
                     folder: "https://jkzrxmubfuyhuwlbpfoj.supabase.co/storage/v1/object/public/sijjeen1/Musannaf%20abd%20al-Razzaq/",
                     volumes: 10,
                     pattern: "{vol}-6836.pdf",
-                    publisher: "دار التأصيل",
+                    publisher: "مكتبة الرشد",
                     language: "العربية"
                 },
                 { 
@@ -619,7 +645,7 @@
                     folder: "https://jkzrxmubfuyhuwlbpfoj.supabase.co/storage/v1/object/public/sijjeen1/Musnad%20humaydi/",
                     volumes: 2,
                     pattern: "mh{vol}.pdf",
-                    publisher: "دار المامون للتراث",
+                    publisher: "دار الكتب العلمية",
                     language: "العربية"
                 }
             ]
@@ -629,6 +655,8 @@
         let selectedBook = null;
         let pageCount = 2;
         let highlights = [];
+        let highlightHistory = [];
+        let historyIndex = -1;
         let currentHighlightColor = "#ffff00";
         let isHighlightMode = true;
         let isDrawing = false;
@@ -639,6 +667,7 @@
         let resizeHandle = -1;
         let canvasScale = 1;
         let previewTimeout = null;
+        let pdfDocument = null;
 
         async function loadBooks() {
             try {
@@ -816,26 +845,26 @@
                 container.innerHTML = `
                     <div class="loading">
                         <div class="loading-spinner"></div>
-                        Loading book...
+                        Loading book metadata...
                     </div>
                 `;
                 
-                // Load file directly
-                const pdf = await pdfjsLib.getDocument(filePath).promise;
+                // Load only the PDF document metadata first (fast)
+                pdfDocument = await pdfjsLib.getDocument(filePath).promise;
                 
                 selectedBook = {
                     ...selectedBook,
-                    pdf: pdf,
+                    pdf: pdfDocument,
                     displayName: displayName
                 };
                 
-                document.getElementById('pageInfo').textContent = `This book has ${pdf.numPages} pages`;
+                document.getElementById('pageInfo').textContent = `This book has ${pdfDocument.numPages} pages`;
                 document.getElementById('collageSettings').classList.remove('hidden');
                 
                 // Automatically show page inputs when book loads
                 updatePageInputs();
                 
-                // Auto-generate preview
+                // Auto-generate preview with first pages
                 await updatePreview();
                 
                 showSuccess('✅ Book loaded successfully! Preview generated automatically.');
@@ -914,7 +943,11 @@
                 // Skip if no valid page numbers
                 if (pageNumbers.length === 0) return;
                 
+                // Show loading for specific pages only
+                showSuccess(`Loading pages: ${pageNumbers.join(', ')}...`);
+                
                 const pages = [];
+                // Load only the specific pages needed (optimized loading)
                 for (let pageNum of pageNumbers) {
                     const page = await selectedBook.pdf.getPage(pageNum);
                     pages.push(page);
@@ -976,9 +1009,56 @@
                 
                 setupHighlightCanvas();
                 
+                showSuccess(`✅ Preview updated with pages: ${pageNumbers.join(', ')}`);
+                
             } catch (error) {
                 console.error('Error updating preview:', error);
+                showError('Error loading specific pages. Please check page numbers.');
             }
+        }
+        
+        // Undo/Redo functionality for highlights
+        function saveHighlightState() {
+            // Remove any future states if we're not at the end of history
+            highlightHistory = highlightHistory.slice(0, historyIndex + 1);
+            
+            // Save current state
+            highlightHistory.push(JSON.parse(JSON.stringify(highlights)));
+            historyIndex++;
+            
+            // Limit history size to prevent memory issues
+            if (highlightHistory.length > 50) {
+                highlightHistory.shift();
+                historyIndex--;
+            }
+            
+            updateUndoRedoButtons();
+        }
+        
+        function undoHighlight() {
+            if (historyIndex > 0) {
+                historyIndex--;
+                highlights = JSON.parse(JSON.stringify(highlightHistory[historyIndex]));
+                drawHighlights();
+                updateUndoRedoButtons();
+            }
+        }
+        
+        function redoHighlight() {
+            if (historyIndex < highlightHistory.length - 1) {
+                historyIndex++;
+                highlights = JSON.parse(JSON.stringify(highlightHistory[historyIndex]));
+                drawHighlights();
+                updateUndoRedoButtons();
+            }
+        }
+        
+        function updateUndoRedoButtons() {
+            const undoBtn = document.getElementById('undoBtn');
+            const redoBtn = document.getElementById('redoBtn');
+            
+            undoBtn.disabled = historyIndex <= 0;
+            redoBtn.disabled = historyIndex >= highlightHistory.length - 1;
         }
         
         function setupHighlightCanvas() {
@@ -1031,6 +1111,9 @@
                 };
                 highlights.push(currentRect);
                 selectedRectIndex = highlights.length - 1;
+                
+                // Save state for undo/redo
+                saveHighlightState();
             }
             
             function handleMove(x, y) {
@@ -1051,6 +1134,10 @@
             }
             
             function handleEnd() {
+                if (isDrawing || isResizing) {
+                    // Save final state after drawing/resizing
+                    saveHighlightState();
+                }
                 isDrawing = false;
                 isResizing = false;
                 resizeHandle = -1;
@@ -1169,9 +1256,12 @@
         }
         
         function clearHighlights() {
-            highlights = [];
-            selectedRectIndex = -1;
-            drawHighlights();
+            if (highlights.length > 0) {
+                saveHighlightState();
+                highlights = [];
+                selectedRectIndex = -1;
+                drawHighlights();
+            }
         }
         
         function toggleHighlightMode() {
@@ -1206,10 +1296,43 @@
                     tempCtx.fillRect(rect.x, rect.y, rect.width, rect.height);
                 });
                 
+                // Generate safe filename
+                const pageNumbers = [];
+                for (let i = 1; i <= pageCount; i++) {
+                    const input = document.getElementById(`page${i}`);
+                    if (input) {
+                        const pageNum = parseInt(input.value);
+                        if (!isNaN(pageNum)) {
+                            pageNumbers.push(pageNum);
+                        }
+                    }
+                }
+                
+                const bookName = (selectedBook.displayName || selectedBook.name)
+                    .replace(/[<>:"/\\|?*]/g, '') // Remove invalid filename characters
+                    .replace(/\s+/g, '_') // Replace spaces with underscores
+                    .substring(0, 50); // Limit length
+                
+                const volumeMatch = selectedBook.displayName?.match(/Volume\s+(\d+)/i);
+                const volumeNum = volumeMatch ? volumeMatch[1] : '1';
+                
+                const pagesStr = pageNumbers.length > 0 ? `pg${pageNumbers.join('-')}` : 'pages';
+                
+                const now = new Date();
+                const dateStr = now.toISOString()
+                    .replace(/[:.]/g, '-')
+                    .replace('T', '_')
+                    .substring(0, 16);
+                
+                const filename = `${bookName}_vol${volumeNum}_${pagesStr}_${dateStr}.png`;
+                
                 const link = document.createElement('a');
-                link.download = `${selectedBook.displayName || selectedBook.name}-collage.png`;
+                link.download = filename;
                 link.href = tempCanvas.toDataURL('image/png', 1.0); // Maximum quality PNG
                 link.click();
+                
+                showSuccess(`✅ Collage downloaded as: ${filename}`);
+                
             } catch (error) {
                 showError('Error downloading collage. Please try again.');
             }
