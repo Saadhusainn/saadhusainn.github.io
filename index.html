@@ -800,7 +800,7 @@
         </div>
     </div>
 
-    <script src="./books-index.js" defer></script>
+    <script src="books-index.js"></script>
     <script>
         // Correct PDF worker URL
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -867,36 +867,25 @@
         }
 
         async function loadBooks() {
-    try {
-        const list = document.getElementById('booksList');
-        list.innerHTML = `
-            <div class="loading">
-                <div class="loading-spinner"></div>
-                Loading books...
-            </div>
-        `;
-        
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // Add this debug check:
-        console.log('booksIndex available?', typeof booksIndex);
-        console.log('booksIndex content:', booksIndex);
-        
-        if (!booksIndex || !booksIndex.single || !booksIndex.multi) {
-            throw new Error('booksIndex not properly loaded. Check books-index.js file.');
+            try {
+                const list = document.getElementById('booksList');
+                list.innerHTML = `
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        Loading books...
+                    </div>
+                `;
+                
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Load books from external index file
+                books = [...booksIndex.single, ...booksIndex.multi];
+                displayBooks(books);
+                
+            } catch (error) {
+                showError('Error loading books structure.');
+            }
         }
-        
-        // Load books from external index file
-        books = [...booksIndex.single, ...booksIndex.multi];
-        console.log('Total books loaded:', books.length);
-        
-        displayBooks(books);
-        
-    } catch (error) {
-        console.error('Error in loadBooks:', error);
-        showError('Error loading books structure: ' + error.message);
-    }
-}
         
         function searchBooks() {
             const query = document.getElementById('searchInput').value.toLowerCase();
