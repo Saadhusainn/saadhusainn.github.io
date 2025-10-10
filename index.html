@@ -63,6 +63,29 @@
             font-size: 0.9em;
         }
         
+        .upload-section {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .upload-btn {
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-family: 'Amiri', 'Scheherazade New', serif;
+        }
+        
+        .upload-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+        
         .search-bar {
             max-width: 600px;
             margin: 0 auto 20px;
@@ -94,7 +117,7 @@
         }
         
         .books-list {
-            max-height: 300px;
+            max-height: 400px;
             overflow-y: auto;
             border: 2px solid #e0e0e0;
             border-radius: 10px;
@@ -139,19 +162,22 @@
             line-height: 1.4;
         }
         
-        .volume-count {
-            font-size: 0.8em;
-            color: #666;
-            margin-left: 10px;
+        .volume-dropdown {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            margin-top: 10px;
+        }
+        
+        .volume-dropdown.open {
+            max-height: 300px;
         }
         
         .volumes-list {
-            max-height: 200px;
-            overflow-y: auto;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            margin: 10px 0;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
             padding: 5px;
+            background: white;
         }
         
         .volume-item {
@@ -492,6 +518,122 @@
             background: #138496;
         }
 
+        .logs-btn {
+            background: #6f42c1;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px auto;
+            display: block;
+            transition: all 0.3s;
+            font-family: 'Amiri', 'Scheherazade New', serif;
+        }
+        
+        .logs-btn:hover {
+            background: #5a2d91;
+            transform: translateY(-2px);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .modal-title {
+            color: #667eea;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #667eea;
+        }
+
+        .stats-section {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .stats-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+            text-align: center;
+        }
+
+        .stats-label {
+            text-align: center;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .logs-list {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .log-item {
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 14px;
+        }
+
+        .log-item:last-child {
+            border-bottom: none;
+        }
+
+        .log-date {
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .log-book {
+            color: #666;
+        }
+
         /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -551,6 +693,14 @@
         </div>
         <p class="subtitle">Create beautiful book collages with highlighting</p>
         
+        <!-- Upload Section -->
+        <div class="upload-section">
+            <input type="file" id="uploadInput" accept=".pdf" style="display: none;">
+            <button class="upload-btn" onclick="document.getElementById('uploadInput').click()">
+                📁 Upload Your Own PDF
+            </button>
+        </div>
+        
         <!-- Search Bar -->
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Search books..." oninput="searchBooks()">
@@ -563,11 +713,6 @@
                 <div class="loading-spinner"></div>
                 Loading books...
             </div>
-        </div>
-        
-        <div id="volumesSection" class="hidden">
-            <h3 style="color: #667eea; margin-bottom: 10px;">Select Volume</h3>
-            <div id="volumesList" class="volumes-list"></div>
         </div>
         
         <div id="errorContainer"></div>
@@ -618,177 +763,35 @@
             <br>
             <button class="download-btn" onclick="downloadCollage()">💾 Download Collage</button>
         </div>
+        
+        <!-- Logs Button -->
+        <button class="logs-btn" onclick="showLogs()">📊 Show Logs</button>
     </div>
 
+    <!-- Logs Modal -->
+    <div id="logsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Usage Statistics & Logs</div>
+                <button class="close-btn" onclick="closeLogs()">&times;</button>
+            </div>
+            
+            <div class="stats-section">
+                <div class="stats-number" id="totalScans">0</div>
+                <div class="stats-label">Total Scans Made</div>
+            </div>
+            
+            <h3 style="color: #667eea; margin-bottom: 15px;">Recent Scans</h3>
+            <div id="recentLogs" class="logs-list">
+                <div class="loading">Loading logs...</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="books-index.js"></script>
     <script>
         // Correct PDF worker URL
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-        
-        // Enhanced Book structure with publisher and language info
-        const booksStructure = {
-            // Single volume books (direct files)
-            "single": [
-                {
-                    name: "المسند للشافعي",
-                    file:"https://raw.githubusercontent.com/saadhusainn/sijjeen1/main/almusannaf/Mus.pdf",
-                    publisher:"دار الكتب العلمية",
-                    language:"العربية"
-                },
-                 {
-                    name: "موطأ الإمام مالك برواية يحيى ت عبد الباقي",
-                    file: "https://jkzrxmubfuyhuwlbpfoj.supabase.co/storage/v1/object/public/sijjeen1/Muwatta%20bi-riwayat%20Yahya%20T%20abd%20al-baqi.pdf",
-                    publisher: "دار احياء التراث للعربي",
-                    language: "العربية"
-                },
-            ],
-            // Multi-volume books (organized in folders)
-            "multi": [
-                { 
-                    name: "المصنف لعبد الرزاق", 
-                    folder: "https://jkzrxmubfuyhuwlbpfoj.supabase.co/storage/v1/object/public/sijjeen1/Musannaf%20abd%20al-razzaq%20dar%20al-ta'sil/",
-                    volumes: 10,
-                    pattern: "{vol}-6836.pdf",
-                    publisher: "دار التأصيل",
-                    language: "العربية"
-                },
-                { 
-                    name: "مسند الحميدي", 
-                    folder: "https://jkzrxmubfuyhuwlbpfoj.supabase.co/storage/v1/object/public/sijjeen1/Musnad%20humaydi/",
-                    volumes: 2,
-                    pattern: "mh{vol}.pdf",
-                    publisher: "دار المامون للتراث",
-                    language: "العربية"
-                },
-                { 
-                    name: "المصنف لعبد الرزاق", 
-                    folder: "https://jkzrxmubfuyhuwlbpfoj.supabase.co/storage/v1/object/public/sijjeen1/Musannaf%20abd%20al-razzaq%20maktabah%20al%20islami/",
-                    volumes: 13,
-                    pattern: "miar{vol}.pdf",
-                    publisher: "مكتبة الإسلامي",
-                    language: "العربية"
-                },
-                { 
-                    name: "المصنف لعبد الرزاق", 
-                    folder: "https://jkzrxmubfuyhuwlbpfoj.supabase.co/storage/v1/object/public/sijjeen1/Musannaf%20abd%20al-razzaq%20urdu/",
-                    volumes: 6,
-                    pattern: "mar{vol}.pdf",
-                    publisher: "N/A",
-                    language: "أردو"
-                },
-                { 
-                    name: "مسند أبي يعلى الموصيلي", 
-                    folder: "https://jkzrxmubfuyhuwlbpfoj.supabase.co/storage/v1/object/public/sijjeen1/Musnad%20abi%20ya'la%20dar%20al-ma'mun/",
-                    volumes: 14,
-                    pattern: "mayala{vol}.pdf",
-                    publisher: "دار المامون للتراث",
-                    language: "العربية"
-                },
-                { 
-                    name: "الطبقات الكبرى لابن سعد", 
-                    folder: "https://jkzrxmubfuyhuwlbpfoj.supabase.co/storage/v1/object/public/sijjeen1/Tabaqat%20ibn%20sa'd%20maktabah%20al-khanji/",
-                    volumes: 11,
-                    pattern: "A66aba9at_{vol}.pdf",
-                    publisher: "مكتبة الخانجي",
-                    language: "العربية"
-                },
-                { 
-                    name: "المعجم الكبير للطبراني", 
-                    folder: "https://jkzrxmubfuyhuwlbpfoj.supabase.co/storage/v1/object/public/sijjeen1/Mujam%20al%20Kabir%20maktabah%20Ibn%20tamiyah/",
-                    volumes: 25,
-                    pattern: "mtk{vol}.pdf",
-                    publisher: "مكتبة ابن تيمية",
-                    language: "العربية"
-                },
-                { 
-                    name: "المصنف لابن أبي شيبة ت الشثري", 
-                    folder: "https://jkzrxmubfuyhuwlbpfoj.supabase.co/storage/v1/object/public/sijjeen1/Musannaf%20Ibn%20abi%20shaybah%20dar%20kunuz/",
-                    volumes: 25,
-                    pattern: "{vol}_152371.pdf",
-                    publisher: "دار كنوز",
-                    language: "العربية"
-                },
-                { 
-                    name: "السنن الكبرى للنسائي", 
-                    folder: "https://jkzrxmubfuyhuwlbpfoj.supabase.co/storage/v1/object/public/sijjeen1/Sunan%20kubra%20nasai%20al-risalah/",
-                    volumes: 12,
-                    pattern: "snk{vol}.pdf",
-                    publisher: "المكتبة الرسالة",
-                    language: "العربية"
-                },
-                { 
-                    name: "المعجم الصغير للطبراني", 
-                    folder: "https://jkzrxmubfuyhuwlbpfoj.supabase.co/storage/v1/object/public/sijjeen1/Mujam%20al-Saghir%20al-ilmiyyah/",
-                    volumes: 2,
-                    pattern: "mst{vol}.pdf",
-                    publisher: "دار الكتب العلمية",
-                    language: "العربية"
-                },
-                { 
-                    name: "المعجم الأوسط للطبراني", 
-                    folder: "https://jkzrxmubfuyhuwlbpfoj.supabase.co/storage/v1/object/public/sijjeen1/Mujam%20al-awsat%20dar%20al-haramayn/",
-                    volumes: 10,
-                    pattern: "mat{vol}.pdf",
-                    publisher: "دار الحرمين",
-                    language: "العربية"
-                },
-                 { 
-                    name: "مسند أبي داود الطيالسي", 
-                    folder: "https://jkzrxmubfuyhuwlbpfoj.supabase.co/storage/v1/object/public/sijjeen1/Musnad%20abi%20dawud%20al-tayalisi%20dar%20hijr/",
-                    volumes: 4,
-                    pattern: "mad{vol}.pdf",
-                    publisher: "دار هجر",
-                    language: "العربية"
-                },
-                 { 
-                    name: "مسند أحمد ت شاكر", 
-                    folder: "https://jkzrxmubfuyhuwlbpfoj.supabase.co/storage/v1/object/public/sijjeen1/Musnad%20ahmad%20T%20shakir%20dar%20al-hadith/",
-                    volumes: 18,
-                    pattern: "musnda{vol}.pdf",
-                    publisher: "دار الحديث",
-                    language: "العربية"
-                },
-                 { 
-                    name: "البحر الزخار المعروف بمسند البزار", 
-                    folder: "https://jkzrxmubfuyhuwlbpfoj.supabase.co/storage/v1/object/public/sijjeen1/Musnad%20al-bazzar%20maktabah%20al-ulum/",
-                    volumes: 15,
-                    pattern: "musbaz{vol}.pdf",
-                    publisher: "مكتبة العلوم",
-                    language: "العربية"
-                },
-                 { 
-                    name: "المستدرك على الصحيحين للحاكم", 
-                    folder: "https://jkzrxmubfuyhuwlbpfoj.supabase.co/storage/v1/object/public/sijjeen1/Mustadrak%20al-hakim%20al-ilmiyyah/",
-                    volumes: 5,
-                    pattern: "{vol}.pdf",
-                    publisher: "دار الكتب العلمية",
-                    language: "العربية"
-                },
-                 { 
-                    name: "موطأ الإمام مالك رواية أبي مصعب الزهري", 
-                    folder: "https://jkzrxmubfuyhuwlbpfoj.supabase.co/storage/v1/object/public/sijjeen1/Muwatta%20malik%20bi-riwayat%20abi%20mus'ab%20al-zuhri%20dal%20ta'sil/",
-                    volumes: 3,
-                    pattern: "mm{vol}.pdf",
-                    publisher: "دار التأصيل",
-                    language: "العربية"
-                },
-                 { 
-                    name: "شعب الإيمان ت الزغلول", 
-                    folder: "https://jkzrxmubfuyhuwlbpfoj.supabase.co/storage/v1/object/public/sijjeen1/Shu'b%20al-iman%20T%20al-Zhughlul%20al-ilmiyyah/",
-                    volumes: 9,
-                    pattern: "gshe_elmiya{vol}.pdf",
-                    publisher: "دار الكتب العلمية",
-                    language: "العربية"
-                },
-                 { 
-                    name: "السنن الكبرى للبيهقى", 
-                    folder: "https://jkzrxmubfuyhuwlbpfoj.supabase.co/storage/v1/object/public/sijjeen1/Sunan%20kubra%20al-bayhaqi%20al-ilmiyyah/",
-                    volumes: 11,
-                    pattern: "skb{vol}.pdf",
-                    publisher: "دار الكتب العلمية",
-                    language: "العربية"
-                }
-            ]
-        };
         
         let books = [];
         let selectedBook = null;
@@ -808,9 +811,51 @@
         let previewTimeout = null;
         let pdfDocument = null;
 
+        // File upload handling
+        document.getElementById('uploadInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file && file.type === 'application/pdf') {
+                loadUploadedBook(file);
+            } else {
+                showError('Please select a valid PDF file.');
+            }
+        });
+
+        async function loadUploadedBook(file) {
+            try {
+                const container = document.getElementById('errorContainer');
+                container.innerHTML = `
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        Loading your PDF...
+                    </div>
+                `;
+
+                const arrayBuffer = await file.arrayBuffer();
+                pdfDocument = await pdfjsLib.getDocument({data: arrayBuffer}).promise;
+                
+                selectedBook = {
+                    name: file.name.replace('.pdf', ''),
+                    displayName: file.name.replace('.pdf', ''),
+                    pdf: pdfDocument,
+                    type: 'uploaded',
+                    file: file
+                };
+
+                document.getElementById('pageInfo').textContent = `This PDF has ${pdfDocument.numPages} pages`;
+                document.getElementById('collageSettings').classList.remove('hidden');
+                updatePageInputs();
+                await updatePreview();
+                
+                showSuccess('✅ Your PDF loaded successfully!');
+                
+            } catch (error) {
+                showError(`Error loading PDF: ${error.message}`);
+            }
+        }
+
         async function loadBooks() {
             try {
-                // Show loading animation
                 const list = document.getElementById('booksList');
                 list.innerHTML = `
                     <div class="loading">
@@ -819,26 +864,12 @@
                     </div>
                 `;
                 
-                // Simulate loading delay for better UX
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 
-                // Load single volume books
-                booksStructure.single.forEach(book => {
-                    books.push({
-                        ...book,
-                        type: 'single'
-                    });
-                });
-                
-                // Load multi-volume books
-                booksStructure.multi.forEach(book => {
-                    books.push({
-                        ...book,
-                        type: 'multi'
-                    });
-                });
-                
+                // Load books from external index file
+                books = [...booksIndex.single, ...booksIndex.multi];
                 displayBooks(books);
+                
             } catch (error) {
                 showError('Error loading books structure.');
             }
@@ -893,10 +924,25 @@
                         metaHTML += `</div>`;
                     }
                     
+                    const dropdownIcon = book.isDropdownOpen ? '▼' : '►';
+                    
                     item.innerHTML = `
-                        📁 ${book.name}
-                        <span class="volume-count">(${book.volumes} volumes)</span>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>📁 ${book.name}</span>
+                            <span style="cursor: pointer; font-size: 12px;" onclick="toggleVolumeDropdown(event, '${book.name}')">
+                                ${dropdownIcon}
+                            </span>
+                        </div>
                         ${metaHTML}
+                        <div class="volume-dropdown ${book.isDropdownOpen ? 'open' : ''}" id="dropdown-${book.name}">
+                            <div class="volumes-list">
+                                ${book.volumes.map(vol => `
+                                    <div class="volume-item" onclick="selectVolume(event, '${book.name}', '${vol.name}', '${vol.file}')">
+                                        📖 ${vol.name}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
                     `;
                 } else {
                     let metaHTML = '';
@@ -911,14 +957,46 @@
                         📄 ${book.name}
                         ${metaHTML}
                     `;
+                    item.onclick = () => selectBook(book);
                 }
                 
-                item.onclick = () => selectBook(book);
                 list.appendChild(item);
             });
         }
         
+        function toggleVolumeDropdown(event, bookName) {
+            event.stopPropagation();
+            const book = books.find(b => b.name === bookName && b.type === 'multi');
+            if (book) {
+                book.isDropdownOpen = !book.isDropdownOpen;
+                displayBooks(books.filter(b => b.name.toLowerCase().includes(document.getElementById('searchInput').value.toLowerCase())));
+            }
+        }
+        
+        function selectVolume(event, bookName, volumeName, volumeFile) {
+            event.stopPropagation();
+            
+            const book = books.find(b => b.name === bookName && b.type === 'multi');
+            if (book) {
+                selectedBook = {
+                    ...book,
+                    displayName: `${book.name} - ${volumeName}`,
+                    selectedVolume: volumeName
+                };
+                
+                // Update UI
+                document.querySelectorAll('.volume-item').forEach(item => {
+                    item.classList.remove('selected');
+                });
+                event.target.classList.add('selected');
+                
+                loadBookFile(volumeFile, `${book.name} - ${volumeName}`);
+            }
+        }
+        
         function selectBook(book) {
+            if (book.type === 'multi') return; // Handled by volume selection
+            
             selectedBook = book;
             
             const items = document.querySelectorAll('.book-item');
@@ -927,59 +1005,11 @@
             });
             event.target.closest('.book-item').classList.add('selected');
             
-            if (book.type === 'multi') {
-                showVolumes(book);
-            } else {
-                document.getElementById('volumesSection').classList.add('hidden');
-                loadBookFile(book.file, book.name);
-            }
-        }
-        
-        function showVolumes(book) {
-            const volumesSection = document.getElementById('volumesSection');
-            const volumesList = document.getElementById('volumesList');
-            
-            volumesList.innerHTML = '';
-            
-            // Generate volume list
-            for (let i = 1; i <= book.volumes; i++) {
-                const volumeNumber = i.toString().padStart(2, '0');
-                const volumeFile = book.pattern.replace('{vol}', volumeNumber);
-                const volumeItem = document.createElement('div');
-                volumeItem.className = 'volume-item';
-                
-                let metaHTML = '';
-                if (book.publisher || book.language) {
-                    metaHTML = `<div class="book-meta" style="font-size: 0.7em; margin-top: 3px;">`;
-                    if (book.publisher) metaHTML += `<strong>الناشر:</strong> ${book.publisher}<br>`;
-                    if (book.language) metaHTML += `<strong>اللغة:</strong> ${book.language}`;
-                    metaHTML += `</div>`;
-                }
-                
-                volumeItem.innerHTML = `
-                    📖 Volume ${i}
-                    ${metaHTML}
-                `;
-                
-                volumeItem.onclick = () => {
-                    document.querySelectorAll('.volume-item').forEach(item => {
-                        item.classList.remove('selected');
-                    });
-                    volumeItem.classList.add('selected');
-                    
-                    const filePath = book.folder + volumeFile;
-                    loadBookFile(filePath, `${book.name} - Volume ${i}`);
-                };
-                volumesList.appendChild(volumeItem);
-            }
-            
-            volumesSection.classList.remove('hidden');
-            document.getElementById('collageSettings').classList.add('hidden');
+            loadBookFile(book.file, book.name);
         }
         
         async function loadBookFile(filePath, displayName) {
             try {
-                // Show loading animation
                 const container = document.getElementById('errorContainer');
                 container.innerHTML = `
                     <div class="loading">
@@ -988,7 +1018,6 @@
                     </div>
                 `;
                 
-                // Load only the PDF document metadata first (fast)
                 pdfDocument = await pdfjsLib.getDocument(filePath).promise;
                 
                 selectedBook = {
@@ -999,14 +1028,13 @@
                 
                 document.getElementById('pageInfo').textContent = `This book has ${pdfDocument.numPages} pages`;
                 document.getElementById('collageSettings').classList.remove('hidden');
-                
-                // Automatically show page inputs when book loads
                 updatePageInputs();
-                
-                // Auto-generate preview with first pages
                 await updatePreview();
                 
                 showSuccess('✅ Book loaded successfully! Preview generated automatically.');
+                
+                // Log the scan
+                logScan(displayName);
                 
             } catch (error) {
                 showError(`Error loading book: ${error.message}. Please check if the file exists.`);
@@ -1021,7 +1049,6 @@
             event.target.classList.add('active');
             
             updatePageInputs();
-            // Auto-update preview when page count changes
             debouncedUpdatePreview();
         }
         
@@ -1044,7 +1071,7 @@
                 input.min = '1';
                 input.max = selectedBook.pdf.numPages;
                 input.value = i;
-                input.oninput = debouncedUpdatePreview; // Live preview on input change
+                input.oninput = debouncedUpdatePreview;
                 
                 group.appendChild(label);
                 group.appendChild(input);
@@ -1052,14 +1079,13 @@
             }
         }
         
-        // Debounce function to prevent too many preview updates
         function debouncedUpdatePreview() {
             if (previewTimeout) {
                 clearTimeout(previewTimeout);
             }
             previewTimeout = setTimeout(() => {
                 updatePreview();
-            }, 500); // 500ms delay
+            }, 500);
         }
         
         async function updatePreview() {
@@ -1073,27 +1099,23 @@
                     
                     const pageNum = parseInt(input.value);
                     if (isNaN(pageNum) || pageNum < 1 || pageNum > selectedBook.pdf.numPages) {
-                        // Don't show error for live updates, just skip invalid pages
                         continue;
                     }
                     pageNumbers.push(pageNum);
                 }
                 
-                // Skip if no valid page numbers
                 if (pageNumbers.length === 0) return;
                 
-                // Show loading for specific pages only
                 showSuccess(`Loading pages: ${pageNumbers.join(', ')}...`);
                 
                 const pages = [];
-                // Load only the specific pages needed (optimized loading)
                 for (let pageNum of pageNumbers) {
                     const page = await selectedBook.pdf.getPage(pageNum);
                     pages.push(page);
                 }
                 
-                // MAXIMUM QUALITY: Increased scale for higher resolution
-                const scale = 4; // Increased from 2 to 4 for maximum quality
+                // Enhanced mobile alignment with better coordinate calculation
+                const scale = window.innerWidth < 768 ? 3 : 4; // Slightly lower scale on mobile for performance
                 const viewports = pages.map(page => page.getViewport({scale}));
                 
                 const canvas = document.getElementById('previewCanvas');
@@ -1102,11 +1124,10 @@
                 const totalWidth = viewports.reduce((sum, vp) => sum + vp.width, 0);
                 const maxHeight = Math.max(...viewports.map(vp => vp.height));
                 
-                // Set canvas to high resolution
                 canvas.width = totalWidth;
                 canvas.height = maxHeight;
                 
-                // Calculate display scale for screen (different from render scale)
+                // Improved mobile alignment calculation
                 const maxDisplayWidth = Math.min(window.innerWidth - 40, 1200);
                 canvasScale = maxDisplayWidth / totalWidth;
                 
@@ -1117,7 +1138,7 @@
                 ctx.fillStyle = 'white';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 
-                // Render each page at maximum quality
+                // Render each page
                 let xOffset = 0;
                 for (let i = 0; i < pages.length; i++) {
                     const tempCanvas = document.createElement('canvas');
@@ -1133,14 +1154,18 @@
                     xOffset += viewports[i].width;
                 }
                 
-                // Set up highlight canvas
+                // Enhanced highlight canvas setup for mobile alignment
                 const highlightCanvas = document.getElementById('highlightCanvas');
                 highlightCanvas.width = canvas.width;
                 highlightCanvas.height = canvas.height;
                 highlightCanvas.style.width = canvas.style.width;
                 highlightCanvas.style.height = canvas.style.height;
                 
-                // Preserve existing highlights
+                // Reset transform for precise mobile alignment
+                highlightCanvas.style.transform = 'none';
+                highlightCanvas.style.left = '0';
+                highlightCanvas.style.top = '0';
+                
                 drawHighlights();
                 
                 document.getElementById('previewSection').classList.remove('hidden');
@@ -1156,16 +1181,11 @@
             }
         }
         
-        // Undo/Redo functionality for highlights
         function saveHighlightState() {
-            // Remove any future states if we're not at the end of history
             highlightHistory = highlightHistory.slice(0, historyIndex + 1);
-            
-            // Save current state
             highlightHistory.push(JSON.parse(JSON.stringify(highlights)));
             historyIndex++;
             
-            // Limit history size to prevent memory issues
             if (highlightHistory.length > 50) {
                 highlightHistory.shift();
                 historyIndex--;
@@ -1203,14 +1223,16 @@
         function setupHighlightCanvas() {
             const canvas = document.getElementById('highlightCanvas');
             
+            // Enhanced coordinate calculation for mobile alignment
             function getCanvasCoordinates(clientX, clientY) {
                 const rect = canvas.getBoundingClientRect();
+                // Use exact pixel calculations for better mobile alignment
                 const scaleX = canvas.width / rect.width;
                 const scaleY = canvas.height / rect.height;
                 
                 return {
-                    x: (clientX - rect.left) * scaleX,
-                    y: (clientY - rect.top) * scaleY
+                    x: Math.round((clientX - rect.left) * scaleX),
+                    y: Math.round((clientY - rect.top) * scaleY)
                 };
             }
             
@@ -1251,7 +1273,6 @@
                 highlights.push(currentRect);
                 selectedRectIndex = highlights.length - 1;
                 
-                // Save state for undo/redo
                 saveHighlightState();
             }
             
@@ -1274,7 +1295,6 @@
             
             function handleEnd() {
                 if (isDrawing || isResizing) {
-                    // Save final state after drawing/resizing
                     saveHighlightState();
                 }
                 isDrawing = false;
@@ -1362,16 +1382,12 @@
             const ctx = canvas.getContext('2d');
             
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Set multiply blend mode for real-time preview
             ctx.globalCompositeOperation = 'multiply';
             
-            // Draw all highlights with solid colors
             highlights.forEach((rect, index) => {
                 ctx.fillStyle = rect.color;
                 ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
                 
-                // Draw resize handles for selected rectangle (only in preview, not in download)
                 if (index === selectedRectIndex) {
                     const handles = getResizeHandles(rect);
                     ctx.globalCompositeOperation = 'source-over';
@@ -1419,23 +1435,17 @@
                 const tempCanvas = document.createElement('canvas');
                 const tempCtx = tempCanvas.getContext('2d');
                 
-                // Use maximum quality for download
                 tempCanvas.width = previewCanvas.width;
                 tempCanvas.height = previewCanvas.height;
                 
-                // Draw the preview at maximum quality
                 tempCtx.drawImage(previewCanvas, 0, 0);
-                
-                // Draw highlights with multiply blend mode (NO resize handles in final download)
                 tempCtx.globalCompositeOperation = 'multiply';
                 
-                // Redraw highlights without resize handles
                 highlights.forEach(rect => {
                     tempCtx.fillStyle = rect.color;
                     tempCtx.fillRect(rect.x, rect.y, rect.width, rect.height);
                 });
                 
-                // Generate safe filename
                 const pageNumbers = [];
                 for (let i = 1; i <= pageCount; i++) {
                     const input = document.getElementById(`page${i}`);
@@ -1448,9 +1458,9 @@
                 }
                 
                 const bookName = (selectedBook.displayName || selectedBook.name)
-                    .replace(/[<>:"/\\|?*]/g, '') // Remove invalid filename characters
-                    .replace(/\s+/g, '_') // Replace spaces with underscores
-                    .substring(0, 50); // Limit length
+                    .replace(/[<>:"/\\|?*]/g, '')
+                    .replace(/\s+/g, '_')
+                    .substring(0, 50);
                 
                 const volumeMatch = selectedBook.displayName?.match(/Volume\s+(\d+)/i);
                 const volumeNum = volumeMatch ? volumeMatch[1] : '1';
@@ -1467,13 +1477,77 @@
                 
                 const link = document.createElement('a');
                 link.download = filename;
-                link.href = tempCanvas.toDataURL('image/png', 1.0); // Maximum quality PNG
+                link.href = tempCanvas.toDataURL('image/png', 1.0);
                 link.click();
                 
                 showSuccess(`✅ Collage downloaded as: ${filename}`);
                 
             } catch (error) {
                 showError('Error downloading collage. Please try again.');
+            }
+        }
+        
+        // Logs functionality
+        function logScan(bookName) {
+            const scanData = {
+                timestamp: new Date().toISOString(),
+                book: bookName,
+                pages: Array.from({length: pageCount}, (_, i) => {
+                    const input = document.getElementById(`page${i+1}`);
+                    return input ? parseInt(input.value) || 1 : 1;
+                })
+            };
+            
+            // Get existing logs or initialize
+            let logs = JSON.parse(localStorage.getItem('sijjeen_logs') || '[]');
+            logs.unshift(scanData);
+            
+            // Keep only last 100 logs
+            if (logs.length > 100) {
+                logs = logs.slice(0, 100);
+            }
+            
+            localStorage.setItem('sijjeen_logs', JSON.stringify(logs));
+            
+            // Update total scans count
+            let totalScans = parseInt(localStorage.getItem('sijjeen_total_scans') || '0');
+            totalScans++;
+            localStorage.setItem('sijjeen_total_scans', totalScans.toString());
+        }
+        
+        function showLogs() {
+            const modal = document.getElementById('logsModal');
+            modal.style.display = 'block';
+            
+            // Update statistics
+            const totalScans = localStorage.getItem('sijjeen_total_scans') || '0';
+            document.getElementById('totalScans').textContent = totalScans;
+            
+            // Show recent logs
+            const logs = JSON.parse(localStorage.getItem('sijjeen_logs') || '[]');
+            const logsContainer = document.getElementById('recentLogs');
+            
+            if (logs.length === 0) {
+                logsContainer.innerHTML = '<div class="no-results">No scans recorded yet</div>';
+            } else {
+                logsContainer.innerHTML = logs.map(log => `
+                    <div class="log-item">
+                        <div class="log-date">${new Date(log.timestamp).toLocaleString()}</div>
+                        <div class="log-book">${log.book} - Pages: ${log.pages.join(', ')}</div>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        function closeLogs() {
+            document.getElementById('logsModal').style.display = 'none';
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('logsModal');
+            if (event.target === modal) {
+                closeLogs();
             }
         }
         
