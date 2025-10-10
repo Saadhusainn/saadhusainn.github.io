@@ -768,11 +768,11 @@
         <button class="logs-btn" onclick="showLogs()">📊 Show Logs</button>
     </div>
 
-    <!-- Logs Modal -->
+       <!-- Enhanced Logs Modal -->
     <div id="logsModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="modal-title">Usage Statistics & Logs</div>
+                <div class="modal-title">📊 Usage Statistics & Logs</div>
                 <button class="close-btn" onclick="closeLogs()">&times;</button>
             </div>
             
@@ -781,9 +781,21 @@
                 <div class="stats-label">Total Scans Made</div>
             </div>
             
-            <h3 style="color: #667eea; margin-bottom: 15px;">Recent Scans</h3>
+            <h3 style="color: #667eea; margin-bottom: 15px;">📋 Recent Scans</h3>
             <div id="recentLogs" class="logs-list">
                 <div class="loading">Loading logs...</div>
+            </div>
+            
+            <!-- Enhanced Statistics Section -->
+            <div id="enhancedStats" style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 10px; display: none;">
+                <h4 style="color: #667eea; margin-bottom: 15px;">📊 Popular Books</h4>
+                <div id="popularBooksList"></div>
+            </div>
+            
+            <!-- Admin buttons (optional) -->
+            <div style="margin-top: 20px; text-align: center; border-top: 1px solid #e0e0e0; padding-top: 15px;">
+                <button class="action-btn" onclick="exportLogs()" style="background: #17a2b8; color: white; margin: 5px;">Export Logs</button>
+                <button class="action-btn" onclick="clearAllLogs()" style="background: #dc3545; color: white; margin: 5px;">Clear All Logs</button>
             </div>
         </div>
     </div>
@@ -1033,8 +1045,18 @@
                 
                 showSuccess('✅ Book loaded successfully! Preview generated automatically.');
                 
-                // Log the scan
-                logScan(displayName);
+               // Enhanced logging with page numbers
+                const pageNumbers = [];
+                for (let i = 1; i <= pageCount; i++) {
+                    const input = document.getElementById(`page${i}`);
+                    if (input) {
+                        const pageNum = parseInt(input.value);
+                        if (!isNaN(pageNum)) {
+                            pageNumbers.push(pageNum);
+                        }
+                    }
+                }
+                logScan(displayName, pageNumbers);
                 
             } catch (error) {
                 showError(`Error loading book: ${error.message}. Please check if the file exists.`);
@@ -1516,28 +1538,8 @@
         }
         
         function showLogs() {
-            const modal = document.getElementById('logsModal');
-            modal.style.display = 'block';
-            
-            // Update statistics
-            const totalScans = localStorage.getItem('sijjeen_total_scans') || '0';
-            document.getElementById('totalScans').textContent = totalScans;
-            
-            // Show recent logs
-            const logs = JSON.parse(localStorage.getItem('sijjeen_logs') || '[]');
-            const logsContainer = document.getElementById('recentLogs');
-            
-            if (logs.length === 0) {
-                logsContainer.innerHTML = '<div class="no-results">No scans recorded yet</div>';
-            } else {
-                logsContainer.innerHTML = logs.map(log => `
-                    <div class="log-item">
-                        <div class="log-date">${new Date(log.timestamp).toLocaleString()}</div>
-                        <div class="log-book">${log.book} - Pages: ${log.pages.join(', ')}</div>
-                    </div>
-                `).join('');
+            showEnhancedLogs(); // Use the enhanced logging system
             }
-        }
         
         function closeLogs() {
             document.getElementById('logsModal').style.display = 'none';
@@ -1554,5 +1556,6 @@
         // Initialize the application
         loadBooks();
     </script>
+    <script src="logs.js"></script>
 </body>
 </html>
