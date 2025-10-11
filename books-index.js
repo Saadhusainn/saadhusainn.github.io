@@ -211,7 +211,7 @@ const booksIndex = {
             volumes: [
                 { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/3/mst0.pdf" },
                 { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/3/mst1.pdf" },
-                { name: "2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/3/mst2.pdf }
+                { name: "2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/3/mst2.pdf" }
             ],
             isDropdownOpen: false
         },
