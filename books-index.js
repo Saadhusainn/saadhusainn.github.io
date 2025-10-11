@@ -357,6 +357,53 @@ const booksIndex = {
     { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/17/skb11.pdf" }
 ],
             isDropdownOpen: false
+        },
+         { 
+            name: "دلائل النبوة للذهبى", 
+            type: "multi",
+            publisher: "دار الكتب العلمية",
+            language: "العربية",
+           volumes: [
+    { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/6/dalail0.pdf" },
+    { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/6/dalail1.pdf" },
+    { name: "2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/6/dalail2.pdf" },
+    { name: "3", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/6/dalail3.pdf" },
+    { name: "4", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/6/dalail4.pdf" },
+    { name: "5", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/6/dalail5.pdf" },
+    { name: "6", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/6/dalail6.pdf" }
+],
+            isDropdownOpen: false
+        },
+        { 
+            name: "صحيح ابن حبان", 
+            type: "multi",
+            publisher: "دار ابن حزم",
+            language: "العربية",
+            volumes: [
+    { name: "المجلد 1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/13/المجلد 1.pdf" },
+    { name: "المجلد 2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/13/المجلد 2.pdf" },
+    { name: "المجلد 3", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/13/المجلد 3.pdf" },
+    { name: "المجلد 4", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/13/المجلد 4.pdf" },
+    { name: "المجلد 5", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/13/المجلد 5.pdf" },
+    { name: "المجلد 6", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/13/المجلد 6.pdf" },
+    { name: "المجلد 7", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/13/المجلد 7.pdf" },
+    { name: "المجلد 8", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/13/المجلد 8.pdf" }
+],
+            isDropdownOpen: false
+        },
+        { 
+            name: "صحيح ابن خزيمة", 
+            type: "multi",
+            publisher: "مكتبة الإسلامي",
+            language: "العربية",
+            volumes: [
+    { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/14/shuzaima0.pdf" },
+    { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/14/shuzaima1.pdf" },
+    { name: "2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/14/shuzaima2.pdf" },
+    { name: "3", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/14/shuzaima3.pdf" },
+    { name: "4", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/14/shuzaima4.pdf" }
+],
+            isDropdownOpen: false
         }
     ]
 };
