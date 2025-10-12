@@ -9,9 +9,16 @@ const booksIndex = {
             language: "العربية",
             type: "single"
         },
+        {
+            name:"صحيح البخاري",
+            file:"https://raw.githubusercontent.com/Saadhusainn/sijjeen03.1/main/25.pdf",
+            publisher:"دار ابن كثير",
+            language:"العربية",
+            type:"single"
+        },
          { 
             name: "الأدب المفرد - ت عبد الباقي", 
-            file: "https://github.com/Saadhusainn/sijjeen04/tree/main/33.pdf",
+            file: "https://raw.githubusercontent.com/Saadhusainn/sijjeen04/main/33.pdf",
             publisher: "دار البشائر الإسلامية",
             language: "العربية",
             type: "sinlge"
@@ -519,6 +526,68 @@ const booksIndex = {
     { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/34/A66aba9at_11.pdf" }
 ],
             isDropdownOpen: false
-        }
+        },
+        { 
+            name: "سنن أبي داود - شعيب الأرنؤوط", 
+            type: "multi",
+            publisher: "دار الرسالة الاعلامية",
+            language: "العربية",
+            volumes: [
+    { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/22/0.pdf" },
+    { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/22/1.pdf" },
+    { name: "2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/22/2.pdf" },
+    { name: "3", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/22/3.pdf" },
+    { name: "4", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/22/4.pdf" },
+    { name: "5", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/22/5.pdf" },
+    { name: "6", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/22/6.pdf" },
+    { name: "7", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/22/7.pdf" }
+],
+            isDropdownOpen: false
+        },
+        { 
+            name: "الترغيب الترهيب", 
+            type: "",
+            publisher: "دار الكتب العلمية ",
+            language: "العربية",
+            volumes: [
+    { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/23/0.pdf" },
+    { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/23/1.pdf" },
+    { name: "2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/23/2.pdf" },
+    { name: "3", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/23/3.pdf" },
+    { name: "4", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/23/4.pdf" },
+    { name: "مقدمة", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/23/مقدمة.pdf" }
+],
+            isDropdownOpen: false
+        },
+        { 
+            name: "سنن ابن ماجه", 
+            type: "multi",
+            publisher: "دار جيل",
+            language: "العربية",
+           volumes: [
+    { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/25/Sunan_Ibn_Majah_Bashar00.pdf" },
+    { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/25/Sunan_Ibn_Majah_Bashar01.pdf" },
+    { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/25/Sunan_Ibn_Majah_Bashar02.pdf" },
+    { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/25/Sunan_Ibn_Majah_Bashar03.pdf" },
+    { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/25/Sunan_Ibn_Majah_Bashar04.pdf" },
+    { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/25/Sunan_Ibn_Majah_Bashar05.pdf" },
+    { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/25/Sunan_Ibn_Majah_Bashar06.pdf" }
+],
+            isDropdownOpen: false
+        },
+        { 
+            name: "مسند إسحاق بن راهوايه", 
+            type: "multi",
+            publisher: "مكتبة الإيمان",
+            language: "العربية",
+            volumes: [
+    { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/26/misaac0.pdf" },
+    { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/26/misaac1.pdf" },
+    { name: "2 & 3", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/26/misaac2-3.pdf" },
+    { name: "4", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/26/misaac4.pdf" },
+    { name: "5", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/26/misaac5.pdf" }
+],
+            isDropdownOpen: false
+        },
     ]
 };
