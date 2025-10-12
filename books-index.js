@@ -11,7 +11,7 @@ const booksIndex = {
         },
         {
             name: "مسند ابن الجعد",
-            file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/12.pdf",
+            file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/10.pdf",
             publisher: "دار الكتب العلمية",
             language: "العربية",
             type: "single"
@@ -402,6 +402,56 @@ const booksIndex = {
     { name: "2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/14/shuzaima2.pdf" },
     { name: "3", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/14/shuzaima3.pdf" },
     { name: "4", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/14/shuzaima4.pdf" }
+],
+            isDropdownOpen: false
+        },
+        { 
+            name: "مسند الروياني", 
+            type: "multi",
+            publisher: "مؤسسة القرطبه",
+            language: "العربية",
+           volumes: [
+    { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/9/Musnad_Ruyani00.pdf" },
+    { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/9/Musnad_Ruyani01.pdf" },
+    { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/9/Musnad_Ruyani02.pdf" },
+    { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/9/Musnad_Ruyani03.pdf" },
+    { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/9/Musnad_Ruyani04.pdf" }
+],
+            isDropdownOpen: false
+        },
+        { 
+            name: "سنن الدرقطني", 
+            type: "multi",
+            publisher: "مؤسسة الرسالة",
+            language: "العربية",
+           volumes: [
+    { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/16/sdark0.pdf" },
+    { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/16/sdark1.pdf" },
+    { name: "2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/16/sdark2.pdf" },
+    { name: "3", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/16/sdark3.pdf" },
+    { name: "4", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/16/sdark4.pdf" },
+    { name: "5", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/16/sdark5.pdf" },
+    { name: "6", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/16/sdark6.pdf" }
+],
+            isDropdownOpen: false
+        },
+        { 
+            name: "حلية الأولياء", 
+            type: "multi",
+            publisher: "دار فكر",
+            language: "العربية",
+         volumes: [
+    { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/20/حلية الأولياء وطبقات الأصفياء.pdf" },
+    { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/20/حلية الأولياء وطبقات الأصفياء ـ الجز 1.pdf" },
+    { name: "2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/20/حلية الأولياء وطبقات الأصفياء ـ الجز 2.pdf" },
+    { name: "3", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/20/حلية الأولياء وطبقات الأصفياء ـ الجز 3.pdf" },
+    { name: "4", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/20/حلية الأولياء وطبقات الأصفياء ـ الجز 4.pdf" },
+    { name: "5", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/20/حلية الأولياء وطبقات الأصفياء ـ الجز 5.pdf" },
+    { name: "6", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/20/حلية الأولياء وطبقات الأصفياء ـ الجز 6.pdf" },
+    { name: "7", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/20/حلية الأولياء وطبقات الأصفياء ـ الجز 7.pdf" },
+    { name: "8", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/20/حلية الأولياء وطبقات الأصفياء ـ الجز 8.pdf" },
+    { name: "9", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/20/حلية الأولياء وطبقات الأصفياء ـ الجز 9.pdf" },
+    { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/20/حلية الأولياء وطبقات الأصفياء ـ الجز 10.pdf" }
 ],
             isDropdownOpen: false
         }
