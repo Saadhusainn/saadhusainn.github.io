@@ -21,6 +21,7 @@
             min-height: 100vh;
             padding: 10px;
             touch-action: manipulation;
+            font-size: 14px; /* Reduced base font size */
         }
         
         .container {
@@ -43,13 +44,13 @@
         
         .title {
             color: #667eea;
-            font-size: 2em;
+            font-size: 1.8em; /* Reduced from 2em */
             font-weight: bold;
         }
         
         .durood {
             color: #667eea;
-            font-size: 0.9em;
+            font-size: 0.85em; /* Reduced from 0.9em */
             text-align: right;
             line-height: 1.8;
             direction: rtl;
@@ -60,7 +61,7 @@
             text-align: center;
             color: #666;
             margin-bottom: 20px;
-            font-size: 0.9em;
+            font-size: 0.85em; /* Reduced from 0.9em */
         }
         
         .upload-section {
@@ -75,7 +76,7 @@
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 15px; /* Reduced from 16px */
             font-weight: bold;
             transition: all 0.3s;
             font-family: 'Amiri', 'Scheherazade New', serif;
@@ -95,7 +96,7 @@
         .search-bar input {
             width: 100%;
             padding: 12px 50px 12px 15px;
-            font-size: 16px;
+            font-size: 15px; /* Reduced from 16px */
             border: 2px solid #667eea;
             border-radius: 50px;
             outline: none;
@@ -133,7 +134,7 @@
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 16px;
+            font-size: 15px; /* Reduced from 16px */
             text-align: left;
         }
         
@@ -156,7 +157,7 @@
         }
         
         .book-meta {
-            font-size: 0.8em;
+            font-size: 0.75em; /* Reduced from 0.8em */
             color: #666;
             margin-top: 5px;
             line-height: 1.4;
@@ -178,6 +179,8 @@
             border-radius: 8px;
             padding: 5px;
             background: white;
+            max-height: 200px; /* Added fixed height */
+            overflow-y: auto; /* Added scrolling */
         }
         
         .volume-item {
@@ -188,6 +191,7 @@
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.3s;
+            font-size: 14px; /* Reduced font size */
         }
         
         .volume-item:hover {
@@ -200,6 +204,19 @@
             border-color: #667eea;
             background: #667eea;
             color: white;
+        }
+        
+        .dropdown-toggle {
+            cursor: pointer;
+            font-size: 18px; /* Made triangle bigger */
+            font-weight: bold;
+            padding: 5px 10px;
+            transition: transform 0.3s;
+            user-select: none;
+        }
+        
+        .dropdown-toggle.open {
+            transform: rotate(90deg);
         }
         
         .collage-settings {
@@ -219,7 +236,7 @@
             font-weight: bold;
             color: #667eea;
             margin-bottom: 10px;
-            font-size: 15px;
+            font-size: 14px; /* Reduced from 15px */
         }
         
         .page-count-btns {
@@ -235,7 +252,7 @@
             color: #667eea;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px; /* Reduced from 14px */
             font-weight: bold;
             transition: all 0.3s;
             font-family: 'Amiri', 'Scheherazade New', serif;
@@ -267,12 +284,12 @@
         }
         
         .page-input-group span {
-            font-size: 14px;
+            font-size: 13px; /* Reduced from 14px */
         }
         
         .page-input-group input {
             padding: 8px;
-            font-size: 14px;
+            font-size: 13px; /* Reduced from 14px */
             border: 2px solid #667eea;
             border-radius: 8px;
             width: 70px;
@@ -327,7 +344,7 @@
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 15px; /* Reduced from 16px */
             font-weight: bold;
             margin-top: 15px;
             transition: all 0.3s;
@@ -346,7 +363,7 @@
         .info-text {
             color: #666;
             margin: 10px 0;
-            font-size: 14px;
+            font-size: 13px; /* Reduced from 14px */
         }
         
         .error-message {
@@ -356,7 +373,7 @@
             padding: 10px 15px;
             border-radius: 8px;
             margin: 10px 0;
-            font-size: 14px;
+            font-size: 13px; /* Reduced from 14px */
             animation: shake 0.5s ease-in-out;
         }
         
@@ -367,7 +384,7 @@
             padding: 10px 15px;
             border-radius: 8px;
             margin: 10px 0;
-            font-size: 14px;
+            font-size: 13px; /* Reduced from 14px */
             animation: bounceIn 0.5s ease-out;
         }
         
@@ -375,13 +392,13 @@
             text-align: center;
             padding: 30px;
             color: #999;
-            font-size: 16px;
+            font-size: 15px; /* Reduced from 16px */
         }
         
         .loading {
             text-align: center;
             color: #667eea;
-            font-size: 16px;
+            font-size: 15px; /* Reduced from 16px */
             padding: 20px;
         }
         
@@ -447,7 +464,7 @@
         }
         
         .highlight-instructions {
-            font-size: 14px;
+            font-size: 13px; /* Reduced from 14px */
             color: #666;
             margin-top: 10px;
             text-align: center;
@@ -466,7 +483,7 @@
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px; /* Reduced from 14px */
             font-weight: bold;
             transition: all 0.3s;
             font-family: 'Amiri', 'Scheherazade New', serif;
@@ -518,120 +535,60 @@
             background: #138496;
         }
 
-        .logs-btn {
-            background: #6f42c1;
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            margin: 20px auto;
-            display: block;
-            transition: all 0.3s;
-            font-family: 'Amiri', 'Scheherazade New', serif;
-        }
-        
-        .logs-btn:hover {
-            background: #5a2d91;
-            transform: translateY(-2px);
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 1000;
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        .modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 30px;
+        /* Contact Section */
+        .contact-section {
+            margin-top: 40px;
+            padding: 30px 20px;
+            background: #f8f9fa;
             border-radius: 15px;
-            max-width: 90%;
-            max-height: 90%;
-            overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            border-top: 3px solid #667eea;
         }
 
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 10px;
-        }
-
-        .modal-title {
+        .contact-title {
             color: #667eea;
             font-size: 1.5em;
+            margin-bottom: 20px;
             font-weight: bold;
         }
 
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: #667eea;
-        }
-
-        .stats-section {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 10px;
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
             margin-bottom: 20px;
         }
 
-        .stats-number {
-            font-size: 2em;
-            font-weight: bold;
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 10px;
             color: #667eea;
-            text-align: center;
-        }
-
-        .stats-label {
-            text-align: center;
-            color: #666;
-            margin-top: 5px;
-        }
-
-        .logs-list {
-            max-height: 400px;
-            overflow-y: auto;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 10px;
-        }
-
-        .log-item {
-            padding: 10px;
-            border-bottom: 1px solid #e0e0e0;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
             font-size: 14px;
         }
 
-        .log-item:last-child {
-            border-bottom: none;
+        .contact-link:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-3px);
         }
 
-        .log-date {
-            font-weight: bold;
-            color: #667eea;
+        .contact-icon {
+            font-size: 18px;
         }
 
-        .log-book {
+        .copyright {
             color: #666;
+            font-size: 13px;
+            margin-top: 15px;
         }
 
         /* Animations */
@@ -679,6 +636,45 @@
             10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
             20%, 40%, 60%, 80% { transform: translateX(5px); }
         }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            body {
+                font-size: 13px;
+                padding: 5px;
+            }
+            
+            .container {
+                padding: 15px;
+                border-radius: 15px;
+            }
+            
+            .header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .title {
+                font-size: 1.6em;
+            }
+            
+            .durood {
+                max-width: 100%;
+                text-align: center;
+            }
+            
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .contact-link {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -707,7 +703,7 @@
             <span class="search-icon">🔍</span>
         </div>
         
-        <h2 style="color: #667eea; margin-bottom: 15px; font-size: 1.3em;">Available Books</h2>
+        <h2 style="color: #667eea; margin-bottom: 15px; font-size: 1.2em;">Available Books</h2>
         <div id="booksList" class="books-list">
             <div class="loading">
                 <div class="loading-spinner"></div>
@@ -755,7 +751,7 @@
         </div>
         
         <div id="previewSection" class="preview-section hidden">
-            <h2 style="color: #667eea; margin-bottom: 20px; font-size: 1.3em;">Preview</h2>
+            <h2 style="color: #667eea; margin-bottom: 20px; font-size: 1.2em;">Preview</h2>
             <div class="preview-container">
                 <canvas id="previewCanvas" class="preview-canvas"></canvas>
                 <canvas id="highlightCanvas" class="highlight-canvas"></canvas>
@@ -764,38 +760,25 @@
             <button class="download-btn" onclick="downloadCollage()">💾 Download Collage</button>
         </div>
         
-        <!-- Logs Button -->
-        <button class="logs-btn" onclick="showLogs()">📊 Show Logs</button>
-    </div>
-
-       <!-- Enhanced Logs Modal -->
-    <div id="logsModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">📊 Usage Statistics & Logs</div>
-                <button class="close-btn" onclick="closeLogs()">&times;</button>
+        <!-- Contact Section -->
+        <div class="contact-section">
+            <div class="contact-title">📞 Contact Us</div>
+            <div class="contact-links">
+                <a href="https://t.me/DancingDinosaurs" class="contact-link" target="_blank">
+                    <span class="contact-icon">📱</span>
+                    Telegram
+                </a>
+                <a href="https://instagram.com/sijjeen_" class="contact-link" target="_blank">
+                    <span class="contact-icon">📸</span>
+                    Instagram
+                </a>
+                <a href="mailto:sijjeen@proton.me" class="contact-link">
+                    <span class="contact-icon">✉️</span>
+                    Email
+                </a>
             </div>
-            
-            <div class="stats-section">
-                <div class="stats-number" id="totalScans">0</div>
-                <div class="stats-label">Total Scans Made</div>
-            </div>
-            
-            <h3 style="color: #667eea; margin-bottom: 15px;">📋 Recent Scans</h3>
-            <div id="recentLogs" class="logs-list">
-                <div class="loading">Loading logs...</div>
-            </div>
-            
-            <!-- Enhanced Statistics Section -->
-            <div id="enhancedStats" style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 10px; display: none;">
-                <h4 style="color: #667eea; margin-bottom: 15px;">📊 Popular Books</h4>
-                <div id="popularBooksList"></div>
-            </div>
-            
-            <!-- Admin buttons (optional) -->
-            <div style="margin-top: 20px; text-align: center; border-top: 1px solid #e0e0e0; padding-top: 15px;">
-                <button class="action-btn" onclick="exportLogs()" style="background: #17a2b8; color: white; margin: 5px;">Export Logs</button>
-                <button class="action-btn" onclick="clearAllLogs()" style="background: #dc3545; color: white; margin: 5px;">Clear All Logs</button>
+            <div class="copyright">
+                © 2024 Sijjeen. All rights reserved.
             </div>
         </div>
     </div>
@@ -936,12 +919,13 @@
                         metaHTML += `</div>`;
                     }
                     
-                    const dropdownIcon = book.isDropdownOpen ? '▼' : '►';
+                    const dropdownIcon = book.isDropdownOpen ? '▶' : '▶';
+                    const dropdownClass = book.isDropdownOpen ? 'dropdown-toggle open' : 'dropdown-toggle';
                     
                     item.innerHTML = `
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleVolumeDropdown('${book.name}')">
                             <span>📁 ${book.name}</span>
-                            <span style="cursor: pointer; font-size: 12px;" onclick="toggleVolumeDropdown(event, '${book.name}')">
+                            <span class="${dropdownClass}" onclick="event.stopPropagation(); toggleVolumeDropdown('${book.name}')">
                                 ${dropdownIcon}
                             </span>
                         </div>
@@ -976,8 +960,7 @@
             });
         }
         
-        function toggleVolumeDropdown(event, bookName) {
-            event.stopPropagation();
+        function toggleVolumeDropdown(bookName) {
             const book = books.find(b => b.name === bookName && b.type === 'multi');
             if (book) {
                 book.isDropdownOpen = !book.isDropdownOpen;
@@ -1044,19 +1027,6 @@
                 await updatePreview();
                 
                 showSuccess('✅ Book loaded successfully! Preview generated automatically.');
-                
-               // Enhanced logging with page numbers
-                const pageNumbers = [];
-                for (let i = 1; i <= pageCount; i++) {
-                    const input = document.getElementById(`page${i}`);
-                    if (input) {
-                        const pageNum = parseInt(input.value);
-                        if (!isNaN(pageNum)) {
-                            pageNumbers.push(pageNum);
-                        }
-                    }
-                }
-                logScan(displayName, pageNumbers);
                 
             } catch (error) {
                 showError(`Error loading book: ${error.message}. Please check if the file exists.`);
@@ -1509,53 +1479,8 @@
             }
         }
         
-        // Logs functionality
-        function logScan(bookName) {
-            const scanData = {
-                timestamp: new Date().toISOString(),
-                book: bookName,
-                pages: Array.from({length: pageCount}, (_, i) => {
-                    const input = document.getElementById(`page${i+1}`);
-                    return input ? parseInt(input.value) || 1 : 1;
-                })
-            };
-            
-            // Get existing logs or initialize
-            let logs = JSON.parse(localStorage.getItem('sijjeen_logs') || '[]');
-            logs.unshift(scanData);
-            
-            // Keep only last 100 logs
-            if (logs.length > 100) {
-                logs = logs.slice(0, 100);
-            }
-            
-            localStorage.setItem('sijjeen_logs', JSON.stringify(logs));
-            
-            // Update total scans count
-            let totalScans = parseInt(localStorage.getItem('sijjeen_total_scans') || '0');
-            totalScans++;
-            localStorage.setItem('sijjeen_total_scans', totalScans.toString());
-        }
-        
-        function showLogs() {
-            showEnhancedLogs(); // Use the enhanced logging system
-            }
-        
-        function closeLogs() {
-            document.getElementById('logsModal').style.display = 'none';
-        }
-        
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('logsModal');
-            if (event.target === modal) {
-                closeLogs();
-            }
-        }
-        
         // Initialize the application
         loadBooks();
     </script>
-    <script src="logs.js"></script>
 </body>
 </html>
