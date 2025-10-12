@@ -9,6 +9,13 @@ const booksIndex = {
             language: "العربية",
             type: "single"
         },
+         { 
+            name: "الأدب المفرد - ت عبد الباقي", 
+            file: "https://github.com/Saadhusainn/sijjeen04/tree/main/33.pdf",
+            publisher: "دار البشائر الإسلامية",
+            language: "العربية",
+            type: "sinlge"
+        },
         {
             name: "مسند ابن الجعد",
             file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/10.pdf",
@@ -16,6 +23,13 @@ const booksIndex = {
             language: "العربية",
             type: "single"
         },
+        {
+            name:"علل الترمذي الكبير",
+            file:"https://github.com/Saadhusainn/sijjeen04/tree/main/35.pdf",
+            publisher:"مكتبة النهضة العربية",
+            language:"العربية",
+            type:"single"
+        }
     ],
     
     // Multi-volume books (with custom volume names)
@@ -452,6 +466,57 @@ const booksIndex = {
     { name: "8", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/20/حلية الأولياء وطبقات الأصفياء ـ الجز 8.pdf" },
     { name: "9", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/20/حلية الأولياء وطبقات الأصفياء ـ الجز 9.pdf" },
     { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/20/حلية الأولياء وطبقات الأصفياء ـ الجز 10.pdf" }
+],
+            isDropdownOpen: false
+        },
+        { 
+            name: "سنن الترمذي", 
+            type: "multi",
+            publisher: "دار التأصيل",
+            language: ""العربية"",
+          volumes: [
+    { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/31/1.pdf" },
+    { name: "2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/31/2.pdf" },
+    { name: "3", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/31/3.pdf" },
+    { name: "4", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/31/4.pdf" },
+    { name: "5", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/31/5.pdf" }
+],
+            isDropdownOpen: false
+        },
+        { 
+            name: "سنن الترمذي - شعيب الأرنؤوط", 
+            type: "multi",
+            publisher: "دار الرسالة العالمية",
+            language: "العربية",
+           volumes: [
+    { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/32/jt00.pdf" },
+    { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/32/jt01.pdf" },
+    { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/32/jt02.pdf" },
+    { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/32/jt03.pdf" },
+    { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/32/jt04.pdf" },
+    { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/32/jt05.pdf" },
+    { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/32/jt06.pdf" }
+],
+            isDropdownOpen: false
+        },
+        { 
+            name: "الطبقات الكبرى لابن سعد", 
+            type: "multi",
+            publisher: "مكتبة الخانجي",
+            language: "العربية",
+           volumes: [
+    { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/34/A66aba9at_00.pdf" },
+    { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/34/A66aba9at_01.pdf" },
+    { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/34/A66aba9at_02.pdf" },
+    { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/34/A66aba9at_03.pdf" },
+    { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/34/A66aba9at_04.pdf" },
+    { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/34/A66aba9at_05.pdf" },
+    { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/34/A66aba9at_06.pdf" },
+    { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/34/A66aba9at_07.pdf" },
+    { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/34/A66aba9at_08.pdf" },
+    { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/34/A66aba9at_09.pdf" },
+    { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/34/A66aba9at_10.pdf" },
+    { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/34/A66aba9at_11.pdf" }
 ],
             isDropdownOpen: false
         }
