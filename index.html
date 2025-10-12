@@ -15,24 +15,56 @@
             box-sizing: border-box;
         }
         
+        :root {
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #e9ecef;
+            --text-primary: #212529;
+            --text-secondary: #495057;
+            --text-muted: #6c757d;
+            --border-color: #dee2e6;
+            --accent-color: #6c63ff;
+            --accent-hover: #5a52d5;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --button-bg: #e8e8e8;
+            --button-outline: #323232;
+        }
+        
+        [data-theme="dark"] {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --bg-tertiary: #3d3d3d;
+            --text-primary: #e8e8e8;
+            --text-secondary: #aaa;
+            --text-muted: #777;
+            --border-color: #333;
+            --accent-color: #8a84ff;
+            --accent-hover: #6c63ff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --button-bg: #2d2d2d;
+            --button-outline: #e8e8e8;
+        }
+        
         body {
             font-family: 'Amiri', 'Scheherazade New', serif;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            background: var(--bg-primary);
             min-height: 100vh;
             padding: 10px;
             touch-action: manipulation;
             font-size: 14px;
-            color: #e8e8e8;
+            color: var(--text-primary);
+            transition: background-color 0.3s, color 0.3s;
         }
         
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            background: #1a1a1a;
+            background: var(--bg-secondary);
             border-radius: 20px;
             padding: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-            border: 1px solid #333;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: background-color 0.3s, border-color 0.3s;
         }
         
         .header {
@@ -45,13 +77,13 @@
         }
         
         .title {
-            color: #e8e8e8;
+            color: var(--accent-color);
             font-size: 1.8em;
             font-weight: bold;
         }
         
         .durood {
-            color: #e8e8e8;
+            color: var(--accent-color);
             font-size: 0.85em;
             text-align: right;
             line-height: 1.8;
@@ -59,9 +91,62 @@
             max-width: 300px;
         }
         
+        .theme-toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .theme-label {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+        }
+        
+        /* Theme Toggle - From Uiverse.io by cuzpq */
+        .theme-checkbox {
+            --toggle-size: 16px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 6.25em;
+            height: 3.125em;
+            background: linear-gradient(to right, #efefef 50%, #2a2a2a 50%) no-repeat;
+            background-size: 205%;
+            background-position: 0;
+            transition: 0.4s;
+            border-radius: 99em;
+            position: relative;
+            cursor: pointer;
+            font-size: var(--toggle-size);
+        }
+
+        .theme-checkbox::before {
+            content: "";
+            width: 2.25em;
+            height: 2.25em;
+            position: absolute;
+            top: 0.438em;
+            left: 0.438em;
+            background: linear-gradient(to right, #efefef 50%, #2a2a2a 50%) no-repeat;
+            background-size: 205%;
+            background-position: 100%;
+            border-radius: 50%;
+            transition: 0.4s;
+        }
+
+        .theme-checkbox:checked::before {
+            left: calc(100% - 2.25em - 0.438em);
+            background-position: 0;
+        }
+
+        .theme-checkbox:checked {
+            background-position: 100%;
+        }
+        
         .subtitle {
             text-align: center;
-            color: #aaa;
+            color: var(--text-secondary);
             margin-bottom: 20px;
             font-size: 0.85em;
         }
@@ -74,8 +159,8 @@
         /* Button Styles - From Uiverse.io by Voxybuns */
         .styled-button {
             --button_radius: 0.75em;
-            --button_color: #e8e8e8;
-            --button_outline_color: #000000;
+            --button_color: var(--button-bg);
+            --button_outline_color: var(--button-outline);
             font-size: 17px;
             font-weight: bold;
             border: none;
@@ -115,17 +200,18 @@
             width: 100%;
             padding: 12px 50px 12px 15px;
             font-size: 15px;
-            border: 2px solid #333;
+            border: 2px solid var(--border-color);
             border-radius: 50px;
             outline: none;
             font-family: 'Amiri', 'Scheherazade New', serif;
-            background: #2d2d2d;
-            color: #e8e8e8;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            transition: border-color 0.3s, background-color 0.3s, color 0.3s;
         }
         
         .search-bar input:focus {
-            border-color: #555;
-            box-shadow: 0 0 10px rgba(85, 85, 85, 0.3);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(108, 99, 255, 0.3);
         }
         
         .search-icon {
@@ -133,54 +219,55 @@
             right: 15px;
             top: 50%;
             transform: translateY(-50%);
-            color: #aaa;
+            color: var(--text-muted);
             font-size: 18px;
         }
         
         .books-list {
             max-height: 400px;
             overflow-y: auto;
-            border: 2px solid #333;
+            border: 2px solid var(--border-color);
             border-radius: 10px;
             margin-bottom: 20px;
             padding: 5px;
-            background: #2d2d2d;
+            background: var(--bg-secondary);
+            transition: border-color 0.3s, background-color 0.3s;
         }
         
         .book-item {
             padding: 12px 15px;
             margin: 5px 0;
-            background: #2d2d2d;
-            border: 2px solid #333;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
             font-size: 15px;
             text-align: left;
-            color: #e8e8e8;
+            color: var(--text-primary);
         }
         
         .book-item:hover {
-            border-color: #555;
-            background: #3d3d3d;
+            border-color: var(--accent-color);
+            background: var(--bg-tertiary);
             transform: translateX(5px);
         }
         
         .book-item.selected {
-            border-color: #777;
-            background: #555;
+            border-color: var(--accent-color);
+            background: var(--accent-color);
             color: white;
             font-weight: bold;
         }
         
         .book-folder {
-            background: #2d2d2d;
-            border-left: 4px solid #555;
+            background: var(--bg-tertiary);
+            border-left: 4px solid var(--accent-color);
         }
         
         .book-meta {
             font-size: 0.75em;
-            color: #aaa;
+            color: var(--text-secondary);
             margin-top: 5px;
             line-height: 1.4;
         }
@@ -197,35 +284,36 @@
         }
         
         .volumes-list {
-            border: 1px solid #333;
+            border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 5px;
-            background: #2d2d2d;
+            background: var(--bg-secondary);
             max-height: 200px;
             overflow-y: auto;
+            transition: border-color 0.3s, background-color 0.3s;
         }
         
         .volume-item {
             padding: 10px 15px;
             margin: 3px 0;
-            background: #2d2d2d;
-            border: 1px solid #333;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.3s;
             font-size: 14px;
-            color: #e8e8e8;
+            color: var(--text-primary);
         }
         
         .volume-item:hover {
-            border-color: #555;
-            background: #3d3d3d;
+            border-color: var(--accent-color);
+            background: var(--bg-tertiary);
             transform: translateX(3px);
         }
         
         .volume-item.selected {
-            border-color: #777;
-            background: #555;
+            border-color: var(--accent-color);
+            background: var(--accent-color);
             color: white;
         }
         
@@ -236,7 +324,7 @@
             padding: 5px 10px;
             transition: transform 0.3s;
             user-select: none;
-            color: #aaa;
+            color: var(--text-muted);
         }
         
         .dropdown-toggle.open {
@@ -244,12 +332,13 @@
         }
         
         .collage-settings {
-            background: #2d2d2d;
+            background: var(--bg-tertiary);
             padding: 15px;
             border-radius: 15px;
             margin-bottom: 20px;
             animation: fadeInUp 0.5s ease-out;
-            border: 1px solid #333;
+            border: 1px solid var(--border-color);
+            transition: background-color 0.3s, border-color 0.3s;
         }
         
         .setting-group {
@@ -259,39 +348,86 @@
         .setting-group label {
             display: block;
             font-weight: bold;
-            color: #e8e8e8;
+            color: var(--accent-color);
             margin-bottom: 10px;
             font-size: 14px;
         }
         
-        .page-count-btns {
+        /* Page Count Radio Buttons - From Uiverse.io by LightAndy1 */
+        .wrapper {
+            --font-color-dark: #323232;
+            --font-color-light: #fff;
+            --bg-color: var(--bg-secondary);
+            --main-color: var(--accent-color);
+            --secondary-color: var(--accent-hover);
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            height: 36px;
+            background-color: var(--bg-color);
+            border: 2px solid var(--main-color);
+            border-radius: 34px;
             display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
+            flex-direction: row;
+            box-shadow: 4px 4px var(--main-color);
         }
-        
-        .page-count-btn {
-            padding: 8px 20px;
-            border: 2px solid #333;
-            background: #2d2d2d;
-            color: #e8e8e8;
-            border-radius: 8px;
+
+        .option {
+            flex: 1;
+            margin-right: 5px;
+            height: 28px;
+            position: relative;
+            top: 2px;
+            left: 2px;
+            border-radius: 34px;
+            transition: 0.25s cubic-bezier(0, 0, 0, 1);
+        }
+
+        .option:last-child {
+            margin-right: 4px;
+        }
+
+        .option:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .option:hover .span {
+            color: var(--font-color-light);
+        }
+
+        .input {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            appearance: none;
             cursor: pointer;
-            font-size: 13px;
+        }
+
+        .btn {
+            width: 100%;
+            height: 100%;
+            border-radius: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .span {
+            color: var(--font-color-dark);
+            font-size: 14px;
             font-weight: bold;
-            transition: all 0.3s;
-            font-family: 'Amiri', 'Scheherazade New', serif;
         }
-        
-        .page-count-btn:hover {
-            background: #3d3d3d;
-            transform: translateY(-2px);
+
+        .input:checked + .btn {
+            background-color: var(--main-color);
+            transition: 0.2s cubic-bezier(0, 0, 0, 1);
         }
-        
-        .page-count-btn.active {
-            background: #555;
-            color: white;
-            transform: translateY(-2px);
+
+        .input:checked + .btn .span {
+            color: var(--font-color-light);
+            transition: 0.25s cubic-bezier(0, 0, 0, 1);
         }
         
         .page-inputs {
@@ -310,25 +446,25 @@
         
         .page-input-group span {
             font-size: 13px;
-            color: #e8e8e8;
+            color: var(--text-primary);
         }
         
         .page-input-group input {
             padding: 8px;
             font-size: 13px;
-            border: 2px solid #333;
+            border: 2px solid var(--border-color);
             border-radius: 8px;
             width: 70px;
             text-align: center;
             font-family: 'Amiri', 'Scheherazade New', serif;
             transition: all 0.3s;
-            background: #2d2d2d;
-            color: #e8e8e8;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
         }
         
         .page-input-group input:focus {
-            border-color: #555;
-            box-shadow: 0 0 5px rgba(85, 85, 85, 0.3);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 5px rgba(108, 99, 255, 0.3);
         }
         
         .preview-section {
@@ -347,9 +483,9 @@
         }
         
         .preview-canvas {
-            border: 3px solid #555;
+            border: 3px solid var(--accent-color);
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            box-shadow: var(--shadow);
             display: block;
             max-width: 100%;
             height: auto;
@@ -359,7 +495,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            border: 3px solid #555;
+            border: 3px solid var(--accent-color);
             border-radius: 10px;
             cursor: crosshair;
             touch-action: none;
@@ -482,12 +618,13 @@
         }
         
         .highlight-controls {
-            background: #2d2d2d;
+            background: var(--bg-tertiary);
             padding: 15px;
             border-radius: 15px;
             margin: 15px 0;
             animation: fadeInUp 0.5s ease-out;
-            border: 1px solid #333;
+            border: 1px solid var(--border-color);
+            transition: background-color 0.3s, border-color 0.3s;
         }
         
         .highlight-header {
@@ -499,7 +636,7 @@
         }
         
         .highlight-title {
-            color: #e8e8e8;
+            color: var(--accent-color);
             font-size: 1.2em;
             font-weight: bold;
         }
@@ -526,7 +663,7 @@
         }
         
         .color-btn.active {
-            border-color: #e8e8e8;
+            border-color: var(--text-primary);
             transform: scale(1.2);
         }
         
@@ -548,7 +685,7 @@
         
         .highlight-instructions {
             font-size: 13px;
-            color: #aaa;
+            color: var(--text-secondary);
             margin-top: 10px;
             text-align: center;
         }
@@ -623,10 +760,11 @@
             text-align: center;
             margin: 20px 0;
             padding: 20px;
-            background: #2d2d2d;
+            background: var(--bg-tertiary);
             border-radius: 15px;
             animation: fadeInUp 0.5s ease-out;
-            border: 1px solid #333;
+            border: 1px solid var(--border-color);
+            transition: background-color 0.3s, border-color 0.3s;
         }
         
         .request-form {
@@ -639,31 +777,33 @@
             max-width: 400px;
             padding: 12px;
             font-size: 14px;
-            border: 2px solid #333;
+            border: 2px solid var(--border-color);
             border-radius: 8px;
             margin-bottom: 10px;
             font-family: 'Amiri', 'Scheherazade New', serif;
-            background: #2d2d2d;
-            color: #e8e8e8;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            transition: border-color 0.3s, background-color 0.3s, color 0.3s;
         }
         
         .request-input:focus {
-            border-color: #555;
-            box-shadow: 0 0 5px rgba(85, 85, 85, 0.3);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 5px rgba(108, 99, 255, 0.3);
         }
 
         /* Contact Section */
         .contact-section {
             margin-top: 40px;
             padding: 30px 20px;
-            background: #2d2d2d;
+            background: var(--bg-tertiary);
             border-radius: 15px;
             text-align: center;
-            border-top: 3px solid #555;
+            border-top: 3px solid var(--accent-color);
+            transition: background-color 0.3s, border-color 0.3s;
         }
 
         .contact-title {
-            color: #e8e8e8;
+            color: var(--accent-color);
             font-size: 1.5em;
             margin-bottom: 20px;
             font-weight: bold;
@@ -682,10 +822,10 @@
             align-items: center;
             gap: 10px;
             padding: 12px 20px;
-            background: #1a1a1a;
-            border: 2px solid #333;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
             border-radius: 10px;
-            color: #e8e8e8;
+            color: var(--text-primary);
             text-decoration: none;
             font-weight: bold;
             transition: all 0.3s;
@@ -693,7 +833,7 @@
         }
 
         .contact-link:hover {
-            background: #333;
+            background: var(--accent-color);
             color: white;
             transform: translateY(-3px);
         }
@@ -704,7 +844,7 @@
         }
 
         .copyright {
-            color: #aaa;
+            color: var(--text-muted);
             font-size: 13px;
             margin-top: 15px;
         }
@@ -714,15 +854,15 @@
         }
         
         .info-text {
-            color: #aaa;
+            color: var(--text-secondary);
             margin: 10px 0;
             font-size: 13px;
         }
         
         .error-message {
-            background: #3a1a1a;
-            border: 2px solid #5c2c2c;
-            color: #ff6b6b;
+            background: #fee;
+            border: 2px solid #fcc;
+            color: #c33;
             padding: 10px 15px;
             border-radius: 8px;
             margin: 10px 0;
@@ -731,9 +871,9 @@
         }
         
         .success-message {
-            background: #1a3a1a;
-            border: 2px solid #2c5c2c;
-            color: #6bff6b;
+            background: #efe;
+            border: 2px solid #cfc;
+            color: #363;
             padding: 10px 15px;
             border-radius: 8px;
             margin: 10px 0;
@@ -744,29 +884,333 @@
         .no-results {
             text-align: center;
             padding: 30px;
-            color: #777;
+            color: var(--text-muted);
             font-size: 15px;
         }
         
         .loading {
             text-align: center;
-            color: #aaa;
+            color: var(--accent-color);
             font-size: 15px;
             padding: 20px;
         }
         
-        .loading-spinner {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            border: 4px solid #333;
-            border-top: 4px solid #aaa;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 10px;
+        /* Book Loader - From Uiverse.io by anand_4957 (modified colors) */
+        .book,
+        .book__pg-shadow,
+        .book__pg {
+          animation: cover 5s ease-in-out infinite;
+        }
+        .book {
+          background-color: hsl(0, 90%, 65%);
+          border-radius: 0.25em;
+          box-shadow:
+            0 0.25em 0.5em hsla(0, 0%, 0%, 0.3),
+            0 0 0 0.25em hsl(0, 90%, 55%) inset;
+          padding: 0.25em;
+          perspective: 37.5em;
+          position: relative;
+          width: 8em;
+          height: 6em;
+          transform: translate3d(0, 0, 0);
+          transform-style: preserve-3d;
+          margin: 0 auto 20px;
+        }
+        .book__pg-shadow,
+        .book__pg {
+          position: absolute;
+          left: 0.25em;
+          width: calc(50% - 0.25em);
+        }
+        .book__pg-shadow {
+          animation-name: shadow;
+          background-image: linear-gradient(
+            -45deg,
+            hsla(0, 0%, 0%, 0) 50%,
+            hsla(0, 0%, 0%, 0.3) 50%
+          );
+          filter: blur(0.25em);
+          top: calc(100% - 0.25em);
+          height: 3.75em;
+          transform: scaleY(0);
+          transform-origin: 100% 0%;
+        }
+        .book__pg {
+          animation-name: pg1;
+          background-color: hsl(223, 10%, 100%);
+          background-image: linear-gradient(
+            90deg,
+            hsla(223, 10%, 90%, 0) 87.5%,
+            hsl(223, 10%, 90%)
+          );
+          height: calc(100% - 0.5em);
+          transform-origin: 100% 50%;
+        }
+        .book__pg--2,
+        .book__pg--3,
+        .book__pg--4 {
+          background-image: repeating-linear-gradient(
+              hsl(223, 10%, 10%) 0 0.125em,
+              hsla(223, 10%, 10%, 0) 0.125em 0.5em
+            ),
+            linear-gradient(90deg, hsla(223, 10%, 90%, 0) 87.5%, hsl(223, 10%, 90%));
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size:
+            2.5em 4.125em,
+            100% 100%;
+        }
+        .book__pg--2 {
+          animation-name: pg2;
+        }
+        .book__pg--3 {
+          animation-name: pg3;
+        }
+        .book__pg--4 {
+          animation-name: pg4;
+        }
+        .book__pg--5 {
+          animation-name: pg5;
         }
 
         /* Animations */
+        @keyframes cover {
+          from,
+          5%,
+          45%,
+          55%,
+          95%,
+          to {
+            animation-timing-function: ease-out;
+            background-color: hsl(0, 84%, 67%);
+          }
+          10%,
+          40%,
+          60%,
+          90% {
+            animation-timing-function: ease-in;
+            background-color: hsl(0, 90%, 45%);
+          }
+        }
+        @keyframes shadow {
+          from,
+          10.01%,
+          20.01%,
+          30.01%,
+          40.01% {
+            animation-timing-function: ease-in;
+            transform: translate3d(0, 0, 1px) scaleY(0) rotateY(0);
+          }
+          5%,
+          15%,
+          25%,
+          35%,
+          45%,
+          55%,
+          65%,
+          75%,
+          85%,
+          95% {
+            animation-timing-function: ease-out;
+            transform: translate3d(0, 0, 1px) scaleY(0.2) rotateY(90deg);
+          }
+          10%,
+          20%,
+          30%,
+          40%,
+          50%,
+          to {
+            animation-timing-function: ease-out;
+            transform: translate3d(0, 0, 1px) scaleY(0) rotateY(180deg);
+          }
+          50.01%,
+          60.01%,
+          70.01%,
+          80.01%,
+          90.01% {
+            animation-timing-function: ease-in;
+            transform: translate3d(0, 0, 1px) scaleY(0) rotateY(180deg);
+          }
+          60%,
+          70%,
+          80%,
+          90%,
+          to {
+            animation-timing-function: ease-out;
+            transform: translate3d(0, 0, 1px) scaleY(0) rotateY(0);
+          }
+        }
+        @keyframes pg1 {
+          from,
+          to {
+            animation-timing-function: ease-in-out;
+            background-color: hsl(223, 10%, 100%);
+            transform: translate3d(0, 0, 1px) rotateY(0.4deg);
+          }
+          10%,
+          15% {
+            animation-timing-function: ease-out;
+            background-color: hsl(223, 10%, 100%);
+            transform: translate3d(0, 0, 1px) rotateY(180deg);
+          }
+          20%,
+          80% {
+            animation-timing-function: ease-in;
+            background-color: hsl(223, 10%, 45%);
+            transform: translate3d(0, 0, 1px) rotateY(180deg);
+          }
+          85%,
+          90% {
+            animation-timing-function: ease-in-out;
+            background-color: hsl(223, 10%, 100%);
+            transform: translate3d(0, 0, 1px) rotateY(180deg);
+          }
+        }
+        @keyframes pg2 {
+          from,
+          to {
+            animation-timing-function: ease-in;
+            background-color: hsl(223, 10%, 45%);
+            transform: translate3d(0, 0, 1px) rotateY(0.3deg);
+          }
+          5%,
+          10% {
+            animation-timing-function: ease-in-out;
+            background-color: hsl(223, 10%, 100%);
+            transform: translate3d(0, 0, 1px) rotateY(0.3deg);
+          }
+          20%,
+          25% {
+            animation-timing-function: ease-out;
+            background-color: hsl(223, 10%, 100%);
+            transform: translate3d(0, 0, 1px) rotateY(179.9deg);
+          }
+          30%,
+          70% {
+            animation-timing-function: ease-in;
+            background-color: hsl(223, 10%, 45%);
+            transform: translate3d(0, 0, 1px) rotateY(179.9deg);
+          }
+          75%,
+          80% {
+            animation-timing-function: ease-in-out;
+            background-color: hsl(223, 10%, 100%);
+            transform: translate3d(0, 0, 1px) rotateY(179.9deg);
+          }
+          90%,
+          95% {
+            animation-timing-function: ease-out;
+            background-color: hsl(223, 10%, 100%);
+            transform: translate3d(0, 0, 1px) rotateY(0.3deg);
+          }
+        }
+        @keyframes pg3 {
+          from,
+          10%,
+          90%,
+          to {
+            animation-timing-function: ease-in;
+            background-color: hsl(223, 10%, 45%);
+            transform: translate3d(0, 0, 1px) rotateY(0.2deg);
+          }
+          15%,
+          20% {
+            animation-timing-function: ease-in-out;
+            background-color: hsl(223, 10%, 100%);
+            transform: translate3d(0, 0, 1px) rotateY(0.2deg);
+          }
+          30%,
+          35% {
+            animation-timing-function: ease-out;
+            background-color: hsl(223, 10%, 100%);
+            transform: translate3d(0, 0, 1px) rotateY(179.8deg);
+          }
+          40%,
+          60% {
+            animation-timing-function: ease-in;
+            background-color: hsl(223, 10%, 45%);
+            transform: translate3d(0, 0, 1px) rotateY(179.8deg);
+          }
+          65%,
+          70% {
+            animation-timing-function: ease-in-out;
+            background-color: hsl(223, 10%, 100%);
+            transform: translate3d(0, 0, 1px) rotateY(179.8deg);
+          }
+          80%,
+          85% {
+            animation-timing-function: ease-out;
+            background-color: hsl(223, 10%, 100%);
+            transform: translate3d(0, 0, 1px) rotateY(0.2deg);
+          }
+        }
+        @keyframes pg4 {
+          from,
+          20%,
+          80%,
+          to {
+            animation-timing-function: ease-in;
+            background-color: hsl(223, 10%, 45%);
+            transform: translate3d(0, 0, 1px) rotateY(0.1deg);
+          }
+          25%,
+          30% {
+            animation-timing-function: ease-in-out;
+            background-color: hsl(223, 10%, 100%);
+            transform: translate3d(0, 0, 1px) rotateY(0.1deg);
+          }
+          40%,
+          45% {
+            animation-timing-function: ease-out;
+            background-color: hsl(223, 10%, 100%);
+            transform: translate3d(0, 0, 1px) rotateY(179.7deg);
+          }
+          50% {
+            animation-timing-function: ease-in;
+            background-color: hsl(223, 10%, 45%);
+            transform: translate3d(0, 0, 1px) rotateY(179.7deg);
+          }
+          55%,
+          60% {
+            animation-timing-function: ease-in-out;
+            background-color: hsl(223, 10%, 100%);
+            transform: translate3d(0, 0, 1px) rotateY(179.7deg);
+          }
+          70%,
+          75% {
+            animation-timing-function: ease-out;
+            background-color: hsl(223, 10%, 100%);
+            transform: translate3d(0, 0, 1px) rotateY(0.1deg);
+          }
+        }
+        @keyframes pg5 {
+          from,
+          30%,
+          70%,
+          to {
+            animation-timing-function: ease-in;
+            background-color: hsl(223, 10%, 45%);
+            transform: translate3d(0, 0, 1px) rotateY(0);
+          }
+          35%,
+          40% {
+            animation-timing-function: ease-in-out;
+            background-color: hsl(223, 10%, 100%);
+            transform: translate3d(0, 0, 1px) rotateY(0deg);
+          }
+          50% {
+            animation-timing-function: ease-in-out;
+            background-color: hsl(223, 10%, 100%);
+            transform: translate3d(0, 0, 1px) rotateY(179.6deg);
+          }
+          60%,
+          65% {
+            animation-timing-function: ease-out;
+            background-color: hsl(223, 10%, 100%);
+            transform: translate3d(0, 0, 1px) rotateY(0);
+          }
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -799,11 +1243,6 @@
                 opacity: 1;
                 transform: scale(1);
             }
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-           100% { transform: rotate(360deg); }
         }
 
         @keyframes shake {
@@ -849,11 +1288,29 @@
                 max-width: 250px;
                 justify-content: center;
             }
+            
+            .wrapper {
+                height: 32px;
+            }
+            
+            .option {
+                height: 24px;
+            }
+            
+            .span {
+                font-size: 12px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="theme-toggle-container">
+            <span class="theme-label">Light Mode</span>
+            <input type="checkbox" class="theme-checkbox" id="themeToggle">
+            <span class="theme-label">Dark Mode</span>
+        </div>
+        
         <div class="header">
             <div class="title">📚 Sijjeen</div>
             <div class="durood">
@@ -878,17 +1335,24 @@
             <span class="search-icon">🔍</span>
         </div>
         
-        <h2 style="color: #e8e8e8; margin-bottom: 15px; font-size: 1.2em;">Available Books</h2>
+        <h2 style="color: var(--accent-color); margin-bottom: 15px; font-size: 1.2em;">Available Books</h2>
         <div id="booksList" class="books-list">
             <div class="loading">
-                <div class="loading-spinner"></div>
+                <div class="book">
+                    <div class="book__pg-shadow"></div>
+                    <div class="book__pg"></div>
+                    <div class="book__pg book__pg--2"></div>
+                    <div class="book__pg book__pg--3"></div>
+                    <div class="book__pg book__pg--4"></div>
+                    <div class="book__pg book__pg--5"></div>
+                </div>
                 Loading books...
             </div>
         </div>
         
         <!-- Book Request Section (Initially Hidden) -->
         <div id="bookRequestSection" class="book-request hidden">
-            <p style="color: #e8e8e8;">Can't find the book you're looking for?</p>
+            <p style="color: var(--text-primary);">Can't find the book you're looking for?</p>
             <button class="styled-button" onclick="showRequestForm()">
                 <span class="button-top">📚 Request a Book</span>
             </button>
@@ -906,10 +1370,31 @@
         <div id="collageSettings" class="collage-settings hidden">
             <div class="setting-group">
                 <label>How many pages do you want in your collage?</label>
-                <div class="page-count-btns">
-                    <button class="page-count-btn active" onclick="setPageCount(2)">2 Pages</button>
-                    <button class="page-count-btn" onclick="setPageCount(3)">3 Pages</button>
-                    <button class="page-count-btn" onclick="setPageCount(4)">4 Pages</button>
+                <div class="wrapper" id="pageCountWrapper">
+                    <div class="option">
+                        <input checked value="2" name="pageCount" type="radio" class="input" />
+                        <div class="btn">
+                            <span class="span">2 Pages</span>
+                        </div>
+                    </div>
+                    <div class="option">
+                        <input value="3" name="pageCount" type="radio" class="input" />
+                        <div class="btn">
+                            <span class="span">3 Pages</span>
+                        </div>
+                    </div>
+                    <div class="option">
+                        <input value="4" name="pageCount" type="radio" class="input" />
+                        <div class="btn">
+                            <span class="span">4 Pages</span>
+                        </div>
+                    </div>
+                    <div class="option">
+                        <input value="5" name="pageCount" type="radio" class="input" />
+                        <div class="btn">
+                            <span class="span">5 Pages</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -950,7 +1435,7 @@
         </div>
         
         <div id="previewSection" class="preview-section hidden">
-            <h2 style="color: #e8e8e8; margin-bottom: 20px; font-size: 1.2em;">Preview</h2>
+            <h2 style="color: var(--accent-color); margin-bottom: 20px; font-size: 1.2em;">Preview</h2>
             <div class="preview-container">
                 <canvas id="previewCanvas" class="preview-canvas"></canvas>
                 <canvas id="highlightCanvas" class="highlight-canvas"></canvas>
@@ -1013,6 +1498,21 @@
         let previewTimeout = null;
         let pdfDocument = null;
 
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        // Set initial theme based on system preference or saved preference
+        const currentTheme = localStorage.getItem('theme') || (prefersDarkScheme.matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        themeToggle.checked = currentTheme === 'dark';
+        
+        themeToggle.addEventListener('change', function() {
+            const newTheme = this.checked ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
         // File upload handling
         document.getElementById('uploadInput').addEventListener('change', function(e) {
             const file = e.target.files[0];
@@ -1028,7 +1528,14 @@
                 const container = document.getElementById('errorContainer');
                 container.innerHTML = `
                     <div class="loading">
-                        <div class="loading-spinner"></div>
+                        <div class="book">
+                            <div class="book__pg-shadow"></div>
+                            <div class="book__pg"></div>
+                            <div class="book__pg book__pg--2"></div>
+                            <div class="book__pg book__pg--3"></div>
+                            <div class="book__pg book__pg--4"></div>
+                            <div class="book__pg book__pg--5"></div>
+                        </div>
                         Loading your PDF...
                     </div>
                 `;
@@ -1061,7 +1568,14 @@
                 const list = document.getElementById('booksList');
                 list.innerHTML = `
                     <div class="loading">
-                        <div class="loading-spinner"></div>
+                        <div class="book">
+                            <div class="book__pg-shadow"></div>
+                            <div class="book__pg"></div>
+                            <div class="book__pg book__pg--2"></div>
+                            <div class="book__pg book__pg--3"></div>
+                            <div class="book__pg book__pg--4"></div>
+                            <div class="book__pg book__pg--5"></div>
+                        </div>
                         Loading books...
                     </div>
                 `;
@@ -1229,7 +1743,14 @@
                 const container = document.getElementById('errorContainer');
                 container.innerHTML = `
                     <div class="loading">
-                        <div class="loading-spinner"></div>
+                        <div class="book">
+                            <div class="book__pg-shadow"></div>
+                            <div class="book__pg"></div>
+                            <div class="book__pg book__pg--2"></div>
+                            <div class="book__pg book__pg--3"></div>
+                            <div class="book__pg book__pg--4"></div>
+                            <div class="book__pg book__pg--5"></div>
+                        </div>
                         Loading book metadata...
                     </div>
                 `;
@@ -1260,13 +1781,17 @@
             }
         }
         
+        // Page count radio button functionality
+        document.querySelectorAll('input[name="pageCount"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.checked) {
+                    setPageCount(parseInt(this.value));
+                }
+            });
+        });
+        
         function setPageCount(count) {
             pageCount = count;
-            
-            const buttons = document.querySelectorAll('.page-count-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
             updatePageInputs();
             debouncedUpdatePreview();
         }
