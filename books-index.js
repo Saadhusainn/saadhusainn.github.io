@@ -473,7 +473,7 @@ const booksIndex = {
             name: "سنن الترمذي", 
             type: "multi",
             publisher: "دار التأصيل",
-            language: ""العربية"",
+            language: "العربية",
           volumes: [
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/31/1.pdf" },
     { name: "2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/31/2.pdf" },
