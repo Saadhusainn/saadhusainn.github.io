@@ -722,7 +722,7 @@ const booksIndex = {
             isDropdownOpen: false
         },
         { 
-            name: "إرشاد الساري شرح صحيح البخاري", 
+            name: "إرشاد الساري شرح صحيح البخاري - ط دار الكتب العلمية", 
             type: "multi",
             publisher: "دار الكتب العلمية",
             language: "العربية",
@@ -747,7 +747,7 @@ const booksIndex = {
             isDropdownOpen: false
         },
         { 
-            name: "التمهيد لما في الموطأ من المعاني في الأسانيد في حديث رسول الله", 
+            name: "التمهيد لما في الموطأ من المعاني في الأسانيد في حديث رسول الله - ط مؤسسة الفرقان", 
             type: "multi",
             publisher: "مؤسسة الفرقان",
             language: "العربية",
@@ -774,7 +774,7 @@ const booksIndex = {
             isDropdownOpen: false
         },
         { 
-            name: "فتح الباري", 
+            name: "فتح الباري - ط دار السلام", 
             type: "multi",
             publisher: "دار السلام",
             language: "العربية",
@@ -831,7 +831,7 @@ const booksIndex = {
             isDropdownOpen: false
         },
         { 
-            name: "فتح الباري", 
+            name: "فتح الباري - ط دار طيبة", 
             type: "multi",
             publisher: "دار طيبة",
             language: "العربية",
@@ -887,7 +887,7 @@ const booksIndex = {
             isDropdownOpen: false
         },
         { 
-            name: "إرشاد الساري شرح صحيح البخاري", 
+            name: "إرشاد الساري شرح صحيح البخاري - ط ابن حزم", 
             type: "multi",
             publisher: "دار ابن حزم",
             language: "العربية",
