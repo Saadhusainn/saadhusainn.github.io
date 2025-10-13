@@ -46,7 +46,7 @@ const booksIndex = {
         },
         {
             name:"علل الترمذي الكبير",
-            file:"https://github.com/Saadhusainn/sijjeen04/tree/main/35.pdf",
+            file:"https://raw.githubusercontent.com/Saadhusainn/sijjeen04/tree/main/35.pdf",
             publisher:"مكتبة النهضة العربية",
             language:"العربية",
             type:"single"
