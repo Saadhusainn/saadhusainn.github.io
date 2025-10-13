@@ -529,7 +529,7 @@ const booksIndex = {
         },
         { 
             name: "الترغيب الترهيب", 
-            type: "",
+            type: "multi",
             publisher: "دار الكتب العلمية ",
             language: "العربية",
             volumes: [
