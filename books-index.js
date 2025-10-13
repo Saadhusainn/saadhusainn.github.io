@@ -653,7 +653,7 @@ const booksIndex = {
         { 
             name: "فيض الباري على صحيح البخاري", 
             type: "multi",
-            publisher: ""دار الكتب العلمية ,
+            publisher: "دار الكتب العلمية",
             language: "العربية",
             volumes: [
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/40/فيض الباري على صحيح البخاري مع حاشية البدر الساري جلد 1.pdf" },
