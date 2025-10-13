@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIJJEEN - Scans Maker</title>
+    <title>Sijjeen - Book Collage Maker</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -70,35 +70,34 @@
         .header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: center;
             margin-bottom: 20px;
             flex-wrap: wrap;
             gap: 15px;
-            position: relative;
         }
         
         .title {
             color: var(--accent-color);
             font-size: 2.5em;
             font-weight: bold;
-            text-align: center;
+            text-align: left;
             flex: 1;
-            margin: 0 20px;
         }
         
         .durood {
             color: var(--accent-color);
             font-size: 0.85em;
-            text-align: left;
+            text-align: center;
             line-height: 1.8;
             direction: rtl;
-            max-width: 300px;
+            max-width: 400px;
+            flex: 2;
         }
         
         .theme-toggle-container {
-            position: absolute;
-            top: 0;
-            right: 0;
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
         }
         
         /* Theme Toggle - From Uiverse.io by RiccardoRapelli (modified) */
@@ -505,6 +504,41 @@
             line-height: 1.4;
         }
         
+        .book-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .action-button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-family: 'Amiri', 'Scheherazade New', serif;
+        }
+        
+        .download-btn {
+            background: #28a745;
+            color: white;
+        }
+        
+        .download-btn:hover {
+            background: #218838;
+        }
+        
+        .view-btn {
+            background: #17a2b8;
+            color: white;
+        }
+        
+        .view-btn:hover {
+            background: #138496;
+        }
+        
         .volume-dropdown {
             max-height: 0;
             overflow: hidden;
@@ -513,22 +547,22 @@
         }
         
         .volume-dropdown.open {
-            max-height: 300px;
+            max-height: 400px; /* Increased height */
         }
         
         .volumes-list {
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 5px;
+            padding: 8px; /* Increased padding */
             background: var(--bg-secondary);
-            max-height: 200px;
+            max-height: 350px; /* Increased height */
             overflow-y: auto;
             transition: border-color 0.3s, background-color 0.3s;
         }
         
         .volume-item {
-            padding: 10px 15px;
-            margin: 3px 0;
+            padding: 12px 15px; /* Increased padding */
+            margin: 5px 0; /* Increased margin */
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
             border-radius: 6px;
@@ -1499,13 +1533,13 @@
             .header {
                 flex-direction: column;
                 text-align: center;
-                gap: 10px;
+                gap: 15px;
             }
             
             .title {
                 font-size: 2em;
                 order: 1;
-                margin: 10px 0;
+                text-align: center;
             }
             
             .durood {
@@ -1515,9 +1549,8 @@
             }
             
             .theme-toggle-container {
-                position: relative;
                 order: 3;
-                margin-top: 10px;
+                justify-content: center;
             }
             
             .contact-links {
@@ -1542,19 +1575,28 @@
             .span {
                 font-size: 12px;
             }
+            
+            .book-actions {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .action-button {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
+            <div class="title">SIJJEEN</div>
+            
             <div class="durood">
                 اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ<br>
                 كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ<br>
                 إِنَّكَ حَمِيدٌ مَجِيدٌ
             </div>
-            
-            <div class="title">SIJJEEN</div>
             
             <div class="theme-toggle-container">
                 <label class="switch">
@@ -1626,7 +1668,7 @@
             </div>
         </div>
         
-        <p class="subtitle">Create beautiful book Scans with highlighting</p>
+        <p class="subtitle">Create beautiful book collages with highlighting</p>
         
         <!-- Upload Section -->
         <div class="upload-section">
@@ -1676,7 +1718,7 @@
         
         <div id="collageSettings" class="collage-settings hidden">
             <div class="setting-group">
-                <label>How many pages do you want in your Scan?</label>
+                <label>How many pages do you want in your collage?</label>
                 <div class="wrapper" id="pageCountWrapper">
                     <div class="option">
                         <input checked value="2" name="pageCount" type="radio" class="input" />
@@ -1732,7 +1774,7 @@
                 <div class="color-btn highlight-lime" data-color="#00ff00" onclick="setHighlightColor(this)"></div>
             </div>
             <p class="highlight-instructions">
-                Click/tap and drag to create highlights. Click on existing highlights to resize them.
+                Click/tap and drag to create highlights. Click on existing highlights to resize or move them.
             </p>
             <div class="highlight-actions">
                 <button class="action-btn undo-btn" id="undoBtn" onclick="undoHighlight()" disabled>↶ Undo</button>
@@ -1749,7 +1791,7 @@
             </div>
             <br>
             <button class="styled-button" onclick="downloadCollage()">
-                <span class="button-top">💾 Download Scan</span>
+                <span class="button-top">💾 Download Collage</span>
             </button>
         </div>
         
@@ -1777,7 +1819,7 @@
                 </a>
             </div>
             <div class="copyright">
-                © 2025 Sijjeen. All rights reserved.
+                © 2024 Sijjeen. All rights reserved.
             </div>
         </div>
     </div>
@@ -1800,6 +1842,7 @@
         let startX, startY;
         let selectedRectIndex = -1;
         let isResizing = false;
+        let isMoving = false;
         let resizeHandle = -1;
         let canvasScale = 1;
         let previewTimeout = null;
@@ -1965,18 +2008,28 @@
                     const dropdownClass = book.isDropdownOpen ? 'dropdown-toggle open' : 'dropdown-toggle';
                     
                     item.innerHTML = `
-                        <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleVolumeDropdown('${book.name}')">
+                        <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleVolumeDropdown(event, '${book.name}')">
                             <span>📁 ${book.name}</span>
-                            <span class="${dropdownClass}" onclick="event.stopPropagation(); toggleVolumeDropdown('${book.name}')">
+                            <span class="${dropdownClass}">
                                 ${dropdownIcon}
                             </span>
                         </div>
                         ${metaHTML}
+                        <div class="book-actions">
+                            <button class="action-button download-btn" onclick="downloadBook('${book.name}')">Download</button>
+                            <button class="action-button view-btn" onclick="viewBook('${book.name}')">View</button>
+                        </div>
                         <div class="volume-dropdown ${book.isDropdownOpen ? 'open' : ''}" id="dropdown-${book.name}">
                             <div class="volumes-list">
                                 ${book.volumes.map(vol => `
                                     <div class="volume-item" onclick="selectVolume(event, '${book.name}', '${vol.name}', '${vol.file}')">
-                                        📖 ${vol.name}
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <span>📖 ${vol.name}</span>
+                                            <div class="book-actions">
+                                                <button class="action-button download-btn" onclick="event.stopPropagation(); downloadVolume('${book.name}', '${vol.name}', '${vol.file}')">Download</button>
+                                                <button class="action-button view-btn" onclick="event.stopPropagation(); viewVolume('${book.name}', '${vol.name}', '${vol.file}')">View</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 `).join('')}
                             </div>
@@ -1992,7 +2045,13 @@
                     }
                     
                     item.innerHTML = `
-                        📄 ${book.name}
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>📄 ${book.name}</span>
+                            <div class="book-actions">
+                                <button class="action-button download-btn" onclick="downloadBook('${book.name}')">Download</button>
+                                <button class="action-button view-btn" onclick="viewBook('${book.name}')">View</button>
+                            </div>
+                        </div>
                         ${metaHTML}
                     `;
                     item.onclick = () => selectBook(book);
@@ -2002,7 +2061,8 @@
             });
         }
         
-        function toggleVolumeDropdown(bookName) {
+        function toggleVolumeDropdown(event, bookName) {
+            event.stopPropagation();
             const book = books.find(b => b.name === bookName && b.type === 'multi');
             if (book) {
                 book.isDropdownOpen = !book.isDropdownOpen;
@@ -2025,7 +2085,7 @@
                 document.querySelectorAll('.volume-item').forEach(item => {
                     item.classList.remove('selected');
                 });
-                event.target.classList.add('selected');
+                event.target.closest('.volume-item').classList.add('selected');
                 
                 loadBookFile(volumeFile, `${book.name} - ${volumeName}`);
             }
@@ -2043,6 +2103,27 @@
             event.target.closest('.book-item').classList.add('selected');
             
             loadBookFile(book.file, book.name);
+        }
+        
+        // Book action functions
+        function downloadBook(bookName) {
+            showSuccess(`Downloading ${bookName}...`);
+            // Add actual download logic here
+        }
+        
+        function viewBook(bookName) {
+            showSuccess(`Opening ${bookName}...`);
+            // Add actual view logic here
+        }
+        
+        function downloadVolume(bookName, volumeName, volumeFile) {
+            showSuccess(`Downloading ${bookName} - ${volumeName}...`);
+            // Add actual download logic here
+        }
+        
+        function viewVolume(bookName, volumeName, volumeFile) {
+            showSuccess(`Opening ${bookName} - ${volumeName}...`);
+            // Add actual view logic here
         }
         
         async function loadBookFile(filePath, displayName) {
@@ -2341,10 +2422,12 @@
             function handleStart(x, y) {
                 if (!isHighlightMode) return;
                 
+                // Check if clicking on existing highlight for resizing or moving
                 for (let i = 0; i < highlights.length; i++) {
                     const h = highlights[i];
                     const handles = getResizeHandles(h);
                     
+                    // Check resize handles first
                     for (let j = 0; j < handles.length; j++) {
                         if (isPointInRect(x, y, handles[j])) {
                             isResizing = true;
@@ -2354,14 +2437,17 @@
                         }
                     }
                     
+                    // Check if clicking on the rectangle itself for moving
                     if (isPointInRect(x, y, h)) {
+                        isMoving = true;
                         selectedRectIndex = i;
-                        isDrawing = false;
-                        drawHighlights();
+                        startX = x;
+                        startY = y;
                         return;
                     }
                 }
                 
+                // If not interacting with existing highlight, create new one
                 isDrawing = true;
                 startX = x;
                 startY = y;
@@ -2388,6 +2474,18 @@
                     return;
                 }
                 
+                if (isMoving && selectedRectIndex >= 0) {
+                    const h = highlights[selectedRectIndex];
+                    const dx = x - startX;
+                    const dy = y - startY;
+                    h.x += dx;
+                    h.y += dy;
+                    startX = x;
+                    startY = y;
+                    drawHighlights();
+                    return;
+                }
+                
                 if (isDrawing && currentRect) {
                     currentRect.width = x - startX;
                     currentRect.height = y - startY;
@@ -2396,11 +2494,12 @@
             }
             
             function handleEnd() {
-                if (isDrawing || isResizing) {
+                if (isDrawing || isResizing || isMoving) {
                     saveHighlightState();
                 }
                 isDrawing = false;
                 isResizing = false;
+                isMoving = false;
                 resizeHandle = -1;
             }
             
@@ -2565,10 +2664,10 @@
                 link.href = tempCanvas.toDataURL('image/png', 1.0);
                 link.click();
                 
-                showSuccess(`✅ Scan downloaded as: ${filename}`);
+                showSuccess(`✅ Collage downloaded as: ${filename}`);
                 
             } catch (error) {
-                showError('Error downloading scan. Please try again.');
+                showError('Error downloading collage. Please try again.');
             }
         }
         
