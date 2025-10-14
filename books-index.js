@@ -1140,14 +1140,14 @@ const booksIndex = {
             publisher: "دار ابن الجوزي ",
             language: "العربية",
             volumes: [
-    { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen5.2/main/56/01.pdf" },
-    { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen5.2/main/56/02.pdf" },
-    { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen5.2/main/56/03.pdf" },
-    { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen5.2/main/56/04.pdf" },
-    { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen5.2/main/56/05.pdf" },
-    { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen5.2/main/56/06.pdf" },
-    { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen5.2/main/56/07.pdf" },
-    { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen5.2/main/56/08.pdf" }
+    { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/56/01.pdf" },
+    { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/56/02.pdf" },
+    { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/56/03.pdf" },
+    { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/56/04.pdf" },
+    { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/56/05.pdf" },
+    { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/56/06.pdf" },
+    { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/56/07.pdf" },
+    { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/56/08.pdf" }
 ],
             isDropdownOpen: false
         },
@@ -1157,11 +1157,11 @@ const booksIndex = {
             publisher: "دار الخاني",
             language: "العربية",
             volumes: [
-    { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen5.2/main/57/emra0.pdf" },
-    { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen5.2/main/57/emra1.pdf" },
-    { name: "2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen5.2/main/57/emra2.pdf" },
-    { name: "3", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen5.2/main/57/emra3.pdf" },
-    { name: "4", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen5.2/main/57/emra4.pdf" }
+    { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/57/emra0.pdf" },
+    { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/57/emra1.pdf" },
+    { name: "2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/57/emra2.pdf" },
+    { name: "3", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/57/emra3.pdf" },
+    { name: "4", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/57/emra4.pdf" }
 ],
             isDropdownOpen: false
         },
@@ -1171,15 +1171,15 @@ const booksIndex = {
             publisher: "دار الكتب العلمية",
             language: "العربية",
             volumes: [
-    { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen5.2/main/58/التاريخ الكبير - أبو عبد الله محمد بن إسماعيل البخاري (المتوفى 256هـ) دار الكتب العلمية، بیروت – جلد 01.pdf" },
-    { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen5.2/main/58/التاريخ الكبير - أبو عبد الله محمد بن إسماعيل البخاري (المتوفى 256هـ) دار الكتب العلمية، بیروت – جلد 02.pdf" },
-    { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen5.2/main/58/التاريخ الكبير - أبو عبد الله محمد بن إسماعيل البخاري (المتوفى 256هـ) دار الكتب العلمية، بیروت – جلد 03.pdf" },
-    { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen5.2/main/58/التاريخ الكبير - أبو عبد الله محمد بن إسماعيل البخاري (المتوفى 256هـ) دار الكتب العلمية، بیروت – جلد 04.pdf" },
-    { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen5.2/main/58/التاريخ الكبير - أبو عبد الله محمد بن إسماعيل البخاري (المتوفى 256هـ) دار الكتب العلمية، بیروت – جلد 05.pdf" },
-    { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen5.2/main/58/التاريخ الكبير - أبو عبد الله محمد بن إسماعيل البخاري (المتوفى 256هـ) دار الكتب العلمية، بیروت – جلد 06.pdf" },
-    { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen5.2/main/58/التاريخ الكبير - أبو عبد الله محمد بن إسماعيل البخاري (المتوفى 256هـ) دار الكتب العلمية، بیروت – جلد 07.pdf" },
-    { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen5.2/main/58/التاريخ الكبير - أبو عبد الله محمد بن إسماعيل البخاري (المتوفى 256هـ) دار الكتب العلمية، بیروت – جلد 08.pdf" },
-    { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen5.2/main/58/التاريخ الكبير - أبو عبد الله محمد بن إسماعيل البخاري (المتوفى 256هـ) دار الكتب العلمية، بیروت – جلد 09.pdf" }
+    { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/58/التاريخ الكبير - أبو عبد الله محمد بن إسماعيل البخاري (المتوفى 256هـ) دار الكتب العلمية، بیروت – جلد 01.pdf" },
+    { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/58/التاريخ الكبير - أبو عبد الله محمد بن إسماعيل البخاري (المتوفى 256هـ) دار الكتب العلمية، بیروت – جلد 02.pdf" },
+    { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/58/التاريخ الكبير - أبو عبد الله محمد بن إسماعيل البخاري (المتوفى 256هـ) دار الكتب العلمية، بیروت – جلد 03.pdf" },
+    { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/58/التاريخ الكبير - أبو عبد الله محمد بن إسماعيل البخاري (المتوفى 256هـ) دار الكتب العلمية، بیروت – جلد 04.pdf" },
+    { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/58/التاريخ الكبير - أبو عبد الله محمد بن إسماعيل البخاري (المتوفى 256هـ) دار الكتب العلمية، بیروت – جلد 05.pdf" },
+    { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/58/التاريخ الكبير - أبو عبد الله محمد بن إسماعيل البخاري (المتوفى 256هـ) دار الكتب العلمية، بیروت – جلد 06.pdf" },
+    { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/58/التاريخ الكبير - أبو عبد الله محمد بن إسماعيل البخاري (المتوفى 256هـ) دار الكتب العلمية، بیروت – جلد 07.pdf" },
+    { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/58/التاريخ الكبير - أبو عبد الله محمد بن إسماعيل البخاري (المتوفى 256هـ) دار الكتب العلمية، بیروت – جلد 08.pdf" },
+    { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/58/التاريخ الكبير - أبو عبد الله محمد بن إسماعيل البخاري (المتوفى 256هـ) دار الكتب العلمية، بیروت – جلد 09.pdf" }
 ],
             isDropdownOpen: false
         },
@@ -1189,8 +1189,8 @@ const booksIndex = {
             publisher: "N/A",
             language: "العربية",
             volumes: [
-    { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen5.2/main/59/01_44014.pdf" },
-    { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen5.2/main/59/02_44015.pdf" }
+    { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/59/01_44014.pdf" },
+    { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/59/02_44015.pdf" }
 ],
             isDropdownOpen: false
         }
