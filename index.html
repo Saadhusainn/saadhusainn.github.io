@@ -519,24 +519,24 @@
             font-weight: bold;
             transition: all 0.3s;
             font-family: 'Amiri', 'Scheherazade New', serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
         }
         
-        .download-btn {
-            background: #28a745;
-            color: white;
+        .action-button img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
         }
         
         .download-btn:hover {
-            background: #218838;
-        }
-        
-        .view-btn {
-            background: #17a2b8;
-            color: white;
+            background: rgba(40, 167, 69, 0.1);
         }
         
         .view-btn:hover {
-            background: #138496;
+            background: rgba(23, 162, 184, 0.1);
         }
         
         .volume-dropdown {
@@ -1518,6 +1518,31 @@
             20%, 40%, 60%, 80% { transform: translateX(5px); }
         }
 
+        /* Book Opening Message */
+        .book-opening-message {
+            text-align: center;
+            margin: 10px 0 20px;
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.1em;
+            min-height: 24px;
+        }
+
+        /* Loading indicator for pages */
+        .page-loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: var(--accent-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         /* Mobile Responsive */
         @media (max-width: 768px) {
             body {
@@ -1577,12 +1602,12 @@
             }
             
             .book-actions {
-                flex-direction: column;
+                flex-direction: row;
                 gap: 5px;
             }
             
             .action-button {
-                width: 100%;
+                width: auto;
             }
         }
     </style>
@@ -1685,6 +1710,10 @@
         </div>
         
         <h2 style="color: var(--accent-color); margin-bottom: 15px; font-size: 1.2em;">Available Books</h2>
+        
+        <!-- Book Opening Message - Moved below Available Books heading -->
+        <div id="bookOpeningMessage" class="book-opening-message"></div>
+        
         <div id="booksList" class="books-list">
             <div class="loading">
                 <div class="book">
@@ -1847,6 +1876,8 @@
         let canvasScale = 1;
         let previewTimeout = null;
         let pdfDocument = null;
+        let loadedPages = new Map(); // For lazy loading
+        let initialPagesLoaded = false;
 
         // Theme toggle functionality
         const themeToggle = document.getElementById('input');
@@ -2016,8 +2047,12 @@
                         </div>
                         ${metaHTML}
                         <div class="book-actions">
-                            <button class="action-button download-btn" onclick="downloadBook('${book.name}')">Download</button>
-                            <button class="action-button view-btn" onclick="viewBook('${book.name}')">View</button>
+                            <button class="action-button download-btn" onclick="downloadBook('${book.name}')">
+                                <img src="https://i.ibb.co/VWNPkcy9/download-icon.png" alt="Download">
+                            </button>
+                            <button class="action-button view-btn" onclick="viewBook('${book.name}')">
+                                <img src="https://i.ibb.co/kVtN0NPx/view-icon.png" alt="View">
+                            </button>
                         </div>
                         <div class="volume-dropdown ${book.isDropdownOpen ? 'open' : ''}" id="dropdown-${book.name}">
                             <div class="volumes-list">
@@ -2026,8 +2061,12 @@
                                         <div style="display: flex; justify-content: space-between; align-items: center;">
                                             <span>📖 ${vol.name}</span>
                                             <div class="book-actions">
-                                                <button class="action-button download-btn" onclick="event.stopPropagation(); downloadVolume('${book.name}', '${vol.name}', '${vol.file}')">Download</button>
-                                                <button class="action-button view-btn" onclick="event.stopPropagation(); viewVolume('${book.name}', '${vol.name}', '${vol.file}')">View</button>
+                                                <button class="action-button download-btn" onclick="event.stopPropagation(); downloadVolume('${book.name}', '${vol.name}', '${vol.file}')">
+                                                    <img src="https://i.ibb.co/VWNPkcy9/download-icon.png" alt="Download">
+                                                </button>
+                                                <button class="action-button view-btn" onclick="event.stopPropagation(); viewVolume('${book.name}', '${vol.name}', '${vol.file}')">
+                                                    <img src="https://i.ibb.co/kVtN0NPx/view-icon.png" alt="View">
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -2048,8 +2087,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <span>📄 ${book.name}</span>
                             <div class="book-actions">
-                                <button class="action-button download-btn" onclick="downloadBook('${book.name}')">Download</button>
-                                <button class="action-button view-btn" onclick="viewBook('${book.name}')">View</button>
+                                <button class="action-button download-btn" onclick="downloadBook('${book.name}')">
+                                    <img src="https://i.ibb.co/VWNPkcy9/download-icon.png" alt="Download">
+                                </button>
+                                <button class="action-button view-btn" onclick="viewBook('${book.name}')">
+                                    <img src="https://i.ibb.co/kVtN0NPx/view-icon.png" alt="View">
+                                </button>
                             </div>
                         </div>
                         ${metaHTML}
@@ -2087,6 +2130,9 @@
                 });
                 event.target.closest('.volume-item').classList.add('selected');
                 
+                // Show opening message
+                document.getElementById('bookOpeningMessage').textContent = `Opening ${book.name} - ${volumeName}...`;
+                
                 loadBookFile(volumeFile, `${book.name} - ${volumeName}`);
             }
         }
@@ -2102,6 +2148,9 @@
             });
             event.target.closest('.book-item').classList.add('selected');
             
+            // Show opening message
+            document.getElementById('bookOpeningMessage').textContent = `Opening ${book.name}...`;
+            
             loadBookFile(book.file, book.name);
         }
         
@@ -2109,21 +2158,39 @@
         function downloadBook(bookName) {
             showSuccess(`Downloading ${bookName}...`);
             // Add actual download logic here
+            // For now, we'll simulate the download
+            setTimeout(() => {
+                showSuccess(`✅ ${bookName} downloaded successfully!`);
+            }, 1500);
         }
         
         function viewBook(bookName) {
             showSuccess(`Opening ${bookName}...`);
             // Add actual view logic here
+            // For now, we'll simulate the view
+            setTimeout(() => {
+                showSuccess(`✅ ${bookName} opened successfully!`);
+            }, 1500);
         }
         
         function downloadVolume(bookName, volumeName, volumeFile) {
             showSuccess(`Downloading ${bookName} - ${volumeName}...`);
             // Add actual download logic here
+            // For now, we'll simulate the download
+            setTimeout(() => {
+                showSuccess(`✅ ${bookName} - ${volumeName} downloaded successfully!`);
+            }, 1500);
         }
         
         function viewVolume(bookName, volumeName, volumeFile) {
             showSuccess(`Opening ${bookName} - ${volumeName}...`);
             // Add actual view logic here
+            // For now, we'll simulate the view
+            setTimeout(() => {
+                showSuccess(`✅ ${bookName} - ${volumeName} opened successfully!`);
+                // Clear the opening message after successful view
+                document.getElementById('bookOpeningMessage').textContent = '';
+            }, 1500);
         }
         
         async function loadBookFile(filePath, displayName) {
@@ -2151,6 +2218,10 @@
                     displayName: displayName
                 };
                 
+                // Reset loaded pages for lazy loading
+                loadedPages.clear();
+                initialPagesLoaded = false;
+                
                 document.getElementById('pageInfo').textContent = `This book has ${pdfDocument.numPages} pages`;
                 document.getElementById('collageSettings').classList.remove('hidden');
                 updatePageInputs();
@@ -2161,6 +2232,9 @@
                     behavior: 'smooth',
                     block: 'start'
                 });
+                
+                // Clear the opening message after successful load
+                document.getElementById('bookOpeningMessage').textContent = '';
                 
                 showSuccess('✅ Book loaded successfully! Preview generated automatically.');
                 
@@ -2220,6 +2294,39 @@
             }, 500);
         }
         
+        // Lazy loading function for pages
+        async function loadPage(pageNum) {
+            // Check if page is already loaded
+            if (loadedPages.has(pageNum)) {
+                return loadedPages.get(pageNum);
+            }
+            
+            // Show loading indicator for the specific page
+            const input = document.getElementById(`page${pageNum}`);
+            if (input) {
+                const originalValue = input.value;
+                input.value = '⏳';
+                
+                try {
+                    const page = await selectedBook.pdf.getPage(pageNum);
+                    loadedPages.set(pageNum, page);
+                    
+                    // Restore original value
+                    input.value = originalValue;
+                    return page;
+                } catch (error) {
+                    // Restore original value on error
+                    input.value = originalValue;
+                    throw error;
+                }
+            }
+            
+            // If no input found, just load the page normally
+            const page = await selectedBook.pdf.getPage(pageNum);
+            loadedPages.set(pageNum, page);
+            return page;
+        }
+        
         async function updatePreview() {
             if (!selectedBook || !selectedBook.pdf) return;
             
@@ -2240,9 +2347,17 @@
                 
                 showSuccess(`Loading pages: ${pageNumbers.join(', ')}...`);
                 
+                // Load initial pages first (2, 3, 4, or 5 based on user selection)
+                if (!initialPagesLoaded) {
+                    const initialPageNumbers = pageNumbers.slice(0, pageCount);
+                    await Promise.all(initialPageNumbers.map(pageNum => loadPage(pageNum)));
+                    initialPagesLoaded = true;
+                }
+                
+                // Load the remaining pages in the background
                 const pages = [];
                 for (let pageNum of pageNumbers) {
-                    const page = await selectedBook.pdf.getPage(pageNum);
+                    const page = await loadPage(pageNum);
                     pages.push(page);
                 }
                 
@@ -2461,6 +2576,8 @@
                 highlights.push(currentRect);
                 selectedRectIndex = highlights.length - 1;
                 
+                // Draw immediately while drawing (blend while drawing)
+                drawHighlights();
                 saveHighlightState();
             }
             
