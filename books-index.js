@@ -78,7 +78,28 @@ const booksIndex = {
             publisher:"مكتبة النهضة العربية",
             language:"العربية",
             type:"single"
-        }
+        },
+        {
+    name: "الأمالي للطوسي",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/AlAmaliLiAlTusi.pdf",
+    publisher: "N/A",
+    language: "العربية",
+    type: "single"
+},
+{
+    name: "رجال الكشي للكشي",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/RijalAlKashiLiAlKashi.pdf",
+    publisher: "N/A",
+    language: "العربية",
+    type: "single"
+},
+{
+    name: "رجال الطوسي",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/RijalAlTusi.pdf",
+    publisher: "N/A",
+    language: "العربية",
+    type: "single"
+}
     ],
     
     // Multi-volume books (with custom volume names)
