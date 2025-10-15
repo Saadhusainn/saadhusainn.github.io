@@ -45,6 +45,41 @@ const booksIndex = {
             type:"single"
         },
         {
+            name:"شرح صحيح البخاري لابن بطال",
+            file:"https://raw.githubusercontent.com/Saadhusainn/sijjeen06.1/main/49.pdf",
+            publisher:"مكتبة الرشد",
+            language:"العربية",
+            type:"single"
+        },
+        {
+            name:"صحيح البخاري",
+            file:"https://raw.githubusercontent.com/Saadhusainn/sijjeen06.1/main/24.pdf",
+            publisher:"دار ابن كثير",
+            language:"العربية",
+            type:"single"
+        },
+        {
+            name:"الضعفاء والمتروكين للنسأئي",
+            file:"https://raw.githubusercontent.com/Saadhusainn/sijjeen06.1/main/60.pdf",
+            publisher:"مؤسسة الكتب الثقافية",
+            language:"العربية",
+            type:"single"
+        },
+        {
+            name:"التاريخ الصغير للبخاري",
+            file:"https://raw.githubusercontent.com/Saadhusainn/sijjeen/61.pdf",
+            publisher:"مكتبة المعارف، دار المعرفة",
+            language:"العربية",
+            type:"single"
+        },
+        {
+            name:"كتاب الضعفاء الصغير للبخاري - ت زايد",
+            file:"https://raw.githubusercontent.com/Saadhusainn/sijjeen/62.pdf",
+            publisher:"دار المعرفة",
+            language:"العربية",
+            type:"single"
+        },
+        {
             name:"علل الترمذي الكبير",
             file:"https://raw.githubusercontent.com/Saadhusainn/sijjeen04/tree/main/35.pdf",
             publisher:"مكتبة النهضة العربية",
@@ -1191,6 +1226,51 @@ const booksIndex = {
             volumes: [
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/59/01_44014.pdf" },
     { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/59/02_44015.pdf" }
+],
+            isDropdownOpen: false
+        },
+        { 
+            name: "الجرح والتعديل لابن أبي حاتم", 
+            type: "multi",
+            publisher: "مطبعة مجلس دائرة المعارف العثمانية، بحيدر آباد الدكن - الهند",
+            language: "العربية",
+            volumes: [
+    { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/63/الجرح والتعديل - أبو محمد عبد الرحمن بن محمد، ابن أبي حاتم الرازي – جلد 01.pdf" },
+    { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/63/الجرح والتعديل - أبو محمد عبد الرحمن بن محمد، ابن أبي حاتم الرازي – جلد 02.pdf" },
+    { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/63/الجرح والتعديل - أبو محمد عبد الرحمن بن محمد، ابن أبي حاتم الرازي – جلد 03.pdf" },
+    { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/63/الجرح والتعديل - أبو محمد عبد الرحمن بن محمد، ابن أبي حاتم الرازي – جلد 04.pdf" },
+    { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/63/الجرح والتعديل - أبو محمد عبد الرحمن بن محمد، ابن أبي حاتم الرازي – جلد 05.pdf" },
+    { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/63/الجرح والتعديل - أبو محمد عبد الرحمن بن محمد، ابن أبي حاتم الرازي – جلد 06.pdf" },
+    { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/63/الجرح والتعديل - أبو محمد عبد الرحمن بن محمد، ابن أبي حاتم الرازي – جلد 07.pdf" },
+    { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/63/الجرح والتعديل - أبو محمد عبد الرحمن بن محمد، ابن أبي حاتم الرازي – جلد 08.pdf" },
+    { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/63/الجرح والتعديل - أبو محمد عبد الرحمن بن محمد، ابن أبي حاتم الرازي – جلد 09.pdf" }
+],
+            isDropdownOpen: false
+        },
+        { 
+            name: "تاريخ بغداد، تاريخ مدينة السلام", 
+            type: "multi",
+            publisher: "دار الغرب الإسلامي",
+            language: "العربية",
+            volumes: [
+    { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/64/taba00.pdf" },
+    { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/64/taba01.pdf" },
+    { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/64/taba02.pdf" },
+    { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/64/taba03.pdf" },
+    { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/64/taba04.pdf" },
+    { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/64/taba05.pdf" },
+    { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/64/taba06.pdf" },
+    { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/64/taba07.pdf" },
+    { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/64/taba08.pdf" },
+    { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/64/taba09.pdf" },
+    { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/64/taba10.pdf" },
+    { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/64/taba11.pdf" },
+    { name: "12", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/64/taba12.pdf" },
+    { name: "13", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/64/taba13.pdf" },
+    { name: "14", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/64/taba14.pdf" },
+    { name: "15", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/64/taba15.pdf" },
+    { name: "16", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/64/taba16.pdf" },
+    { name: "17", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/64/taba17.pdf" }
 ],
             isDropdownOpen: false
         }
