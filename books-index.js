@@ -9,14 +9,7 @@ const booksIndex = {
             language: "العربية",
             type: "single"
         },
-        {
-            name:"صحيح البخاري",
-            file:"https://raw.githubusercontent.com/Saadhusainn/sijjeen03.1/main/25.pdf",
-            publisher:"دار ابن كثير",
-            language:"العربية",
-            type:"single"
-        },
-         { 
+        { 
             name: "الأدب المفرد - ت عبد الباقي", 
             file: "https://raw.githubusercontent.com/Saadhusainn/sijjeen04/main/33.pdf",
             publisher: "دار البشائر الإسلامية",
@@ -60,28 +53,28 @@ const booksIndex = {
         },
         {
             name:"الضعفاء والمتروكين للنسأئي",
-            file:"https://raw.githubusercontent.com/Saadhusainn/sijjeen06.1/main/60.pdf",
+            file:"https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/60.pdf",
             publisher:"مؤسسة الكتب الثقافية",
             language:"العربية",
             type:"single"
         },
         {
             name:"التاريخ الصغير للبخاري",
-            file:"https://raw.githubusercontent.com/Saadhusainn/sijjeen/61.pdf",
+            file:"https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/61.pdf",
             publisher:"مكتبة المعارف، دار المعرفة",
             language:"العربية",
             type:"single"
         },
         {
             name:"كتاب الضعفاء الصغير للبخاري - ت زايد",
-            file:"https://raw.githubusercontent.com/Saadhusainn/sijjeen/62.pdf",
+            file:"https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/62.pdf",
             publisher:"دار المعرفة",
             language:"العربية",
             type:"single"
         },
         {
             name:"علل الترمذي الكبير",
-            file:"https://raw.githubusercontent.com/Saadhusainn/sijjeen04/tree/main/35.pdf",
+            file:"https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/35.pdf",
             publisher:"مكتبة النهضة العربية",
             language:"العربية",
             type:"single"
@@ -667,21 +660,21 @@ const booksIndex = {
             language: "العربية",
             volumes: [
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/01_23895.pdf" },
-    { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/02_23896.pdf" },
-    { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/03_23897.pdf" },
-    { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/04_23898.pdf" },
-    { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/05_23899.pdf" },
-    { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/06_23900.pdf" },
-    { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/07_23901.pdf" },
-    { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/08_23902.pdf" },
-    { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/09_23903.pdf" },
-    { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/10_23904.pdf" },
-    { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/11_23905.pdf" },
-    { name: "12", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/12_23906.pdf" },
-    { name: "13", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/13_23907.pdf" },
-    { name: "14", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/14_23908.pdf" },
-    { name: "15", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/15_23909.pdf" },
-    { name: "16", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/16_23910.pdf" }
+    { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/02_23895.pdf" },
+    { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/03_23896.pdf" },
+    { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/04_23896.pdf" },
+    { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/05_23897.pdf" },
+    { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/06_23897.pdf" },
+    { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/07_23898.pdf" },
+    { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/08_23898.pdf" },
+    { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/09_23899.pdf" },
+    { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/10_23899.pdf" },
+    { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/11_23900.pdf" },
+    { name: "12", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/12_23900.pdf" },
+    { name: "13", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/13_23901.pdf" },
+    { name: "14", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/14_23901.pdf" },
+    { name: "15", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/15_23902.pdf" },
+    { name: "16", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/16_23902.pdf" }
 ],
             isDropdownOpen: false
         },
@@ -1273,6 +1266,23 @@ const booksIndex = {
     { name: "17", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/64/taba17.pdf" }
 ],
             isDropdownOpen: false
-        }
+        },
+        { 
+            name: "الكافي للكلينيي", 
+            type: "multi",
+            publisher: "المكتبة الإسلامي",
+            language: "العربية",
+            volumes: [
+    { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/alkafi01.pdf" },
+    { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/alkafi02.pdf" },
+    { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/alkafi03.pdf" },
+    { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/alkafi04.pdf" },
+    { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/alkafi05.pdf" },
+    { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/alkafi06.pdf" },
+    { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/alkafi07.pdf" },
+    { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/alkafi08.pdf" }
+],
+            isDropdownOpen: false
+        },
     ]
 };
