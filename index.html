@@ -86,9 +86,9 @@
         
         .durood {
             color: var(--accent-color);
-            font-size: 0.85em;
+            font-size: 0.75em;
             text-align: center;
-            line-height: 1.8;
+            line-height: 1.6;
             direction: rtl;
             max-width: 400px;
             flex: 2;
@@ -467,14 +467,14 @@
         }
         
         .book-item {
-            padding: 12px 15px;
-            margin: 5px 0;
+            padding: 8px 12px;
+            margin: 4px 0;
             background: var(--bg-secondary);
             border: 2px solid var(--border-color);
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 15px;
+            font-size: 14px;
             text-align: left;
             color: var(--text-primary);
         }
@@ -482,7 +482,7 @@
         .book-item:hover {
             border-color: var(--accent-color);
             background: var(--bg-tertiary);
-            transform: translateX(5px);
+            transform: translateX(3px);
         }
         
         .book-item.selected {
@@ -498,24 +498,24 @@
         }
         
         .book-meta {
-            font-size: 0.75em;
+            font-size: 0.7em;
             color: var(--text-secondary);
-            margin-top: 5px;
-            line-height: 1.4;
+            margin-top: 3px;
+            line-height: 1.3;
         }
         
         .book-actions {
             display: flex;
-            gap: 8px;
-            margin-top: 10px;
+            gap: 6px;
+            margin-top: 6px;
         }
         
         .action-button {
-            padding: 6px 12px;
+            padding: 4px 8px;
             border: none;
-            border-radius: 6px;
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: bold;
             transition: all 0.3s;
             font-family: 'Amiri', 'Scheherazade New', serif;
@@ -526,8 +526,8 @@
         }
         
         .action-button img {
-            width: 24px;
-            height: 24px;
+            width: 18px;
+            height: 18px;
             object-fit: contain;
         }
         
@@ -543,39 +543,39 @@
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-out;
-            margin-top: 10px;
+            margin-top: 6px;
         }
         
         .volume-dropdown.open {
-            max-height: 400px; /* Increased height */
+            max-height: 300px;
         }
         
         .volumes-list {
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 8px; /* Increased padding */
+            border-radius: 6px;
+            padding: 6px;
             background: var(--bg-secondary);
-            max-height: 350px; /* Increased height */
+            max-height: 280px;
             overflow-y: auto;
             transition: border-color 0.3s, background-color 0.3s;
         }
         
         .volume-item {
-            padding: 12px 15px; /* Increased padding */
-            margin: 5px 0; /* Increased margin */
+            padding: 8px 10px;
+            margin: 3px 0;
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
-            border-radius: 6px;
+            border-radius: 5px;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-primary);
         }
         
         .volume-item:hover {
             border-color: var(--accent-color);
             background: var(--bg-tertiary);
-            transform: translateX(3px);
+            transform: translateX(2px);
         }
         
         .volume-item.selected {
@@ -586,9 +586,9 @@
         
         .dropdown-toggle {
             cursor: pointer;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
-            padding: 5px 10px;
+            padding: 3px 8px;
             transition: transform 0.3s;
             user-select: none;
             color: var(--text-muted);
@@ -1521,11 +1521,11 @@
         /* Book Opening Message */
         .book-opening-message {
             text-align: center;
-            margin: 10px 0 20px;
+            margin: 10px 0 15px;
             color: var(--accent-color);
             font-weight: bold;
-            font-size: 1.1em;
-            min-height: 24px;
+            font-size: 1em;
+            min-height: 20px;
         }
 
         /* Loading indicator for pages */
@@ -1543,6 +1543,30 @@
             to { transform: rotate(360deg); }
         }
 
+        /* Compact book item layout */
+        .book-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .book-title {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .book-title-text {
+            flex: 1;
+        }
+        
+        .book-main-actions {
+            display: flex;
+            gap: 6px;
+            margin-left: 10px;
+        }
+
         /* Mobile Responsive */
         @media (max-width: 768px) {
             body {
@@ -1558,7 +1582,7 @@
             .header {
                 flex-direction: column;
                 text-align: center;
-                gap: 15px;
+                gap: 10px;
             }
             
             .title {
@@ -1571,6 +1595,8 @@
                 max-width: 100%;
                 text-align: center;
                 order: 2;
+                font-size: 0.7em;
+                line-height: 1.4;
             }
             
             .theme-toggle-container {
@@ -1608,6 +1634,18 @@
             
             .action-button {
                 width: auto;
+            }
+            
+            .book-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .book-main-actions {
+                margin-left: 0;
+                width: 100%;
+                justify-content: flex-end;
             }
         }
     </style>
@@ -2039,21 +2077,23 @@
                     const dropdownClass = book.isDropdownOpen ? 'dropdown-toggle open' : 'dropdown-toggle';
                     
                     item.innerHTML = `
-                        <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleVolumeDropdown(event, '${book.name}')">
-                            <span>📁 ${book.name}</span>
-                            <span class="${dropdownClass}">
-                                ${dropdownIcon}
-                            </span>
+                        <div class="book-header">
+                            <div class="book-title">
+                                <span class="book-title-text">📁 ${book.name}</span>
+                                <span class="${dropdownClass}" onclick="toggleVolumeDropdown(event, '${book.name}')">
+                                    ${dropdownIcon}
+                                </span>
+                            </div>
+                            <div class="book-main-actions">
+                                <button class="action-button download-btn" onclick="downloadAllVolumes('${book.name}')">
+                                    <img src="https://i.ibb.co/VWNPkcy9/download-icon.png" alt="Download All">
+                                </button>
+                                <button class="action-button view-btn" onclick="viewBook('${book.name}')">
+                                    <img src="https://i.ibb.co/kVtN0NPx/view-icon.png" alt="View">
+                                </button>
+                            </div>
                         </div>
                         ${metaHTML}
-                        <div class="book-actions">
-                            <button class="action-button download-btn" onclick="downloadBook('${book.name}')">
-                                <img src="https://i.ibb.co/VWNPkcy9/download-icon.png" alt="Download">
-                            </button>
-                            <button class="action-button view-btn" onclick="viewBook('${book.name}')">
-                                <img src="https://i.ibb.co/kVtN0NPx/view-icon.png" alt="View">
-                            </button>
-                        </div>
                         <div class="volume-dropdown ${book.isDropdownOpen ? 'open' : ''}" id="dropdown-${book.name}">
                             <div class="volumes-list">
                                 ${book.volumes.map(vol => `
@@ -2084,10 +2124,12 @@
                     }
                     
                     item.innerHTML = `
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <span>📄 ${book.name}</span>
-                            <div class="book-actions">
-                                <button class="action-button download-btn" onclick="downloadBook('${book.name}')">
+                        <div class="book-header">
+                            <div class="book-title">
+                                <span class="book-title-text">📄 ${book.name}</span>
+                            </div>
+                            <div class="book-main-actions">
+                                <button class="action-button download-btn" onclick="downloadBook('${book.name}', '${book.file}')">
                                     <img src="https://i.ibb.co/VWNPkcy9/download-icon.png" alt="Download">
                                 </button>
                                 <button class="action-button view-btn" onclick="viewBook('${book.name}')">
@@ -2155,13 +2197,31 @@
         }
         
         // Book action functions
-        function downloadBook(bookName) {
+        function downloadBook(bookName, filePath) {
             showSuccess(`Downloading ${bookName}...`);
-            // Add actual download logic here
-            // For now, we'll simulate the download
+            // Open the file URL directly for download
+            if (filePath) {
+                window.open(filePath, '_blank');
+            }
             setTimeout(() => {
-                showSuccess(`✅ ${bookName} downloaded successfully!`);
-            }, 1500);
+                showSuccess(`✅ ${bookName} download started!`);
+            }, 1000);
+        }
+        
+        function downloadAllVolumes(bookName) {
+            const book = books.find(b => b.name === bookName && b.type === 'multi');
+            if (book && book.volumes) {
+                showSuccess(`Downloading all volumes of ${bookName}...`);
+                // Open all volume URLs
+                book.volumes.forEach(volume => {
+                    if (volume.file) {
+                        window.open(volume.file, '_blank');
+                    }
+                });
+                setTimeout(() => {
+                    showSuccess(`✅ All volumes of ${bookName} download started!`);
+                }, 1000);
+            }
         }
         
         function viewBook(bookName) {
@@ -2175,11 +2235,13 @@
         
         function downloadVolume(bookName, volumeName, volumeFile) {
             showSuccess(`Downloading ${bookName} - ${volumeName}...`);
-            // Add actual download logic here
-            // For now, we'll simulate the download
+            // Open the file URL directly for download
+            if (volumeFile) {
+                window.open(volumeFile, '_blank');
+            }
             setTimeout(() => {
-                showSuccess(`✅ ${bookName} - ${volumeName} downloaded successfully!`);
-            }, 1500);
+                showSuccess(`✅ ${bookName} - ${volumeName} download started!`);
+            }, 1000);
         }
         
         function viewVolume(bookName, volumeName, volumeFile) {
@@ -2302,7 +2364,7 @@
             }
             
             // Show loading indicator for the specific page
-            const input = document.getElementById(`page${pageNum}`);
+            const input = document.getElementById(`page${i}`);
             if (input) {
                 const originalValue = input.value;
                 input.value = '⏳';
