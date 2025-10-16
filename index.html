@@ -768,6 +768,53 @@
             touch-action: none;
         }
         
+        /* Watermark Section */
+        .watermark-section {
+            background: var(--bg-tertiary);
+            padding: 15px;
+            border-radius: 15px;
+            margin: 15px 0;
+            animation: fadeInUp 0.5s ease-out;
+            border: 1px solid var(--border-color);
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        
+        .watermark-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .watermark-slider {
+            width: 100%;
+            max-width: 300px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .watermark-slider input {
+            flex: 1;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--bg-secondary);
+            outline: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        
+        .watermark-slider input:hover {
+            opacity: 1;
+        }
+        
+        .watermark-slider span {
+            font-size: 12px;
+            color: var(--text-secondary);
+            min-width: 40px;
+            text-align: center;
+        }
+        
         /* Switch Styles - From Uiverse.io by r7chardgh */
         .switch-highlight {
             font-size: 17px;
@@ -1822,6 +1869,24 @@
             <p class="info-text" id="pageInfo"></p>
         </div>
         
+        <!-- Watermark Section -->
+        <div id="watermarkSection" class="watermark-section hidden">
+            <div class="setting-group">
+                <label>Add Watermark</label>
+                <div class="watermark-controls">
+                    <input type="file" id="watermarkInput" accept="image/*" style="display: none;">
+                    <button class="styled-button" onclick="document.getElementById('watermarkInput').click()">
+                        <span class="button-top">🖼️ Upload Watermark</span>
+                    </button>
+                    <div class="watermark-slider">
+                        <span>Opacity:</span>
+                        <input type="range" id="watermarkOpacity" min="0" max="100" value="14" oninput="updateWatermarkOpacity()">
+                        <span id="opacityValue">14%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <div id="highlightSection" class="highlight-controls hidden">
             <div class="highlight-header">
                 <div class="highlight-title">Highlight Text</div>
@@ -1916,6 +1981,8 @@
         let pdfDocument = null;
         let loadedPages = new Map(); // For lazy loading
         let initialPagesLoaded = false;
+        let watermarkImage = null;
+        let watermarkOpacity = 0.14;
 
         // Theme toggle functionality
         const themeToggle = document.getElementById('input');
@@ -1941,6 +2008,33 @@
                 showError('Please select a valid PDF file.');
             }
         });
+
+        // Watermark upload handling
+        document.getElementById('watermarkInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    watermarkImage = new Image();
+                    watermarkImage.onload = function() {
+                        showSuccess('Watermark uploaded successfully!');
+                        updatePreview();
+                    };
+                    watermarkImage.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                showError('Please select a valid image file.');
+            }
+        });
+
+        function updateWatermarkOpacity() {
+            const slider = document.getElementById('watermarkOpacity');
+            const valueSpan = document.getElementById('opacityValue');
+            watermarkOpacity = parseInt(slider.value) / 100;
+            valueSpan.textContent = slider.value + '%';
+            updatePreview();
+        }
 
         async function loadUploadedBook(file) {
             try {
@@ -1972,6 +2066,7 @@
 
                 document.getElementById('pageInfo').textContent = `This PDF has ${pdfDocument.numPages} pages`;
                 document.getElementById('collageSettings').classList.remove('hidden');
+                document.getElementById('watermarkSection').classList.remove('hidden');
                 updatePageInputs();
                 await updatePreview();
                 
@@ -2088,9 +2183,7 @@
                                 <button class="action-button download-btn" onclick="downloadAllVolumes('${book.name}')">
                                     <img src="https://i.ibb.co/VWNPkcy9/download-icon.png" alt="Download All">
                                 </button>
-                                <button class="action-button view-btn" onclick="viewBook('${book.name}')">
-                                    <img src="https://i.ibb.co/kVtN0NPx/view-icon.png" alt="View">
-                                </button>
+                                <!-- Removed view button for multi-book -->
                             </div>
                         </div>
                         ${metaHTML}
@@ -2132,7 +2225,7 @@
                                 <button class="action-button download-btn" onclick="downloadBook('${book.name}', '${book.file}')">
                                     <img src="https://i.ibb.co/VWNPkcy9/download-icon.png" alt="Download">
                                 </button>
-                                <button class="action-button view-btn" onclick="viewBook('${book.name}')">
+                                <button class="action-button view-btn" onclick="viewBook('${book.name}', '${book.file}')">
                                     <img src="https://i.ibb.co/kVtN0NPx/view-icon.png" alt="View">
                                 </button>
                             </div>
@@ -2224,13 +2317,16 @@
             }
         }
         
-        function viewBook(bookName) {
+        function viewBook(bookName, filePath) {
             showSuccess(`Opening ${bookName}...`);
-            // Add actual view logic here
-            // For now, we'll simulate the view
+            // Open in Google Docs viewer
+            if (filePath) {
+                const viewerUrl = `https://docs.google.com/gview?url=${encodeURIComponent(filePath)}&embedded=true`;
+                window.open(viewerUrl, '_blank', 'noopener,noreferrer');
+            }
             setTimeout(() => {
-                showSuccess(`✅ ${bookName} opened successfully!`);
-            }, 1500);
+                showSuccess(`✅ ${bookName} opened in new tab!`);
+            }, 1000);
         }
         
         function downloadVolume(bookName, volumeName, volumeFile) {
@@ -2246,13 +2342,16 @@
         
         function viewVolume(bookName, volumeName, volumeFile) {
             showSuccess(`Opening ${bookName} - ${volumeName}...`);
-            // Add actual view logic here
-            // For now, we'll simulate the view
+            // Open in Google Docs viewer
+            if (volumeFile) {
+                const viewerUrl = `https://docs.google.com/gview?url=${encodeURIComponent(volumeFile)}&embedded=true`;
+                window.open(viewerUrl, '_blank', 'noopener,noreferrer');
+            }
             setTimeout(() => {
-                showSuccess(`✅ ${bookName} - ${volumeName} opened successfully!`);
+                showSuccess(`✅ ${bookName} - ${volumeName} opened in new tab!`);
                 // Clear the opening message after successful view
                 document.getElementById('bookOpeningMessage').textContent = '';
-            }, 1500);
+            }, 1000);
         }
         
         async function loadBookFile(filePath, displayName) {
@@ -2286,6 +2385,7 @@
                 
                 document.getElementById('pageInfo').textContent = `This book has ${pdfDocument.numPages} pages`;
                 document.getElementById('collageSettings').classList.remove('hidden');
+                document.getElementById('watermarkSection').classList.remove('hidden');
                 updatePageInputs();
                 await updatePreview();
                 
@@ -2363,30 +2463,13 @@
                 return loadedPages.get(pageNum);
             }
             
-            // Show loading indicator for the specific page
-            const input = document.getElementById(`page${i}`);
-            if (input) {
-                const originalValue = input.value;
-                input.value = '⏳';
-                
-                try {
-                    const page = await selectedBook.pdf.getPage(pageNum);
-                    loadedPages.set(pageNum, page);
-                    
-                    // Restore original value
-                    input.value = originalValue;
-                    return page;
-                } catch (error) {
-                    // Restore original value on error
-                    input.value = originalValue;
-                    throw error;
-                }
+            try {
+                const page = await selectedBook.pdf.getPage(pageNum);
+                loadedPages.set(pageNum, page);
+                return page;
+            } catch (error) {
+                throw error;
             }
-            
-            // If no input found, just load the page normally
-            const page = await selectedBook.pdf.getPage(pageNum);
-            loadedPages.set(pageNum, page);
-            return page;
         }
         
         async function updatePreview() {
@@ -2461,6 +2544,17 @@
                     
                     ctx.drawImage(tempCanvas, xOffset, 0);
                     xOffset += viewports[i].width;
+                }
+                
+                // Apply watermark if exists
+                if (watermarkImage) {
+                    ctx.globalAlpha = watermarkOpacity;
+                    const watermarkWidth = canvas.width * 0.3; // 30% of canvas width
+                    const watermarkHeight = (watermarkImage.height / watermarkImage.width) * watermarkWidth;
+                    const x = (canvas.width - watermarkWidth) / 2;
+                    const y = (canvas.height - watermarkHeight) / 2;
+                    ctx.drawImage(watermarkImage, x, y, watermarkWidth, watermarkHeight);
+                    ctx.globalAlpha = 1.0;
                 }
                 
                 // Enhanced highlight canvas setup for mobile alignment
@@ -2801,13 +2895,27 @@
                 tempCanvas.width = previewCanvas.width;
                 tempCanvas.height = previewCanvas.height;
                 
+                // Draw the preview canvas
                 tempCtx.drawImage(previewCanvas, 0, 0);
-                tempCtx.globalCompositeOperation = 'multiply';
                 
+                // Apply highlights with multiply blend mode
+                tempCtx.globalCompositeOperation = 'multiply';
                 highlights.forEach(rect => {
                     tempCtx.fillStyle = rect.color;
                     tempCtx.fillRect(rect.x, rect.y, rect.width, rect.height);
                 });
+                tempCtx.globalCompositeOperation = 'source-over';
+                
+                // Apply watermark if exists
+                if (watermarkImage) {
+                    tempCtx.globalAlpha = watermarkOpacity;
+                    const watermarkWidth = tempCanvas.width * 0.3;
+                    const watermarkHeight = (watermarkImage.height / watermarkImage.width) * watermarkWidth;
+                    const x = (tempCanvas.width - watermarkWidth) / 2;
+                    const y = (tempCanvas.height - watermarkHeight) / 2;
+                    tempCtx.drawImage(watermarkImage, x, y, watermarkWidth, watermarkHeight);
+                    tempCtx.globalAlpha = 1.0;
+                }
                 
                 const pageNumbers = [];
                 for (let i = 1; i <= pageCount; i++) {
