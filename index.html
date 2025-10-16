@@ -769,7 +769,7 @@
         }
         
         /* More Options Section */
-        .more-options {
+        .more-options-section {
             background: var(--bg-tertiary);
             padding: 15px;
             border-radius: 15px;
@@ -779,7 +779,7 @@
             transition: background-color 0.3s, border-color 0.3s;
         }
         
-        .options-header {
+        .more-options-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -787,48 +787,69 @@
             cursor: pointer;
         }
         
-        .options-title {
+        .more-options-title {
             color: var(--accent-color);
             font-size: 1.2em;
             font-weight: bold;
         }
         
-        .options-toggle {
-            font-size: 1.2em;
+        .more-options-toggle {
+            font-size: 1.5em;
             color: var(--text-muted);
             transition: transform 0.3s;
         }
         
-        .options-toggle.open {
+        .more-options-toggle.open {
             transform: rotate(180deg);
         }
         
-        .options-content {
+        .more-options-content {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-out;
         }
         
-        .options-content.open {
+        .more-options-content.open {
             max-height: 1000px;
+        }
+        
+        /* Watermark Section */
+        .watermark-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
         }
         
         .watermark-controls {
             display: flex;
             flex-direction: column;
+            gap: 15px;
+        }
+        
+        .watermark-actions {
+            display: flex;
             gap: 10px;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+        
+        .watermark-sliders {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
         
         .watermark-slider {
-            width: 100%;
-            max-width: 300px;
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+        
+        .watermark-slider span {
+            font-size: 13px;
+            color: var(--text-secondary);
+            min-width: 80px;
         }
         
         .watermark-slider input {
@@ -845,17 +866,32 @@
             opacity: 1;
         }
         
-        .watermark-slider span {
+        .watermark-slider .value {
             font-size: 12px;
             color: var(--text-secondary);
             min-width: 40px;
             text-align: center;
         }
         
-        .watermark-actions {
+        /* Highlight Section */
+        .highlight-section {
+            padding: 15px;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .highlight-header {
             display: flex;
-            gap: 10px;
-            margin-top: 10px;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .highlight-title {
+            color: var(--accent-color);
+            font-size: 1.2em;
+            font-weight: bold;
         }
         
         /* Switch Styles - From Uiverse.io by r7chardgh */
@@ -875,7 +911,7 @@
             height: 0;
         }
 
-        .switch-highlight .toggle {
+        .toggle {
             position: absolute;
             cursor: pointer;
             width: 100%;
@@ -890,7 +926,7 @@
                 0.3em 0 0 0 #373737, 0.3em 0.3em 0 0 #373737, 0 0.3em 0 0 #373737;
         }
 
-        .switch-highlight .toggle > .left {
+        .toggle > .left {
             position: absolute;
             display: flex;
             width: 50%;
@@ -907,7 +943,7 @@
             transition: all 150ms;
         }
 
-        .switch-highlight .left::before {
+        .left::before {
             position: absolute;
             content: "";
             width: 100%;
@@ -917,7 +953,7 @@
             transform: rotateY(90deg);
         }
 
-        .switch-highlight .left::after {
+        .left::after {
             position: absolute;
             content: "";
             width: 100%;
@@ -927,7 +963,7 @@
             transform: rotateX(90deg);
         }
 
-        .switch-highlight .toggle > .right {
+        .toggle > .right {
             position: absolute;
             display: flex;
             width: 50%;
@@ -944,7 +980,7 @@
             transition: all 150ms;
         }
 
-        .switch-highlight .right::before {
+        .right::before {
             position: absolute;
             content: "";
             width: 100%;
@@ -954,7 +990,7 @@
             transform: rotateY(-90deg);
         }
 
-        .switch-highlight .right::after {
+        .right::after {
             position: absolute;
             content: "";
             width: 100%;
@@ -972,24 +1008,6 @@
         .switch-highlight input:checked + .toggle > .right {
             transform: rotateX(10deg) rotateY(0deg);
             color: #487bdb;
-        }
-        
-        .highlight-controls {
-            margin-top: 20px;
-        }
-        
-        .highlight-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 15px;
-            gap: 10px;
-        }
-        
-        .highlight-title {
-            color: var(--accent-color);
-            font-size: 1.2em;
-            font-weight: bold;
         }
         
         .highlight-colors {
@@ -1731,6 +1749,14 @@
                 width: 100%;
                 justify-content: flex-end;
             }
+            
+            .watermark-actions {
+                flex-direction: column;
+            }
+            
+            .watermark-sliders {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -1906,43 +1932,47 @@
             <p class="info-text" id="pageInfo"></p>
         </div>
         
-        <!-- More Options Section (Combined Watermark & Highlight) -->
-        <div id="moreOptions" class="more-options hidden">
-            <div class="options-header" onclick="toggleOptions()">
-                <div class="options-title">More Options</div>
-                <div class="options-toggle">▼</div>
+        <!-- More Options Section (Combined Watermark and Highlight) -->
+        <div id="moreOptionsSection" class="more-options-section hidden">
+            <div class="more-options-header" onclick="toggleMoreOptions()">
+                <div class="more-options-title">More Options</div>
+                <div class="more-options-toggle">▼</div>
             </div>
             
-            <div class="options-content">
+            <div id="moreOptionsContent" class="more-options-content">
                 <!-- Watermark Section -->
-                <div class="setting-group">
-                    <label>Add Watermark</label>
-                    <div class="watermark-controls">
-                        <input type="file" id="watermarkInput" accept="image/*" style="display: none;">
-                        <button class="styled-button" onclick="document.getElementById('watermarkInput').click()">
-                            <span class="button-top">🖼️ Upload Watermark</span>
-                        </button>
-                        
-                        <div class="watermark-slider">
-                            <span>Opacity:</span>
-                            <input type="range" id="watermarkOpacity" min="0" max="100" value="14" oninput="updateWatermarkOpacity()">
-                            <span id="opacityValue">14%</span>
-                        </div>
-                        
-                        <div class="watermark-slider">
-                            <span>Size:</span>
-                            <input type="range" id="watermarkSize" min="10" max="80" value="30" oninput="updateWatermarkSize()">
-                            <span id="sizeValue">30%</span>
-                        </div>
-                        
-                        <div class="watermark-actions">
-                            <button class="action-btn clear-btn" id="deleteWatermarkBtn" onclick="deleteWatermark()" disabled>Delete Watermark</button>
+                <div class="watermark-section">
+                    <div class="setting-group">
+                        <label>Add Watermark</label>
+                        <div class="watermark-controls">
+                            <div class="watermark-actions">
+                                <input type="file" id="watermarkInput" accept="image/*" style="display: none;">
+                                <button class="styled-button" onclick="document.getElementById('watermarkInput').click()">
+                                    <span class="button-top">🖼️ Upload Watermark</span>
+                                </button>
+                                <button id="removeWatermarkBtn" class="styled-button hidden" onclick="removeWatermark()">
+                                    <span class="button-top">🗑️ Remove Watermark</span>
+                                </button>
+                            </div>
+                            
+                            <div class="watermark-sliders">
+                                <div class="watermark-slider">
+                                    <span>Opacity:</span>
+                                    <input type="range" id="watermarkOpacity" min="0" max="100" value="14" oninput="updateWatermarkOpacity()">
+                                    <span id="opacityValue" class="value">14%</span>
+                                </div>
+                                <div class="watermark-slider">
+                                    <span>Size:</span>
+                                    <input type="range" id="watermarkSize" min="10" max="80" value="30" oninput="updateWatermarkSize()">
+                                    <span id="sizeValue" class="value">30%</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Highlight Section -->
-                <div class="highlight-controls">
+                <div class="highlight-section">
                     <div class="highlight-header">
                         <div class="highlight-title">Highlight Text</div>
                         <label class="switch-highlight">
@@ -2014,21 +2044,22 @@
     </div>
 
     <script>
-        // Mock books data since books-index.js is not available
+        // Mock books index for demonstration
         const booksIndex = {
             single: [
-                { name: "Sample Book 1", file: "sample1.pdf", publisher: "Sample Publisher", language: "Arabic" },
-                { name: "Sample Book 2", file: "sample2.pdf", publisher: "Sample Publisher", language: "English" }
+                { name: "Book One", file: "book1.pdf", publisher: "Publisher A", language: "Arabic" },
+                { name: "Book Two", file: "book2.pdf", publisher: "Publisher B", language: "English" }
             ],
             multi: [
                 { 
                     name: "Multi-Volume Book", 
-                    type: "multi",
-                    publisher: "Sample Publisher", 
+                    type: "multi", 
+                    publisher: "Publisher C", 
                     language: "Arabic",
                     volumes: [
                         { name: "Volume 1", file: "volume1.pdf" },
-                        { name: "Volume 2", file: "volume2.pdf" }
+                        { name: "Volume 2", file: "volume2.pdf" },
+                        { name: "Volume 3", file: "volume3.pdf" }
                     ]
                 }
             ]
@@ -2095,7 +2126,7 @@
                 reader.onload = function(event) {
                     watermarkImage = new Image();
                     watermarkImage.onload = function() {
-                        document.getElementById('deleteWatermarkBtn').disabled = false;
+                        document.getElementById('removeWatermarkBtn').classList.remove('hidden');
                         showSuccess('Watermark uploaded successfully!');
                         updatePreview();
                     };
@@ -2123,20 +2154,20 @@
             updatePreview();
         }
 
-        function deleteWatermark() {
+        function removeWatermark() {
             watermarkImage = null;
-            document.getElementById('deleteWatermarkBtn').disabled = true;
+            document.getElementById('removeWatermarkBtn').classList.add('hidden');
             document.getElementById('watermarkInput').value = '';
-            showSuccess('Watermark removed successfully!');
             updatePreview();
+            showSuccess('Watermark removed successfully!');
         }
 
-        function toggleOptions() {
-            const optionsContent = document.querySelector('.options-content');
-            const optionsToggle = document.querySelector('.options-toggle');
+        function toggleMoreOptions() {
+            const content = document.getElementById('moreOptionsContent');
+            const toggle = document.querySelector('.more-options-toggle');
             
-            optionsContent.classList.toggle('open');
-            optionsToggle.classList.toggle('open');
+            content.classList.toggle('open');
+            toggle.classList.toggle('open');
         }
 
         async function loadUploadedBook(file) {
@@ -2169,7 +2200,7 @@
 
                 document.getElementById('pageInfo').textContent = `This PDF has ${pdfDocument.numPages} pages`;
                 document.getElementById('collageSettings').classList.remove('hidden');
-                document.getElementById('moreOptions').classList.remove('hidden');
+                document.getElementById('moreOptionsSection').classList.remove('hidden');
                 updatePageInputs();
                 await updatePreview();
                 
@@ -2252,7 +2283,7 @@
                 if (searchQuery.length > 0) {
                     list.innerHTML = '<div class="no-results">No books found matching your search</div>';
                 } else {
-                    list.innerHTML = '<div class="no-results'>No books available</div>';
+                    list.innerHTML = '<div class="no-results">No books available</div>';
                 }
                 return;
             }
@@ -2488,7 +2519,7 @@
                 
                 document.getElementById('pageInfo').textContent = `This book has ${pdfDocument.numPages} pages`;
                 document.getElementById('collageSettings').classList.remove('hidden');
-                document.getElementById('moreOptions').classList.remove('hidden');
+                document.getElementById('moreOptionsSection').classList.remove('hidden');
                 updatePageInputs();
                 await updatePreview();
                 
@@ -2660,6 +2691,14 @@
                     ctx.globalAlpha = 1.0;
                 }
                 
+                // Apply highlights with real-time blending
+                ctx.globalCompositeOperation = 'multiply';
+                highlights.forEach(rect => {
+                    ctx.fillStyle = rect.color;
+                    ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
+                });
+                ctx.globalCompositeOperation = 'source-over';
+                
                 // Enhanced highlight canvas setup for mobile alignment
                 const highlightCanvas = document.getElementById('highlightCanvas');
                 highlightCanvas.width = canvas.width;
@@ -2756,6 +2795,7 @@
                 highlights = JSON.parse(JSON.stringify(highlightHistory[historyIndex]));
                 drawHighlights();
                 updateUndoRedoButtons();
+                updatePreview(); // Update the main preview with the new highlights
             }
         }
         
@@ -2765,6 +2805,7 @@
                 highlights = JSON.parse(JSON.stringify(highlightHistory[historyIndex]));
                 drawHighlights();
                 updateUndoRedoButtons();
+                updatePreview(); // Update the main preview with the new highlights
             }
         }
         
@@ -2836,6 +2877,7 @@
                 
                 // Draw immediately while drawing (blend while drawing)
                 drawHighlights();
+                updatePreview(); // Update the main preview with the new highlight
                 saveHighlightState();
             }
             
@@ -2846,6 +2888,7 @@
                     const h = highlights[selectedRectIndex];
                     resizeRectangle(h, resizeHandle, x, y);
                     drawHighlights();
+                    updatePreview(); // Update the main preview with the modified highlight
                     return;
                 }
                 
@@ -2858,6 +2901,7 @@
                     startX = x;
                     startY = y;
                     drawHighlights();
+                    updatePreview(); // Update the main preview with the moved highlight
                     return;
                 }
                 
@@ -2865,6 +2909,7 @@
                     currentRect.width = x - startX;
                     currentRect.height = y - startY;
                     drawHighlights();
+                    updatePreview(); // Update the main preview with the current drawing highlight
                 }
             }
             
@@ -2984,40 +3029,21 @@
                 highlights = [];
                 selectedRectIndex = -1;
                 drawHighlights();
+                updatePreview(); // Update the main preview after clearing highlights
             }
         }
         
         function downloadCollage() {
             try {
                 const previewCanvas = document.getElementById('previewCanvas');
-                const highlightCanvas = document.getElementById('highlightCanvas');
                 const tempCanvas = document.createElement('canvas');
                 const tempCtx = tempCanvas.getContext('2d');
                 
                 tempCanvas.width = previewCanvas.width;
                 tempCanvas.height = previewCanvas.height;
                 
-                // Draw the preview canvas
+                // Draw the preview canvas (already includes highlights and watermark)
                 tempCtx.drawImage(previewCanvas, 0, 0);
-                
-                // Apply highlights with multiply blend mode
-                tempCtx.globalCompositeOperation = 'multiply';
-                highlights.forEach(rect => {
-                    tempCtx.fillStyle = rect.color;
-                    tempCtx.fillRect(rect.x, rect.y, rect.width, rect.height);
-                });
-                tempCtx.globalCompositeOperation = 'source-over';
-                
-                // Apply watermark if exists
-                if (watermarkImage) {
-                    tempCtx.globalAlpha = watermarkOpacity;
-                    const watermarkWidth = tempCanvas.width * watermarkSize;
-                    const watermarkHeight = (watermarkImage.height / watermarkImage.width) * watermarkWidth;
-                    const x = (tempCanvas.width - watermarkWidth) / 2;
-                    const y = (tempCanvas.height - watermarkHeight) / 2;
-                    tempCtx.drawImage(watermarkImage, x, y, watermarkWidth, watermarkHeight);
-                    tempCtx.globalAlpha = 1.0;
-                }
                 
                 const pageNumbers = [];
                 for (let i = 1; i <= pageCount; i++) {
