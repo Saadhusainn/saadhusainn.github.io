@@ -815,57 +815,6 @@
             text-align: center;
         }
         
-        /* Watermark size slider */
-        .watermark-size-slider {
-            width: 100%;
-            max-width: 300px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .watermark-size-slider input {
-            flex: 1;
-            height: 6px;
-            border-radius: 3px;
-            background: var(--bg-secondary);
-            outline: none;
-            opacity: 0.7;
-            transition: opacity 0.2s;
-        }
-
-        .watermark-size-slider input:hover {
-            opacity: 1;
-        }
-
-        .watermark-size-slider span {
-            font-size: 12px;
-            color: var(--text-secondary);
-            min-width: 40px;
-            text-align: center;
-        }
-
-        /* Delete watermark button */
-        .delete-watermark-btn {
-            background: #dc3545;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: bold;
-            transition: all 0.3s;
-            font-family: 'Amiri', 'Scheherazade New', serif;
-            margin-top: 10px;
-        }
-
-        .delete-watermark-btn:hover {
-            background: #c82333;
-            transform: translateY(-2px);
-        }
-        
         /* Switch Styles - From Uiverse.io by r7chardgh */
         .switch-highlight {
             font-size: 17px;
@@ -1934,12 +1883,6 @@
                         <input type="range" id="watermarkOpacity" min="0" max="100" value="14" oninput="updateWatermarkOpacity()">
                         <span id="opacityValue">14%</span>
                     </div>
-                    <div class="watermark-size-slider">
-                        <span>Size:</span>
-                        <input type="range" id="watermarkSize" min="10" max="50" value="30" oninput="updateWatermarkSize()">
-                        <span id="sizeValue">30%</span>
-                    </div>
-                    <button class="delete-watermark-btn" onclick="deleteWatermark()">🗑️ Delete Watermark</button>
                 </div>
             </div>
         </div>
@@ -2013,28 +1956,7 @@
         </div>
     </div>
 
-    <script>
-        // Mock books index for demonstration
-        const booksIndex = {
-            single: [
-                { name: "Book One", file: "https://example.com/book1.pdf", publisher: "Publisher A", language: "Arabic" },
-                { name: "Book Two", file: "https://example.com/book2.pdf", publisher: "Publisher B", language: "English" }
-            ],
-            multi: [
-                { 
-                    name: "Multi-Volume Book", 
-                    type: "multi",
-                    publisher: "Publisher C", 
-                    language: "Arabic",
-                    volumes: [
-                        { name: "Volume 1", file: "https://example.com/volume1.pdf" },
-                        { name: "Volume 2", file: "https://example.com/volume2.pdf" },
-                        { name: "Volume 3", file: "https://example.com/volume3.pdf" }
-                    ]
-                }
-            ]
-        };
-    </script>
+    <script src="books-index.js"></script>
     <script>
         // Correct PDF worker URL
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -2061,7 +1983,6 @@
         let initialPagesLoaded = false;
         let watermarkImage = null;
         let watermarkOpacity = 0.14;
-        let watermarkSize = 0.3; // 30% of canvas width by default
 
         // Theme toggle functionality
         const themeToggle = document.getElementById('input');
@@ -2113,27 +2034,6 @@
             watermarkOpacity = parseInt(slider.value) / 100;
             valueSpan.textContent = slider.value + '%';
             updatePreview();
-        }
-
-        function updateWatermarkSize() {
-            const slider = document.getElementById('watermarkSize');
-            const valueSpan = document.getElementById('sizeValue');
-            watermarkSize = parseInt(slider.value) / 100;
-            valueSpan.textContent = slider.value + '%';
-            updatePreview();
-        }
-
-        function deleteWatermark() {
-            watermarkImage = null;
-            document.getElementById('watermarkInput').value = '';
-            document.getElementById('watermarkOpacity').value = '14';
-            document.getElementById('watermarkSize').value = '30';
-            document.getElementById('opacityValue').textContent = '14%';
-            document.getElementById('sizeValue').textContent = '30%';
-            watermarkOpacity = 0.14;
-            watermarkSize = 0.3;
-            updatePreview();
-            showSuccess('Watermark deleted successfully!');
         }
 
         async function loadUploadedBook(file) {
@@ -2646,10 +2546,10 @@
                     xOffset += viewports[i].width;
                 }
                 
-                // Apply watermark if exists (but don't apply blend mode for highlights during preview)
+                // Apply watermark if exists
                 if (watermarkImage) {
                     ctx.globalAlpha = watermarkOpacity;
-                    const watermarkWidth = canvas.width * watermarkSize;
+                    const watermarkWidth = canvas.width * 0.3; // 30% of canvas width
                     const watermarkHeight = (watermarkImage.height / watermarkImage.width) * watermarkWidth;
                     const x = (canvas.width - watermarkWidth) / 2;
                     const y = (canvas.height - watermarkHeight) / 2;
@@ -2956,8 +2856,6 @@
             const ctx = canvas.getContext('2d');
             
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Use blend mode during drawing so people can see what they're highlighting
             ctx.globalCompositeOperation = 'multiply';
             
             highlights.forEach((rect, index) => {
@@ -3000,16 +2898,18 @@
                 // Draw the preview canvas
                 tempCtx.drawImage(previewCanvas, 0, 0);
                 
-                // Apply highlights WITHOUT blend mode for final download (solid colors)
+                // Apply highlights with multiply blend mode
+                tempCtx.globalCompositeOperation = 'multiply';
                 highlights.forEach(rect => {
                     tempCtx.fillStyle = rect.color;
                     tempCtx.fillRect(rect.x, rect.y, rect.width, rect.height);
                 });
+                tempCtx.globalCompositeOperation = 'source-over';
                 
                 // Apply watermark if exists
                 if (watermarkImage) {
                     tempCtx.globalAlpha = watermarkOpacity;
-                    const watermarkWidth = tempCanvas.width * watermarkSize;
+                    const watermarkWidth = tempCanvas.width * 0.3;
                     const watermarkHeight = (watermarkImage.height / watermarkImage.width) * watermarkWidth;
                     const x = (tempCanvas.width - watermarkWidth) / 2;
                     const y = (tempCanvas.height - watermarkHeight) / 2;
