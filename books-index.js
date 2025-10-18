@@ -11,21 +11,21 @@ const booksIndex = {
         },
         {
     name: "العلل لابن الجوزي - ط العلمية",
-    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlIlalLiIbnAlJawzi_AlIlmiyyah.pdf",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlIlalLiIbnAlJawzi_AlIlmiyyah.pdf",
     publisher: "دار الكتب العلمية",
     language: "Arabic",
     type: "single"
 },
 {
     name: "الكفاية في علم الرواية",
-    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlKifayahFiIlmAlRiwayah.pdf",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlKifayahFiIlmAlRiwayah.pdf",
     publisher: "",
     language: "Arabic",
     type: "single"
 },
 {
     name: "الموضوعات لابن الجوزي - ط محمد عبد المحسن",
-    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlMawduatLiIbnAlJawzi_MuhammadAbdAlMuhsin.pdf",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlMawduatLiIbnAlJawzi_MuhammadAbdAlMuhsin.pdf",
     publisher: "محمد عبد المحسن",
     language: "Arabic",
     type: "single"
@@ -36,28 +36,28 @@ const booksIndex = {
     publisher: "الحرس الوطني السعودي",
     language: "Arabic",
     volumes: [
-        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSarimAlMaslul_AlHarsAlWatniAlSaudi00.pdf" },
-        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSarimAlMaslul_AlHarsAlWatniAlSaudi01.pdf" }
+        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlSarimAlMaslul_AlHarsAlWatniAlSaudi00.pdf" },
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlSarimAlMaslul_AlHarsAlWatniAlSaudi01.pdf" }
     ],
     isDropdownOpen: false
 },
 {
     name: "السنة للمروزي",
-    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunnahLiAlMarwazi.pdf",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlSunnahLiAlMarwazi.pdf",
     publisher: "",
     language: "Arabic",
     type: "single"
 },
 {
     name: "السنة للمروزي - ط دار العاصمة",
-    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunnahLiAlMarwazi_DarAlAsimah.pdf",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlSunnahLiAlMarwazi_DarAlAsimah.pdf",
     publisher: "دار العاصمة",
     language: "Arabic",
     type: "single"
 },
 {
     name: "السنة لابن أبي عاصم",
-    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunnahLiIbnAbiAsim.pdf",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlSunnahLiIbnAbiAsim.pdf",
     publisher: "",
     language: "Arabic",
     type: "single"
@@ -65,28 +65,28 @@ const booksIndex = {
 
 {
     name: "مصباح اللغات",
-    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MisbahAlLughat.pdf",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MisbahAlLughat.pdf",
     publisher: "",
     language: "Urdu",
     type: "single"
 },
 {
     name: "صحيح مسلم - ط بيت الأفكار",
-    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SahihMuslim_BaytAlAfkar.pdf",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/SahihMuslim_BaytAlAfkar.pdf",
     publisher: "بيت الأفكار",
     language: "Arabic",
     type: "single"
 },
 {
     name: "شرح السنة للبربهاري - ط دار السلف",
-    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SharhAlSunnahLiAlBarbahari_DarAlSalaf.pdf",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/SharhAlSunnahLiAlBarbahari_DarAlSalaf.pdf",
     publisher: "دار السلف",
     language: "Arabic",
     type: "single"
 },
 {
     name: "سنن النسائي -ط دار التويفيق",
-    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SunanAlNasai_DarAlTuwayiq.pdf",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/SunanAlNasai_DarAlTuwayiq.pdf",
     publisher: "دار التويفيق",
     language: "Arabic",
     type: "single"
@@ -2155,10 +2155,10 @@ const booksIndex = {
     publisher: "المكتب الإسلامي",
     language: "Arabic",
     volumes: [
-        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlIlalLiIbnAlJawzi_AlKitabAlIslami00.pdf" },
-        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlIlalLiIbnAlJawzi_AlKitabAlIslami01.pdf" },
-        { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlIlalLiIbnAlJawzi_AlKitabAlIslami01p.pdf" },
-        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlIlalLiIbnAlJawzi_AlKitabAlIslami02.pdf" }
+        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlIlalLiIbnAlJawzi_AlKitabAlIslami00.pdf" },
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlIlalLiIbnAlJawzi_AlKitabAlIslami01.pdf" },
+        { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlIlalLiIbnAlJawzi_AlKitabAlIslami01p.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlIlalLiIbnAlJawzi_AlKitabAlIslami02.pdf" }
     ],
     isDropdownOpen: false
 },
@@ -2168,10 +2168,10 @@ const booksIndex = {
     publisher: "أصوا السلف",
     language: "Arabic",
     volumes: [
-        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlMawduatLiIbnAlJawzi_AswaAlSalaf01.pdf" },
-        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlMawduatLiIbnAlJawzi_AswaAlSalaf02.pdf" },
-        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlMawduatLiIbnAlJawzi_AswaAlSalaf03.pdf" },
-        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlMawduatLiIbnAlJawzi_AswaAlSalaf04.pdf" }
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlMawduatLiIbnAlJawzi_AswaAlSalaf01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlMawduatLiIbnAlJawzi_AswaAlSalaf02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlMawduatLiIbnAlJawzi_AswaAlSalaf03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlMawduatLiIbnAlJawzi_AswaAlSalaf04.pdf" }
     ],
     isDropdownOpen: false
 },
@@ -2181,17 +2181,17 @@ const booksIndex = {
     publisher: "مؤسسة الرسالة",
     language: "Arabic",
     volumes: [
-        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah00.pdf" },
-        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah01.pdf" },
-        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah02.pdf" },
-        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah04.pdf" },
-        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah05.pdf" },
-        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah06.pdf" },
-        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah07.pdf" },
-        { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah08.pdf" },
-        { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah09.pdf" },
-        { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah11.pdf" },
-        { name: "12", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah12.pdf" }
+        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah00.pdf" },
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah02.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah04.pdf" },
+        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah05.pdf" },
+        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah06.pdf" },
+        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah07.pdf" },
+        { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah08.pdf" },
+        { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah09.pdf" },
+        { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah11.pdf" },
+        { name: "12", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah12.pdf" }
     ],
     isDropdownOpen: false
 },
@@ -2201,14 +2201,14 @@ const booksIndex = {
     publisher: "دار الكتب العلمية",
     language: "Arabic",
     volumes: [
-        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyah01.pdf" },
-        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyah02.pdf" },
-        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyah03.pdf" },
-        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyah04.pdf" },
-        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyah06.pdf" },
-        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyah07.pdf" },
-        { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyah08.pdf" },
-        { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyah09.pdf" }
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlTabaqatAlKubra_AlIlmiyyah01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlTabaqatAlKubra_AlIlmiyyah02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlTabaqatAlKubra_AlIlmiyyah03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlTabaqatAlKubra_AlIlmiyyah04.pdf" },
+        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlTabaqatAlKubra_AlIlmiyyah06.pdf" },
+        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlTabaqatAlKubra_AlIlmiyyah07.pdf" },
+        { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlTabaqatAlKubra_AlIlmiyyah08.pdf" },
+        { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlTabaqatAlKubra_AlIlmiyyah09.pdf" }
     ],
     isDropdownOpen: false
 },
@@ -2218,15 +2218,15 @@ const booksIndex = {
     publisher: "دار الكتب العلمية (قديم)",
     language: "Arabic",
     volumes: [
-        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyahQadeem01.pdf" },
-        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyahQadeem02.pdf" },
-        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyahQadeem03.pdf" },
-        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyahQadeem04.pdf" },
-        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyahQadeem05.pdf" },
-        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyahQadeem06.pdf" },
-        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyahQadeem07.pdf" },
-        { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyahQadeem08.pdf" },
-        { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyahQadeem09.pdf" }
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlTabaqatAlKubra_AlIlmiyyahQadeem01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlTabaqatAlKubra_AlIlmiyyahQadeem02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlTabaqatAlKubra_AlIlmiyyahQadeem03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlTabaqatAlKubra_AlIlmiyyahQadeem04.pdf" },
+        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlTabaqatAlKubra_AlIlmiyyahQadeem05.pdf" },
+        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlTabaqatAlKubra_AlIlmiyyahQadeem06.pdf" },
+        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlTabaqatAlKubra_AlIlmiyyahQadeem07.pdf" },
+        { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlTabaqatAlKubra_AlIlmiyyahQadeem08.pdf" },
+        { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlTabaqatAlKubra_AlIlmiyyahQadeem09.pdf" }
     ],
     isDropdownOpen: false
 },
@@ -2236,14 +2236,14 @@ const booksIndex = {
     publisher: "دار صادر",
     language: "Arabic",
     volumes: [
-        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_DarSadir01.pdf" },
-        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_DarSadir03.pdf" },
-        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_DarSadir04.pdf" },
-        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_DarSadir05.pdf" },
-        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_DarSadir06.pdf" },
-        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_DarSadir07.pdf" },
-        { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_DarSadir08.pdf" },
-        { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_DarSadir09.pdf" }
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlTabaqatAlKubra_DarSadir01.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlTabaqatAlKubra_DarSadir03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlTabaqatAlKubra_DarSadir04.pdf" },
+        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlTabaqatAlKubra_DarSadir05.pdf" },
+        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlTabaqatAlKubra_DarSadir06.pdf" },
+        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlTabaqatAlKubra_DarSadir07.pdf" },
+        { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlTabaqatAlKubra_DarSadir08.pdf" },
+        { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlTabaqatAlKubra_DarSadir09.pdf" }
     ],
     isDropdownOpen: false
 },
@@ -2253,12 +2253,12 @@ const booksIndex = {
     publisher: "مكتبة دار المنهاج",
     language: "Arabic",
     volumes: [
-        { name: "00p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/FathAlMughith_MaktabahDarAlMinhaj00p.pdf" },
-        { name: "01s", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/FathAlMughith_MaktabahDarAlMinhaj01s.pdf" },
-        { name: "02s", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/FathAlMughith_MaktabahDarAlMinhaj02s.pdf" },
-        { name: "03s", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/FathAlMughith_MaktabahDarAlMinhaj03s.pdf" },
-        { name: "04s", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/FathAlMughith_MaktabahDarAlMinhaj04s.pdf" },
-        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/FathAlMughith_MaktabahDarAlMinhaj05.pdf" }
+        { name: "00p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/FathAlMughith_MaktabahDarAlMinhaj00p.pdf" },
+        { name: "01s", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/FathAlMughith_MaktabahDarAlMinhaj01s.pdf" },
+        { name: "02s", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/FathAlMughith_MaktabahDarAlMinhaj02s.pdf" },
+        { name: "03s", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/FathAlMughith_MaktabahDarAlMinhaj03s.pdf" },
+        { name: "04s", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/FathAlMughith_MaktabahDarAlMinhaj04s.pdf" },
+        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/FathAlMughith_MaktabahDarAlMinhaj05.pdf" }
     ],
     isDropdownOpen: false
 },
@@ -2268,25 +2268,25 @@ const booksIndex = {
     publisher: "مؤسسة الرسالة",
     language: "Arabic",
     volumes: [
-        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah00.pdf" },
-        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah01.pdf" },
-        { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah01p.pdf" },
-        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah02.pdf" },
-        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah03.pdf" },
-        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah04.pdf" },
-        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah05.pdf" },
-        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah06.pdf" },
-        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah07.pdf" },
-        { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah08.pdf" },
-        { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah09.pdf" },
-        { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah10.pdf" },
-        { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah11.pdf" },
-        { name: "12", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah12.pdf" },
-        { name: "13", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah13.pdf" },
-        { name: "14", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah14.pdf" },
-        { name: "15", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah15.pdf" },
-        { name: "17", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah17.pdf" },
-        { name: "18", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah18.pdf" }
+        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/KanzAlUmmal_AlRisalah00.pdf" },
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/KanzAlUmmal_AlRisalah01.pdf" },
+        { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/KanzAlUmmal_AlRisalah01p.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/KanzAlUmmal_AlRisalah02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/KanzAlUmmal_AlRisalah03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/KanzAlUmmal_AlRisalah04.pdf" },
+        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/KanzAlUmmal_AlRisalah05.pdf" },
+        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/KanzAlUmmal_AlRisalah06.pdf" },
+        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/KanzAlUmmal_AlRisalah07.pdf" },
+        { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/KanzAlUmmal_AlRisalah08.pdf" },
+        { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/KanzAlUmmal_AlRisalah09.pdf" },
+        { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/KanzAlUmmal_AlRisalah10.pdf" },
+        { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/KanzAlUmmal_AlRisalah11.pdf" },
+        { name: "12", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/KanzAlUmmal_AlRisalah12.pdf" },
+        { name: "13", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/KanzAlUmmal_AlRisalah13.pdf" },
+        { name: "14", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/KanzAlUmmal_AlRisalah14.pdf" },
+        { name: "15", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/KanzAlUmmal_AlRisalah15.pdf" },
+        { name: "17", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/KanzAlUmmal_AlRisalah17.pdf" },
+        { name: "18", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/KanzAlUmmal_AlRisalah18.pdf" }
     ],
     isDropdownOpen: false
 },
@@ -2296,10 +2296,10 @@ const booksIndex = {
     publisher: "بيت الأفكار",
     language: "Arabic",
     volumes: [
-        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KitabAlMaarfahWaAlTarikh_BaytAlAfkar01.pdf" },
-        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KitabAlMaarfahWaAlTarikh_BaytAlAfkar02.pdf" },
-        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KitabAlMaarfahWaAlTarikh_BaytAlAfkar03.pdf" },
-        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KitabAlMaarfahWaAlTarikh_BaytAlAfkar04.pdf" }
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/KitabAlMaarfahWaAlTarikh_BaytAlAfkar01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/KitabAlMaarfahWaAlTarikh_BaytAlAfkar02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/KitabAlMaarfahWaAlTarikh_BaytAlAfkar03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/KitabAlMaarfahWaAlTarikh_BaytAlAfkar04.pdf" }
     ],
     isDropdownOpen: false
 },
@@ -2309,45 +2309,45 @@ const booksIndex = {
     publisher: "",
     language: "Arabic",
     volumes: [
-        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah01.pdf" },
-        { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah01p.pdf" },
-        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah02.pdf" },
-        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah03.pdf" },
-        { name: "03-a", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah03-a.pdf" },
-        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah04.pdf" },
-        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah05.pdf" },
-        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah06.pdf" },
-        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah07.pdf" },
-        { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah08.pdf" },
-        { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah09.pdf" },
-        { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah10.pdf" },
-        { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah11.pdf" },
-        { name: "12", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah12.pdf" },
-        { name: "13", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah13.pdf" },
-        { name: "14", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah14.pdf" },
-        { name: "15", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah15.pdf" },
-        { name: "16", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah16.pdf" },
-        { name: "17", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah17.pdf" },
-        { name: "18", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah18.pdf" },
-        { name: "19", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah19.pdf" },
-        { name: "20", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah20.pdf" },
-        { name: "21", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah21.pdf" },
-        { name: "22", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah22.pdf" },
-        { name: "23", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah23.pdf" },
-        { name: "24", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah24.pdf" },
-        { name: "25", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah25.pdf" },
-        { name: "26", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah26.pdf" },
-        { name: "27", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah27.pdf" },
-        { name: "29", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah29.pdf" },
-        { name: "30", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah30.pdf" },
-        { name: "31", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah31.pdf" },
-        { name: "32", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah32.pdf" },
-        { name: "33", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah33.pdf" },
-        { name: "34", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah34.pdf" },
-        { name: "35", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah35.pdf" },
-        { name: "36", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah36.pdf" },
-        { name: "36p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah36p.pdf" },
-        { name: "37", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah37.pdf" }
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah01.pdf" },
+        { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah01p.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah03.pdf" },
+        { name: "03-a", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah03-a.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah04.pdf" },
+        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah05.pdf" },
+        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah06.pdf" },
+        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah07.pdf" },
+        { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah08.pdf" },
+        { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah09.pdf" },
+        { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah10.pdf" },
+        { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah11.pdf" },
+        { name: "12", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah12.pdf" },
+        { name: "13", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah13.pdf" },
+        { name: "14", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah14.pdf" },
+        { name: "15", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah15.pdf" },
+        { name: "16", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah16.pdf" },
+        { name: "17", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah17.pdf" },
+        { name: "18", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah18.pdf" },
+        { name: "19", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah19.pdf" },
+        { name: "20", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah20.pdf" },
+        { name: "21", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah21.pdf" },
+        { name: "22", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah22.pdf" },
+        { name: "23", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah23.pdf" },
+        { name: "24", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah24.pdf" },
+        { name: "25", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah25.pdf" },
+        { name: "26", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah26.pdf" },
+        { name: "27", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah27.pdf" },
+        { name: "29", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah29.pdf" },
+        { name: "30", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah30.pdf" },
+        { name: "31", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah31.pdf" },
+        { name: "32", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah32.pdf" },
+        { name: "33", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah33.pdf" },
+        { name: "34", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah34.pdf" },
+        { name: "35", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah35.pdf" },
+        { name: "36", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah36.pdf" },
+        { name: "36p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah36p.pdf" },
+        { name: "37", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/MajmuAlFatawaLiIbnTaymiyyah37.pdf" }
     ],
     isDropdownOpen: false
 },
@@ -2357,12 +2357,12 @@ const booksIndex = {
     publisher: "علم الكتب",
     language: "Arabic",
     volumes: [
-        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SharhMaaniAlAtharAlimAlKutub01.pdf" },
-        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SharhMaaniAlAtharAlimAlKutub02.pdf" },
-        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SharhMaaniAlAtharAlimAlKutub03.pdf" },
-        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SharhMaaniAlAtharAlimAlKutub04.pdf" },
-        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SharhMaaniAlAtharAlimAlKutub05.pdf" },
-        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SharhMaaniAlAtharAlimAlKutub06.pdf" }
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/SharhMaaniAlAtharAlimAlKutub01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/SharhMaaniAlAtharAlimAlKutub02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/SharhMaaniAlAtharAlimAlKutub03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/SharhMaaniAlAtharAlimAlKutub04.pdf" },
+        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/SharhMaaniAlAtharAlimAlKutub05.pdf" },
+        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/SharhMaaniAlAtharAlimAlKutub06.pdf" }
     ],
     isDropdownOpen: false
 },
@@ -2372,10 +2372,10 @@ const booksIndex = {
     publisher: "المكتبة الإسلامية",
     language: "Arabic",
     volumes: [
-        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SharhUsulItiqad_AlMaktabahAlIslamiyyah01.pdf" },
-        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SharhUsulItiqad_AlMaktabahAlIslamiyyah02.pdf" },
-        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SharhUsulItiqad_AlMaktabahAlIslamiyyah03.pdf" },
-        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SharhUsulItiqad_AlMaktabahAlIslamiyyah04.pdf" }
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/SharhUsulItiqad_AlMaktabahAlIslamiyyah01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/SharhUsulItiqad_AlMaktabahAlIslamiyyah02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/SharhUsulItiqad_AlMaktabahAlIslamiyyah03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/SharhUsulItiqad_AlMaktabahAlIslamiyyah04.pdf" }
     ],
     isDropdownOpen: false
 },
@@ -2385,15 +2385,15 @@ const booksIndex = {
     publisher: "مكتبة المعارف",
     language: "Arabic",
     volumes: [
-        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif01.pdf" },
-        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif02.pdf" },
-        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif03.pdf" },
-        { name: "03p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif03p.pdf" },
-        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif04.pdf" },
-        { name: "04p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif04p.pdf" },
-        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif05.pdf" },
-        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif06.pdf" },
-        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif07.pdf" }
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif03.pdf" },
+        { name: "03p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif03p.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif04.pdf" },
+        { name: "04p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif04p.pdf" },
+        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif05.pdf" },
+        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif06.pdf" },
+        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif07.pdf" }
     ],
     isDropdownOpen: false
 },
@@ -2403,11 +2403,11 @@ const booksIndex = {
     publisher: "مؤسسة قرطبة",
     language: "Arabic",
     volumes: [
-        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/TalkhisAlHabir_MuassahAlQurtubah00.pdf" },
-        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/TalkhisAlHabir_MuassahAlQurtubah01.pdf" },
-        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/TalkhisAlHabir_MuassahAlQurtubah02.pdf" },
-        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/TalkhisAlHabir_MuassahAlQurtubah03.pdf" },
-        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/TalkhisAlHabir_MuassahAlQurtubah04.pdf" }
+        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/TalkhisAlHabir_MuassahAlQurtubah00.pdf" },
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/TalkhisAlHabir_MuassahAlQurtubah01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/TalkhisAlHabir_MuassahAlQurtubah02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/TalkhisAlHabir_MuassahAlQurtubah03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/TalkhisAlHabir_MuassahAlQurtubah04.pdf" }
     ],
     isDropdownOpen: false
 }
