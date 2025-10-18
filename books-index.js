@@ -473,7 +473,7 @@ const booksIndex = {
         { 
             name: "تحرير تقريب التهذيب", 
             type: "multi",
-            publisher: "مؤسسة الرسالة ",
+            publisher: "مؤسسة الرسالة",
             language: "العربية",
             volumes: [
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen09/main/89/تحرير تقريب التهذيب احمد بن علي ابن حجر العسقلاني ج1.pdf" },
@@ -481,16 +481,6 @@ const booksIndex = {
     { name: "3", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen09/main/89/تحرير تقريب التهذيب احمد بن علي ابن حجر العسقلاني ج3.pdf" },
     { name: "4", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen09/main/89/تحرير تقريب التهذيب احمد بن علي ابن حجر العسقلاني ج4.pdf" }
 ],
-            isDropdownOpen: false
-        },
-        { 
-            name: "", 
-            type: "multi",
-            publisher: "",
-            language: "العربية",
-            volumes: [
-                { name: ""0"", file: """" }
-            ],
             isDropdownOpen: false
         },
         { 
