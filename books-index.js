@@ -6,35 +6,117 @@ const booksIndex = {
             name: "المسند للشافعي",
             file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/11.pdf",
             publisher: "دار الكتب العلمية",
-            language: "العربية",
+            language: "Arabic",
             type: "single"
         },
-        { 
+        {
+    name: "العلل لابن الجوزي - ط العلمية",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlIlalLiIbnAlJawzi_AlIlmiyyah.pdf",
+    publisher: "دار الكتب العلمية",
+    language: "Arabic",
+    type: "single"
+},
+{
+    name: "الكفاية في علم الرواية",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlKifayahFiIlmAlRiwayah.pdf",
+    publisher: "",
+    language: "Arabic",
+    type: "single"
+},
+{
+    name: "الموضوعات لابن الجوزي - ط محمد عبد المحسن",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlMawduatLiIbnAlJawzi_MuhammadAbdAlMuhsin.pdf",
+    publisher: "محمد عبد المحسن",
+    language: "Arabic",
+    type: "single"
+},
+{
+    name: "الصارم المسلول على شاتم الرسول - ط الحرس الوطني السعودي",
+    type: "multi",
+    publisher: "الحرس الوطني السعودي",
+    language: "Arabic",
+    volumes: [
+        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSarimAlMaslul_AlHarsAlWatniAlSaudi00.pdf" },
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSarimAlMaslul_AlHarsAlWatniAlSaudi01.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "السنة للمروزي",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunnahLiAlMarwazi.pdf",
+    publisher: "",
+    language: "Arabic",
+    type: "single"
+},
+{
+    name: "السنة للمروزي - ط دار العاصمة",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunnahLiAlMarwazi_DarAlAsimah.pdf",
+    publisher: "دار العاصمة",
+    language: "Arabic",
+    type: "single"
+},
+{
+    name: "السنة لابن أبي عاصم",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunnahLiIbnAbiAsim.pdf",
+    publisher: "",
+    language: "Arabic",
+    type: "single"
+},
+
+{
+    name: "مصباح اللغات",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MisbahAlLughat.pdf",
+    publisher: "",
+    language: "Urdu",
+    type: "single"
+},
+{
+    name: "صحيح مسلم - ط بيت الأفكار",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SahihMuslim_BaytAlAfkar.pdf",
+    publisher: "بيت الأفكار",
+    language: "Arabic",
+    type: "single"
+},
+{
+    name: "شرح السنة للبربهاري - ط دار السلف",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SharhAlSunnahLiAlBarbahari_DarAlSalaf.pdf",
+    publisher: "دار السلف",
+    language: "Arabic",
+    type: "single"
+},
+{
+    name: "سنن النسائي -ط دار التويفيق",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SunanAlNasai_DarAlTuwayiq.pdf",
+    publisher: "دار التويفيق",
+    language: "Arabic",
+    type: "single"
+},
+    {
             name: "الأدب المفرد - ت عبد الباقي", 
             file: "https://raw.githubusercontent.com/Saadhusainn/sijjeen04/main/33.pdf",
             publisher: "دار البشائر الإسلامية",
-            language: "العربية",
+            language: "Arabic",
             type: "single"
         },
         {
     name: "الأمالي للصدوق",
     file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/AlAmaliLiAlSuduq.pdf",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     type: "single"
 },
 {
     name: "الاختصاص للمفيد",
     file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/AlIkhtisasLiAlMufid.pdf",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     type: "single"
 },
 {
     name: "عيون أخبار الرضا",
     file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/UyunAkhbarAlRida01-02.pdf",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     type: "single"
 
 },
@@ -42,105 +124,105 @@ const booksIndex = {
     name: "خلاصة الأقوال للعلامة الحلي",
     file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/KulasahAlAqwalLiAlHilli.pdf",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     type: "single"
 },
 {
     name: "قرب الإسناد",
     file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/QurbAlIsnad.pdf",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     type: "single"
 },
 {
     name: "رجال النجاشي",
     file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/RijalAlNajjashi.pdf",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     type: "single"
 },
         {
             name:"مسند الدارمي - ت الزهراني",
             file:"https://raw.githubusercontent.com/Saadhusainn/sijjeen04/main/36.pdf",
             publisher:"N/A",
-            language:"العربية",
+            language:"Arabic",
             type:"single"
         },
         {
             name: "مسند ابن الجعد",
             file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/10.pdf",
             publisher: "دار الكتب العلمية",
-            language: "العربية",
+            language: "Arabic",
             type: "single"
         },
         {
             name:"موطأ مالك رواية يحيى - ت عبد الباقي",
             file:"https://raw.githubusercontent.com/Saadhusainn/sijjeen04/main/37.pdf",
             publisher:"دار أحياء التراث العربي",
-            language:"العربية",
+            language:"Arabic",
             type:"single"
         },
         {
             name:"شرح صحيح البخاري لابن بطال",
             file:"https://raw.githubusercontent.com/Saadhusainn/sijjeen06.1/main/49.pdf",
             publisher:"مكتبة الرشد",
-            language:"العربية",
+            language:"Arabic",
             type:"single"
         },
         {
             name:"صحيح البخاري",
             file:"https://raw.githubusercontent.com/Saadhusainn/sijjeen06.1/main/24.pdf",
             publisher:"دار ابن كثير",
-            language:"العربية",
+            language:"Arabic",
             type:"single"
         },
         {
             name:"الضعفاء والمتروكين للنسأئي",
             file:"https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/60.pdf",
             publisher:"مؤسسة الكتب الثقافية",
-            language:"العربية",
+            language:"Arabic",
             type:"single"
         },
         {
             name:"التاريخ الصغير للبخاري",
             file:"https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/61.pdf",
             publisher:"مكتبة المعارف، دار المعرفة",
-            language:"العربية",
+            language:"Arabic",
             type:"single"
         },
         {
             name:"كتاب الضعفاء الصغير للبخاري - ت زايد",
             file:"https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/62.pdf",
             publisher:"دار المعرفة",
-            language:"العربية",
+            language:"Arabic",
             type:"single"
         },
         {
             name:"علل الترمذي الكبير",
             file:"https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/35.pdf",
-            publisher:"مكتبة النهضة العربية",
-            language:"العربية",
+            publisher:"مكتبة النهضة Arabic",
+            language:"Arabic",
             type:"single"
         },
         {
     name: "الأمالي للطوسي",
     file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/AlAmaliLiAlTusi.pdf",
     publisher: "N/A",
-    language: "العربية",
+    language: "Arabic",
     type: "single"
 },
 {
     name: "رجال الكشي للكشي",
     file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/RijalAlKashiLiAlKashi.pdf",
     publisher: "N/A",
-    language: "العربية",
+    language: "Arabic",
     type: "single"
 },
 {
     name: "رجال الطوسي",
     file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/RijalAlTusi.pdf",
     publisher: "N/A",
-    language: "العربية",
+    language: "Arabic",
     type: "single"
 }
     ],
@@ -151,7 +233,7 @@ const booksIndex = {
             name: "المصنف لعبد الرزاق - ت الأعظمي", 
             type: "multi",
             publisher: "المكتبة الإسلامي",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
                 { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/19/miar00.pdf" },
                 { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/19/miar01.pdf" },
@@ -185,7 +267,7 @@ const booksIndex = {
             name: "مسند أبي يعلى الموصيلي", 
             type: "multi",
             publisher: "دار المامون للتراث",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
                 { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/21/mayala00.pdf" },
                 { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/21/mayala01.pdf" },
@@ -210,7 +292,7 @@ const booksIndex = {
             name: "المعجم الكبير للطبراني", 
             type: "multi",
             publisher: "مكتبة ابن تيمية",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
                 { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/2/mtk00.pdf" },
                 { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/2/mtk01.pdf" },
@@ -247,7 +329,7 @@ const booksIndex = {
             name: "الإستيعاب في معرفة الأصحاب لابن عبد البر", 
             type: "multi",
             publisher: "دار الجيل",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen08/main/68/Isteeab01.pdf" },
     { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen08/main/68/Isteeab02.pdf" },
@@ -261,7 +343,7 @@ const booksIndex = {
             name: "الكامل في الضعفاء الرجال لإبن عدي", 
             type: "multi",
             publisher: "دار الكتب العلمية",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen08/main/69/kdra0.pdf" },
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen08/main/69/kdra1.pdf" },
@@ -280,7 +362,7 @@ const booksIndex = {
             name: "معرفة الثقات للعجلي", 
             type: "multi",
             publisher: "N/A",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen08/main/70/معرفة الثقات العجيلي ج1.pdf" },
     { name: "2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen08/main/70/معرفة الثقات العجيلي ج2.pdf" }
@@ -291,7 +373,7 @@ const booksIndex = {
             name: "لسان الميزان لإبن حجر", 
             type: "multi",
             publisher: "مكتب المطبوعات الإسلامية",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen08/main/74/lisanm0.pdf" },
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen08/main/74/lisanm1.pdf" }
@@ -302,7 +384,7 @@ const booksIndex = {
             name: "ميزان الإعتدال في نقد الرجال للذهبي", 
             type: "multi",
             publisher: "N/A",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen08/main/76/00_15344.pdf" },
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen08/main/76/01_153444.pdf" },
@@ -316,7 +398,7 @@ const booksIndex = {
             name: "تذكرة الحفاظ للذهبي", 
             type: "multi",
             publisher: "دار الكتب العلمية",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen08/main/77/00_72574.pdf" },
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen08/main/77/01_72574.pdf" },
@@ -330,8 +412,8 @@ const booksIndex = {
         { 
             name: "كتاب التميز للإمام مسلم بن الحجاج", 
             type: "multi",
-            publisher: "شركة الطباعة العربية السعودية",
-            language: "العربية",
+            publisher: "شركة الطباعة Arabic السعودية",
+            language: "Arabic",
             volumes: [
                 { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen08/main/78/Tamyizp.pdf" },
                 { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen08/main/78/Tamyiz.pdf" },
@@ -342,7 +424,7 @@ const booksIndex = {
             name: "تاريخ الطبري، تاريخ الرسال والملوك - ط دار المعارف بمصر", 
             type: "multi",
             publisher: "دار المعارف بمصر",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen08/main/79/trm00.pdf" },
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen08/main/79/trm01.pdf" },
@@ -363,7 +445,7 @@ const booksIndex = {
             name: "تاريخ بغداد، تاريخ مدينة السلام", 
             type: "multi",
             publisher: "دار الكتب العلمية ",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen08/main/80/تاريخ بغداد (01).pdf" },
     { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen08/main/80/تاريخ بغداد (02).pdf" },
@@ -396,7 +478,7 @@ const booksIndex = {
             name: "كتاب الثقات لإبن حبان", 
             type: "multi",
             publisher: "n/a",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen09/main/81/01_3910.pdf" },
     { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen09/main/81/02_3911.pdf" },
@@ -415,7 +497,7 @@ const booksIndex = {
             name: "أسد الغابة في معرفة الصحابة", 
             type: "multi",
             publisher: "دار الكتب العلمية",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen09/main/82/asdghsh0.pdf" },
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen09/main/82/asdghsh1.pdf" },
@@ -433,7 +515,7 @@ const booksIndex = {
             name: "إكمال تهذيب الكمال في أسماء الرجال", 
             type: "multi",
             publisher: "الفاروق الحديثة للطباعة والنشر",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen09/main/83/00.pdf" },
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen09/main/83/01.pdf" },
@@ -456,7 +538,7 @@ const booksIndex = {
             name: "الإصابة في تمييز الصحابة لإبن حجر ", 
             type: "multi",
             publisher: "دار الكتب العلمية ",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen09/main/84/00.pdf" },
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen09/main/84/01.pdf" },
@@ -474,7 +556,7 @@ const booksIndex = {
             name: "تحرير تقريب التهذيب", 
             type: "multi",
             publisher: "مؤسسة الرسالة",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen09/main/89/تحرير تقريب التهذيب احمد بن علي ابن حجر العسقلاني ج1.pdf" },
     { name: "2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen09/main/89/تحرير تقريب التهذيب احمد بن علي ابن حجر العسقلاني ج2.pdf" },
@@ -487,7 +569,7 @@ const booksIndex = {
             name: "الضعفاء الكبير للعقيلي", 
             type: "multi",
             publisher: "دار التأصيل",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen09/main/85/الضعفاء رواية يوسف بن أحمد الدخيل الصيدلاني دار التأصيل جلد 1.pdf" },
     { name: "2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen09/main/85/الضعفاء رواية يوسف بن أحمد الدخيل الصيدلاني دار التأصيل جلد 2.pdf" },
@@ -500,7 +582,7 @@ const booksIndex = {
             name: "الضعفاء والمتروكين لإبن الجوزي", 
             type: "multi",
             publisher: "دار الكتب العلمية ",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen09/main/86/dmga0.pdf" },
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen09/main/86/dmga1.pdf" },
@@ -513,7 +595,7 @@ const booksIndex = {
             name: "المنتظم في تاريخ الملوك والأمم", 
             type: "multi",
             publisher: "دار الكتب العلمية ",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen09/main/87/mtmo00.pdf" },
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen09/main/87/mtmo01.pdf" },
@@ -542,7 +624,7 @@ const booksIndex = {
             name: "تاريخ الإسلام ووفيات المشاهير والأعلام", 
             type: "multi",
             publisher: "دار الغرب الإسلامي",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen09/main/88/00.pdf" },
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen09/main/88/01.pdf" },
@@ -569,7 +651,7 @@ const booksIndex = {
             name: "المصنف لابن أبي شيبة ت الشثري", 
             type: "multi",
             publisher: "دار كنوز",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
                 { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/7/shaybah00.pdf" },
                 { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/7/shaybah01.pdf" },
@@ -604,7 +686,7 @@ const booksIndex = {
             name: "السنن الكبرى للنسائي", 
             type: "multi",
             publisher: "المكتبة الرسالة",
-            language: "العربية",
+            language: "Arabic",
            volumes: [
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/4/snk01.pdf" },
     { name: "2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/4/snk02.pdf" },
@@ -625,7 +707,7 @@ const booksIndex = {
             name: "المعجم الصغير للطبراني", 
             type: "multi",
             publisher: "دار الكتب العلمية",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
                 { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/3/mst0.pdf" },
                 { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/3/mst1.pdf" },
@@ -637,7 +719,7 @@ const booksIndex = {
             name: "المعجم الأوسط للطبراني", 
             type: "multi",
             publisher: "دار الحرمين",
-            language: "العربية",
+            language: "Arabic",
            volumes: [
     { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/1/mat00.pdf" },
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/1/mat01.pdf" },
@@ -657,7 +739,7 @@ const booksIndex = {
             name: "مسند أبي داود الطيالسي", 
             type: "multi",
             publisher: "دار هجر",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
                 { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/12/madt0.pdf" },
                 { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/12/madt1.pdf" },
@@ -672,7 +754,7 @@ const booksIndex = {
             name: "مسند أحمد ت شاكر", 
             type: "multi",
             publisher: "دار الحديث",
-            language: "العربية",
+            language: "Arabic",
            volumes: [
     { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/8/musnda00.pdf" },
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/8/musnda01.pdf" },
@@ -700,7 +782,7 @@ const booksIndex = {
             name: "البحر الزخار المعروف بمسند البزار", 
             type: "multi",
             publisher: "مكتبة العلوم",
-            language: "العربية",
+            language: "Arabic",
            volumes: [
     { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/5/musbaz00.pdf" },
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/5/musbaz01.pdf" },
@@ -725,7 +807,7 @@ const booksIndex = {
             name: "المستدرك على الصحيحين للحاكم", 
             type: "multi",
             publisher: "دار الكتب العلمية",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/18/00.pdf" },
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/18/01.pdf" },
@@ -740,7 +822,7 @@ const booksIndex = {
             name: "شعب الإيمان ت الزغلول", 
             type: "multi",
             publisher: "دار الكتب العلمية",
-            language: "العربية",
+            language: "Arabic",
            volumes: [
     { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/15/gshe_elmiya00.pdf" },
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/15/gshe_elmiya01.pdf" },
@@ -759,7 +841,7 @@ const booksIndex = {
             name: "السنن الكبرى للبيهقى", 
             type: "multi",
             publisher: "دار الكتب العلمية",
-            language: "العربية",
+            language: "Arabic",
            volumes: [
     { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/17/skb00.pdf" },
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/17/skb01.pdf" },
@@ -780,7 +862,7 @@ const booksIndex = {
             name: "دلائل النبوة للذهبى", 
             type: "multi",
             publisher: "دار الكتب العلمية",
-            language: "العربية",
+            language: "Arabic",
            volumes: [
     { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/6/dalail0.pdf" },
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen01/main/6/dalail1.pdf" },
@@ -796,7 +878,7 @@ const booksIndex = {
             name: "صحيح ابن حبان", 
             type: "multi",
             publisher: "دار ابن حزم",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "المجلد 1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/13/المجلد 1.pdf" },
     { name: "المجلد 2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/13/المجلد 2.pdf" },
@@ -813,7 +895,7 @@ const booksIndex = {
             name: "صحيح ابن خزيمة", 
             type: "multi",
             publisher: "مكتبة الإسلامي",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/14/shuzaima0.pdf" },
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/14/shuzaima1.pdf" },
@@ -827,7 +909,7 @@ const booksIndex = {
             name: "مسند الروياني", 
             type: "multi",
             publisher: "مؤسسة القرطبه",
-            language: "العربية",
+            language: "Arabic",
            volumes: [
     { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/9/Musnad_Ruyani00.pdf" },
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/9/Musnad_Ruyani01.pdf" },
@@ -841,7 +923,7 @@ const booksIndex = {
             name: "سنن الدرقطني", 
             type: "multi",
             publisher: "مؤسسة الرسالة",
-            language: "العربية",
+            language: "Arabic",
            volumes: [
     { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/16/sdark0.pdf" },
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/16/sdark1.pdf" },
@@ -857,7 +939,7 @@ const booksIndex = {
             name: "حلية الأولياء", 
             type: "multi",
             publisher: "دار فكر",
-            language: "العربية",
+            language: "Arabic",
          volumes: [
     { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/20/حلية الأولياء وطبقات الأصفياء.pdf" },
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen02/main/20/حلية الأولياء وطبقات الأصفياء ـ الجز 1.pdf" },
@@ -877,7 +959,7 @@ const booksIndex = {
             name: "سنن الترمذي", 
             type: "multi",
             publisher: "دار التأصيل",
-            language: "العربية",
+            language: "Arabic",
           volumes: [
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/31/1.pdf" },
     { name: "2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/31/2.pdf" },
@@ -891,7 +973,7 @@ const booksIndex = {
             name: "سنن الترمذي - شعيب الأرنؤوط", 
             type: "multi",
             publisher: "دار الرسالة العالمية",
-            language: "العربية",
+            language: "Arabic",
            volumes: [
     { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/32/jt00.pdf" },
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/32/jt01.pdf" },
@@ -907,7 +989,7 @@ const booksIndex = {
             name: "الطبقات الكبرى لابن سعد", 
             type: "multi",
             publisher: "مكتبة الخانجي",
-            language: "العربية",
+            language: "Arabic",
            volumes: [
     { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/34/A66aba9at_00.pdf" },
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/34/A66aba9at_01.pdf" },
@@ -928,7 +1010,7 @@ const booksIndex = {
             name: "سنن أبي داود - شعيب الأرنؤوط", 
             type: "multi",
             publisher: "دار الرسالة الاعلامية",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/22/0.pdf" },
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/22/1.pdf" },
@@ -945,7 +1027,7 @@ const booksIndex = {
             name: "الترغيب الترهيب", 
             type: "multi",
             publisher: "دار الكتب العلمية ",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/23/0.pdf" },
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/23/1.pdf" },
@@ -960,7 +1042,7 @@ const booksIndex = {
             name: "سنن ابن ماجه", 
             type: "multi",
             publisher: "دار جيل",
-            language: "العربية",
+            language: "Arabic",
            volumes: [
     { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/25/Sunan_Ibn_Majah_Bashar00.pdf" },
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/25/Sunan_Ibn_Majah_Bashar01.pdf" },
@@ -976,7 +1058,7 @@ const booksIndex = {
             name: "مسند إسحاق بن راهوايه", 
             type: "multi",
             publisher: "مكتبة الإيمان",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/26/misaac0.pdf" },
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/26/misaac1.pdf" },
@@ -990,7 +1072,7 @@ const booksIndex = {
             name: "مستخرج أبي عوانة", 
             type: "multi",
             publisher: "الجامعة الإسلامية",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
                 { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/28/00_000000.pdf"},
                 { name: "1-1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen03.1/main/28/00_146801-1.pdf"},
@@ -1024,7 +1106,7 @@ const booksIndex = {
             name: "مجمع الزوائد", 
             type: "multi",
             publisher: "دار الكتاب العربي",
-            language: "العربية",
+            language: "Arabic",
            volumes: [
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/38/مجمع الزوائد نور الدين علي الهيثمي ج1.pdf" },
     { name: "2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/38/مجمع الزوائد نور الدين علي الهيثمي ج2.pdf" },
@@ -1043,7 +1125,7 @@ const booksIndex = {
             name: "عون المعبود شرح سنن أبي داود", 
             type: "multi",
             publisher: "دار الكتب العلمية",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/01_23895.pdf" },
     { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/39/02_23895.pdf" },
@@ -1068,7 +1150,7 @@ const booksIndex = {
             name: "فيض الباري على صحيح البخاري", 
             type: "multi",
             publisher: "دار الكتب العلمية",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/40/فيض الباري على صحيح البخاري مع حاشية البدر الساري جلد 1.pdf" },
     { name: "2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/40/فيض الباري على صحيح البخاري مع حاشية البدر الساري جلد 2.pdf" },
@@ -1083,7 +1165,7 @@ const booksIndex = {
             name: "معالم السنن للخطابي", 
             type: "multi",
             publisher: "N/A",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/41/ms0.pdf" },
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/41/ms1.pdf" },
@@ -1097,7 +1179,7 @@ const booksIndex = {
             name: "مرقاة المفاتيح شرح مشكاة المصابيح ", 
             type: "multi",
             publisher: "دار الكتب العلمية ",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/42/mmsmm00.pdf" },
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/42/mmsmm01.pdf" },
@@ -1119,7 +1201,7 @@ const booksIndex = {
             name: "فتح الباري لابن رجب الحنبلي", 
             type: "multi",
             publisher: "مكتبة الغرباء الأثرية",
-            language: "العربية",
+            language: "Arabic",
            volumes: [
     { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen05.1/main/45/fbir00.pdf" },
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen05.1/main/45/fbir01.pdf" },
@@ -1139,7 +1221,7 @@ const booksIndex = {
             name: "إرشاد الساري شرح صحيح البخاري - ط دار الكتب العلمية", 
             type: "multi",
             publisher: "دار الكتب العلمية",
-            language: "العربية",
+            language: "Arabic",
            volumes: [
     { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen05.1/main/47/إرشاد الساري لشرح صحيح البخاري ، الجز 0.pdf" },
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen05.1/main/47/إرشاد الساري لشرح صحيح البخاري ، الجز 1.pdf" },
@@ -1164,7 +1246,7 @@ const booksIndex = {
             name: "التمهيد لما في الموطأ من المعاني في الأسانيد في حديث رسول الله - ط مؤسسة الفرقان", 
             type: "multi",
             publisher: "مؤسسة الفرقان",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen05.1/main/52/00.pdf" },
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen05.1/main/52/01.pdf" },
@@ -1191,7 +1273,7 @@ const booksIndex = {
             name: "فتح الباري - ط دار السلام", 
             type: "multi",
             publisher: "دار السلام",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen05.2/main/44/فتح الباري شرح صحيح البخاري – دار السلام، الرياض – جلد 01.pdf" },
     { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen05.2/main/44/فتح الباري شرح صحيح البخاري – دار السلام، الرياض – جلد 02.pdf" },
@@ -1215,7 +1297,7 @@ const booksIndex = {
             name: "المعلم بفوائد مسلم", 
             type: "multi",
             publisher: "N/A",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen05.2/main/46/mfm0.pdf" },
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen05.2/main/46/mfm1.pdf" },
@@ -1228,7 +1310,7 @@ const booksIndex = {
             name: "تحفة الأحوذي", 
             type: "multi",
             publisher: "دار الفكر",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen05.2/main/54/tasgt00.pdf" },
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen05.2/main/54/tasgt01.pdf" },
@@ -1248,7 +1330,7 @@ const booksIndex = {
             name: "فتح الباري - ط دار طيبة", 
             type: "multi",
             publisher: "دار طيبة",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen05.2/main/55/فتح الباری شرح صحیح بخاری (1).pdf" },
     { name: "2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen05.2/main/55/فتح الباری شرح صحیح بخاری (2).pdf" },
@@ -1268,7 +1350,7 @@ const booksIndex = {
             name: "التمهيد لما في الموطأ من المعاني في الأسانيد في حديث رسول الله", 
             type: "multi",
             publisher: "N/A",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.2/main/53/ta_bar00.pdf" },
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.2/main/53/ta_bar01.pdf" },
@@ -1304,7 +1386,7 @@ const booksIndex = {
             name: "إرشاد الساري شرح صحيح البخاري - ط ابن حزم", 
             type: "multi",
             publisher: "دار ابن حزم",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.2/main/51/إرشاد_الساري_ط_عطاءات_العلم_ج1_غير_ملون.pdf" },
     { name: "2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.2/main/51/إرشاد_الساري_ط_عطاءات_العلم_ج2_غير_ملون.pdf" },
@@ -1333,7 +1415,7 @@ const booksIndex = {
             name:"مرقاة المفاتيح شرح مشكاة المصابيح ",
             type:"multi",
             punlisher:"دار الفكر",
-            language:"العربية",
+            language:"Arabic",
            volumes: [
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/43/01_67436.pdf" },
     { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen04/main/43/02_67437.pdf" },
@@ -1353,7 +1435,7 @@ const booksIndex = {
             name: "تاريخ مدينة دمشق، تاريخ ابن عساكر", 
             type: "multi",
             publisher: "دار الفكر",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen07/main/65/00.pdf" },
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen07/main/65/01.pdf" },
@@ -1443,7 +1525,7 @@ const booksIndex = {
             name: "تهذيب الكمال في أسماء الرجال", 
             type: "multi",
             publisher: "مؤسسة الرسالة",
-            language: "العربية",
+            language: "Arabic",
            volumes: [
     { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen07/main/66/tkar00.pdf" },
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen07/main/66/tkar01.pdf" },
@@ -1488,7 +1570,7 @@ const booksIndex = {
             name: "المنهاج شرح صحيح ملسم للنووي", 
             type: "multi",
             publisher: "دار أحياء التارث العربي",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/48/shsm00.pdf" },
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/48/shsm01.pdf" },
@@ -1516,7 +1598,7 @@ const booksIndex = {
             name: "عمدة القاري شرح صحيح البخاري", 
             type: "multi",
             publisher: "دار الفكر",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/50/00.pdf" },
     { name: "01a", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/50/01a.pdf" },
@@ -1552,7 +1634,7 @@ const booksIndex = {
             name: "سبل السلام الموصلة الى بلوغ المرام.", 
             type: "multi",
             publisher: "دار ابن الجوزي ",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/56/01.pdf" },
     { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/56/02.pdf" },
@@ -1569,7 +1651,7 @@ const booksIndex = {
             name: "كتاب العلل ومعرفة الرجال", 
             type: "multi",
             publisher: "دار الخاني",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "0", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/57/emra0.pdf" },
     { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/57/emra1.pdf" },
@@ -1583,7 +1665,7 @@ const booksIndex = {
             name: "التاريخ الكبير للبخاري", 
             type: "multi",
             publisher: "دار الكتب العلمية",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/58/التاريخ الكبير - أبو عبد الله محمد بن إسماعيل البخاري (المتوفى 256هـ) دار الكتب العلمية، بیروت – جلد 01.pdf" },
     { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/58/التاريخ الكبير - أبو عبد الله محمد بن إسماعيل البخاري (المتوفى 256هـ) دار الكتب العلمية، بیروت – جلد 02.pdf" },
@@ -1601,7 +1683,7 @@ const booksIndex = {
             name: "كتاب المجروحين لابن حبان", 
             type: "multi",
             publisher: "N/A",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/59/01_44014.pdf" },
     { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/59/02_44015.pdf" }
@@ -1612,7 +1694,7 @@ const booksIndex = {
             name: "الجرح والتعديل لابن أبي حاتم", 
             type: "multi",
             publisher: "مطبعة مجلس دائرة المعارف العثمانية، بحيدر آباد الدكن - الهند",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/63/الجرح والتعديل - أبو محمد عبد الرحمن بن محمد، ابن أبي حاتم الرازي – جلد 01.pdf" },
     { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/63/الجرح والتعديل - أبو محمد عبد الرحمن بن محمد، ابن أبي حاتم الرازي – جلد 02.pdf" },
@@ -1630,7 +1712,7 @@ const booksIndex = {
             name: "تاريخ بغداد، تاريخ مدينة السلام", 
             type: "multi",
             publisher: "دار الغرب الإسلامي",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/64/taba00.pdf" },
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen06.1/main/64/taba01.pdf" },
@@ -1657,7 +1739,7 @@ const booksIndex = {
             name: "الكافي للكلينيي", 
             type: "multi",
             publisher: "المكتبة الإسلامي",
-            language: "العربية",
+            language: "Arabic",
             volumes: [
     { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/alkafi01.pdf" },
     { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/alkafi02.pdf" },
@@ -1674,7 +1756,7 @@ const booksIndex = {
     name: "الكافي",
     type: "multi",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     volumes: [
         { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/alkafi01.pdf" },
         { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/alkafi02.pdf" },
@@ -1691,7 +1773,7 @@ const booksIndex = {
     name: "الاستبصار",
     type: "multi",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     volumes: [
         { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/AlIstibsar01.pdf" },
         { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/AlIstibsar02.pdf" },
@@ -1704,7 +1786,7 @@ const booksIndex = {
     name: "من لا يحضره الفقيه",
     type: "multi",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     volumes: [
         { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/ManLaYahduru01.pdf" },
         { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/ManLaYahduru02.pdf" },
@@ -1717,7 +1799,7 @@ const booksIndex = {
     name: "تهذيب الأحكام",
     type: "multi",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     volumes: [
         { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/TahdhibAlAhkam01.pdf" },
         { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/TahdhibAlAhkam02.pdf" },
@@ -1736,7 +1818,7 @@ const booksIndex = {
     name: "وسائل الشيعة",
     type: "multi",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     volumes: [
         { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/WasailAlShiah01.pdf" },
         { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/WasailAlShiah02.pdf" },
@@ -1775,7 +1857,7 @@ const booksIndex = {
     name: "الإحتجاج",
     type: "multi",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     volumes: [
         { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/AlIhtijajAlTabrisi01.pdf" },
         { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/AlIhtijajAlTabrisi02.pdf" }
@@ -1786,7 +1868,7 @@ const booksIndex = {
     name: "العدة",
     type: "multi",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     volumes: [
         { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/AlIddah01.pdf" },
         { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/AlIddah02.pdf" }
@@ -1797,7 +1879,7 @@ const booksIndex = {
     name: "تلخيص الشافي",
     type: "multi",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     volumes: [
         { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/TalkhisAlShafi01.pdf" },
         { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/TalkhisAlShafi02.pdf" },
@@ -1810,7 +1892,7 @@ const booksIndex = {
     name: "صحيح الكافي",
     type: "multi",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     volumes: [
         { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/SahihAlKafi01.pdf" },
         { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/SahihAlKafi02.pdf" },
@@ -1822,7 +1904,7 @@ const booksIndex = {
     name: "البرهان في تفسير القرآن",
     type: "multi",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     volumes: [
         { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/AlBurhanFiTafsirAlQuran01.pdf" },
         { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/AlBurhanFiTafsirAlQuran02.pdf" },
@@ -1836,7 +1918,7 @@ const booksIndex = {
     name: "الميزان في تفسير القرآن",
     type: "multi",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     volumes: [
         { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/AlMizanFiTafsirAlQuran01.pdf" },
         { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/AlMizanFiTafsirAlQuran02.pdf" },
@@ -1863,7 +1945,7 @@ const booksIndex = {
     name: "أنوار النعمانية",
     type: "multi",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     volumes: [
         { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/AnwarAlNumaniyyah01.pdf" },
         { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/AnwarAlNumaniyyah02.pdf" },
@@ -1876,7 +1958,7 @@ const booksIndex = {
     name: "بصائر الدرجات الكبرى",
     type: "multi",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     volumes: [
         { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/BasairAlDarajatAlKubra01.pdf" },
         { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/BasairAlDarajatAlKubra02.pdf" }
@@ -1887,7 +1969,7 @@ const booksIndex = {
     name: "ملاذ الأخيار",
     type: "multi",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     volumes: [
         { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/MaladhAlAkhyar01.pdf" },
         { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/MaladhAlAkhyar02.pdf" },
@@ -1912,7 +1994,7 @@ const booksIndex = {
     name: "مرآة العقول",
     type: "multi",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     volumes: [
         { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/MiratAlUqul01.pdf" },
         { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/MiratAlUqul02.pdf" },
@@ -1947,7 +2029,7 @@ const booksIndex = {
     name: "معجم رجال الحديث",
     type: "multi",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     volumes: [
         { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/MujamRijalAlHadith01.pdf" },
         { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/MujamRijalAlHadith02.pdf" },
@@ -1978,7 +2060,7 @@ const booksIndex = {
     name: "نقد الرجال",
     type: "multi",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     volumes: [
         { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/NaqdAlRijal01.pdf" },
         { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/NaqdAlRijal02.pdf" },
@@ -1992,7 +2074,7 @@ const booksIndex = {
     name: "روضة الجنان",
     type: "multi",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     volumes: [
         { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/RawdatAlJannat01.pdf" },
         { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/RawdatAlJannat02.pdf" },
@@ -2009,7 +2091,7 @@ const booksIndex = {
     name: "شرح فروع الكافي",
     type: "multi",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     volumes: [
         { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/SharhFuruAlKafi01.pdf" },
         { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/SharhFuruAlKafi02.pdf" },
@@ -2023,7 +2105,7 @@ const booksIndex = {
     name: "تفسير العياشي",
     type: "multi",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     volumes: [
         { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/TafsirAlAyyashi01.pdf" },
         { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/TafsirAlAyyashi02.pdf" },
@@ -2035,7 +2117,7 @@ const booksIndex = {
     name: "تفسير القمي",
     type: "multi",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     volumes: [
         { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/TafsirAlQummi01.pdf" },
         { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/TafsirAlQummi02.pdf" }
@@ -2046,7 +2128,7 @@ const booksIndex = {
     name: "تفسير الصافي",
     type: "multi",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     volumes: [
         { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/TafsirAlSafi01.pdf" },
         { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/TafsirAlSafi02.pdf" },
@@ -2060,10 +2142,272 @@ const booksIndex = {
     name: "الإرشاد للمفيد",
     type: "multi",
     publisher: "",
-    language: "العربية",
+    language: "Arabic",
     volumes: [
         { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/AlIrshadLiAlMufid01.pdf" },
         { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen99/main/pdfs/AlIrshadLiAlMufid02.pdf" }
+    ],
+    isDropdownOpen: false
+},
+        {
+    name: "العلل لابن الجوزي - ط المكتب الإسلامي",
+    type: "multi",
+    publisher: "المكتب الإسلامي",
+    language: "Arabic",
+    volumes: [
+        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlIlalLiIbnAlJawzi_AlKitabAlIslami00.pdf" },
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlIlalLiIbnAlJawzi_AlKitabAlIslami01.pdf" },
+        { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlIlalLiIbnAlJawzi_AlKitabAlIslami01p.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlIlalLiIbnAlJawzi_AlKitabAlIslami02.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "الموضوعات لابن الجوزي - أصوا السلف",
+    type: "multi",
+    publisher: "أصوا السلف",
+    language: "Arabic",
+    volumes: [
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlMawduatLiIbnAlJawzi_AswaAlSalaf01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlMawduatLiIbnAlJawzi_AswaAlSalaf02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlMawduatLiIbnAlJawzi_AswaAlSalaf03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlMawduatLiIbnAlJawzi_AswaAlSalaf04.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "السنن الكبرى للبيهقي - ط مؤسسة الرسالة",
+    type: "multi",
+    publisher: "مؤسسة الرسالة",
+    language: "Arabic",
+    volumes: [
+        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah00.pdf" },
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah02.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah04.pdf" },
+        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah05.pdf" },
+        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah06.pdf" },
+        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah07.pdf" },
+        { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah08.pdf" },
+        { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah09.pdf" },
+        { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah11.pdf" },
+        { name: "12", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlSunanAlKubraLiAlBayhaqi_MuassahAlRisalah12.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "الطبقات الكبرى لإبن سعد - دار الكتب العلمية",
+    type: "multi",
+    publisher: "دار الكتب العلمية",
+    language: "Arabic",
+    volumes: [
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyah01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyah02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyah03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyah04.pdf" },
+        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyah06.pdf" },
+        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyah07.pdf" },
+        { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyah08.pdf" },
+        { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyah09.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "الطبقات الكبرى لابن سعد - ط دار الكتب العلمية) (قديم)",
+    type: "multi",
+    publisher: "دار الكتب العلمية (قديم)",
+    language: "Arabic",
+    volumes: [
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyahQadeem01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyahQadeem02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyahQadeem03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyahQadeem04.pdf" },
+        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyahQadeem05.pdf" },
+        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyahQadeem06.pdf" },
+        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyahQadeem07.pdf" },
+        { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyahQadeem08.pdf" },
+        { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_AlIlmiyyahQadeem09.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "الطبقات الكبرى  لإبن سعد - ط دار صادر",
+    type: "multi",
+    publisher: "دار صادر",
+    language: "Arabic",
+    volumes: [
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_DarSadir01.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_DarSadir03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_DarSadir04.pdf" },
+        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_DarSadir05.pdf" },
+        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_DarSadir06.pdf" },
+        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_DarSadir07.pdf" },
+        { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_DarSadir08.pdf" },
+        { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/AlTabaqatAlKubra_DarSadir09.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "فتح المغيث بشرح ألفية الحديث",
+    type: "multi",
+    publisher: "مكتبة دار المنهاج",
+    language: "Arabic",
+    volumes: [
+        { name: "00p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/FathAlMughith_MaktabahDarAlMinhaj00p.pdf" },
+        { name: "01s", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/FathAlMughith_MaktabahDarAlMinhaj01s.pdf" },
+        { name: "02s", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/FathAlMughith_MaktabahDarAlMinhaj02s.pdf" },
+        { name: "03s", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/FathAlMughith_MaktabahDarAlMinhaj03s.pdf" },
+        { name: "04s", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/FathAlMughith_MaktabahDarAlMinhaj04s.pdf" },
+        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/FathAlMughith_MaktabahDarAlMinhaj05.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "كنز العمال",
+    type: "multi",
+    publisher: "مؤسسة الرسالة",
+    language: "Arabic",
+    volumes: [
+        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah00.pdf" },
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah01.pdf" },
+        { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah01p.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah04.pdf" },
+        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah05.pdf" },
+        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah06.pdf" },
+        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah07.pdf" },
+        { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah08.pdf" },
+        { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah09.pdf" },
+        { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah10.pdf" },
+        { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah11.pdf" },
+        { name: "12", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah12.pdf" },
+        { name: "13", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah13.pdf" },
+        { name: "14", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah14.pdf" },
+        { name: "15", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah15.pdf" },
+        { name: "17", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah17.pdf" },
+        { name: "18", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KanzAlUmmal_AlRisalah18.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "كتاب المعرفة والتاريخ، تاريخ يعقوب الفسوي",
+    type: "multi",
+    publisher: "بيت الأفكار",
+    language: "Arabic",
+    volumes: [
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KitabAlMaarfahWaAlTarikh_BaytAlAfkar01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KitabAlMaarfahWaAlTarikh_BaytAlAfkar02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KitabAlMaarfahWaAlTarikh_BaytAlAfkar03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/KitabAlMaarfahWaAlTarikh_BaytAlAfkar04.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "مجموع الفتاوى لابن تيمية",
+    type: "multi",
+    publisher: "",
+    language: "Arabic",
+    volumes: [
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah01.pdf" },
+        { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah01p.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah03.pdf" },
+        { name: "03-a", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah03-a.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah04.pdf" },
+        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah05.pdf" },
+        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah06.pdf" },
+        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah07.pdf" },
+        { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah08.pdf" },
+        { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah09.pdf" },
+        { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah10.pdf" },
+        { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah11.pdf" },
+        { name: "12", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah12.pdf" },
+        { name: "13", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah13.pdf" },
+        { name: "14", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah14.pdf" },
+        { name: "15", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah15.pdf" },
+        { name: "16", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah16.pdf" },
+        { name: "17", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah17.pdf" },
+        { name: "18", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah18.pdf" },
+        { name: "19", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah19.pdf" },
+        { name: "20", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah20.pdf" },
+        { name: "21", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah21.pdf" },
+        { name: "22", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah22.pdf" },
+        { name: "23", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah23.pdf" },
+        { name: "24", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah24.pdf" },
+        { name: "25", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah25.pdf" },
+        { name: "26", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah26.pdf" },
+        { name: "27", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah27.pdf" },
+        { name: "29", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah29.pdf" },
+        { name: "30", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah30.pdf" },
+        { name: "31", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah31.pdf" },
+        { name: "32", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah32.pdf" },
+        { name: "33", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah33.pdf" },
+        { name: "34", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah34.pdf" },
+        { name: "35", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah35.pdf" },
+        { name: "36", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah36.pdf" },
+        { name: "36p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah36p.pdf" },
+        { name: "37", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/MajmuAlFatawaLiIbnTaymiyyah37.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "شرح معاني الآثار",
+    type: "multi",
+    publisher: "علم الكتب",
+    language: "Arabic",
+    volumes: [
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SharhMaaniAlAtharAlimAlKutub01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SharhMaaniAlAtharAlimAlKutub02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SharhMaaniAlAtharAlimAlKutub03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SharhMaaniAlAtharAlimAlKutub04.pdf" },
+        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SharhMaaniAlAtharAlimAlKutub05.pdf" },
+        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SharhMaaniAlAtharAlimAlKutub06.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "شرح أصول اعتقاد أهل السنة",
+    type: "multi",
+    publisher: "المكتبة الإسلامية",
+    language: "Arabic",
+    volumes: [
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SharhUsulItiqad_AlMaktabahAlIslamiyyah01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SharhUsulItiqad_AlMaktabahAlIslamiyyah02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SharhUsulItiqad_AlMaktabahAlIslamiyyah03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SharhUsulItiqad_AlMaktabahAlIslamiyyah04.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "سلسلة الأحاديث الصحيحة للألباني",
+    type: "multi",
+    publisher: "مكتبة المعارف",
+    language: "Arabic",
+    volumes: [
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif03.pdf" },
+        { name: "03p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif03p.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif04.pdf" },
+        { name: "04p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif04p.pdf" },
+        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif05.pdf" },
+        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif06.pdf" },
+        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif07.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "تلخيص الحبير لإبن حجر",
+    type: "multi",
+    publisher: "مؤسسة قرطبة",
+    language: "Arabic",
+    volumes: [
+        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/TalkhisAlHabir_MuassahAlQurtubah00.pdf" },
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/TalkhisAlHabir_MuassahAlQurtubah01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/TalkhisAlHabir_MuassahAlQurtubah02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/TalkhisAlHabir_MuassahAlQurtubah03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/PDFs/TalkhisAlHabir_MuassahAlQurtubah04.pdf" }
     ],
     isDropdownOpen: false
 }
