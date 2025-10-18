@@ -471,6 +471,29 @@ const booksIndex = {
             isDropdownOpen: false
         },
         { 
+            name: "تحرير تقريب التهذيب", 
+            type: "multi",
+            publisher: "مؤسسة الرسالة ",
+            language: "العربية",
+            volumes: [
+    { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen09/main/89/تحرير تقريب التهذيب احمد بن علي ابن حجر العسقلاني ج1.pdf" },
+    { name: "2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen09/main/89/تحرير تقريب التهذيب احمد بن علي ابن حجر العسقلاني ج2.pdf" },
+    { name: "3", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen09/main/89/تحرير تقريب التهذيب احمد بن علي ابن حجر العسقلاني ج3.pdf" },
+    { name: "4", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen09/main/89/تحرير تقريب التهذيب احمد بن علي ابن حجر العسقلاني ج4.pdf" }
+],
+            isDropdownOpen: false
+        },
+        { 
+            name: "", 
+            type: "multi",
+            publisher: "",
+            language: "العربية",
+            volumes: [
+                { name: ""0"", file: """" }
+            ],
+            isDropdownOpen: false
+        },
+        { 
             name: "الضعفاء الكبير للعقيلي", 
             type: "multi",
             publisher: "دار التأصيل",
