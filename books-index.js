@@ -263,6 +263,153 @@ const booksIndex = {
             ],
             isDropdownOpen: false
         },
+{
+    name: "الفصل للوصل المدرج في النقل - دار الهجرة",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlFaslLilWaslAlMudrajFiAlNaql_DarAlHijrah.pdf",
+    publisher: "دار الهجرة",
+    language: "العربية",
+    type: "single"
+},
+{
+    name: "الغنية للطالبي - دار الكتب العلمية",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlGhuniyahLiAlTalibi_DarAlKutubAlIlmiyyah.pdf",
+    publisher: "دار الكتب العلمية",
+    language: "العربية",
+    type: "single"
+},
+{
+    name: "الانتقاء في فضائل الثلاثة الأئمة الفقهاء",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlIntiqaFiFadailAlThalathahAlAimmahAlFuqaha.pdf",
+    publisher: "",
+    language: "العربية",
+    type: "single"
+},
+{
+    name: "الإعتصام للشاطبي - دار ابن عفان",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlItisamLiAlShatibi_DarIbnAffan.pdf",
+    publisher: "دار ابن عفان",
+    language: "العربية",
+    type: "single"
+},
+{
+    name: "المراسيل لأبي داود - مؤسسة الرسالة",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlMarasilLiAbiDawud_MuassasahAlRisalah.pdf",
+    publisher: "مؤسسة الرسالة",
+    language: "العربية",
+    type: "single"
+},
+{
+    name: "القاموس المحيط للفيروزآبادي - مؤسسة الرسالة",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlQamusAlMuhitLiAlFiruzabadi_MuassasahAlRisalah.pdf",
+    publisher: "مؤسسة الرسالة",
+    language: "العربية",
+    type: "single"
+},
+{
+    name: "الرد على الجهمية لعثمان بن سعيد - دار السلفية",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlRaddAlaAlJahmiyyahLiUthmanIbnSaid_DarAlSalafiyyah.pdf",
+    publisher: "دار السلفية",
+    language: "العربية",
+    type: "single"
+},
+{
+    name: "الرسالة للشافعي - مطبعة مصطفى البابي الحلبي",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlRisalahLiAlShafi_MatbaahMustafaAlBabiAlHalbi.pdf",
+    publisher: "مطبعة مصطفى البابي الحلبي",
+    language: "العربية",
+    type: "single"
+},
+{
+    name: "السنة لعبد الله بن أحمد بن حنبل",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlSunnahLiAbdAllahIbnAhmadIbnHanbal.pdf",
+    publisher: "",
+    language: "العربية",
+    type: "single"
+},
+{
+    name: "التبيان لأسماء المدلسين لبرهان الدين الحلبي - دار الكتب العلمية",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlTibyanLiAsmaAlMudallisinLiBurhanAlDinAlHalbi_DarAlKutubAlIlmiyyah.pdf",
+    publisher: "دار الكتب العلمية",
+    language: "العربية",
+    type: "single"
+},
+{
+    name: "العلو للعلي الغفار للذهبي",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlUluwwLilaliAlGhaffar.pdf",
+    publisher: "",
+    language: "العربية",
+    type: "single"
+},
+{
+    name: "الزهد لأبي داود السجستاني - دار المشكاة",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlZuhdLiAbiDawudAlSijistani_DarAlMishkat.pdf",
+    publisher: "دار المشكاة",
+    language: "العربية",
+    type: "single"
+},
+{
+    name: "أسماء المدلسين للسيوطي - دار الجيل",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AsmaAlMudallisinLiAlSuyuti_DarAlJil.pdf",
+    publisher: "دار الجيل",
+    language: "العربية",
+    type: "single"
+},
+{
+    name: "فضائل الصحابة لأحمد بن حنبل - مؤسسة الرسالة",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/FadailAlSahabahLiAhmadIbnHanbal_MuassasahAlRisalah.pdf",
+    publisher: "مؤسسة الرسالة",
+    language: "العربية",
+    type: "single"
+},
+{
+    name: "إبطال التأويلات - غراس",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/IbtalAlTawilat_Ghuras.pdf",
+    publisher: "غراس",
+    language: "العربية",
+    type: "single"
+},
+{
+    name: "جامع التحصيل في أحكام المراسيل للعلائي - عالم الكتب",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/JamiAlTahsilFiAhkamAlMarasilLiAlAlai_AlamAlKutub.pdf",
+    publisher: "عالم الكتب",
+    language: "العربية",
+    type: "single"
+},
+{
+    name: "خلق أفعال العباد للبخاري",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/KhalqAfalAlIbad.pdf",
+    publisher: "",
+    language: "العربية",
+    type: "single"
+},
+{
+    name: "معرفة علوم الحديث - دار الكتب العلمية",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/MaarfahUlumAlHadith_DarAlKutubAlIlmiyyah.pdf",
+    publisher: "دار الكتب العلمية",
+    language: "العربية",
+    type: "single"
+},
+{
+    name: "معرفة علوم الحديث - دار ابن حزم",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/MaarfahUlumAlHadith_DarIbnHazam.pdf",
+    publisher: "دار ابن حزم",
+    language: "العربية",
+    type: "single"
+},
+{
+    name: "معرفة علوم الحديث - جامعة دائرة المعارف العثمانية",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/MaarfahUlumAlHadith_JamiahDairahAlMaarifAlUthmaniyah.pdf",
+    publisher: "جامعة دائرة المعارف العثمانية",
+    language: "العربية",
+    type: "single"
+},
+{
+    name: "تأويل مختلف الحديث - المكتب الإسلامي",
+    file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/TawilMukhtalifAlHadith_AlMaktabAlIslami.pdf",
+    publisher: "المكتب الإسلامي",
+    language: "العربية",
+    type: "single"
+},
         { 
             name: "مسند أبي يعلى الموصيلي", 
             type: "multi",
