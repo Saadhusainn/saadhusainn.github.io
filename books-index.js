@@ -2544,6 +2544,310 @@ const booksIndex = {
     ],
     isDropdownOpen: false
 },
+        {
+    name: "العدة والدواء - دار ابن حزم",
+    type: "multi",
+    publisher: "دار ابن حزم",
+    language: "العربية",
+    volumes: [
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AddaWaAlDawa_DarIbnHazam01.pdf" },
+        { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AddaWaAlDawa_DarIbnHazam01p.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "البيانة الكبرى",
+    type: "multi",
+    publisher: "",
+    language: "العربية",
+    volumes: [
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlIbanahAlKubra01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlIbanahAlKubra02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlIbanahAlKubra03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlIbanahAlKubra04.pdf" },
+        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlIbanahAlKubra05.pdf" },
+        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlIbanahAlKubra06.pdf" },
+        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlIbanahAlKubra07.pdf" },
+        { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlIbanahAlKubra08.pdf" },
+        { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlIbanahAlKubra09.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "جامع العلوم للإمام أحمد بن حنبل - دار الفلاح",
+    type: "multi",
+    publisher: "دار الفلاح",
+    language: "العربية",
+    volumes: [
+        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlJamiAlUlumAlImamAhmadIbnHanbal_DarAlFalah00.pdf" },
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlJamiAlUlumAlImamAhmadIbnHanbal_DarAlFalah01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlJamiAlUlumAlImamAhmadIbnHanbal_DarAlFalah02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlJamiAlUlumAlImamAhmadIbnHanbal_DarAlFalah03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlJamiAlUlumAlImamAhmadIbnHanbal_DarAlFalah04.pdf" },
+        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlJamiAlUlumAlImamAhmadIbnHanbal_DarAlFalah05.pdf" },
+        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlJamiAlUlumAlImamAhmadIbnHanbal_DarAlFalah06.pdf" },
+        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlJamiAlUlumAlImamAhmadIbnHanbal_DarAlFalah07.pdf" },
+        { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlJamiAlUlumAlImamAhmadIbnHanbal_DarAlFalah08.pdf" },
+        { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlJamiAlUlumAlImamAhmadIbnHanbal_DarAlFalah09.pdf" },
+        { name: "1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlJamiAlUlumAlImamAhmadIbnHanbal_DarAlFalah1.pdf" },
+        { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlJamiAlUlumAlImamAhmadIbnHanbal_DarAlFalah10.pdf" },
+        { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlJamiAlUlumAlImamAhmadIbnHanbal_DarAlFalah11.pdf" },
+        { name: "12", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlJamiAlUlumAlImamAhmadIbnHanbal_DarAlFalah12.pdf" },
+        { name: "13", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlJamiAlUlumAlImamAhmadIbnHanbal_DarAlFalah13.pdf" },
+        { name: "14", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlJamiAlUlumAlImamAhmadIbnHanbal_DarAlFalah14.pdf" },
+        { name: "15", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlJamiAlUlumAlImamAhmadIbnHanbal_DarAlFalah15.pdf" },
+        { name: "16", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlJamiAlUlumAlImamAhmadIbnHanbal_DarAlFalah16.pdf" },
+        { name: "17", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlJamiAlUlumAlImamAhmadIbnHanbal_DarAlFalah17.pdf" },
+        { name: "18", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlJamiAlUlumAlImamAhmadIbnHanbal_DarAlFalah18.pdf" },
+        { name: "19", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlJamiAlUlumAlImamAhmadIbnHanbal_DarAlFalah19.pdf" },
+        { name: "20", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlJamiAlUlumAlImamAhmadIbnHanbal_DarAlFalah20.pdf" },
+        { name: "21", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlJamiAlUlumAlImamAhmadIbnHanbal_DarAlFalah21.pdf" },
+        { name: "22", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlJamiAlUlumAlImamAhmadIbnHanbal_DarAlFalah22.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "المغني لابن قدامة - دار عالم الكتب",
+    type: "multi",
+    publisher: "دار عالم الكتب",
+    language: "العربية",
+    volumes: [
+        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlMughniLiIbnQudamah_DarAlamAlKutub00.pdf" },
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlMughniLiIbnQudamah_DarAlamAlKutub01.pdf" },
+        { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlMughniLiIbnQudamah_DarAlamAlKutub01p.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlMughniLiIbnQudamah_DarAlamAlKutub02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlMughniLiIbnQudamah_DarAlamAlKutub03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlMughniLiIbnQudamah_DarAlamAlKutub04.pdf" },
+        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlMughniLiIbnQudamah_DarAlamAlKutub05.pdf" },
+        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlMughniLiIbnQudamah_DarAlamAlKutub06.pdf" },
+        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlMughniLiIbnQudamah_DarAlamAlKutub07.pdf" },
+        { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlMughniLiIbnQudamah_DarAlamAlKutub08.pdf" },
+        { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlMughniLiIbnQudamah_DarAlamAlKutub09.pdf" },
+        { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlMughniLiIbnQudamah_DarAlamAlKutub10.pdf" },
+        { name: "12", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlMughniLiIbnQudamah_DarAlamAlKutub12.pdf" },
+        { name: "13", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlMughniLiIbnQudamah_DarAlamAlKutub13.pdf" },
+        { name: "14", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlMughniLiIbnQudamah_DarAlamAlKutub14.pdf" },
+        { name: "15", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlMughniLiIbnQudamah_DarAlamAlKutub15.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "التبصرة لابن الجوزي - دار الكتب العلمية",
+    type: "multi",
+    publisher: "دار الكتب العلمية",
+    language: "العربية",
+    volumes: [
+        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlTabsirahLiIbnAlJawzi_DarAlKutubAlIlmiyyah00.pdf" },
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlTabsirahLiIbnAlJawzi_DarAlKutubAlIlmiyyah01.pdf" },
+        { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlTabsirahLiIbnAlJawzi_DarAlKutubAlIlmiyyah01p.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/AlTabsirahLiIbnAlJawzi_DarAlKutubAlIlmiyyah02.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "بدائع الصنائع - دار الكتب العلمية",
+    type: "multi",
+    publisher: "دار الكتب العلمية",
+    language: "العربية",
+    volumes: [
+        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/BadaiAlSanai_DarAlKutubAlIlmiyyah00.pdf" },
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/BadaiAlSanai_DarAlKutubAlIlmiyyah01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/BadaiAlSanai_DarAlKutubAlIlmiyyah02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/BadaiAlSanai_DarAlKutubAlIlmiyyah03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/BadaiAlSanai_DarAlKutubAlIlmiyyah04.pdf" },
+        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/BadaiAlSanai_DarAlKutubAlIlmiyyah05.pdf" },
+        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/BadaiAlSanai_DarAlKutubAlIlmiyyah06.pdf" },
+        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/BadaiAlSanai_DarAlKutubAlIlmiyyah07.pdf" },
+        { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/BadaiAlSanai_DarAlKutubAlIlmiyyah08.pdf" },
+        { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/BadaiAlSanai_DarAlKutubAlIlmiyyah09.pdf" },
+        { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/BadaiAlSanai_DarAlKutubAlIlmiyyah10.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "ذيل طبقات الحنابلة لابن رجب - مطبعة السنة",
+    type: "multi",
+    publisher: "مطبعة السنة",
+    language: "العربية",
+    volumes: [
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/DhaylTabaqatAlHanabilahLiIbnRajab_MatbaahAlSunnah01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/DhaylTabaqatAlHanabilahLiIbnRajab_MatbaahAlSunnah02.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "كتاب العين - دار الكتب العلمية",
+    type: "multi",
+    publisher: "دار الكتب العلمية",
+    language: "العربية",
+    volumes: [
+        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/KitabAlAyn_DarAlKutubAlIlmiyyah00.pdf" },
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/KitabAlAyn_DarAlKutubAlIlmiyyah01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/KitabAlAyn_DarAlKutubAlIlmiyyah02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/KitabAlAyn_DarAlKutubAlIlmiyyah03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/KitabAlAyn_DarAlKutubAlIlmiyyah04.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "كتاب التوحيد لابن خزيمة - دار الرشد",
+    type: "multi",
+    publisher: "دار الرشد",
+    language: "العربية",
+    volumes: [
+        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/KitabAlTawhidLiIbnKhuzaymah_DarAlRushd00.pdf" },
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/KitabAlTawhidLiIbnKhuzaymah_DarAlRushd01.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "لسان العرب - دار صادر",
+    type: "multi",
+    publisher: "دار صادر",
+    language: "العربية",
+    volumes: [
+        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/LisanAlArab_DarSadir00.pdf" },
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/LisanAlArab_DarSadir01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/LisanAlArab_DarSadir02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/LisanAlArab_DarSadir03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/LisanAlArab_DarSadir04.pdf" },
+        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/LisanAlArab_DarSadir05.pdf" },
+        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/LisanAlArab_DarSadir06.pdf" },
+        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/LisanAlArab_DarSadir07.pdf" },
+        { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/LisanAlArab_DarSadir08.pdf" },
+        { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/LisanAlArab_DarSadir09.pdf" },
+        { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/LisanAlArab_DarSadir11.pdf" },
+        { name: "13", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/LisanAlArab_DarSadir13.pdf" },
+        { name: "14", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/LisanAlArab_DarSadir14.pdf" },
+        { name: "15", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/LisanAlArab_DarSadir15.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "مناقب الإمام أحمد بن حنبل لابن الجوزي - دار حجر",
+    type: "multi",
+    publisher: "دار حجر",
+    language: "العربية",
+    volumes: [
+        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/ManaqinAlImamAhmadIbnHanbalLiIbnAlJawzi_DarHijr00.pdf" },
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/ManaqinAlImamAhmadIbnHanbalLiIbnAlJawzi_DarHijr01.pdf" },
+        { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/ManaqinAlImamAhmadIbnHanbalLiIbnAlJawzi_DarHijr01p.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "مسائل الإمام أحمد بن حنبل رواية إسحاق بن إبراهيم بن هاني النيسابوري",
+    type: "multi",
+    publisher: "",
+    language: "العربية",
+    volumes: [
+        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/MasailAlImamAhmadIbnHanbalRiwayahIshaqIbnIbrahimIbnHaniAlNisaburi00.pdf" },
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/MasailAlImamAhmadIbnHanbalRiwayahIshaqIbnIbrahimIbnHaniAlNisaburi01.pdf" },
+        { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/MasailAlImamAhmadIbnHanbalRiwayahIshaqIbnIbrahimIbnHaniAlNisaburi01p.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/MasailAlImamAhmadIbnHanbalRiwayahIshaqIbnIbrahimIbnHaniAlNisaburi02.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "نصب الراية لأحاديث الهداية للزيلعي - مؤسسة الريان",
+    type: "multi",
+    publisher: "مؤسسة الريان",
+    language: "العربية",
+    volumes: [
+        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/NasbAlRayahAlAhadithAlHidayahLiAlZaylai_MuassasahAlRayyan00.pdf" },
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/NasbAlRayahAlAhadithAlHidayahLiAlZaylai_MuassasahAlRayyan01.pdf" },
+        { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/NasbAlRayahAlAhadithAlHidayahLiAlZaylai_MuassasahAlRayyan01p.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/NasbAlRayahAlAhadithAlHidayahLiAlZaylai_MuassasahAlRayyan02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/NasbAlRayahAlAhadithAlHidayahLiAlZaylai_MuassasahAlRayyan03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/NasbAlRayahAlAhadithAlHidayahLiAlZaylai_MuassasahAlRayyan04.pdf" },
+        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/NasbAlRayahAlAhadithAlHidayahLiAlZaylai_MuassasahAlRayyan05.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "نتائج الأفكار في تخريج أحاديث الأذكار لابن حجر - دار ابن كثير",
+    type: "multi",
+    publisher: "دار ابن كثير",
+    language: "العربية",
+    volumes: [
+        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/NataijAlAfkarFiTakhrijAhadithAlAzkarLiIbnHajar_DarIbnKathir00.pdf" },
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/NataijAlAfkarFiTakhrijAhadithAlAzkarLiIbnHajar_DarIbnKathir01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/NataijAlAfkarFiTakhrijAhadithAlAzkarLiIbnHajar_DarIbnKathir02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/NataijAlAfkarFiTakhrijAhadithAlAzkarLiIbnHajar_DarIbnKathir03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/NataijAlAfkarFiTakhrijAhadithAlAzkarLiIbnHajar_DarIbnKathir04.pdf" },
+        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/NataijAlAfkarFiTakhrijAhadithAlAzkarLiIbnHajar_DarIbnKathir05.pdf" },
+        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/NataijAlAfkarFiTakhrijAhadithAlAzkarLiIbnHajar_DarIbnKathir06.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "شرح سنن أبي داود للعيني - مكتبة الرشد",
+    type: "multi",
+    publisher: "مكتبة الرشد",
+    language: "العربية",
+    volumes: [
+        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/SharhSunanAbiDawudLiAlAyni_MaktabahAlRushd00.pdf" },
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/SharhSunanAbiDawudLiAlAyni_MaktabahAlRushd01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/SharhSunanAbiDawudLiAlAyni_MaktabahAlRushd02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/SharhSunanAbiDawudLiAlAyni_MaktabahAlRushd03.pdf" },
+        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/SharhSunanAbiDawudLiAlAyni_MaktabahAlRushd05.pdf" },
+        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/SharhSunanAbiDawudLiAlAyni_MaktabahAlRushd06.pdf" },
+        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/SharhSunanAbiDawudLiAlAyni_MaktabahAlRushd07.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "سلسلة الأحاديث الصحيحة - مكتبة المعارف",
+    type: "multi",
+    publisher: "مكتبة المعارف",
+    language: "العربية",
+    volumes: [
+        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif00.pdf" },
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif02.pdf" },
+        { name: "02A", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif02A.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif03.pdf" },
+        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif04.pdf" },
+        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif05.pdf" },
+        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif06.pdf" },
+        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif07.pdf" },
+        { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif08.pdf" },
+        { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif09.pdf" },
+        { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif10.pdf" },
+        { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif11.pdf" },
+        { name: "12", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif12.pdf" },
+        { name: "13", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif13.pdf" },
+        { name: "14", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif14.pdf" },
+        { name: "14A", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif14A.pdf" },
+        { name: "مقدمة", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/SilsilahAlAhadithAlSahihah_MaktabahAlMaarif_Muqaddimah.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "طبقات الحنابلة تحقيق الفقي - مطبعة السنة",
+    type: "multi",
+    publisher: "مطبعة السنة",
+    language: "العربية",
+    volumes: [
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/TabaqatAlHanabilahTahqeeqAlFaq_MatbaahAlSunnah01.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/TabaqatAlHanabilahTahqeeqAlFaq_MatbaahAlSunnah02.pdf" }
+    ],
+    isDropdownOpen: false
+},
+{
+    name: "طبقات الحنابلة تحقيق ابن عثيمين",
+    type: "multi",
+    publisher: "",
+    language: "العربية",
+    volumes: [
+        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/TabaqatAlHanabilahTahqeeqIbnUthaymin00.pdf" },
+        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/TabaqatAlHanabilahTahqeeqIbnUthaymin01.pdf" },
+        { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/TabaqatAlHanabilahTahqeeqIbnUthaymin01p.pdf" },
+        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/TabaqatAlHanabilahTahqeeqIbnUthaymin02.pdf" },
+        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen97/main/pdfs/TabaqatAlHanabilahTahqeeqIbnUthaymin03.pdf" }
+    ],
+    isDropdownOpen: false
+},
 {
     name: "تلخيص الحبير لإبن حجر",
     type: "multi",
