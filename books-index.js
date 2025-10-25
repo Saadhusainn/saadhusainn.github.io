@@ -2545,7 +2545,7 @@ const booksIndex = {
     isDropdownOpen: false
 },
         {
-    name: "العدة والدواء - دار ابن حزم",
+    name: "الداء والدواء - دار ابن حزم",
     type: "multi",
     publisher: "دار ابن حزم",
     language: "العربية",
@@ -2556,7 +2556,7 @@ const booksIndex = {
     isDropdownOpen: false
 },
 {
-    name: "البيانة الكبرى",
+    name: "الإبانة الكبرى",
     type: "multi",
     publisher: "",
     language: "العربية",
@@ -2701,7 +2701,7 @@ const booksIndex = {
     isDropdownOpen: false
 },
 {
-    name: "لسان العرب - دار صادر",
+    name: "لسان العرب لإبن منظور - دار صادر",
     type: "multi",
     publisher: "دار صادر",
     language: "العربية",
@@ -2797,7 +2797,7 @@ const booksIndex = {
     isDropdownOpen: false
 },
 {
-    name: "سلسلة الأحاديث الصحيحة - مكتبة المعارف",
+    name: "سلسلة الأحاديث الضعيفة - مكتبة المعارف",
     type: "multi",
     publisher: "مكتبة المعارف",
     language: "العربية",
@@ -2824,7 +2824,7 @@ const booksIndex = {
     isDropdownOpen: false
 },
 {
-    name: "طبقات الحنابلة تحقيق الفقي - مطبعة السنة",
+    name: "طبقات الحنابلة - ت الفقي - مطبعة السنة",
     type: "multi",
     publisher: "مطبعة السنة",
     language: "العربية",
@@ -2835,7 +2835,7 @@ const booksIndex = {
     isDropdownOpen: false
 },
 {
-    name: "طبقات الحنابلة تحقيق ابن عثيمين",
+    name: "طبقات الحنابلة - ت ابن عثيمين",
     type: "multi",
     publisher: "",
     language: "العربية",
