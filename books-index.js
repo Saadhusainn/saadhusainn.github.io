@@ -3257,23 +3257,6 @@ const booksIndex = {
     isDropdownOpen: false
 },
 {
-    name: "شرح سنن أبي داود للعيني - مكتبة الرشد",
-    type: "multi",
-    publisher: "مكتبة الرشد",
-    language: "العربية",
-    volumes: [
-        { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen96/main/pdfs/SharhSunanAbiDawudLiAlAyni_MaktabahAlRushd00.pdf" },
-        { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen96/main/pdfs/SharhSunanAbiDawudLiAlAyni_MaktabahAlRushd01.pdf" },
-        { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen96/main/pdfs/SharhSunanAbiDawudLiAlAyni_MaktabahAlRushd02.pdf" },
-        { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen96/main/pdfs/SharhSunanAbiDawudLiAlAyni_MaktabahAlRushd03.pdf" },
-        { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen96/main/pdfs/SharhSunanAbiDawudLiAlAyni_MaktabahAlRushd04.pdf" },
-        { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen96/main/pdfs/SharhSunanAbiDawudLiAlAyni_MaktabahAlRushd05.pdf" },
-        { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen96/main/pdfs/SharhSunanAbiDawudLiAlAyni_MaktabahAlRushd06.pdf" },
-        { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen96/main/pdfs/SharhSunanAbiDawudLiAlAyni_MaktabahAlRushd07.pdf" }
-    ],
-    isDropdownOpen: false
-},
-{
     name: "تخريج أحاديث إحياء علوم الدين للعراقي والسبكي والزبيدي - دار العاصمة",
     type: "multi",
     publisher: "دار العاصمة",
