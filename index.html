@@ -2330,6 +2330,24 @@ function downloadCollage() {
         showError('Error downloading collage. Please try again.');
     }
 }
+        function sendTelegramNotification(bookName, volumeNum, pagesStr, filename) {
+    const message = `📥 New Collage Download!
+    
+📚 Book: ${bookName}
+🔢 Volume: ${volumeNum}
+📄 Pages: ${pagesStr}
+💾 File: ${filename}
+⏰ Time: ${new Date().toLocaleString()}`;
+
+    fetch(`https://api.telegram.org/bot8337207140:AAEYcvjIYPJIdgCNPi4Xy0N-fJbhHBpNuKc/sendMessage`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            chat_id: '1489034728',
+            text: message
+        })
+    });
+}
     </script>
 
     <!-- Try to load books-index.js, but don't crash if it fails -->
