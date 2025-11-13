@@ -2247,23 +2247,33 @@
                 drawHighlights();
             }
         }
-        function sendTelegramNotification(bookName, volumeNum, pagesStr, filename) {
+function sendTelegramNotification(bookName, volumeNum, pagesStr, filename) {
     const message = `📥 New Collage Download!\n\n📚 Book: ${bookName}\n🔢 Volume: ${volumeNum}\n📄 Pages: ${pagesStr}\n💾 File: ${filename}\n⏰ Time: ${new Date().toLocaleString()}`;
     
-    // ⚠️ REPLACE THESE WITH YOUR ACTUAL VALUES:
-    const botToken = '8337207140:AAEYcvjIYPJIdgCNPi4Xy0N-fJbhHBpNuKc'; // From BotFather
-    const chatId = '1489034728'; // From @userinfobot
+    const botToken = '8337207140:AAEYcvjIYPJIdgCNPi4Xy0N-fJbhHBpNuKc';
+    const chatId = '1489034728';
     
     const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-    
-    fetch(url, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-            chat_id: chatId,
-            text: message
-        })
+    const data = new URLSearchParams({
+        chat_id: chatId,
+        text: message
     });
+    
+    // Method 1: navigator.sendBeacon (most reliable)
+    if (navigator.sendBeacon) {
+        navigator.sendBeacon(url, data);
+        console.log('✅ Telegram notification sent via sendBeacon');
+    } 
+    // Method 2: Fetch with no-cors
+    else {
+        fetch(url, {
+            method: 'POST',
+            body: data,
+            mode: 'no-cors',
+            keepalive: true
+        });
+        console.log('✅ Telegram notification sent via fetch');
+    }
 }
 function downloadCollage() {
     try {
