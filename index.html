@@ -2247,33 +2247,41 @@
                 drawHighlights();
             }
         }
-function sendTelegramNotification(bookName, volumeNum, pagesStr, filename) {
+        function sendTelegramNotification(bookName, volumeNum, pagesStr, filename) {
+    // ⚠️ REPLACE THESE WITH YOUR ACTUAL VALUES:
+    const botToken = '8337207140:AAEYcvjIYPJIdgCNPi4Xy0N-fJbhHBpNuKc'; // From BotFather
+    const chatId = '1489034728'; // From @userinfobot
+    
     const message = `📥 New Collage Download!\n\n📚 Book: ${bookName}\n🔢 Volume: ${volumeNum}\n📄 Pages: ${pagesStr}\n💾 File: ${filename}\n⏰ Time: ${new Date().toLocaleString()}`;
     
-    const botToken = '8337207140:AAEYcvjIYPJIdgCNPi4Xy0N-fJbhHBpNuKc';
-    const chatId = '1489034728';
-    
     const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-    const data = new URLSearchParams({
-        chat_id: chatId,
-        text: message
-    });
     
-    // Method 1: navigator.sendBeacon (most reliable)
-    if (navigator.sendBeacon) {
-        navigator.sendBeacon(url, data);
-        console.log('✅ Telegram notification sent via sendBeacon');
-    } 
-    // Method 2: Fetch with no-cors
-    else {
-        fetch(url, {
-            method: 'POST',
-            body: data,
-            mode: 'no-cors',
-            keepalive: true
-        });
-        console.log('✅ Telegram notification sent via fetch');
-    }
+    // Use fetch with proper error handling
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            chat_id: chatId,
+            text: message
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.ok) {
+            console.log('✅ Telegram notification sent successfully');
+        } else {
+            console.error('❌ Telegram error:', data.description);
+        }
+    })
+    .catch(error => {
+        console.error('❌ Network error:', error);
+        // Fallback: try with image method (no CORS issues)
+        const fallbackUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+        const img = new Image();
+        img.src = fallbackUrl;
+    });
 }
 function downloadCollage() {
     try {
@@ -2351,7 +2359,26 @@ function downloadCollage() {
                 'file_name': filename
             });
         }
+                const bookName = (selectedBook.displayName || selectedBook.name)
+            .replace(/[<>:"/\\|?*]/g, '')
+            .replace(/\s+/g, '_')
+            .substring(0, 50);
         
+        const volumeMatch = selectedBook.displayName?.match(/Volume\s+(\d+)/i);
+        const volumeNum = volumeMatch ? volumeMatch[1] : '1';
+        
+        const pagesStr = pageNumbers.length > 0 ? `pg${pageNumbers.join('-')}` : 'pages';
+        
+        const now = new Date();
+        const dateStr = now.toISOString()
+            .replace(/[:.]/g, '-')
+            .replace('T', '_')
+            .substring(0, 16);
+        
+        const filename = `${bookName}_vol${volumeNum}_${pagesStr}_${dateStr}.png`;
+        
+        // 🔔 ADD THIS LINE RIGHT HERE:
+        sendTelegramNotification(bookName, volumeNum, pagesStr, filename);
         showSuccess(`✅ Collage downloaded as: ${filename}`);
         
     } catch (error) {
