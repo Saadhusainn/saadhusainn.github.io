@@ -2349,7 +2349,7 @@ function downloadCollage() {
         link.href = tempCanvas.toDataURL('image/png', 1.0);
         link.click();
         
-        // 🎯 GOOGLE ANALYTICS TRACKING - ADD THIS PART
+        // 🎯 GOOGLE ANALYTICS TRACKING
         if (typeof gtag !== 'undefined') {
             gtag('event', 'collage_download', {
                 'book_name': bookName,
@@ -2359,26 +2359,10 @@ function downloadCollage() {
                 'file_name': filename
             });
         }
-                const bookName = (selectedBook.displayName || selectedBook.name)
-            .replace(/[<>:"/\\|?*]/g, '')
-            .replace(/\s+/g, '_')
-            .substring(0, 50);
         
-        const volumeMatch = selectedBook.displayName?.match(/Volume\s+(\d+)/i);
-        const volumeNum = volumeMatch ? volumeMatch[1] : '1';
-        
-        const pagesStr = pageNumbers.length > 0 ? `pg${pageNumbers.join('-')}` : 'pages';
-        
-        const now = new Date();
-        const dateStr = now.toISOString()
-            .replace(/[:.]/g, '-')
-            .replace('T', '_')
-            .substring(0, 16);
-        
-        const filename = `${bookName}_vol${volumeNum}_${pagesStr}_${dateStr}.png`;
-        
-        // 🔔 ADD THIS LINE RIGHT HERE:
+        // 🔔 TELEGRAM NOTIFICATION - CALL THIS ONCE WITH THE CORRECT VARIABLES
         sendTelegramNotification(bookName, volumeNum, pagesStr, filename);
+        
         showSuccess(`✅ Collage downloaded as: ${filename}`);
         
     } catch (error) {
