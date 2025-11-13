@@ -2247,6 +2247,24 @@
                 drawHighlights();
             }
         }
+        function sendTelegramNotification(bookName, volumeNum, pagesStr, filename) {
+    const message = `📥 New Collage Download!\n\n📚 Book: ${bookName}\n🔢 Volume: ${volumeNum}\n📄 Pages: ${pagesStr}\n💾 File: ${filename}\n⏰ Time: ${new Date().toLocaleString()}`;
+    
+    // ⚠️ REPLACE THESE WITH YOUR ACTUAL VALUES:
+    const botToken = '8337207140:AAEYcvjIYPJIdgCNPi4Xy0N-fJbhHBpNuKc'; // From BotFather
+    const chatId = '1489034728'; // From @userinfobot
+    
+    const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+    
+    fetch(url, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            chat_id: chatId,
+            text: message
+        })
+    });
+}
 function downloadCollage() {
     try {
         const previewCanvas = document.getElementById('previewCanvas');
@@ -2329,24 +2347,6 @@ function downloadCollage() {
     } catch (error) {
         showError('Error downloading collage. Please try again.');
     }
-}
-        function sendTelegramNotification(bookName, volumeNum, pagesStr, filename) {
-    const message = `📥 New Collage Download!
-    
-📚 Book: ${bookName}
-🔢 Volume: ${volumeNum}
-📄 Pages: ${pagesStr}
-💾 File: ${filename}
-⏰ Time: ${new Date().toLocaleString()}`;
-
-    fetch(`https://api.telegram.org/bot8337207140:AAEYcvjIYPJIdgCNPi4Xy0N-fJbhHBpNuKc/sendMessage`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-            chat_id: '1489034728',
-            text: message
-        })
-    });
 }
     </script>
 
