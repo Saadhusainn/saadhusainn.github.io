@@ -16,693 +16,288 @@
         }
         
         :root {
-            --bg-primary: #f8f9fa;
-            --bg-secondary: #ffffff;
-            --bg-tertiary: #e9ecef;
-            --text-primary: #212529;
-            --text-secondary: #495057;
-            --text-muted: #6c757d;
-            --border-color: #dee2e6;
-            --accent-color: #6c63ff;
-            --accent-hover: #5a52d5;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --button-bg: #e8e8e8;
-            --button-outline: #323232;
-        }
-        
-        [data-theme="dark"] {
-            --bg-primary: #1a1a1a;
-            --bg-secondary: #2d2d2d;
-            --bg-tertiary: #3d3d3d;
-            --text-primary: #e8e8e8;
-            --text-secondary: #aaa;
-            --text-muted: #777;
-            --border-color: #333;
-            --accent-color: #8a84ff;
-            --accent-hover: #6c63ff;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            --button-bg: #2d2d2d;
-            --button-outline: #e8e8e8;
+            --bg-primary: #ffffff;
+            --bg-secondary: #fafafa;
+            --bg-tertiary: #f5f5f5;
+            --text-primary: #000000;
+            --text-secondary: #444444;
+            --text-muted: #666666;
+            --border-color: #e0e0e0;
+            --accent-color: #000000;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
         
         body {
             font-family: 'Amiri', 'Scheherazade New', serif;
             background: var(--bg-primary);
             min-height: 100vh;
-            padding: 10px;
-            touch-action: manipulation;
+            padding: 20px;
             font-size: 14px;
             color: var(--text-primary);
-            transition: background-color 0.3s, color 0.3s;
+            line-height: 1.5;
         }
         
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             background: var(--bg-secondary);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: var(--shadow);
+            border-radius: 6px;
+            padding: 30px;
             border: 1px solid var(--border-color);
-            transition: background-color 0.3s, border-color 0.3s;
         }
         
         .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 15px;
+            text-align: center;
+            margin-bottom: 30px;
         }
         
         .title {
             color: var(--accent-color);
-            font-size: 2.5em;
+            font-size: 2.2em;
             font-weight: bold;
-            text-align: left;
-            flex: 1;
+            margin-bottom: 10px;
         }
         
         .durood {
-            color: var(--accent-color);
-            font-size: 0.75em;
-            text-align: center;
-            line-height: 1.6;
+            color: var(--text-secondary);
+            font-size: 0.8em;
             direction: rtl;
-            max-width: 400px;
-            flex: 2;
-        }
-        
-        .theme-toggle-container {
-            flex: 1;
-            display: flex;
-            justify-content: flex-end;
-        }
-        
-        /* Theme Toggle - From Uiverse.io by RiccardoRapelli (modified) */
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 28px;
-            transform: scale(0.8);
-        }
-
-        .switch #input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #2196f3;
-            transition: 0.4s;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .sun-moon {
-            position: absolute;
-            content: "";
-            height: 20px;
-            width: 20px;
-            left: 4px;
-            bottom: 4px;
-            background-color: yellow;
-            transition: 0.4s;
-        }
-
-        #input:checked + .slider {
-            background-color: black;
-        }
-
-        #input:focus + .slider {
-            box-shadow: 0 0 1px #2196f3;
-        }
-
-        #input:checked + .slider .sun-moon {
-            transform: translateX(22px);
-            background-color: white;
-            animation: rotate-center 0.6s ease-in-out both;
-        }
-
-        .moon-dot {
-            opacity: 0;
-            transition: 0.4s;
-            fill: gray;
-        }
-
-        #input:checked + .slider .sun-moon .moon-dot {
-            opacity: 1;
-        }
-
-        .slider.round {
-            border-radius: 34px;
-        }
-
-        .slider.round .sun-moon {
-            border-radius: 50%;
-        }
-
-        #moon-dot-1 {
-            left: 8px;
-            top: 2px;
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            z-index: 4;
-        }
-
-        #moon-dot-2 {
-            left: 2px;
-            top: 8px;
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            z-index: 4;
-        }
-
-        #moon-dot-3 {
-            left: 12px;
-            top: 14px;
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            z-index: 4;
-        }
-
-        #light-ray-1 {
-            left: -6px;
-            top: -6px;
-            position: absolute;
-            width: 32px;
-            height: 32px;
-            z-index: -1;
-            fill: white;
-            opacity: 10%;
-        }
-
-        #light-ray-2 {
-            left: -50%;
-            top: -50%;
-            position: absolute;
-            width: 42px;
-            height: 42px;
-            z-index: -1;
-            fill: white;
-            opacity: 10%;
-        }
-
-        #light-ray-3 {
-            left: -14px;
-            top: -14px;
-            position: absolute;
-            width: 46px;
-            height: 46px;
-            z-index: -1;
-            fill: white;
-            opacity: 10%;
-        }
-
-        .cloud-light {
-            position: absolute;
-            fill: #eee;
-            animation-name: cloud-move;
-            animation-duration: 6s;
-            animation-iteration-count: infinite;
-        }
-
-        .cloud-dark {
-            position: absolute;
-            fill: #ccc;
-            animation-name: cloud-move;
-            animation-duration: 6s;
-            animation-iteration-count: infinite;
-            animation-delay: 1s;
-        }
-
-        #cloud-1 {
-            left: 24px;
-            top: 12px;
-            width: 30px;
-        }
-
-        #cloud-2 {
-            left: 34px;
-            top: 8px;
-            width: 16px;
-        }
-
-        #cloud-3 {
-            left: 14px;
-            top: 18px;
-            width: 24px;
-        }
-
-        #cloud-4 {
-            left: 28px;
-            top: 14px;
-            width: 30px;
-        }
-
-        #cloud-5 {
-            left: 38px;
-            top: 10px;
-            width: 16px;
-        }
-
-        #cloud-6 {
-            left: 18px;
-            top: 20px;
-            width: 24px;
-        }
-
-        @keyframes cloud-move {
-            0% {
-                transform: translateX(0px);
-            }
-
-            40% {
-                transform: translateX(4px);
-            }
-
-            80% {
-                transform: translateX(-4px);
-            }
-
-            100% {
-                transform: translateX(0px);
-            }
-        }
-
-        .stars {
-            transform: translateY(-26px);
-            opacity: 0;
-            transition: 0.4s;
-        }
-
-        .star {
-            fill: white;
-            position: absolute;
-            transition: 0.4s;
-            animation-name: star-twinkle;
-            animation-duration: 2s;
-            animation-iteration-count: infinite;
-        }
-
-        #input:checked + .slider .stars {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        #star-1 {
-            width: 16px;
-            top: 2px;
-            left: 2px;
-            animation-delay: 0.3s;
-        }
-
-        #star-2 {
-            width: 5px;
-            top: 12px;
-            left: 2px;
-        }
-
-        #star-3 {
-            width: 10px;
-            top: 16px;
-            left: 8px;
-            animation-delay: 0.6s;
-        }
-
-        #star-4 {
-            width: 14px;
-            top: 0px;
-            left: 14px;
-            animation-delay: 1.3s;
-        }
-
-        @keyframes star-twinkle {
-            0% {
-                transform: scale(1);
-            }
-
-            40% {
-                transform: scale(1.2);
-            }
-
-            80% {
-                transform: scale(0.8);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-        
-        @keyframes rotate-center {
-            0% {
-                transform: translateX(22px) rotate(0);
-            }
-            100% {
-                transform: translateX(22px) rotate(360deg);
-            }
+            margin-bottom: 20px;
         }
         
         .subtitle {
             text-align: center;
             color: var(--text-secondary);
-            margin-bottom: 20px;
-            font-size: 0.85em;
+            margin-bottom: 25px;
+            font-size: 0.9em;
+        }
+        
+        /* Simple Button Styles */
+        .simple-button {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 14px;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .simple-button:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--accent-color);
+        }
+        
+        .simple-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
         
         .upload-section {
             text-align: center;
-            margin: 20px 0;
-        }
-        
-        /* Button Styles - From Uiverse.io by Voxybuns */
-        .styled-button {
-            --button_radius: 0.75em;
-            --button_color: var(--button-bg);
-            --button_outline_color: var(--button-outline);
-            font-size: 17px;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            border-radius: var(--button_radius);
-            background: var(--button_outline_color);
-            font-family: 'Amiri', 'Scheherazade New', serif;
-        }
-
-        .button-top {
-            display: block;
-            box-sizing: border-box;
-            border: 2px solid var(--button_outline_color);
-            border-radius: var(--button_radius);
-            padding: 0.75em 1.5em;
-            background: var(--button_color);
-            color: var(--button_outline_color);
-            transform: translateY(-0.2em);
-            transition: transform 0.1s ease;
-        }
-
-        .styled-button:hover .button-top {
-            transform: translateY(-0.33em);
-        }
-
-        .styled-button:active .button-top {
-            transform: translateY(0);
+            margin: 25px 0;
         }
         
         .search-bar {
-            max-width: 600px;
-            margin: 0 auto 20px;
+            max-width: 500px;
+            margin: 0 auto 25px;
             position: relative;
         }
         
         .search-bar input {
             width: 100%;
-            padding: 12px 50px 12px 15px;
-            font-size: 15px;
-            border: 2px solid var(--border-color);
-            border-radius: 50px;
+            padding: 12px 20px;
+            font-size: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
             outline: none;
-            font-family: 'Amiri', 'Scheherazade New', serif;
-            background: var(--bg-secondary);
+            font-family: inherit;
+            background: var(--bg-primary);
             color: var(--text-primary);
-            transition: border-color 0.3s, background-color 0.3s, color 0.3s;
         }
         
         .search-bar input:focus {
             border-color: var(--accent-color);
-            box-shadow: 0 0 10px rgba(108, 99, 255, 0.3);
-        }
-        
-        .search-icon {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-            font-size: 18px;
         }
         
         .books-list {
             max-height: 400px;
             overflow-y: auto;
-            border: 2px solid var(--border-color);
-            border-radius: 10px;
-            margin-bottom: 20px;
-            padding: 5px;
-            background: var(--bg-secondary);
-            transition: border-color 0.3s, background-color 0.3s;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            margin-bottom: 25px;
+            background: var(--bg-primary);
         }
         
         .book-item {
-            padding: 8px 12px;
-            margin: 4px 0;
-            background: var(--bg-secondary);
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-color);
             cursor: pointer;
-            transition: all 0.3s;
-            font-size: 14px;
-            text-align: left;
-            color: var(--text-primary);
+            transition: background-color 0.2s ease;
         }
         
         .book-item:hover {
-            border-color: var(--accent-color);
             background: var(--bg-tertiary);
-            transform: translateX(3px);
         }
         
         .book-item.selected {
-            border-color: var(--accent-color);
-            background: var(--accent-color);
-            color: white;
-            font-weight: bold;
+            background: var(--bg-tertiary);
+            border-left: 3px solid var(--accent-color);
         }
         
         .book-folder {
-            background: var(--bg-tertiary);
-            border-left: 4px solid var(--accent-color);
+            background: var(--bg-secondary);
         }
         
         .book-meta {
-            font-size: 0.7em;
-            color: var(--text-secondary);
-            margin-top: 3px;
-            line-height: 1.3;
+            font-size: 0.75em;
+            color: var(--text-muted);
+            margin-top: 4px;
         }
         
         .book-actions {
             display: flex;
-            gap: 6px;
-            margin-top: 6px;
+            gap: 8px;
+            margin-top: 8px;
         }
         
         .action-button {
             padding: 4px 8px;
-            border: none;
-            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
             cursor: pointer;
             font-size: 11px;
-            font-weight: bold;
-            transition: all 0.3s;
-            font-family: 'Amiri', 'Scheherazade New', serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: transparent;
+            background: var(--bg-primary);
+            transition: all 0.2s ease;
         }
         
-        .action-button img {
-            width: 18px;
-            height: 18px;
-            object-fit: contain;
+        .action-button:hover {
+            background: var(--bg-tertiary);
         }
         
-        .download-btn:hover {
-            background: rgba(40, 167, 69, 0.1);
-        }
-        
-        .view-btn:hover {
-            background: rgba(23, 162, 184, 0.1);
+        .action-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
         
         .volume-dropdown {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-out;
-            margin-top: 6px;
+            margin-top: 8px;
         }
         
         .volume-dropdown.open {
-            max-height: 300px;
+            max-height: 500px;
         }
         
         .volumes-list {
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 6px;
-            background: var(--bg-secondary);
-            max-height: 280px;
-            overflow-y: auto;
-            transition: border-color 0.3s, background-color 0.3s;
+            background: var(--bg-primary);
+            border-radius: 3px;
+            padding: 8px;
+            border-left: 2px solid var(--border-color);
+            margin-left: 10px;
         }
         
         .volume-item {
-            padding: 8px 10px;
-            margin: 3px 0;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border-color);
             cursor: pointer;
-            transition: all 0.3s;
-            font-size: 13px;
-            color: var(--text-primary);
+            transition: background-color 0.2s ease;
         }
         
         .volume-item:hover {
-            border-color: var(--accent-color);
             background: var(--bg-tertiary);
-            transform: translateX(2px);
         }
         
         .volume-item.selected {
-            border-color: var(--accent-color);
-            background: var(--accent-color);
-            color: white;
+            background: var(--bg-tertiary);
         }
         
         .dropdown-toggle {
             cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            padding: 3px 8px;
-            transition: transform 0.3s;
-            user-select: none;
+            font-size: 12px;
             color: var(--text-muted);
+            margin-left: 8px;
+            transition: transform 0.3s ease;
         }
         
         .dropdown-toggle.open {
             transform: rotate(90deg);
         }
         
-        .collage-settings {
+        /* Page count badge */
+        .page-count-badge {
             background: var(--bg-tertiary);
-            padding: 15px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            animation: fadeInUp 0.5s ease-out;
             border: 1px solid var(--border-color);
-            transition: background-color 0.3s, border-color 0.3s;
+            border-radius: 12px;
+            padding: 2px 8px;
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-left: 8px;
+        }
+        
+        /* Simple Settings */
+        .collage-settings {
+            background: var(--bg-primary);
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            margin-bottom: 20px;
         }
         
         .setting-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         
         .setting-group label {
             display: block;
             font-weight: bold;
-            color: var(--accent-color);
+            color: var(--text-primary);
             margin-bottom: 10px;
             font-size: 14px;
         }
         
-        /* Page Count Radio Buttons - From Uiverse.io by LightAndy1 */
-        .wrapper {
-            --font-color-dark: #323232;
-            --font-color-light: #fff;
-            --bg-color: var(--bg-secondary);
-            --main-color: var(--accent-color);
-            --secondary-color: var(--accent-hover);
-            position: relative;
-            width: 100%;
-            max-width: 400px;
-            height: 36px;
-            background-color: var(--bg-color);
-            border: 2px solid var(--main-color);
-            border-radius: 34px;
+        /* Simple Radio Buttons */
+        .page-count-options {
             display: flex;
-            flex-direction: row;
-            box-shadow: 4px 4px var(--main-color);
+            gap: 10px;
+            flex-wrap: wrap;
         }
-
-        .option {
-            flex: 1;
-            margin-right: 5px;
-            height: 28px;
-            position: relative;
-            top: 2px;
-            left: 2px;
-            border-radius: 34px;
-            transition: 0.25s cubic-bezier(0, 0, 0, 1);
-        }
-
-        .option:last-child {
-            margin-right: 4px;
-        }
-
-        .option:hover {
-            background-color: var(--secondary-color);
-        }
-
-        .option:hover .span {
-            color: var(--font-color-light);
-        }
-
-        .input {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            left: 0;
-            top: 0;
-            appearance: none;
-            cursor: pointer;
-        }
-
-        .btn {
-            width: 100%;
-            height: 100%;
-            border-radius: 50px;
+        
+        .page-option {
             display: flex;
-            justify-content: center;
             align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            transition: all 0.2s ease;
         }
-
-        .span {
-            color: var(--font-color-dark);
-            font-size: 14px;
-            font-weight: bold;
+        
+        .page-option:hover {
+            border-color: var(--accent-color);
         }
-
-        .input:checked + .btn {
-            background-color: var(--main-color);
-            transition: 0.2s cubic-bezier(0, 0, 0, 1);
+        
+        .page-option input[type="radio"] {
+            margin: 0;
         }
-
-        .input:checked + .btn .span {
-            color: var(--font-color-light);
-            transition: 0.25s cubic-bezier(0, 0, 0, 1);
+        
+        .page-option.selected {
+            border-color: var(--accent-color);
+            background: var(--bg-tertiary);
         }
         
         .page-inputs {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             flex-wrap: wrap;
             align-items: center;
-            animation: fadeIn 0.5s ease-out;
         }
         
         .page-input-group {
@@ -717,42 +312,37 @@
         }
         
         .page-input-group input {
-            padding: 8px;
+            padding: 6px 8px;
             font-size: 13px;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            width: 70px;
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            width: 60px;
             text-align: center;
-            font-family: 'Amiri', 'Scheherazade New', serif;
-            transition: all 0.3s;
-            background: var(--bg-secondary);
+            font-family: inherit;
+            background: var(--bg-primary);
             color: var(--text-primary);
         }
         
         .page-input-group input:focus {
             border-color: var(--accent-color);
-            box-shadow: 0 0 5px rgba(108, 99, 255, 0.3);
+            outline: none;
         }
         
         .preview-section {
             text-align: center;
-            margin-top: 20px;
-            animation: fadeInUp 0.5s ease-out;
+            margin-top: 25px;
         }
         
         .preview-container {
             display: inline-block;
             margin: 20px 0;
             max-width: 100%;
-            overflow-x: auto;
             position: relative;
-            -webkit-overflow-scrolling: touch;
         }
         
         .preview-canvas {
-            border: 3px solid var(--accent-color);
-            border-radius: 10px;
-            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
             display: block;
             max-width: 100%;
             height: auto;
@@ -762,33 +352,29 @@
             position: absolute;
             top: 0;
             left: 0;
-            border: 3px solid var(--accent-color);
-            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
             cursor: crosshair;
-            touch-action: none;
         }
         
-        /* Watermark Section */
         .watermark-section {
-            background: var(--bg-tertiary);
-            padding: 15px;
-            border-radius: 15px;
-            margin: 15px 0;
-            animation: fadeInUp 0.5s ease-out;
+            background: var(--bg-primary);
+            padding: 20px;
             border: 1px solid var(--border-color);
-            transition: background-color 0.3s, border-color 0.3s;
+            border-radius: 4px;
+            margin: 15px 0;
         }
         
         .watermark-controls {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
             align-items: center;
         }
         
         .watermark-slider {
             width: 100%;
-            max-width: 300px;
+            max-width: 250px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -796,180 +382,177 @@
         
         .watermark-slider input {
             flex: 1;
-            height: 6px;
-            border-radius: 3px;
-            background: var(--bg-secondary);
+            height: 4px;
+            border-radius: 2px;
+            background: var(--border-color);
             outline: none;
-            opacity: 0.7;
-            transition: opacity 0.2s;
-        }
-        
-        .watermark-slider input:hover {
-            opacity: 1;
         }
         
         .watermark-slider span {
             font-size: 12px;
-            color: var(--text-secondary);
-            min-width: 40px;
+            color: var(--text-muted);
+            min-width: 35px;
             text-align: center;
         }
         
-        /* Switch Styles - From Uiverse.io by r7chardgh */
-        .switch-highlight {
-            font-size: 17px;
-            position: relative;
-            display: inline-block;
-            width: 5em;
-            height: 2.5em;
-            user-select: none;
-            margin-left: 10px;
+        /* Text Watermark Controls */
+        .text-watermark-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+            padding: 15px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
         }
-
-        .switch-highlight .cb {
+        
+        .text-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .text-input-group input, .text-input-group select {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        
+        .text-input-group input:focus, .text-input-group select:focus {
+            border-color: var(--accent-color);
+            outline: none;
+        }
+        
+        .orientation-options {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .orientation-option {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        
+        .orientation-option:hover {
+            border-color: var(--accent-color);
+        }
+        
+        .orientation-option.selected {
+            border-color: var(--accent-color);
+            background: var(--bg-tertiary);
+        }
+        
+        /* Larger text size range */
+        .text-size-slider {
+            width: 100%;
+            max-width: 300px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .text-size-slider input {
+            flex: 1;
+            height: 4px;
+            border-radius: 2px;
+            background: var(--border-color);
+            outline: none;
+        }
+        
+        .text-size-slider span {
+            font-size: 12px;
+            color: var(--text-muted);
+            min-width: 45px;
+            text-align: center;
+        }
+        
+        /* Simple Toggle */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 40px;
+            height: 20px;
+        }
+        
+        .toggle-switch input {
             opacity: 0;
             width: 0;
             height: 0;
         }
-
-        .toggle {
+        
+        .toggle-slider {
             position: absolute;
             cursor: pointer;
-            width: 100%;
-            height: 100%;
-            background-color: #373737;
-            border-radius: 0.1em;
-            transition: 0.4s;
-            text-transform: uppercase;
-            font-weight: 700;
-            overflow: hidden;
-            box-shadow: -0.3em 0 0 0 #373737, -0.3em 0.3em 0 0 #373737,
-                0.3em 0 0 0 #373737, 0.3em 0.3em 0 0 #373737, 0 0.3em 0 0 #373737;
-        }
-
-        .toggle > .left {
-            position: absolute;
-            display: flex;
-            width: 50%;
-            height: 88%;
-            background-color: #f3f3f3;
-            color: #373737;
+            top: 0;
             left: 0;
+            right: 0;
             bottom: 0;
-            align-items: center;
-            justify-content: center;
-            transform-origin: right;
-            transform: rotateX(10deg);
-            transform-style: preserve-3d;
-            transition: all 150ms;
+            background-color: var(--border-color);
+            transition: .2s;
+            border-radius: 20px;
         }
-
-        .left::before {
+        
+        .toggle-slider:before {
             position: absolute;
             content: "";
-            width: 100%;
-            height: 100%;
-            background-color: rgb(206, 206, 206);
-            transform-origin: center left;
-            transform: rotateY(90deg);
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .2s;
+            border-radius: 50%;
         }
-
-        .left::after {
-            position: absolute;
-            content: "";
-            width: 100%;
-            height: 100%;
-            background-color: rgb(112, 112, 112);
-            transform-origin: center bottom;
-            transform: rotateX(90deg);
+        
+        input:checked + .toggle-slider {
+            background-color: var(--accent-color);
         }
-
-        .toggle > .right {
-            position: absolute;
-            display: flex;
-            width: 50%;
-            height: 88%;
-            background-color: #f3f3f3;
-            color: rgb(206, 206, 206);
-            right: 1px;
-            bottom: 0;
-            align-items: center;
-            justify-content: center;
-            transform-origin: left;
-            transform: rotateX(10deg) rotateY(-45deg);
-            transform-style: preserve-3d;
-            transition: all 150ms;
-        }
-
-        .right::before {
-            position: absolute;
-            content: "";
-            width: 100%;
-            height: 100%;
-            background-color: rgb(206, 206, 206);
-            transform-origin: center right;
-            transform: rotateY(-90deg);
-        }
-
-        .right::after {
-            position: absolute;
-            content: "";
-            width: 100%;
-            height: 100%;
-            background-color: rgb(112, 112, 112);
-            transform-origin: center bottom;
-            transform: rotateX(90deg);
-        }
-
-        .switch-highlight input:checked + .toggle > .left {
-            transform: rotateX(10deg) rotateY(45deg);
-            color: rgb(206, 206, 206);
-        }
-
-        .switch-highlight input:checked + .toggle > .right {
-            transform: rotateX(10deg) rotateY(0deg);
-            color: #487bdb;
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(20px);
         }
         
         .highlight-controls {
-            background: var(--bg-tertiary);
-            padding: 15px;
-            border-radius: 15px;
-            margin: 15px 0;
-            animation: fadeInUp 0.5s ease-out;
+            background: var(--bg-primary);
+            padding: 20px;
             border: 1px solid var(--border-color);
-            transition: background-color 0.3s, border-color 0.3s;
-        }
-        
-        .highlight-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 15px;
-            gap: 10px;
-        }
-        
-        .highlight-title {
-            color: var(--accent-color);
-            font-size: 1.2em;
-            font-weight: bold;
+            border-radius: 4px;
+            margin: 15px 0;
         }
         
         .highlight-colors {
             display: flex;
-            gap: 10px;
-            margin: 10px 0;
+            gap: 8px;
+            margin: 12px 0;
             flex-wrap: wrap;
             justify-content: center;
         }
         
         .color-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            border: 3px solid transparent;
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            border: 2px solid transparent;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s ease;
         }
         
         .color-btn:hover {
@@ -978,189 +561,176 @@
         
         .color-btn.active {
             border-color: var(--text-primary);
-            transform: scale(1.2);
         }
         
-        .highlight-yellow {
-            background-color: #ffff00;
-        }
-        
-        .highlight-red {
-            background-color: #ff0000;
-        }
-        
-        .highlight-cyan {
-            background-color: #00ffff;
-        }
-        
-        .highlight-lime {
-            background-color: #00ff00;
-        }
+        .highlight-yellow { background-color: #ffff00; }
+        .highlight-red { background-color: #ff0000; }
+        .highlight-cyan { background-color: #00ffff; }
+        .highlight-lime { background-color: #00ff00; }
         
         .highlight-instructions {
-            font-size: 13px;
-            color: var(--text-secondary);
+            font-size: 12px;
+            color: var(--text-muted);
             margin-top: 10px;
             text-align: center;
         }
         
         .highlight-actions {
             display: flex;
-            gap: 10px;
-            margin-top: 10px;
+            gap: 8px;
+            margin-top: 12px;
             flex-wrap: wrap;
             justify-content: center;
         }
         
         .action-btn {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 8px;
+            padding: 6px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
             cursor: pointer;
-            font-size: 13px;
-            font-weight: bold;
-            transition: all 0.3s;
-            font-family: 'Amiri', 'Scheherazade New', serif;
+            font-size: 12px;
+            background: var(--bg-primary);
+            transition: all 0.2s ease;
         }
         
         .action-btn:hover {
-            transform: translateY(-2px);
+            background: var(--bg-tertiary);
         }
         
         .action-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
-            transform: none;
         }
         
-        .clear-btn {
-            background: #dc3545;
-            color: white;
-        }
-        
-        .clear-btn:hover {
-            background: #c82333;
-        }
-        
-        .toggle-btn {
-            background: #6c757d;
-            color: white;
-        }
-        
-        .toggle-btn:hover {
-            background: #5a6268;
-        }
-        
-        .undo-btn {
-            background: #ffc107;
-            color: black;
-        }
-        
-        .undo-btn:hover {
-            background: #e0a800;
-        }
-        
-        .redo-btn {
-            background: #17a2b8;
-            color: white;
-        }
-        
-        .redo-btn:hover {
-            background: #138496;
-        }
-
-        /* Book Request Section */
         .book-request {
             text-align: center;
             margin: 20px 0;
             padding: 20px;
-            background: var(--bg-tertiary);
-            border-radius: 15px;
-            animation: fadeInUp 0.5s ease-out;
+            background: var(--bg-primary);
             border: 1px solid var(--border-color);
-            transition: background-color 0.3s, border-color 0.3s;
+            border-radius: 4px;
         }
         
         .request-form {
-            margin-top: 15px;
-            animation: fadeIn 0.5s ease-out;
+            margin-top: 12px;
         }
         
         .request-input {
             width: 100%;
-            max-width: 400px;
-            padding: 12px;
+            max-width: 300px;
+            padding: 10px;
             font-size: 14px;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
             margin-bottom: 10px;
-            font-family: 'Amiri', 'Scheherazade New', serif;
-            background: var(--bg-secondary);
+            font-family: inherit;
+            background: var(--bg-primary);
             color: var(--text-primary);
-            transition: border-color 0.3s, background-color 0.3s, color 0.3s;
         }
         
         .request-input:focus {
             border-color: var(--accent-color);
-            box-shadow: 0 0 5px rgba(108, 99, 255, 0.3);
+            outline: none;
         }
 
-        /* Contact Section */
-        .contact-section {
-            margin-top: 40px;
-            padding: 30px 20px;
-            background: var(--bg-tertiary);
-            border-radius: 15px;
+        /* Loading Notification */
+        .loading-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            max-width: 400px;
             text-align: center;
-            border-top: 3px solid var(--accent-color);
-            transition: background-color 0.3s, border-color 0.3s;
+            animation: slideUp 0.3s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+        
+        .loading-notification .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            border-top: 2px solid var(--accent-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        
+        .loading-notification-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* Minimal Contact Section */
+        .contact-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: var(--bg-primary);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
         }
 
         .contact-title {
-            color: var(--accent-color);
-            font-size: 1.5em;
-            margin-bottom: 20px;
+            color: var(--text-primary);
+            font-size: 1.1em;
+            margin-bottom: 15px;
             font-weight: bold;
         }
 
         .contact-links {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 12px;
             flex-wrap: wrap;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .contact-link {
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 12px 20px;
+            gap: 6px;
+            padding: 8px 12px;
             background: var(--bg-secondary);
-            border: 2px solid var(--border-color);
-            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
             color: var(--text-primary);
             text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
-            font-size: 14px;
+            font-size: 12px;
+            transition: all 0.2s ease;
         }
 
         .contact-link:hover {
-            background: var(--accent-color);
-            color: white;
-            transform: translateY(-3px);
+            background: var(--bg-tertiary);
+            border-color: var(--accent-color);
         }
 
         .contact-icon {
-            width: 20px;
-            height: 20px;
+            width: 14px;
+            height: 14px;
         }
 
         .copyright {
             color: var(--text-muted);
-            font-size: 13px;
-            margin-top: 15px;
+            font-size: 11px;
+            margin-top: 12px;
         }
 
         .hidden {
@@ -1168,429 +738,64 @@
         }
         
         .info-text {
-            color: var(--text-secondary);
-            margin: 10px 0;
-            font-size: 13px;
+            color: var(--text-muted);
+            margin: 8px 0;
+            font-size: 12px;
         }
         
         .error-message {
             background: #fee;
-            border: 2px solid #fcc;
+            border: 1px solid #fcc;
             color: #c33;
-            padding: 10px 15px;
-            border-radius: 8px;
+            padding: 10px 12px;
+            border-radius: 4px;
             margin: 10px 0;
-            font-size: 13px;
-            animation: shake 0.5s ease-in-out;
+            font-size: 12px;
         }
         
         .success-message {
             background: #efe;
-            border: 2px solid #cfc;
+            border: 1px solid #cfc;
             color: #363;
-            padding: 10px 15px;
-            border-radius: 8px;
+            padding: 10px 12px;
+            border-radius: 4px;
             margin: 10px 0;
-            font-size: 13px;
-            animation: bounceIn 0.5s ease-out;
+            font-size: 12px;
+        }
+        
+        .loading-message {
+            background: #eef;
+            border: 1px solid #ccf;
+            color: #336;
+            padding: 10px 12px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-size: 12px;
         }
         
         .no-results {
             text-align: center;
             padding: 30px;
             color: var(--text-muted);
-            font-size: 15px;
+            font-size: 14px;
         }
         
         .loading {
             text-align: center;
-            color: var(--accent-color);
-            font-size: 15px;
-            padding: 20px;
-        }
-        
-        /* Book Loader - From Uiverse.io by anand_4957 (modified colors) */
-        .book,
-        .book__pg-shadow,
-        .book__pg {
-          animation: cover 5s ease-in-out infinite;
-        }
-        .book {
-          background-color: hsl(0, 90%, 65%);
-          border-radius: 0.25em;
-          box-shadow:
-            0 0.25em 0.5em hsla(0, 0%, 0%, 0.3),
-            0 0 0 0.25em hsl(0, 90%, 55%) inset;
-          padding: 0.25em;
-          perspective: 37.5em;
-          position: relative;
-          width: 8em;
-          height: 6em;
-          transform: translate3d(0, 0, 0);
-          transform-style: preserve-3d;
-          margin: 0 auto 20px;
-        }
-        .book__pg-shadow,
-        .book__pg {
-          position: absolute;
-          left: 0.25em;
-          width: calc(50% - 0.25em);
-        }
-        .book__pg-shadow {
-          animation-name: shadow;
-          background-image: linear-gradient(
-            -45deg,
-            hsla(0, 0%, 0%, 0) 50%,
-            hsla(0, 0%, 0%, 0.3) 50%
-          );
-          filter: blur(0.25em);
-          top: calc(100% - 0.25em);
-          height: 3.75em;
-          transform: scaleY(0);
-          transform-origin: 100% 0%;
-        }
-        .book__pg {
-          animation-name: pg1;
-          background-color: hsl(223, 10%, 100%);
-          background-image: linear-gradient(
-            90deg,
-            hsla(223, 10%, 90%, 0) 87.5%,
-            hsl(223, 10%, 90%)
-          );
-          height: calc(100% - 0.5em);
-          transform-origin: 100% 50%;
-        }
-        .book__pg--2,
-        .book__pg--3,
-        .book__pg--4 {
-          background-image: repeating-linear-gradient(
-              hsl(223, 10%, 10%) 0 0.125em,
-              hsla(223, 10%, 10%, 0) 0.125em 0.5em
-            ),
-            linear-gradient(90deg, hsla(223, 10%, 90%, 0) 87.5%, hsl(223, 10%, 90%));
-          background-repeat: no-repeat;
-          background-position: center;
-          background-size:
-            2.5em 4.125em,
-            100% 100%;
-        }
-        .book__pg--2 {
-          animation-name: pg2;
-        }
-        .book__pg--3 {
-          animation-name: pg3;
-        }
-        .book__pg--4 {
-          animation-name: pg4;
-        }
-        .book__pg--5 {
-          animation-name: pg5;
+            color: var(--text-muted);
+            font-size: 14px;
+            padding: 30px;
         }
 
-        /* Animations */
-        @keyframes cover {
-          from,
-          5%,
-          45%,
-          55%,
-          95%,
-          to {
-            animation-timing-function: ease-out;
-            background-color: hsl(0, 84%, 67%);
-          }
-          10%,
-          40%,
-          60%,
-          90% {
-            animation-timing-function: ease-in;
-            background-color: hsl(0, 90%, 45%);
-          }
-        }
-        @keyframes shadow {
-          from,
-          10.01%,
-          20.01%,
-          30.01%,
-          40.01% {
-            animation-timing-function: ease-in;
-            transform: translate3d(0, 0, 1px) scaleY(0) rotateY(0);
-          }
-          5%,
-          15%,
-          25%,
-          35%,
-          45%,
-          55%,
-          65%,
-          75%,
-          85%,
-          95% {
-            animation-timing-function: ease-out;
-            transform: translate3d(0, 0, 1px) scaleY(0.2) rotateY(90deg);
-          }
-          10%,
-          20%,
-          30%,
-          40%,
-          50%,
-          to {
-            animation-timing-function: ease-out;
-            transform: translate3d(0, 0, 1px) scaleY(0) rotateY(180deg);
-          }
-          50.01%,
-          60.01%,
-          70.01%,
-          80.01%,
-          90.01% {
-            animation-timing-function: ease-in;
-            transform: translate3d(0, 0, 1px) scaleY(0) rotateY(180deg);
-          }
-          60%,
-          70%,
-          80%,
-          90%,
-          to {
-            animation-timing-function: ease-out;
-            transform: translate3d(0, 0, 1px) scaleY(0) rotateY(0);
-          }
-        }
-        @keyframes pg1 {
-          from,
-          to {
-            animation-timing-function: ease-in-out;
-            background-color: hsl(223, 10%, 100%);
-            transform: translate3d(0, 0, 1px) rotateY(0.4deg);
-          }
-          10%,
-          15% {
-            animation-timing-function: ease-out;
-            background-color: hsl(223, 10%, 100%);
-            transform: translate3d(0, 0, 1px) rotateY(180deg);
-          }
-          20%,
-          80% {
-            animation-timing-function: ease-in;
-            background-color: hsl(223, 10%, 45%);
-            transform: translate3d(0, 0, 1px) rotateY(180deg);
-          }
-          85%,
-          90% {
-            animation-timing-function: ease-in-out;
-            background-color: hsl(223, 10%, 100%);
-            transform: translate3d(0, 0, 1px) rotateY(180deg);
-          }
-        }
-        @keyframes pg2 {
-          from,
-          to {
-            animation-timing-function: ease-in;
-            background-color: hsl(223, 10%, 45%);
-            transform: translate3d(0, 0, 1px) rotateY(0.3deg);
-          }
-          5%,
-          10% {
-            animation-timing-function: ease-in-out;
-            background-color: hsl(223, 10%, 100%);
-            transform: translate3d(0, 0, 1px) rotateY(0.3deg);
-          }
-          20%,
-          25% {
-            animation-timing-function: ease-out;
-            background-color: hsl(223, 10%, 100%);
-            transform: translate3d(0, 0, 1px) rotateY(179.9deg);
-          }
-          30%,
-          70% {
-            animation-timing-function: ease-in;
-            background-color: hsl(223, 10%, 45%);
-            transform: translate3d(0, 0, 1px) rotateY(179.9deg);
-          }
-          75%,
-          80% {
-            animation-timing-function: ease-in-out;
-            background-color: hsl(223, 10%, 100%);
-            transform: translate3d(0, 0, 1px) rotateY(179.9deg);
-          }
-          90%,
-          95% {
-            animation-timing-function: ease-out;
-            background-color: hsl(223, 10%, 100%);
-            transform: translate3d(0, 0, 1px) rotateY(0.3deg);
-          }
-        }
-        @keyframes pg3 {
-          from,
-          10%,
-          90%,
-          to {
-            animation-timing-function: ease-in;
-            background-color: hsl(223, 10%, 45%);
-            transform: translate3d(0, 0, 1px) rotateY(0.2deg);
-          }
-          15%,
-          20% {
-            animation-timing-function: ease-in-out;
-            background-color: hsl(223, 10%, 100%);
-            transform: translate3d(0, 0, 1px) rotateY(0.2deg);
-          }
-          30%,
-          35% {
-            animation-timing-function: ease-out;
-            background-color: hsl(223, 10%, 100%);
-            transform: translate3d(0, 0, 1px) rotateY(179.8deg);
-          }
-          40%,
-          60% {
-            animation-timing-function: ease-in;
-            background-color: hsl(223, 10%, 45%);
-            transform: translate3d(0, 0, 1px) rotateY(179.8deg);
-          }
-          65%,
-          70% {
-            animation-timing-function: ease-in-out;
-            background-color: hsl(223, 10%, 100%);
-            transform: translate3d(0, 0, 1px) rotateY(179.8deg);
-          }
-          80%,
-          85% {
-            animation-timing-function: ease-out;
-            background-color: hsl(223, 10%, 100%);
-            transform: translate3d(0, 0, 1px) rotateY(0.2deg);
-          }
-        }
-        @keyframes pg4 {
-          from,
-          20%,
-          80%,
-          to {
-            animation-timing-function: ease-in;
-            background-color: hsl(223, 10%, 45%);
-            transform: translate3d(0, 0, 1px) rotateY(0.1deg);
-          }
-          25%,
-          30% {
-            animation-timing-function: ease-in-out;
-            background-color: hsl(223, 10%, 100%);
-            transform: translate3d(0, 0, 1px) rotateY(0.1deg);
-          }
-          40%,
-          45% {
-            animation-timing-function: ease-out;
-            background-color: hsl(223, 10%, 100%);
-            transform: translate3d(0, 0, 1px) rotateY(179.7deg);
-          }
-          50% {
-            animation-timing-function: ease-in;
-            background-color: hsl(223, 10%, 45%);
-            transform: translate3d(0, 0, 1px) rotateY(179.7deg);
-          }
-          55%,
-          60% {
-            animation-timing-function: ease-in-out;
-            background-color: hsl(223, 10%, 100%);
-            transform: translate3d(0, 0, 1px) rotateY(179.7deg);
-          }
-          70%,
-          75% {
-            animation-timing-function: ease-out;
-            background-color: hsl(223, 10%, 100%);
-            transform: translate3d(0, 0, 1px) rotateY(0.1deg);
-          }
-        }
-        @keyframes pg5 {
-          from,
-          30%,
-          70%,
-          to {
-            animation-timing-function: ease-in;
-            background-color: hsl(223, 10%, 45%);
-            transform: translate3d(0, 0, 1px) rotateY(0);
-          }
-          35%,
-          40% {
-            animation-timing-function: ease-in-out;
-            background-color: hsl(223, 10%, 100%);
-            transform: translate3d(0, 0, 1px) rotateY(0deg);
-          }
-          50% {
-            animation-timing-function: ease-in-out;
-            background-color: hsl(223, 10%, 100%);
-            transform: translate3d(0, 0, 1px) rotateY(179.6deg);
-          }
-          60%,
-          65% {
-            animation-timing-function: ease-out;
-            background-color: hsl(223, 10%, 100%);
-            transform: translate3d(0, 0, 1px) rotateY(0);
-          }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes bounceIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.3);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.05);
-            }
-            70% {
-                transform: scale(0.9);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
-        }
-
-        /* Book Opening Message */
         .book-opening-message {
             text-align: center;
             margin: 10px 0 15px;
-            color: var(--accent-color);
+            color: var(--text-primary);
             font-weight: bold;
-            font-size: 1em;
+            font-size: 0.9em;
             min-height: 20px;
         }
 
-        /* Loading indicator for pages */
-        .page-loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: var(--accent-color);
-            animation: spin 1s ease-in-out infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Compact book item layout */
         .book-header {
             display: flex;
             justify-content: space-between;
@@ -1611,44 +816,63 @@
         .book-main-actions {
             display: flex;
             gap: 6px;
-            margin-left: 10px;
         }
 
-        /* Mobile Responsive */
+        /* Simple Loading Animation */
+        .loading-dots {
+            display: inline-block;
+        }
+        
+        .loading-dots:after {
+            content: '...';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+        
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+
+        /* Processing Indicator */
+        .processing-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--border-color);
+            border-top: 2px solid var(--accent-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         @media (max-width: 768px) {
             body {
+                padding: 10px;
                 font-size: 13px;
-                padding: 5px;
             }
             
             .container {
-                padding: 15px;
-                border-radius: 15px;
-            }
-            
-            .header {
-                flex-direction: column;
-                text-align: center;
-                gap: 10px;
+                padding: 20px;
             }
             
             .title {
-                font-size: 2em;
-                order: 1;
-                text-align: center;
-            }
-            
-            .durood {
-                max-width: 100%;
-                text-align: center;
-                order: 2;
-                font-size: 0.7em;
-                line-height: 1.4;
-            }
-            
-            .theme-toggle-container {
-                order: 3;
-                justify-content: center;
+                font-size: 1.8em;
             }
             
             .contact-links {
@@ -1658,122 +882,44 @@
             
             .contact-link {
                 width: 100%;
-                max-width: 250px;
+                max-width: 200px;
                 justify-content: center;
             }
             
-            .wrapper {
-                height: 32px;
+            .page-count-options {
+                justify-content: center;
             }
             
-            .option {
-                height: 24px;
+            .page-inputs {
+                justify-content: center;
             }
             
-            .span {
-                font-size: 12px;
+            .orientation-options {
+                justify-content: center;
             }
             
-            .book-actions {
-                flex-direction: row;
-                gap: 5px;
-            }
-            
-            .action-button {
-                width: auto;
-            }
-            
-            .book-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
-            }
-            
-            .book-main-actions {
-                margin-left: 0;
-                width: 100%;
-                justify-content: flex-end;
+            .loading-notification {
+                left: 10px;
+                right: 10px;
+                transform: none;
+                max-width: none;
             }
         }
     </style>
+    <!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5XK5L5Q7JZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-5XK5L5Q7JZ');
+</script>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <div class="title">SIJJEEN</div>
-            
-            <div class="durood">
-                صلى الله عليه وسلم صلى الله عليه وسلم 
-            </div>
-            
-            <div class="theme-toggle-container">
-                <label class="switch">
-                    <input id="input" type="checkbox" />
-                    <div class="slider round">
-                        <div class="sun-moon">
-                            <svg id="moon-dot-1" class="moon-dot" viewBox="0 0 100 100">
-                                <circle cx="50" cy="50" r="50"></circle>
-                            </svg>
-                            <svg id="moon-dot-2" class="moon-dot" viewBox="0 0 100 100">
-                                <circle cx="50" cy="50" r="50"></circle>
-                            </svg>
-                            <svg id="moon-dot-3" class="moon-dot" viewBox="0 0 100 100">
-                                <circle cx="50" cy="50" r="50"></circle>
-                            </svg>
-                            <svg id="light-ray-1" class="light-ray" viewBox="0 0 100 100">
-                                <circle cx="50" cy="50" r="50"></circle>
-                            </svg>
-                            <svg id="light-ray-2" class="light-ray" viewBox="0 0 100 100">
-                                <circle cx="50" cy="50" r="50"></circle>
-                            </svg>
-                            <svg id="light-ray-3" class="light-ray" viewBox="0 0 100 100">
-                                <circle cx="50" cy="50" r="50"></circle>
-                            </svg>
-
-                            <svg id="cloud-1" class="cloud-dark" viewBox="0 0 100 100">
-                                <circle cx="50" cy="50" r="50"></circle>
-                            </svg>
-                            <svg id="cloud-2" class="cloud-dark" viewBox="0 0 100 100">
-                                <circle cx="50" cy="50" r="50"></circle>
-                            </svg>
-                            <svg id="cloud-3" class="cloud-dark" viewBox="0 0 100 100">
-                                <circle cx="50" cy="50" r="50"></circle>
-                            </svg>
-                            <svg id="cloud-4" class="cloud-light" viewBox="0 0 100 100">
-                                <circle cx="50" cy="50" r="50"></circle>
-                            </svg>
-                            <svg id="cloud-5" class="cloud-light" viewBox="0 0 100 100">
-                                <circle cx="50" cy="50" r="50"></circle>
-                            </svg>
-                            <svg id="cloud-6" class="cloud-light" viewBox="0 0 100 100">
-                                <circle cx="50" cy="50" r="50"></circle>
-                            </svg>
-                        </div>
-                        <div class="stars">
-                            <svg id="star-1" class="star" viewBox="0 0 20 20">
-                                <path
-                                    d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"
-                                ></path>
-                            </svg>
-                            <svg id="star-2" class="star" viewBox="0 0 20 20">
-                                <path
-                                    d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"
-                                ></path>
-                            </svg>
-                            <svg id="star-3" class="star" viewBox="0 0 20 20">
-                                <path
-                                    d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"
-                                ></path>
-                            </svg>
-                            <svg id="star-4" class="star" viewBox="0 0 20 20">
-                                <path
-                                    d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"
-                                ></path>
-                            </svg>
-                        </div>
-                    </div>
-                </label>
-            </div>
+            <div class="durood">صلى الله عليه وسلم صلى الله عليه وسلم</div>
         </div>
         
         <p class="subtitle">Create beautiful book collages with highlighting</p>
@@ -1781,47 +927,37 @@
         <!-- Upload Section -->
         <div class="upload-section">
             <input type="file" id="uploadInput" accept=".pdf" style="display: none;">
-            <button class="styled-button" onclick="document.getElementById('uploadInput').click()">
-                <span class="button-top">📁 Upload Your Own PDF</span>
+            <button class="simple-button" onclick="document.getElementById('uploadInput').click()">
+                Upload Your Own PDF
             </button>
         </div>
         
         <!-- Search Bar -->
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Search books..." oninput="searchBooks()">
-            <span class="search-icon">🔍</span>
         </div>
         
-        <h2 style="color: var(--accent-color); margin-bottom: 15px; font-size: 1.2em;">Available Books</h2>
+        <h2 style="color: var(--accent-color); margin-bottom: 15px; font-size: 1.1em;">Available Books</h2>
         
-        <!-- Book Opening Message - Moved below Available Books heading -->
         <div id="bookOpeningMessage" class="book-opening-message"></div>
         
         <div id="booksList" class="books-list">
             <div class="loading">
-                <div class="book">
-                    <div class="book__pg-shadow"></div>
-                    <div class="book__pg"></div>
-                    <div class="book__pg book__pg--2"></div>
-                    <div class="book__pg book__pg--3"></div>
-                    <div class="book__pg book__pg--4"></div>
-                    <div class="book__pg book__pg--5"></div>
-                </div>
-                Loading books...
+                Loading books<span class="loading-dots"></span>
             </div>
         </div>
         
-        <!-- Book Request Section (Initially Hidden) -->
+        <!-- Book Request Section -->
         <div id="bookRequestSection" class="book-request hidden">
             <p style="color: var(--text-primary);">Can't find the book you're looking for?</p>
-            <button class="styled-button" onclick="showRequestForm()">
-                <span class="button-top">📚 Request a Book</span>
+            <button class="simple-button" onclick="showRequestForm()">
+                Request a Book
             </button>
             
             <div id="requestForm" class="request-form hidden">
                 <input type="text" id="bookRequestInput" class="request-input" placeholder="Enter book name">
-                <button class="styled-button" onclick="sendBookRequest()">
-                    <span class="button-top">Send Request</span>
+                <button class="simple-button" onclick="sendBookRequest()">
+                    Send Request
                 </button>
             </div>
         </div>
@@ -1831,31 +967,19 @@
         <div id="collageSettings" class="collage-settings hidden">
             <div class="setting-group">
                 <label>How many pages do you want in your collage?</label>
-                <div class="wrapper" id="pageCountWrapper">
-                    <div class="option">
-                        <input checked value="2" name="pageCount" type="radio" class="input" />
-                        <div class="btn">
-                            <span class="span">2 Pages</span>
-                        </div>
-                    </div>
-                    <div class="option">
-                        <input value="3" name="pageCount" type="radio" class="input" />
-                        <div class="btn">
-                            <span class="span">3 Pages</span>
-                        </div>
-                    </div>
-                    <div class="option">
-                        <input value="4" name="pageCount" type="radio" class="input" />
-                        <div class="btn">
-                            <span class="span">4 Pages</span>
-                        </div>
-                    </div>
-                    <div class="option">
-                        <input value="5" name="pageCount" type="radio" class="input" />
-                        <div class="btn">
-                            <span class="span">5 Pages</span>
-                        </div>
-                    </div>
+                <div class="page-count-options" id="pageCountWrapper">
+                    <label class="page-option selected">
+                        <input type="radio" name="pageCount" value="2" checked> 2 Pages
+                    </label>
+                    <label class="page-option">
+                        <input type="radio" name="pageCount" value="3"> 3 Pages
+                    </label>
+                    <label class="page-option">
+                        <input type="radio" name="pageCount" value="4"> 4 Pages
+                    </label>
+                    <label class="page-option">
+                        <input type="radio" name="pageCount" value="5"> 5 Pages
+                    </label>
                 </div>
             </div>
             
@@ -1867,14 +991,14 @@
             <p class="info-text" id="pageInfo"></p>
         </div>
         
-        <!-- Watermark Section -->
+        <!-- Enhanced Watermark Section -->
         <div id="watermarkSection" class="watermark-section hidden">
             <div class="setting-group">
-                <label>Add Watermark</label>
+                <label>Image Watermark</label>
                 <div class="watermark-controls">
                     <input type="file" id="watermarkInput" accept="image/*" style="display: none;">
-                    <button class="styled-button" onclick="document.getElementById('watermarkInput').click()">
-                        <span class="button-top">🖼️ Upload Watermark</span>
+                    <button class="simple-button" onclick="document.getElementById('watermarkInput').click()">
+                        Upload Watermark Image
                     </button>
                     <div class="watermark-slider">
                         <span>Opacity:</span>
@@ -1883,17 +1007,51 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="setting-group">
+                <label>Text Watermark</label>
+                <div class="text-watermark-controls">
+                    <div class="text-input-group">
+                        <input type="text" id="textWatermarkInput" placeholder="Enter watermark text" oninput="updateTextWatermark()">
+                    </div>
+                    <div class="text-input-group">
+                        <select id="fontSelect" onchange="updateTextWatermark()">
+                            <option value="Arial">Arial</option>
+                            <option value="Helvetica">Helvetica</option>
+                            <option value="Times New Roman">Times New Roman</option>
+                            <option value="Georgia">Georgia</option>
+                            <option value="Courier New">Courier New</option>
+                            <option value="Verdana">Verdana</option>
+                            <option value="Amiri" selected>Amiri</option>
+                            <option value="Scheherazade New">Scheherazade New</option>
+                        </select>
+                    </div>
+                    <div class="text-input-group">
+                        <label>Orientation:</label>
+                        <div class="orientation-options">
+                            <label class="orientation-option selected">
+                                <input type="radio" name="textOrientation" value="horizontal" checked> Horizontal
+                            </label>
+                            <label class="orientation-option">
+                                <input type="radio" name="textOrientation" value="slant"> Slant (45°)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="text-size-slider">
+                        <span>Text Size:</span>
+                        <input type="range" id="textSize" min="24" max="120" value="48" oninput="updateTextWatermark()">
+                        <span id="textSizeValue">48px</span>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <div id="highlightSection" class="highlight-controls hidden">
-            <div class="highlight-header">
+            <div class="toggle-container">
                 <div class="highlight-title">Highlight Text</div>
-                <label class="switch-highlight">
-                    <input class="cb" type="checkbox" id="highlightToggle" onchange="toggleHighlightMode()" />
-                    <span class="toggle">
-                        <span class="left">off</span>
-                        <span class="right">on</span>
-                    </span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="highlightToggle" onchange="toggleHighlightMode()">
+                    <span class="toggle-slider"></span>
                 </label>
             </div>
             
@@ -1907,27 +1065,42 @@
                 Click/tap and drag to create highlights. Click on existing highlights to resize or move them.
             </p>
             <div class="highlight-actions">
-                <button class="action-btn undo-btn" id="undoBtn" onclick="undoHighlight()" disabled>↶ Undo</button>
-                <button class="action-btn redo-btn" id="redoBtn" onclick="redoHighlight()" disabled>↷ Redo</button>
-                <button class="action-btn clear-btn" onclick="clearHighlights()">Clear All</button>
+                <button class="action-btn" id="undoBtn" onclick="undoHighlight()" disabled>Undo</button>
+                <button class="action-btn" id="redoBtn" onclick="redoHighlight()" disabled>Redo</button>
+                <button class="action-btn" onclick="clearHighlights()">Clear All</button>
             </div>
         </div>
         
         <div id="previewSection" class="preview-section hidden">
-            <h2 style="color: var(--accent-color); margin-bottom: 20px; font-size: 1.2em;">Preview</h2>
+            <h2 style="color: var(--accent-color); margin-bottom: 20px; font-size: 1.1em;">Preview</h2>
+            <div id="processingIndicator" class="processing-indicator hidden">
+                <div class="spinner"></div>
+                <span>Processing PDF pages...</span>
+            </div>
             <div class="preview-container">
                 <canvas id="previewCanvas" class="preview-canvas"></canvas>
                 <canvas id="highlightCanvas" class="highlight-canvas"></canvas>
             </div>
             <br>
-            <button class="styled-button" onclick="downloadCollage()">
-                <span class="button-top">💾 Download Collage</span>
+            <button class="simple-button" id="downloadBtn" onclick="downloadCollage()">
+                Download Collage
             </button>
         </div>
         
-        <!-- Contact Section -->
+        <!-- Loading Notification -->
+        <div id="loadingNotification" class="loading-notification hidden">
+            <div class="loading-notification-content">
+                <div class="spinner"></div>
+                <div>
+                    <div style="font-weight: bold; margin-bottom: 4px;">Loading Book</div>
+                    <div style="font-size: 12px; color: var(--text-muted);">This depends on your internet connection and might take a few seconds</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Minimal Contact Section -->
         <div class="contact-section">
-            <div class="contact-title">📞 Contact Us</div>
+            <div class="contact-title">Contact</div>
             <div class="contact-links">
                 <a href="https://t.me/DancingDinosaurs" class="contact-link" target="_blank">
                     <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -1954,7 +1127,6 @@
         </div>
     </div>
 
-    <script src="books-index.js"></script>
     <script>
         // Correct PDF worker URL
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -1977,53 +1149,124 @@
         let canvasScale = 1;
         let previewTimeout = null;
         let pdfDocument = null;
-        let loadedPages = new Map(); // For lazy loading
+        let loadedPages = new Map();
         let initialPagesLoaded = false;
         let watermarkImage = null;
         let watermarkOpacity = 0.14;
+        let textWatermark = {
+            text: '',
+            font: 'Amiri',
+            size: 48,
+            orientation: 'horizontal'
+        };
+        let recentBooks = JSON.parse(localStorage.getItem('recentBooks') || '[]');
 
-        // Theme toggle functionality
-        const themeToggle = document.getElementById('input');
-        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-        
-        // Set initial theme based on system preference or saved preference
-        const currentTheme = localStorage.getItem('theme') || (prefersDarkScheme.matches ? 'dark' : 'light');
-        document.documentElement.setAttribute('data-theme', currentTheme);
-        themeToggle.checked = currentTheme === 'dark';
-        
-        themeToggle.addEventListener('change', function() {
-            const newTheme = this.checked ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
+        // Sample books data as fallback
+        const sampleBooks = {
+            single: [
+                {
+                    name: "Sample Book 1",
+                    file: "https://example.com/sample1.pdf",
+                    publisher: "Sample Publisher",
+                    language: "English",
+                    type: "single"
+                },
+                {
+                    name: "Sample Book 2", 
+                    file: "https://example.com/sample2.pdf",
+                    publisher: "Sample Publisher",
+                    language: "Arabic",
+                    type: "single"
+                }
+            ],
+            multi: [
+                {
+                    name: "Multi-Volume Book",
+                    publisher: "Sample Publisher", 
+                    language: "English",
+                    type: "multi",
+                    isDropdownOpen: false,
+                    volumes: [
+                        {
+                            name: "Volume 1",
+                            file: "https://example.com/volume1.pdf"
+                        },
+                        {
+                            name: "Volume 2",
+                            file: "https://example.com/volume2.pdf"
+                        }
+                    ]
+                }
+            ]
+        };
+
+        // Auto-focus search on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('searchInput').focus();
+            loadBooks();
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.target.id === 'searchInput' && e.key === 'Enter') {
+                searchBooks();
+            }
+            if (e.target.id === 'searchInput' && e.key === 'Escape') {
+                e.target.value = '';
+                searchBooks();
+            }
         });
 
         // File upload handling
         document.getElementById('uploadInput').addEventListener('change', function(e) {
             const file = e.target.files[0];
-            if (file && file.type === 'application/pdf') {
-                loadUploadedBook(file);
-            } else {
-                showError('Please select a valid PDF file.');
+            if (!file) {
+                showError('No file selected.');
+                return;
             }
+            
+            if (file.type !== 'application/pdf') {
+                showError('Please select a PDF file. Selected file type: ' + file.type);
+                return;
+            }
+            
+            if (file.size > 50 * 1024 * 1024) {
+                showError('File too large. Please select a PDF smaller than 50MB.');
+                return;
+            }
+            
+            loadUploadedBook(file);
         });
 
         // Watermark upload handling
         document.getElementById('watermarkInput').addEventListener('change', function(e) {
             const file = e.target.files[0];
-            if (file && file.type.startsWith('image/')) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    watermarkImage = new Image();
-                    watermarkImage.onload = function() {
-                        showSuccess('Watermark uploaded successfully!');
-                        updatePreview();
-                    };
-                    watermarkImage.src = event.target.result;
-                };
-                reader.readAsDataURL(file);
-            } else {
-                showError('Please select a valid image file.');
+            if (!file) {
+                showError('No image selected.');
+                return;
             }
+            
+            if (!file.type.startsWith('image/')) {
+                showError('Please select a valid image file (JPEG, PNG, etc.).');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                watermarkImage = new Image();
+                watermarkImage.onload = function() {
+                    showSuccess('Watermark image uploaded successfully!');
+                    updatePreview();
+                };
+                watermarkImage.onerror = function() {
+                    showError('Failed to load watermark image. The file may be corrupted.');
+                };
+                watermarkImage.src = event.target.result;
+            };
+            reader.onerror = function() {
+                showError('Error reading the image file.');
+            };
+            reader.readAsDataURL(file);
         });
 
         function updateWatermarkOpacity() {
@@ -2034,23 +1277,42 @@
             updatePreview();
         }
 
+        // Text watermark functionality
+        function updateTextWatermark() {
+            textWatermark.text = document.getElementById('textWatermarkInput').value;
+            textWatermark.font = document.getElementById('fontSelect').value;
+            textWatermark.size = parseInt(document.getElementById('textSize').value);
+            textWatermark.orientation = document.querySelector('input[name="textOrientation"]:checked').value;
+            
+            document.getElementById('textSizeValue').textContent = textWatermark.size + 'px';
+            updatePreview();
+        }
+
+        // Text orientation radio buttons
+        document.querySelectorAll('input[name="textOrientation"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.checked) {
+                    updateTextWatermark();
+                }
+            });
+        });
+
+        // Simple page count selection
+        document.querySelectorAll('input[name="pageCount"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.checked) {
+                    setPageCount(parseInt(this.value));
+                    document.querySelectorAll('.page-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    this.parentElement.classList.add('selected');
+                }
+            });
+        });
+
         async function loadUploadedBook(file) {
             try {
-                const container = document.getElementById('errorContainer');
-                container.innerHTML = `
-                    <div class="loading">
-                        <div class="book">
-                            <div class="book__pg-shadow"></div>
-                            <div class="book__pg"></div>
-                            <div class="book__pg book__pg--2"></div>
-                            <div class="book__pg book__pg--3"></div>
-                            <div class="book__pg book__pg--4"></div>
-                            <div class="book__pg book__pg--5"></div>
-                        </div>
-                        Loading your PDF...
-                    </div>
-                `;
-
+                showProcessing('Loading your PDF...');
                 const arrayBuffer = await file.arrayBuffer();
                 pdfDocument = await pdfjsLib.getDocument({data: arrayBuffer}).promise;
                 
@@ -2062,44 +1324,65 @@
                     file: file
                 };
 
+                addToRecentBooks(selectedBook.name);
+
                 document.getElementById('pageInfo').textContent = `This PDF has ${pdfDocument.numPages} pages`;
                 document.getElementById('collageSettings').classList.remove('hidden');
                 document.getElementById('watermarkSection').classList.remove('hidden');
                 updatePageInputs();
                 await updatePreview();
                 
-                showSuccess('✅ Your PDF loaded successfully!');
+                showSuccess('PDF loaded successfully!');
                 
             } catch (error) {
-                showError(`Error loading PDF: ${error.message}`);
+                if (error.name === 'InvalidPDFException') {
+                    showError('Invalid PDF file. The file may be corrupted or not a valid PDF.');
+                } else if (error.name === 'PasswordException') {
+                    showError('This PDF is password protected. Please use an unprotected PDF.');
+                } else {
+                    showError(`Error loading PDF: ${error.message}`);
+                }
+            } finally {
+                hideProcessing();
             }
+        }
+
+        // Recent books functionality
+        function addToRecentBooks(bookName) {
+            recentBooks = recentBooks.filter(b => b !== bookName);
+            recentBooks.unshift(bookName);
+            recentBooks = recentBooks.slice(0, 5);
+            localStorage.setItem('recentBooks', JSON.stringify(recentBooks));
         }
 
         async function loadBooks() {
             try {
-                const list = document.getElementById('booksList');
-                list.innerHTML = `
-                    <div class="loading">
-                        <div class="book">
-                            <div class="book__pg-shadow"></div>
-                            <div class="book__pg"></div>
-                            <div class="book__pg book__pg--2"></div>
-                            <div class="book__pg book__pg--3"></div>
-                            <div class="book__pg book__pg--4"></div>
-                            <div class="book__pg book__pg--5"></div>
-                        </div>
-                        Loading books...
-                    </div>
-                `;
+                showMessage('Loading books...');
                 
-                await new Promise(resolve => setTimeout(resolve, 1000));
+                // Try to load from external file first
+                try {
+                    // This will only work if books-index.js exists and loads properly
+                    if (typeof booksIndex !== 'undefined') {
+                        books = [...booksIndex.single, ...booksIndex.multi];
+                        showSuccess('Books loaded successfully!');
+                    } else {
+                        throw new Error('Books index not found');
+                    }
+                } catch (error) {
+                    // Fallback to sample books
+                    console.log('Using sample books as fallback');
+                    books = [...sampleBooks.single, ...sampleBooks.multi];
+                    showMessage('Using sample books. Add your own books in books-index.js');
+                }
                 
-                // Load books from external index file
-                books = [...booksIndex.single, ...booksIndex.multi];
                 displayBooks(books);
                 
             } catch (error) {
-                showError('Error loading books structure.');
+                console.error('Error loading books:', error);
+                showError('Error loading books. Using sample data instead.');
+                // Fallback to sample books
+                books = [...sampleBooks.single, ...sampleBooks.multi];
+                displayBooks(books);
             }
         }
         
@@ -2112,7 +1395,6 @@
             );
             displayBooks(filtered);
             
-            // Show book request section if no results
             const bookRequestSection = document.getElementById('bookRequestSection');
             if (filtered.length === 0 && query.length > 0) {
                 bookRequestSection.classList.remove('hidden');
@@ -2125,17 +1407,38 @@
         function showError(message) {
             const container = document.getElementById('errorContainer');
             container.innerHTML = `<div class="error-message">${message}</div>`;
-            setTimeout(() => {
-                container.innerHTML = '';
-            }, 5000);
+            setTimeout(() => { container.innerHTML = ''; }, 5000);
         }
         
         function showSuccess(message) {
             const container = document.getElementById('errorContainer');
             container.innerHTML = `<div class="success-message">${message}</div>`;
-            setTimeout(() => {
-                container.innerHTML = '';
-            }, 3000);
+            setTimeout(() => { container.innerHTML = ''; }, 3000);
+        }
+
+        function showMessage(message) {
+            const container = document.getElementById('errorContainer');
+            container.innerHTML = `<div class="info-text">${message}</div>`;
+        }
+
+        function showProcessing(message) {
+            const container = document.getElementById('errorContainer');
+            container.innerHTML = `<div class="loading-message">${message}</div>`;
+            document.getElementById('processingIndicator').classList.remove('hidden');
+        }
+
+        function hideProcessing() {
+            document.getElementById('processingIndicator').classList.add('hidden');
+        }
+
+        function showLoadingNotification(bookName) {
+            const notification = document.getElementById('loadingNotification');
+            notification.classList.remove('hidden');
+        }
+
+        function hideLoadingNotification() {
+            const notification = document.getElementById('loadingNotification');
+            notification.classList.add('hidden');
         }
         
         function displayBooks(booksToDisplay) {
@@ -2166,22 +1469,21 @@
                         metaHTML += `</div>`;
                     }
                     
-                    const dropdownIcon = book.isDropdownOpen ? '▶' : '▶';
+                    const dropdownIcon = book.isDropdownOpen ? '▼' : '▶';
                     const dropdownClass = book.isDropdownOpen ? 'dropdown-toggle open' : 'dropdown-toggle';
                     
                     item.innerHTML = `
                         <div class="book-header">
                             <div class="book-title">
-                                <span class="book-title-text">📁 ${book.name}</span>
+                                <span class="book-title-text">${book.name}</span>
                                 <span class="${dropdownClass}" onclick="toggleVolumeDropdown(event, '${book.name}')">
                                     ${dropdownIcon}
                                 </span>
                             </div>
                             <div class="book-main-actions">
                                 <button class="action-button download-btn" onclick="downloadAllVolumes('${book.name}')">
-                                    <img src="https://i.ibb.co/VWNPkcy9/download-icon.png" alt="Download All">
+                                    Download All
                                 </button>
-                                <!-- Removed view button for multi-book -->
                             </div>
                         </div>
                         ${metaHTML}
@@ -2190,13 +1492,13 @@
                                 ${book.volumes.map(vol => `
                                     <div class="volume-item" onclick="selectVolume(event, '${book.name}', '${vol.name}', '${vol.file}')">
                                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                                            <span>📖 ${vol.name}</span>
+                                            <span>${vol.name}</span>
                                             <div class="book-actions">
                                                 <button class="action-button download-btn" onclick="event.stopPropagation(); downloadVolume('${book.name}', '${vol.name}', '${vol.file}')">
-                                                    <img src="https://i.ibb.co/VWNPkcy9/download-icon.png" alt="Download">
+                                                    Download
                                                 </button>
                                                 <button class="action-button view-btn" onclick="event.stopPropagation(); viewVolume('${book.name}', '${vol.name}', '${vol.file}')">
-                                                    <img src="https://i.ibb.co/kVtN0NPx/view-icon.png" alt="View">
+                                                    View
                                                 </button>
                                             </div>
                                         </div>
@@ -2217,14 +1519,14 @@
                     item.innerHTML = `
                         <div class="book-header">
                             <div class="book-title">
-                                <span class="book-title-text">📄 ${book.name}</span>
+                                <span class="book-title-text">${book.name}</span>
                             </div>
                             <div class="book-main-actions">
                                 <button class="action-button download-btn" onclick="downloadBook('${book.name}', '${book.file}')">
-                                    <img src="https://i.ibb.co/VWNPkcy9/download-icon.png" alt="Download">
+                                    Download
                                 </button>
                                 <button class="action-button view-btn" onclick="viewBook('${book.name}', '${book.file}')">
-                                    <img src="https://i.ibb.co/kVtN0NPx/view-icon.png" alt="View">
+                                    View
                                 </button>
                             </div>
                         </div>
@@ -2257,23 +1559,23 @@
                     selectedVolume: volumeName
                 };
                 
-                // Update UI
+                addToRecentBooks(`${book.name} - ${volumeName}`);
+                
                 document.querySelectorAll('.volume-item').forEach(item => {
                     item.classList.remove('selected');
                 });
                 event.target.closest('.volume-item').classList.add('selected');
                 
-                // Show opening message
-                document.getElementById('bookOpeningMessage').textContent = `Opening ${book.name} - ${volumeName}...`;
-                
+                showLoadingNotification(`${book.name} - ${volumeName}`);
                 loadBookFile(volumeFile, `${book.name} - ${volumeName}`);
             }
         }
         
         function selectBook(book) {
-            if (book.type === 'multi') return; // Handled by volume selection
+            if (book.type === 'multi') return;
             
             selectedBook = book;
+            addToRecentBooks(book.name);
             
             const items = document.querySelectorAll('.book-item');
             items.forEach(item => {
@@ -2281,94 +1583,145 @@
             });
             event.target.closest('.book-item').classList.add('selected');
             
-            // Show opening message
-            document.getElementById('bookOpeningMessage').textContent = `Opening ${book.name}...`;
-            
+            showLoadingNotification(book.name);
             loadBookFile(book.file, book.name);
         }
         
-        // Book action functions
+        // Book action functions with loading states
         function downloadBook(bookName, filePath) {
+            const button = event.target;
+            const originalText = button.textContent;
+            
+            button.textContent = 'Downloading...';
+            button.disabled = true;
+            
             showSuccess(`Downloading ${bookName}...`);
-            // Open the file URL directly for download
-            if (filePath) {
+            if (filePath && !filePath.includes('example.com')) {
                 window.open(filePath, '_blank');
+            } else {
+                showError('This is a sample book. Replace with real PDF URLs in books-index.js');
             }
-            setTimeout(() => {
-                showSuccess(`✅ ${bookName} download started!`);
-            }, 1000);
+            
+            setTimeout(() => { 
+                button.textContent = originalText;
+                button.disabled = false;
+                if (!filePath.includes('example.com')) {
+                    showSuccess(`✅ ${bookName} download started!`);
+                }
+            }, 2000);
         }
         
         function downloadAllVolumes(bookName) {
+            const button = event.target;
+            const originalText = button.textContent;
+            
+            button.textContent = 'Downloading...';
+            button.disabled = true;
+            
             const book = books.find(b => b.name === bookName && b.type === 'multi');
             if (book && book.volumes) {
                 showSuccess(`Downloading all volumes of ${bookName}...`);
-                // Open all volume URLs
+                let hasRealFiles = false;
                 book.volumes.forEach(volume => {
-                    if (volume.file) {
+                    if (volume.file && !volume.file.includes('example.com')) {
                         window.open(volume.file, '_blank');
+                        hasRealFiles = true;
                     }
                 });
-                setTimeout(() => {
-                    showSuccess(`✅ All volumes of ${bookName} download started!`);
-                }, 1000);
+                
+                if (!hasRealFiles) {
+                    showError('These are sample books. Replace with real PDF URLs in books-index.js');
+                }
+                
+                setTimeout(() => { 
+                    button.textContent = originalText;
+                    button.disabled = false;
+                    if (hasRealFiles) {
+                        showSuccess(`✅ All volumes of ${bookName} download started!`);
+                    }
+                }, 2000);
             }
         }
         
         function viewBook(bookName, filePath) {
+            const button = event.target;
+            const originalText = button.textContent;
+            
+            button.textContent = 'Opening...';
+            button.disabled = true;
+            
             showSuccess(`Opening ${bookName}...`);
-            // Open in Google Docs viewer
-            if (filePath) {
+            if (filePath && !filePath.includes('example.com')) {
                 const viewerUrl = `https://docs.google.com/gview?url=${encodeURIComponent(filePath)}&embedded=true`;
                 window.open(viewerUrl, '_blank', 'noopener,noreferrer');
+            } else {
+                showError('This is a sample book. Replace with real PDF URLs in books-index.js');
             }
-            setTimeout(() => {
-                showSuccess(`✅ ${bookName} opened in new tab!`);
-            }, 1000);
+            setTimeout(() => { 
+                button.textContent = originalText;
+                button.disabled = false;
+                if (!filePath.includes('example.com')) {
+                    showSuccess(`✅ ${bookName} opened in new tab!`);
+                }
+            }, 2000);
         }
         
         function downloadVolume(bookName, volumeName, volumeFile) {
+            const button = event.target;
+            const originalText = button.textContent;
+            
+            button.textContent = 'Downloading...';
+            button.disabled = true;
+            
             showSuccess(`Downloading ${bookName} - ${volumeName}...`);
-            // Open the file URL directly for download
-            if (volumeFile) {
+            if (volumeFile && !volumeFile.includes('example.com')) {
                 window.open(volumeFile, '_blank');
+            } else {
+                showError('This is a sample book. Replace with real PDF URLs in books-index.js');
             }
-            setTimeout(() => {
-                showSuccess(`✅ ${bookName} - ${volumeName} download started!`);
-            }, 1000);
+            setTimeout(() => { 
+                button.textContent = originalText;
+                button.disabled = false;
+                if (!volumeFile.includes('example.com')) {
+                    showSuccess(`✅ ${bookName} - ${volumeName} download started!`);
+                }
+            }, 2000);
         }
         
         function viewVolume(bookName, volumeName, volumeFile) {
+            const button = event.target;
+            const originalText = button.textContent;
+            
+            button.textContent = 'Opening...';
+            button.disabled = true;
+            
             showSuccess(`Opening ${bookName} - ${volumeName}...`);
-            // Open in Google Docs viewer
-            if (volumeFile) {
+            if (volumeFile && !volumeFile.includes('example.com')) {
                 const viewerUrl = `https://docs.google.com/gview?url=${encodeURIComponent(volumeFile)}&embedded=true`;
                 window.open(viewerUrl, '_blank', 'noopener,noreferrer');
+            } else {
+                showError('This is a sample book. Replace with real PDF URLs in books-index.js');
             }
-            setTimeout(() => {
-                showSuccess(`✅ ${bookName} - ${volumeName} opened in new tab!`);
-                // Clear the opening message after successful view
+            setTimeout(() => { 
+                button.textContent = originalText;
+                button.disabled = false;
+                if (!volumeFile.includes('example.com')) {
+                    showSuccess(`✅ ${bookName} - ${volumeName} opened in new tab!`);
+                }
                 document.getElementById('bookOpeningMessage').textContent = '';
-            }, 1000);
+            }, 2000);
         }
         
         async function loadBookFile(filePath, displayName) {
+            // Don't try to load sample books
+            if (filePath.includes('example.com')) {
+                showError('This is a sample book. Please upload your own PDF or add real book URLs to books-index.js');
+                hideLoadingNotification();
+                return;
+            }
+            
             try {
-                const container = document.getElementById('errorContainer');
-                container.innerHTML = `
-                    <div class="loading">
-                        <div class="book">
-                            <div class="book__pg-shadow"></div>
-                            <div class="book__pg"></div>
-                            <div class="book__pg book__pg--2"></div>
-                            <div class="book__pg book__pg--3"></div>
-                            <div class="book__pg book__pg--4"></div>
-                            <div class="book__pg book__pg--5"></div>
-                        </div>
-                        Loading book metadata...
-                    </div>
-                `;
-                
+                showProcessing('Loading book metadata...');
                 pdfDocument = await pdfjsLib.getDocument(filePath).promise;
                 
                 selectedBook = {
@@ -2377,7 +1730,6 @@
                     displayName: displayName
                 };
                 
-                // Reset loaded pages for lazy loading
                 loadedPages.clear();
                 initialPagesLoaded = false;
                 
@@ -2387,30 +1739,27 @@
                 updatePageInputs();
                 await updatePreview();
                 
-                // Auto-scroll to preview section
                 document.getElementById('previewSection').scrollIntoView({ 
                     behavior: 'smooth',
                     block: 'start'
                 });
                 
-                // Clear the opening message after successful load
                 document.getElementById('bookOpeningMessage').textContent = '';
-                
-                showSuccess('✅ Book loaded successfully! Preview generated automatically.');
+                showSuccess('Book loaded successfully! Preview generated automatically.');
                 
             } catch (error) {
-                showError(`Error loading book: ${error.message}. Please check if the file exists.`);
+                if (error.name === 'InvalidPDFException') {
+                    showError('Invalid PDF file. The book file may be corrupted.');
+                } else if (error.name === 'PasswordException') {
+                    showError('This PDF is password protected. Please use an unprotected PDF.');
+                } else {
+                    showError(`Error loading book: ${error.message}. Please check if the file exists.`);
+                }
+            } finally {
+                hideProcessing();
+                hideLoadingNotification();
             }
         }
-        
-        // Page count radio button functionality
-        document.querySelectorAll('input[name="pageCount"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                if (this.checked) {
-                    setPageCount(parseInt(this.value));
-                }
-            });
-        });
         
         function setPageCount(count) {
             pageCount = count;
@@ -2424,6 +1773,8 @@
             const container = document.getElementById('pageInputs');
             container.innerHTML = '';
             
+            const totalPages = selectedBook.pdf.numPages;
+            
             for (let i = 1; i <= pageCount; i++) {
                 const group = document.createElement('div');
                 group.className = 'page-input-group';
@@ -2435,8 +1786,15 @@
                 input.type = 'number';
                 input.id = `page${i}`;
                 input.min = '1';
-                input.max = selectedBook.pdf.numPages;
-                input.value = i;
+                input.max = totalPages;
+                
+                if (totalPages >= pageCount) {
+                    const step = Math.floor(totalPages / pageCount);
+                    input.value = Math.min(totalPages, (i - 1) * step + 1);
+                } else {
+                    input.value = Math.min(totalPages, i);
+                }
+                
                 input.oninput = debouncedUpdatePreview;
                 
                 group.appendChild(label);
@@ -2454,9 +1812,7 @@
             }, 500);
         }
         
-        // Lazy loading function for pages
         async function loadPage(pageNum) {
-            // Check if page is already loaded
             if (loadedPages.has(pageNum)) {
                 return loadedPages.get(pageNum);
             }
@@ -2474,6 +1830,8 @@
             if (!selectedBook || !selectedBook.pdf) return;
             
             try {
+                showProcessing('Rendering pages...');
+                
                 const pageNumbers = [];
                 for (let i = 1; i <= pageCount; i++) {
                     const input = document.getElementById(`page${i}`);
@@ -2488,24 +1846,19 @@
                 
                 if (pageNumbers.length === 0) return;
                 
-                showSuccess(`Loading pages: ${pageNumbers.join(', ')}...`);
-                
-                // Load initial pages first (2, 3, 4, or 5 based on user selection)
                 if (!initialPagesLoaded) {
                     const initialPageNumbers = pageNumbers.slice(0, pageCount);
                     await Promise.all(initialPageNumbers.map(pageNum => loadPage(pageNum)));
                     initialPagesLoaded = true;
                 }
                 
-                // Load the remaining pages in the background
                 const pages = [];
                 for (let pageNum of pageNumbers) {
                     const page = await loadPage(pageNum);
                     pages.push(page);
                 }
                 
-                // Enhanced mobile alignment with better coordinate calculation
-                const scale = window.innerWidth < 768 ? 3 : 4; // Slightly lower scale on mobile for performance
+                const scale = window.innerWidth < 768 ? 3 : 4;
                 const viewports = pages.map(page => page.getViewport({scale}));
                 
                 const canvas = document.getElementById('previewCanvas');
@@ -2517,18 +1870,15 @@
                 canvas.width = totalWidth;
                 canvas.height = maxHeight;
                 
-                // Improved mobile alignment calculation
                 const maxDisplayWidth = Math.min(window.innerWidth - 40, 1200);
                 canvasScale = maxDisplayWidth / totalWidth;
                 
                 canvas.style.width = totalWidth * canvasScale + 'px';
                 canvas.style.height = maxHeight * canvasScale + 'px';
                 
-                // White background
                 ctx.fillStyle = 'white';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 
-                // Render each page
                 let xOffset = 0;
                 for (let i = 0; i < pages.length; i++) {
                     const tempCanvas = document.createElement('canvas');
@@ -2544,10 +1894,10 @@
                     xOffset += viewports[i].width;
                 }
                 
-                // Apply watermark if exists
+                // Apply image watermark
                 if (watermarkImage) {
                     ctx.globalAlpha = watermarkOpacity;
-                    const watermarkWidth = canvas.width * 0.3; // 30% of canvas width
+                    const watermarkWidth = canvas.width * 0.3;
                     const watermarkHeight = (watermarkImage.height / watermarkImage.width) * watermarkWidth;
                     const x = (canvas.width - watermarkWidth) / 2;
                     const y = (canvas.height - watermarkHeight) / 2;
@@ -2555,14 +1905,36 @@
                     ctx.globalAlpha = 1.0;
                 }
                 
-                // Enhanced highlight canvas setup for mobile alignment
+                // Apply text watermark
+                if (textWatermark.text) {
+                    ctx.globalAlpha = watermarkOpacity;
+                    ctx.fillStyle = '#000000';
+                    ctx.font = `${textWatermark.size}px ${textWatermark.font}`;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    
+                    const x = canvas.width / 2;
+                    const y = canvas.height / 2;
+                    
+                    if (textWatermark.orientation === 'slant') {
+                        ctx.save();
+                        ctx.translate(x, y);
+                        ctx.rotate(-45 * Math.PI / 180);
+                        ctx.fillText(textWatermark.text, 0, 0);
+                        ctx.restore();
+                    } else {
+                        ctx.fillText(textWatermark.text, x, y);
+                    }
+                    ctx.globalAlpha = 1.0;
+                }
+                
                 const highlightCanvas = document.getElementById('highlightCanvas');
                 highlightCanvas.width = canvas.width;
                 highlightCanvas.height = canvas.height;
                 highlightCanvas.style.width = canvas.style.width;
                 highlightCanvas.style.height = canvas.style.height;
                 
-                // Reset transform for precise mobile alignment
+                // Fix highlight canvas alignment
                 highlightCanvas.style.transform = 'none';
                 highlightCanvas.style.left = '0';
                 highlightCanvas.style.top = '0';
@@ -2574,11 +1946,13 @@
                 
                 setupHighlightCanvas();
                 
-                showSuccess(`✅ Preview updated with pages: ${pageNumbers.join(', ')}`);
+                showSuccess(`Preview updated with pages: ${pageNumbers.join(', ')}`);
                 
             } catch (error) {
                 console.error('Error updating preview:', error);
                 showError('Error loading specific pages. Please check page numbers.');
+            } finally {
+                hideProcessing();
             }
         }
         
@@ -2601,10 +1975,8 @@
             
             window.location.href = mailtoLink;
             
-            // Reset form
             document.getElementById('bookRequestInput').value = '';
             document.getElementById('requestForm').classList.add('hidden');
-            
             showSuccess('Book request sent! Please check your email client to complete the request.');
         }
         
@@ -2675,10 +2047,8 @@
         function setupHighlightCanvas() {
             const canvas = document.getElementById('highlightCanvas');
             
-            // Enhanced coordinate calculation for mobile alignment
             function getCanvasCoordinates(clientX, clientY) {
                 const rect = canvas.getBoundingClientRect();
-                // Use exact pixel calculations for better mobile alignment
                 const scaleX = canvas.width / rect.width;
                 const scaleY = canvas.height / rect.height;
                 
@@ -2691,12 +2061,10 @@
             function handleStart(x, y) {
                 if (!isHighlightMode) return;
                 
-                // Check if clicking on existing highlight for resizing or moving
                 for (let i = 0; i < highlights.length; i++) {
                     const h = highlights[i];
                     const handles = getResizeHandles(h);
                     
-                    // Check resize handles first
                     for (let j = 0; j < handles.length; j++) {
                         if (isPointInRect(x, y, handles[j])) {
                             isResizing = true;
@@ -2706,7 +2074,6 @@
                         }
                     }
                     
-                    // Check if clicking on the rectangle itself for moving
                     if (isPointInRect(x, y, h)) {
                         isMoving = true;
                         selectedRectIndex = i;
@@ -2716,7 +2083,6 @@
                     }
                 }
                 
-                // If not interacting with existing highlight, create new one
                 isDrawing = true;
                 startX = x;
                 startY = y;
@@ -2730,7 +2096,6 @@
                 highlights.push(currentRect);
                 selectedRectIndex = highlights.length - 1;
                 
-                // Draw immediately while drawing (blend while drawing)
                 drawHighlights();
                 saveHighlightState();
             }
@@ -2882,85 +2247,92 @@
                 drawHighlights();
             }
         }
+function downloadCollage() {
+    try {
+        const previewCanvas = document.getElementById('previewCanvas');
+        const highlightCanvas = document.getElementById('highlightCanvas');
+        const tempCanvas = document.createElement('canvas');
+        const tempCtx = tempCanvas.getContext('2d');
         
-        function downloadCollage() {
-            try {
-                const previewCanvas = document.getElementById('previewCanvas');
-                const highlightCanvas = document.getElementById('highlightCanvas');
-                const tempCanvas = document.createElement('canvas');
-                const tempCtx = tempCanvas.getContext('2d');
-                
-                tempCanvas.width = previewCanvas.width;
-                tempCanvas.height = previewCanvas.height;
-                
-                // Draw the preview canvas
-                tempCtx.drawImage(previewCanvas, 0, 0);
-                
-                // Apply highlights with multiply blend mode
-                tempCtx.globalCompositeOperation = 'multiply';
-                highlights.forEach(rect => {
-                    tempCtx.fillStyle = rect.color;
-                    tempCtx.fillRect(rect.x, rect.y, rect.width, rect.height);
-                });
-                tempCtx.globalCompositeOperation = 'source-over';
-                
-                // Apply watermark if exists
-                if (watermarkImage) {
-                    tempCtx.globalAlpha = watermarkOpacity;
-                    const watermarkWidth = tempCanvas.width * 0.3;
-                    const watermarkHeight = (watermarkImage.height / watermarkImage.width) * watermarkWidth;
-                    const x = (tempCanvas.width - watermarkWidth) / 2;
-                    const y = (tempCanvas.height - watermarkHeight) / 2;
-                    tempCtx.drawImage(watermarkImage, x, y, watermarkWidth, watermarkHeight);
-                    tempCtx.globalAlpha = 1.0;
+        tempCanvas.width = previewCanvas.width;
+        tempCanvas.height = previewCanvas.height;
+        
+        // Draw the preview canvas
+        tempCtx.drawImage(previewCanvas, 0, 0);
+        
+        // Apply highlights with multiply blend mode
+        tempCtx.globalCompositeOperation = 'multiply';
+        highlights.forEach(rect => {
+            tempCtx.fillStyle = rect.color;
+            tempCtx.fillRect(rect.x, rect.y, rect.width, rect.height);
+        });
+        tempCtx.globalCompositeOperation = 'source-over';
+        
+        // Apply watermark if exists
+        if (watermarkImage) {
+            tempCtx.globalAlpha = watermarkOpacity;
+            const watermarkWidth = tempCanvas.width * 0.3;
+            const watermarkHeight = (watermarkImage.height / watermarkImage.width) * watermarkWidth;
+            const x = (tempCanvas.width - watermarkWidth) / 2;
+            const y = (tempCanvas.height - watermarkHeight) / 2;
+            tempCtx.drawImage(watermarkImage, x, y, watermarkWidth, watermarkHeight);
+            tempCtx.globalAlpha = 1.0;
+        }
+        
+        const pageNumbers = [];
+        for (let i = 1; i <= pageCount; i++) {
+            const input = document.getElementById(`page${i}`);
+            if (input) {
+                const pageNum = parseInt(input.value);
+                if (!isNaN(pageNum)) {
+                    pageNumbers.push(pageNum);
                 }
-                
-                const pageNumbers = [];
-                for (let i = 1; i <= pageCount; i++) {
-                    const input = document.getElementById(`page${i}`);
-                    if (input) {
-                        const pageNum = parseInt(input.value);
-                        if (!isNaN(pageNum)) {
-                            pageNumbers.push(pageNum);
-                        }
-                    }
-                }
-                
-                const bookName = (selectedBook.displayName || selectedBook.name)
-                    .replace(/[<>:"/\\|?*]/g, '')
-                    .replace(/\s+/g, '_')
-                    .substring(0, 50);
-                
-                const volumeMatch = selectedBook.displayName?.match(/Volume\s+(\d+)/i);
-                const volumeNum = volumeMatch ? volumeMatch[1] : '1';
-                
-                const pagesStr = pageNumbers.length > 0 ? `pg${pageNumbers.join('-')}` : 'pages';
-                
-                const now = new Date();
-                const dateStr = now.toISOString()
-                    .replace(/[:.]/g, '-')
-                    .replace('T', '_')
-                    .substring(0, 16);
-                
-                const filename = `${bookName}_vol${volumeNum}_${pagesStr}_${dateStr}.png`;
-                
-                const link = document.createElement('a');
-                link.download = filename;
-                link.href = tempCanvas.toDataURL('image/png', 1.0);
-                link.click();
-                
-                showSuccess(`✅ Collage downloaded as: ${filename}`);
-                
-            } catch (error) {
-                showError('Error downloading collage. Please try again.');
             }
         }
         
-        // Initialize the application
-        loadBooks();
+        const bookName = (selectedBook.displayName || selectedBook.name)
+            .replace(/[<>:"/\\|?*]/g, '')
+            .replace(/\s+/g, '_')
+            .substring(0, 50);
         
-        // Initialize highlight toggle to off
-        document.getElementById('highlightColors').style.display = 'none';
+        const volumeMatch = selectedBook.displayName?.match(/Volume\s+(\d+)/i);
+        const volumeNum = volumeMatch ? volumeMatch[1] : '1';
+        
+        const pagesStr = pageNumbers.length > 0 ? `pg${pageNumbers.join('-')}` : 'pages';
+        
+        const now = new Date();
+        const dateStr = now.toISOString()
+            .replace(/[:.]/g, '-')
+            .replace('T', '_')
+            .substring(0, 16);
+        
+        const filename = `${bookName}_vol${volumeNum}_${pagesStr}_${dateStr}.png`;
+        
+        const link = document.createElement('a');
+        link.download = filename;
+        link.href = tempCanvas.toDataURL('image/png', 1.0);
+        link.click();
+        
+        // 🎯 GOOGLE ANALYTICS TRACKING - ADD THIS PART
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'collage_download', {
+                'book_name': bookName,
+                'volume_number': volumeNum,
+                'page_count': pageCount,
+                'pages_used': pagesStr,
+                'file_name': filename
+            });
+        }
+        
+        showSuccess(`✅ Collage downloaded as: ${filename}`);
+        
+    } catch (error) {
+        showError('Error downloading collage. Please try again.');
+    }
+}
     </script>
+
+    <!-- Try to load books-index.js, but don't crash if it fails -->
+    <script src="books-index.js" onerror="console.log('books-index.js not found, using sample books')"></script>
 </body>
 </html>
