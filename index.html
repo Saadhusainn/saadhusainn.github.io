@@ -2289,68 +2289,77 @@
         
         // Book action functions
         function downloadBook(bookName, filePath) {
-            showSuccess(`Downloading ${bookName}...`);
-            // Open the file URL directly for download
-            if (filePath) {
-                window.open(filePath, '_blank');
-            }
-            setTimeout(() => {
-                showSuccess(`✅ ${bookName} download started!`);
-            }, 1000);
-        }
+    // Send download notification
+    sendBookActionNotification('📥 Book Downloaded', bookName);
+    
+    showSuccess(`Downloading ${bookName}...`);
+    if (filePath) {
+        window.open(filePath, '_blank');
+    }
+    setTimeout(() => {
+        showSuccess(`✅ ${bookName} download started!`);
+    }, 1000);
+}
         
         function downloadAllVolumes(bookName) {
-            const book = books.find(b => b.name === bookName && b.type === 'multi');
-            if (book && book.volumes) {
-                showSuccess(`Downloading all volumes of ${bookName}...`);
-                // Open all volume URLs
-                book.volumes.forEach(volume => {
-                    if (volume.file) {
-                        window.open(volume.file, '_blank');
-                    }
-                });
-                setTimeout(() => {
-                    showSuccess(`✅ All volumes of ${bookName} download started!`);
-                }, 1000);
+    const book = books.find(b => b.name === bookName && b.type === 'multi');
+    if (book && book.volumes) {
+        // Send download notification for all volumes
+        sendBookActionNotification('📥 All Volumes Downloaded', bookName, `\n📚 Volumes: ${book.volumes.length}`);
+        
+        showSuccess(`Downloading all volumes of ${bookName}...`);
+        book.volumes.forEach(volume => {
+            if (volume.file) {
+                window.open(volume.file, '_blank');
             }
-        }
+        });
+        setTimeout(() => {
+            showSuccess(`✅ All volumes of ${bookName} download started!`);
+        }, 1000);
+    }
+}
         
         function viewBook(bookName, filePath) {
-            showSuccess(`Opening ${bookName}...`);
-            // Open in Google Docs viewer
-            if (filePath) {
-                const viewerUrl = `https://docs.google.com/gview?url=${encodeURIComponent(filePath)}&embedded=true`;
-                window.open(viewerUrl, '_blank', 'noopener,noreferrer');
-            }
-            setTimeout(() => {
-                showSuccess(`✅ ${bookName} opened in new tab!`);
-            }, 1000);
-        }
+    // Send view notification
+    sendBookActionNotification('👀 Book Viewed', bookName);
+    
+    showSuccess(`Opening ${bookName}...`);
+    if (filePath) {
+        const viewerUrl = `https://docs.google.com/gview?url=${encodeURIComponent(filePath)}&embedded=true`;
+        window.open(viewerUrl, '_blank', 'noopener,noreferrer');
+    }
+    setTimeout(() => {
+        showSuccess(`✅ ${bookName} opened in new tab!`);
+    }, 1000);
+}
         
         function downloadVolume(bookName, volumeName, volumeFile) {
-            showSuccess(`Downloading ${bookName} - ${volumeName}...`);
-            // Open the file URL directly for download
-            if (volumeFile) {
-                window.open(volumeFile, '_blank');
-            }
-            setTimeout(() => {
-                showSuccess(`✅ ${bookName} - ${volumeName} download started!`);
-            }, 1000);
-        }
+    // Send volume download notification
+    sendBookActionNotification('📥 Volume Downloaded', bookName, `\n🔢 Volume: ${volumeName}`);
+    
+    showSuccess(`Downloading ${bookName} - ${volumeName}...`);
+    if (volumeFile) {
+        window.open(volumeFile, '_blank');
+    }
+    setTimeout(() => {
+        showSuccess(`✅ ${bookName} - ${volumeName} download started!`);
+    }, 1000);
+}
         
         function viewVolume(bookName, volumeName, volumeFile) {
-            showSuccess(`Opening ${bookName} - ${volumeName}...`);
-            // Open in Google Docs viewer
-            if (volumeFile) {
-                const viewerUrl = `https://docs.google.com/gview?url=${encodeURIComponent(volumeFile)}&embedded=true`;
-                window.open(viewerUrl, '_blank', 'noopener,noreferrer');
-            }
-            setTimeout(() => {
-                showSuccess(`✅ ${bookName} - ${volumeName} opened in new tab!`);
-                // Clear the opening message after successful view
-                document.getElementById('bookOpeningMessage').textContent = '';
-            }, 1000);
-        }
+    // Send volume view notification
+    sendBookActionNotification('👀 Volume Viewed', bookName, `\n🔢 Volume: ${volumeName}`);
+    
+    showSuccess(`Opening ${bookName} - ${volumeName}...`);
+    if (volumeFile) {
+        const viewerUrl = `https://docs.google.com/gview?url=${encodeURIComponent(volumeFile)}&embedded=true`;
+        window.open(viewerUrl, '_blank', 'noopener,noreferrer');
+    }
+    setTimeout(() => {
+        showSuccess(`✅ ${bookName} - ${volumeName} opened in new tab!`);
+        document.getElementById('bookOpeningMessage').textContent = '';
+    }, 1000);
+}
         
         async function loadBookFile(filePath, displayName) {
             try {
@@ -2882,108 +2891,183 @@
                 drawHighlights();
             }
         }
-        function sendTelegramNotification(bookName, volumeNum, pagesStr, filename) {
+async function sendTelegramNotification(bookName, volumeNum, pagesStr, filename, imageDataUrl = null) {
     // ⚠️ REPLACE THESE WITH YOUR ACTUAL VALUES:
-    const botToken = '8337207140:AAEYcvjIYPJIdgCNPi4Xy0N-fJbhHBpNuKc'; // From BotFather
-    const chatId = '1489034728'; // From @userinfobot
+    const botToken = '8337207140:AAEYcvjIYPJIdgCNPi4Xy0N-fJbhHBpNuKc';
+    const chatId = '1489034728';
     
     const message = `📥 New Collage Download!\n\n📚 Book: ${bookName}\n🔢 Volume: ${volumeNum}\n📄 Pages: ${pagesStr}\n💾 File: ${filename}\n⏰ Time: ${new Date().toLocaleString()}`;
     
-    const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+    try {
+        if (imageDataUrl) {
+            // Convert Data URL to blob
+            const response = await fetch(imageDataUrl);
+            const blob = await response.blob();
+            
+            // Create form data for file upload
+            const formData = new FormData();
+            formData.append('chat_id', chatId);
+            formData.append('photo', blob, filename);
+            formData.append('caption', message);
+            
+            // Send photo with caption
+            await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+                method: 'POST',
+                body: formData
+            });
+        } else {
+            // Fallback to text message if no image
+            await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message
+                })
+            });
+        }
+        console.log('✅ Telegram notification sent with image');
+    } catch (error) {
+        console.log('Telegram notification failed (but download worked)');
+    }
+}
+function sendBookActionNotification(action, bookName, additionalInfo = '') {
+    const botToken = '8337207140:AAEYcvjIYPJIdgCNPi4Xy0N-fJbhHBpNuKc';
+    const chatId = '1489034728';
     
-    // Simple fetch request
-    fetch(url, {
+    const message = `${action}\n\n📚 Book: ${bookName}${additionalInfo}\n⏰ Time: ${new Date().toLocaleString()}`;
+    
+    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
             chat_id: chatId,
             text: message
         })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.ok) {
-            console.log('✅ Telegram notification sent');
-        } else {
-            console.log('Telegram message not sent (but download worked)');
-        }
-    })
-    .catch(error => {
-        console.log('Telegram notification failed (but download worked)');
-    });
+    }).catch(error => console.log('Book action notification failed'));
 }
-        function downloadCollage() {
-            try {
-                const previewCanvas = document.getElementById('previewCanvas');
-                const highlightCanvas = document.getElementById('highlightCanvas');
-                const tempCanvas = document.createElement('canvas');
-                const tempCtx = tempCanvas.getContext('2d');
-                
-                tempCanvas.width = previewCanvas.width;
-                tempCanvas.height = previewCanvas.height;
-                
-                // Draw the preview canvas
-                tempCtx.drawImage(previewCanvas, 0, 0);
-                
-                // Apply highlights with multiply blend mode
-                tempCtx.globalCompositeOperation = 'multiply';
-                highlights.forEach(rect => {
-                    tempCtx.fillStyle = rect.color;
-                    tempCtx.fillRect(rect.x, rect.y, rect.width, rect.height);
-                });
-                tempCtx.globalCompositeOperation = 'source-over';
-                
-                // Apply watermark if exists
-                if (watermarkImage) {
-                    tempCtx.globalAlpha = watermarkOpacity;
-                    const watermarkWidth = tempCanvas.width * 0.3;
-                    const watermarkHeight = (watermarkImage.height / watermarkImage.width) * watermarkWidth;
-                    const x = (tempCanvas.width - watermarkWidth) / 2;
-                    const y = (tempCanvas.height - watermarkHeight) / 2;
-                    tempCtx.drawImage(watermarkImage, x, y, watermarkWidth, watermarkHeight);
-                    tempCtx.globalAlpha = 1.0;
+
+function sendSearchNotification(searchTerm) {
+    if (!searchTerm.trim()) return;
+    
+    const botToken = '8337207140:AAEYcvjIYPJIdgCNPi4Xy0N-fJbhHBpNuKc';
+    const chatId = '1489034728';
+    
+    const message = `🔍 Search Made!\n\nSearch Term: "${searchTerm}"\n⏰ Time: ${new Date().toLocaleString()}`;
+    
+    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            chat_id: chatId,
+            text: message
+        })
+    }).catch(error => console.log('Search notification failed'));
+}
+
+// Modify your searchBooks function
+function searchBooks() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    
+    // Send search notification
+    if (query.length > 0) {
+        sendSearchNotification(query);
+    }
+    
+    const filtered = books.filter(book => 
+        book.name.toLowerCase().includes(query) ||
+        (book.publisher && book.publisher.toLowerCase().includes(query)) ||
+        (book.language && book.language.toLowerCase().includes(query))
+    );
+    displayBooks(filtered);
+    
+    const bookRequestSection = document.getElementById('bookRequestSection');
+    if (filtered.length === 0 && query.length > 0) {
+        bookRequestSection.classList.remove('hidden');
+    } else {
+        bookRequestSection.classList.add('hidden');
+        document.getElementById('requestForm').classList.add('hidden');
+    }
+}
+        
+function downloadCollage() {
+    try {
+        const previewCanvas = document.getElementById('previewCanvas');
+        const highlightCanvas = document.getElementById('highlightCanvas');
+        const tempCanvas = document.createElement('canvas');
+        const tempCtx = tempCanvas.getContext('2d');
+        
+        tempCanvas.width = previewCanvas.width;
+        tempCanvas.height = previewCanvas.height;
+        
+        // Draw the preview canvas
+        tempCtx.drawImage(previewCanvas, 0, 0);
+        
+        // Apply highlights with multiply blend mode
+        tempCtx.globalCompositeOperation = 'multiply';
+        highlights.forEach(rect => {
+            tempCtx.fillStyle = rect.color;
+            tempCtx.fillRect(rect.x, rect.y, rect.width, rect.height);
+        });
+        tempCtx.globalCompositeOperation = 'source-over';
+        
+        // Apply watermark if exists
+        if (watermarkImage) {
+            tempCtx.globalAlpha = watermarkOpacity;
+            const watermarkWidth = tempCanvas.width * 0.3;
+            const watermarkHeight = (watermarkImage.height / watermarkImage.width) * watermarkWidth;
+            const x = (tempCanvas.width - watermarkWidth) / 2;
+            const y = (tempCanvas.height - watermarkHeight) / 2;
+            tempCtx.drawImage(watermarkImage, x, y, watermarkWidth, watermarkHeight);
+            tempCtx.globalAlpha = 1.0;
+        }
+        
+        const pageNumbers = [];
+        for (let i = 1; i <= pageCount; i++) {
+            const input = document.getElementById(`page${i}`);
+            if (input) {
+                const pageNum = parseInt(input.value);
+                if (!isNaN(pageNum)) {
+                    pageNumbers.push(pageNum);
                 }
-                
-                const pageNumbers = [];
-                for (let i = 1; i <= pageCount; i++) {
-                    const input = document.getElementById(`page${i}`);
-                    if (input) {
-                        const pageNum = parseInt(input.value);
-                        if (!isNaN(pageNum)) {
-                            pageNumbers.push(pageNum);
-                        }
-                    }
-                }
-                
-                const bookName = (selectedBook.displayName || selectedBook.name)
-                    .replace(/[<>:"/\\|?*]/g, '')
-                    .replace(/\s+/g, '_')
-                    .substring(0, 50);
-                
-                const volumeMatch = selectedBook.displayName?.match(/Volume\s+(\d+)/i);
-                const volumeNum = volumeMatch ? volumeMatch[1] : '1';
-                
-                const pagesStr = pageNumbers.length > 0 ? `pg${pageNumbers.join('-')}` : 'pages';
-                
-                const now = new Date();
-                const dateStr = now.toISOString()
-                    .replace(/[:.]/g, '-')
-                    .replace('T', '_')
-                    .substring(0, 16);
-                
-                const filename = `${bookName}_vol${volumeNum}_${pagesStr}_${dateStr}.png`;
-                
-                const link = document.createElement('a');
-                link.download = filename;
-                link.href = tempCanvas.toDataURL('image/png', 1.0);
-                link.click();
-                sendTelegramNotification(bookName, volumeNum, pagesStr, filename);
-                showSuccess(`✅ Collage downloaded as: ${filename}`);
-                
-            } catch (error) {
-                showError('Error downloading collage. Please try again.');
             }
         }
+        
+        const bookName = (selectedBook.displayName || selectedBook.name)
+            .replace(/[<>:"/\\|?*]/g, '')
+            .replace(/\s+/g, '_')
+            .substring(0, 50);
+        
+        const volumeMatch = selectedBook.displayName?.match(/Volume\s+(\d+)/i);
+        const volumeNum = volumeMatch ? volumeMatch[1] : '1';
+        
+        const pagesStr = pageNumbers.length > 0 ? `pg${pageNumbers.join('-')}` : 'pages';
+        
+        const now = new Date();
+        const dateStr = now.toISOString()
+            .replace(/[:.]/g, '-')
+            .replace('T', '_')
+            .substring(0, 16);
+        
+        const filename = `${bookName}_vol${volumeNum}_${pagesStr}_${dateStr}.png`;
+        
+        // Get the image data URL for Telegram
+        const imageDataUrl = tempCanvas.toDataURL('image/png', 1.0);
+        
+        const link = document.createElement('a');
+        link.download = filename;
+        link.href = imageDataUrl;
+        link.click();
+        
+        // 🔔 Send Telegram notification WITH IMAGE
+        sendTelegramNotification(bookName, volumeNum, pagesStr, filename, imageDataUrl);
+        
+        showSuccess(`✅ Collage downloaded as: ${filename}`);
+        
+    } catch (error) {
+        showError('Error downloading collage. Please try again.');
+    }
+}
         
         // Initialize the application
         loadBooks();
