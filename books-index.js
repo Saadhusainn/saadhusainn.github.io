@@ -3436,6 +3436,505 @@ const booksIndex = {
     ],
     isDropdownOpen: false
 },
+    {
+        name: "أحكام القرآن للشافعي جمع البيهقي - تحقيق الشوامي - دار الذخائر",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AhkamAlQuranLiAlShafiiJam_AlBayhaqi_TahqiqAlShawaamii_DarAlDhakhair.pdf",
+        publisher: "دار الذخائر",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "أخبار مكة للأزرقي",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AkhbarMakkahLiAlAzraqi.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "الآداب للبيهقي - دار الكتب العلمية",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlAadaabLiAlBayhaqi_DarAlKutubAlIlmiyyah.pdf",
+        publisher: "دار الكتب العلمية",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "الآداب للبيهقي - مؤسسة الكتب الثقافية",
+        type: "multi",
+        publisher: "مؤسسة الكتب الثقافية",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlAadaabLiAlBayhaqi_MuassasahAlKutubAlThaqaafiyyah00.pdf" },
+            { name: "00p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlAadaabLiAlBayhaqi_MuassasahAlKutubAlThaqaafiyyah00p.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "الأمالي بجامع دمشق للخطيب البغدادي - دار البشائر الإسلامية",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlAmaliBiJamiDimashqLiAlKhatibAlBaghdadi_DarAlBashairAlIslamiyyah.pdf",
+        publisher: "دار البشائر الإسلامية",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "الأربعون الصغرى للبيهقي - دار الكتب العربي",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlArbaunAlSughraLiAlBayhaqi_DarAlKutubAlArabi.pdf",
+        publisher: "دار الكتب العربي",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "الأسماء المبهمة في الأنباء المحكمة للخطيب البغدادي",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlAsmaAlMubhamahFiAlAnbaAlMuhkamahLiAlKhatibAlBaghdadi.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "البعث والنشور للبيهقي - تحقيق الشوامي - مكتبة دار الحجاز",
+        type: "multi",
+        publisher: "مكتبة دار الحجاز",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlBa_thWaAlNushurLiAlBayhaqi_TahqiqAlShawami_MaktabahDarAlHijaz01.pdf" },
+            { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlBa_thWaAlNushurLiAlBayhaqi_TahqiqAlShawami_MaktabahDarAlHijaz01p.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "البخلاء للخطيب البغدادي - دار الكتب العلمية",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlBukhalaa_LiAlKhatibAlBaghdadi_DarAlKutubAlIlmiyyah.pdf",
+        publisher: "دار الكتب العلمية",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "الإعتقاد والهداية إلى سبيل الرشاد للبيهقي - دار الفاضلة",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlItiqadWaAlHidayahIlaSabilAlRashadLiAlBayhaqi_DarAlFadeelah.pdf",
+        publisher: "دار الفاضلة",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "الجامع لأخلاق الراوي وآداب السامع للخطيب البغدادي - مؤسسة الرسالة",
+        type: "multi",
+        publisher: "مؤسسة الرسالة",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlJamiAlAkhlaqAlRawiWaAadaabAlSamiLiAlKhatibAlBaghdadi_MuassasahAlRisalah1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlJamiAlAkhlaqAlRawiWaAadaabAlSamiLiAlKhatibAlBaghdadi_MuassasahAlRisalah2.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "المتنيف في تتمة المؤتلف والمختلف للخطيب البغدادي - المكتبة العمورية دار الذخائر",
+        type: "multi",
+        publisher: "المكتبة العمورية دار الذخائر",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlMu_tanifFiTakmilahAlMu_talifWaAlMukhtalifLiAlKhatibAlBaghdadi_AlMaktabahAlUmuriyyahDarAlDhakhair.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlMu_tanifFiTakmilahAlMu_talifWaAlMukhtalifLiAlKhatibAlBaghdadi_AlMaktabahAlUmuriyyahDarAlDhakhair02.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "مودة الأوهام في الجمع والتفريق للخطيب البغدادي - دار الفكر الإسلامي",
+        type: "multi",
+        publisher: "دار الفكر الإسلامي",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlMudahAlAwhamAlJam_WaAlTafriqLiAlKhatibAlBaghdadi_DarAlFikrAlIslami00.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlMudahAlAwhamAlJam_WaAlTafriqLiAlKhatibAlBaghdadi_DarAlFikrAlIslami01.pdf" },
+            { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlMudahAlAwhamAlJam_WaAlTafriqLiAlKhatibAlBaghdadi_DarAlFikrAlIslami01p.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlMudahAlAwhamAlJam_WaAlTafriqLiAlKhatibAlBaghdadi_DarAlFikrAlIslami02.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "المنتخب من كتاب الزهد والرقائق للخطيب البغدادي - دار البشائر الإسلامية",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlMuntakhabMinKitabAlZuhdWaAlRaqaiqLiAlKhatibAlBaghdadi_DarAlBashairAlIslamiyyah.pdf",
+        publisher: "دار البشائر الإسلامية",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "القول في علم النجوم للخطيب البغدادي",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlQawlFiIlmAlNujumLiAlKhatibAlBaghdadi.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "الرحلة في طلب الحديث للخطيب البغدادي",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlRihlahFiTalabAlHadithLiAlKhatibAlBaghdadi.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "السنن المأثورة للشافعي - دار المعرفة",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlSunanAlMa_thurahLiAlShafii_DarAlMarfah.pdf",
+        publisher: "دار المعرفة",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "التقييد العلم للخطيب البغدادي - دار الاستقامة",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlTaqiiydAlIlmLiAlKhatibAlBaghdadi_DarAlIstiqamah.pdf",
+        publisher: "دار الاستقامة",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "الطفيل وحكايات الطفيليين للخطيب البغدادي",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlTatfilWaHikaayaatAlTafiliyyiinLiAlKhatibAlBaghdadi.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "الأم للشافعي - دار الوفاء",
+        type: "multi",
+        publisher: "دار الوفاء",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlUmmLiAlShafii_DarAlWafa00.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlUmmLiAlShafii_DarAlWafa01.pdf" },
+            { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlUmmLiAlShafii_DarAlWafa01p.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlUmmLiAlShafii_DarAlWafa02.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlUmmLiAlShafii_DarAlWafa03.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlUmmLiAlShafii_DarAlWafa04.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlUmmLiAlShafii_DarAlWafa05.pdf" },
+            { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlUmmLiAlShafii_DarAlWafa06.pdf" },
+            { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlUmmLiAlShafii_DarAlWafa07.pdf" },
+            { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlUmmLiAlShafii_DarAlWafa08.pdf" },
+            { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlUmmLiAlShafii_DarAlWafa09.pdf" },
+            { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlUmmLiAlShafii_DarAlWafa10.pdf" },
+            { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/AlUmmLiAlShafii_DarAlWafa11.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "غريب الحديث لابن الجوزي - دار الكتب العلمية",
+        type: "multi",
+        publisher: "دار الكتب العلمية",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/GharibAlHadithLiIbnAlJawzi_DarAlKutubAlIlmiyyah00.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/GharibAlHadithLiIbnAlJawzi_DarAlKutubAlIlmiyyah01.pdf" },
+            { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/GharibAlHadithLiIbnAlJawzi_DarAlKutubAlIlmiyyah01p.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/GharibAlHadithLiIbnAlJawzi_DarAlKutubAlIlmiyyah02.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "غنية الملتمس في إيضاح الملتبس للخطيب البغدادي",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/GhuniyahAlMultamisIdahAlMultabisLiAlKhatibAlBaghdadi.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "اقتضاء العلم العمل للخطيب البغدادي - المكتب الإسلامي",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/IqtidaAlIlmAlAmalLiAlKhatibAlBaghdadi_AlMaktabAlIslami.pdf",
+        publisher: "المكتب الإسلامي",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "إثبات عذاب القبر للبيهقي - مكتبة التراث الإسلامي",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/IthbatAdhabAlQabrLiAlBayhaqi_MaktabahAlTurathAlIslami.pdf",
+        publisher: "مكتبة التراث الإسلامي",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "جامع العلم للشافعي - تحقيق شاكر - مكتبة ابن تيمية",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/JamiAlIlmLiAlShafii_TahqiqShakir_MaktabahIbnTaymiyyah.pdf",
+        publisher: "مكتبة ابن تيمية",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "كتاب أخبار مكة",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/KitabAkhbarMakkah.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "كتاب الأسماء والصفات للبيهقي - المكتبة الأزهرية للتراث",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/KitabAlAsmaWaAlSifatLiAlBayhaqi_AlMaktabahAlAzhariyyahLiAlTurath.pdf",
+        publisher: "المكتبة الأزهرية للتراث",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "كتاب الأسماء والصفات للبيهقي - دار الفاضلة دار البلد بمصر",
+        type: "multi",
+        publisher: "دار الفاضلة دار البلد بمصر",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/KitabAlAsmaWaAlSifatLiAlBayhaqi_DarAlFadeelahDarAlBaldBiMisr01.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/KitabAlAsmaWaAlSifatLiAlBayhaqi_DarAlFadeelahDarAlBaldBiMisr02.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "كتاب الأسماء والصفات للبيهقي - دار السواديين للتوزيع",
+        type: "multi",
+        publisher: "دار السواديين للتوزيع",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/KitabAlAsmaWaAlSifatLiAlBayhaqi_DarAlSawaadiiLiAlTawzee01.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/KitabAlAsmaWaAlSifatLiAlBayhaqi_DarAlSawaadiiLiAlTawzee02.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "كتاب الأسماء والصفات للبيهقي - دار الشهداء",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/KitabAlAsmaWaAlSifatLiAlBayhaqi_DarAlShuhadaa.pdf",
+        publisher: "دار الشهداء",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "كتاب الأسماء والصفات للبيهقي - دار التقوى",
+        type: "multi",
+        publisher: "دار التقوى",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/KitabAlAsmaWaAlSifatLiAlBayhaqi_DarAlTaqwaa01.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/KitabAlAsmaWaAlSifatLiAlBayhaqi_DarAlTaqwaa02.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "كتاب الجامع في الخطيم للبيهقي - الدار السلفية",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/KitabAlJamiFiAlKhatimLiAlBayhaqi_AlDarAlSalafiyyah.pdf",
+        publisher: "الدار السلفية",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "كتاب المتفق والمفترق للخطيب البغدادي - دار القدر",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/KitabAlMuttafiqWaAlMuftariqLiAlKhatibAlBaghdadi_DarAlQadri.pdf",
+        publisher: "دار القدر",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "كتاب ذكر صلاة التسبيح للخطيب البغدادي - دار الآثارية",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/KitabDhikrSalahAlTasbihLiAlKhatibAlBaghdadi_DarAlAthariyyah.pdf",
+        publisher: "دار الآثارية",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "كتاب تلخيص المتشابه في الرسم للخطيب البغدادي",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/KitabTalkhisAlMutashabihFiAlRasmLiAlKhatibAlBaghdadi.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "منهاج السنة النبوية لابن تيمية",
+        type: "multi",
+        publisher: "N/A",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/MinhajAlSunnahAlNabawiyyahLiIbnTaymiyyah00.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/MinhajAlSunnahAlNabawiyyahLiIbnTaymiyyah01.pdf" },
+            { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/MinhajAlSunnahAlNabawiyyahLiIbnTaymiyyah01p.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/MinhajAlSunnahAlNabawiyyahLiIbnTaymiyyah02.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/MinhajAlSunnahAlNabawiyyahLiIbnTaymiyyah03.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/MinhajAlSunnahAlNabawiyyahLiIbnTaymiyyah04.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/MinhajAlSunnahAlNabawiyyahLiIbnTaymiyyah05.pdf" },
+            { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/MinhajAlSunnahAlNabawiyyahLiIbnTaymiyyah06.pdf" },
+            { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/MinhajAlSunnahAlNabawiyyahLiIbnTaymiyyah07.pdf" },
+            { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/MinhajAlSunnahAlNabawiyyahLiIbnTaymiyyah08.pdf" },
+            { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/MinhajAlSunnahAlNabawiyyahLiIbnTaymiyyah09.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "نصيحة أهل الحديث للخطيب البغدادي - مكتبة المنار",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/NasihahAhlAlHadithLiAlKhatibAlBaghdadi_MaktabahAlMinar.pdf",
+        publisher: "مكتبة المنار",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "نوادر العيك في معرفة النيك للسيوطي - دار الكتب العربي",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/NawadirAlAykFiMarfahAlNaykLiAlSuyuti_DarAlKutubAlArabi.pdf",
+        publisher: "دار الكتب العربي",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "صحيح وضعيف تاريخ الطبري - دار ابن كثير",
+        type: "multi",
+        publisher: "دار ابن كثير",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SahihWaDaifTarikhAlTabari_DarIbnKathir00.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SahihWaDaifTarikhAlTabari_DarIbnKathir01.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SahihWaDaifTarikhAlTabari_DarIbnKathir02.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SahihWaDaifTarikhAlTabari_DarIbnKathir03.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SahihWaDaifTarikhAlTabari_DarIbnKathir04.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SahihWaDaifTarikhAlTabari_DarIbnKathir05.pdf" },
+            { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SahihWaDaifTarikhAlTabari_DarIbnKathir06.pdf" },
+            { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SahihWaDaifTarikhAlTabari_DarIbnKathir07.pdf" },
+            { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SahihWaDaifTarikhAlTabari_DarIbnKathir08.pdf" },
+            { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SahihWaDaifTarikhAlTabari_DarIbnKathir09.pdf" },
+            { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SahihWaDaifTarikhAlTabari_DarIbnKathir10.pdf" },
+            { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SahihWaDaifTarikhAlTabari_DarIbnKathir11.pdf" },
+            { name: "12", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SahihWaDaifTarikhAlTabari_DarIbnKathir12.pdf" },
+            { name: "13", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SahihWaDaifTarikhAlTabari_DarIbnKathir13.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "شرف أصحاب الحديث للخطيب البغدادي - دار الكتب الظاهرية",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SharfAshabAlHadithLiAlKhatibAlBaghdadi_DarAlKutubAlZahiriyyah.pdf",
+        publisher: "دار الكتب الظاهرية",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "سير أعلام النبلاء - مؤسسة الرسالة",
+        type: "multi",
+        publisher: "مؤسسة الرسالة",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah00.pdf" },
+            { name: "00p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah00p.pdf" },
+            { name: "00se1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah00se1.pdf" },
+            { name: "00se2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah00se2.pdf" },
+            { name: "00skh", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah00skh.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah01.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah02.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah03.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah04.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah05.pdf" },
+            { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah06.pdf" },
+            { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah07.pdf" },
+            { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah08.pdf" },
+            { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah09.pdf" },
+            { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah10.pdf" },
+            { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah11.pdf" },
+            { name: "12", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah12.pdf" },
+            { name: "13", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah13.pdf" },
+            { name: "14", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah14.pdf" },
+            { name: "15", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah15.pdf" },
+            { name: "16", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah16.pdf" },
+            { name: "17", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah17.pdf" },
+            { name: "18", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah18.pdf" },
+            { name: "19", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah19.pdf" },
+            { name: "20", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah20.pdf" },
+            { name: "21", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah21.pdf" },
+            { name: "22", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah22.pdf" },
+            { name: "23", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah23.pdf" },
+            { name: "24in", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah24in.pdf" },
+            { name: "25in", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SiyarAlamAlNubala_MuassasahAlRisalah25in.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "سؤالات ابن أبي شيبة لعلي بن المديني في الجرح والتعديل - مكتبة المعارف",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/SuwalatIbnAbiShaybahLiAliIbnAlMadiniFiAlJarhWaAlTadil_MaktabahAlMaarif.pdf",
+        publisher: "مكتبة المعارف",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "تألي تلخيص المتشابه للخطيب البغدادي",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TaaliiTalkhisAlMutashabihLiAlKhatibAlBaghdadi.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "تفسير الإمام الشافعي - دار التدمريية",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TafsirAlImamAlShafii_DarAlTadmurayyah.pdf",
+        publisher: "دار التدمريية",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "تهذيب الأسماء واللغات للنووي - دار الفيحاء",
+        type: "multi",
+        publisher: "دار الفيحاء",
+        language: "Arabic",
+        volumes: [
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TahdhibAlAsmaWaAlLughatLiAlNawawi_DarAlFiihaa03.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TahdhibAlAsmaWaAlLughatLiAlNawawi_DarAlFiihaa04.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "تهذيب الأسماء واللغات للنووي - دار الكتب العلمية",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TahdhibAlAsmaWaAlLughatLiAlNawawi_DarAlKutubAlIlmiyyah.pdf",
+        publisher: "دار الكتب العلمية",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "تهذيب التهذيب لابن حجر - مؤسسة الرسالة",
+        type: "multi",
+        publisher: "مؤسسة الرسالة",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TahdhibAlTahdhibLiIbnHajar_MuassasahAlRisalah01.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TahdhibAlTahdhibLiIbnHajar_MuassasahAlRisalah02.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TahdhibAlTahdhibLiIbnHajar_MuassasahAlRisalah03.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TahdhibAlTahdhibLiIbnHajar_MuassasahAlRisalah04.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "تاريخ المدينة المنورة لابن شبة",
+        type: "multi",
+        publisher: "N/A",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TarikhAlMadinahAlMunawwarahLiIbnShabbah00.pdf" },
+            { name: "1-4", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TarikhAlMadinahAlMunawwarahLiIbnShabbah1-4.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "تاريخ ابن خلدون",
+        type: "multi",
+        publisher: "N/A",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TarikhIbnKhaldun00.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TarikhIbnKhaldun01.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TarikhIbnKhaldun02.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TarikhIbnKhaldun03.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TarikhIbnKhaldun04.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TarikhIbnKhaldun05.pdf" },
+            { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TarikhIbnKhaldun06.pdf" },
+            { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TarikhIbnKhaldun07.pdf" },
+            { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TarikhIbnKhaldun08.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "تاريخ يحيى بن معين - المكتبة العربية السعودية",
+        type: "multi",
+        publisher: "المكتبة العربية السعودية",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TarikhYahyaIbnMain_AlMaktabahAlArabiyyahAlSaudiyyah00.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TarikhYahyaIbnMain_AlMaktabahAlArabiyyahAlSaudiyyah01.pdf" },
+            { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TarikhYahyaIbnMain_AlMaktabahAlArabiyyahAlSaudiyyah01p.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TarikhYahyaIbnMain_AlMaktabahAlArabiyyahAlSaudiyyah02.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TarikhYahyaIbnMain_AlMaktabahAlArabiyyahAlSaudiyyah03.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TarikhYahyaIbnMain_AlMaktabahAlArabiyyahAlSaudiyyah04.pdf" }
+        ],
+        isDropdownOpen: false
+    },
 {
     name: "تلخيص الحبير لإبن حجر",
     type: "multi",
