@@ -3526,7 +3526,7 @@ const booksIndex = {
         isDropdownOpen: false
     },
     {
-        name: "المتنيف في تتمة المؤتلف والمختلف للخطيب البغدادي - المكتبة العمورية دار الذخائر",
+        name: "المؤتنف تكملة المؤتلف والمختلف للخطيب البغدادي - المكتبة العمورية دار الذخائر",
         type: "multi",
         publisher: "المكتبة العمورية دار الذخائر",
         language: "Arabic",
@@ -3537,7 +3537,7 @@ const booksIndex = {
         isDropdownOpen: false
     },
     {
-        name: "مودة الأوهام في الجمع والتفريق للخطيب البغدادي - دار الفكر الإسلامي",
+        name: "موضح أوهام الجمع والتفريق للخطيب البغدادي - دار الفكر الإسلامي",
         type: "multi",
         publisher: "دار الفكر الإسلامي",
         language: "Arabic",
@@ -3627,7 +3627,7 @@ const booksIndex = {
         isDropdownOpen: false
     },
     {
-        name: "غنية الملتمس في إيضاح الملتبس للخطيب البغدادي",
+        name: "غنية الملتمس إيضاح الملتبس للخطيب البغدادي",
         file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/GhuniyahAlMultamisIdahAlMultabisLiAlKhatibAlBaghdadi.pdf",
         publisher: "N/A",
         language: "Arabic",
@@ -3709,7 +3709,7 @@ const booksIndex = {
         isDropdownOpen: false
     },
     {
-        name: "كتاب الجامع في الخطيم للبيهقي - الدار السلفية",
+        name: "كتاب الجامع في الخاتم للبيهقي - الدار السلفية",
         file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/KitabAlJamiFiAlKhatimLiAlBayhaqi_AlDarAlSalafiyyah.pdf",
         publisher: "الدار السلفية",
         language: "Arabic",
@@ -3847,7 +3847,7 @@ const booksIndex = {
         type: "single"
     },
     {
-        name: "تألي تلخيص المتشابه للخطيب البغدادي",
+        name: "تالى تلخيص المتشابه للخطيب البغدادي",
         file: "https://raw.githubusercontent.com/saadhusainn/sijjeen94/main/pdfs/TaaliiTalkhisAlMutashabihLiAlKhatibAlBaghdadi.pdf",
         publisher: "N/A",
         language: "Arabic",
