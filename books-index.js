@@ -4122,6 +4122,299 @@ const booksIndex = {
         ],
         isDropdownOpen: false
     },
+    {
+        name: "الأدب المفرد - كتاب و سنت - اردو",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/AlAdabAlMufrad_KitabOSunnat_Urdu.pdf",
+        publisher: "كتاب و سنت",
+        language: "Urdu",
+        type: "single"
+    },
+    {
+        name: "الأدب المفرد - اردو",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/AlAdabAlMufrad_Urdu.pdf",
+        publisher: "N/A",
+        language: "Urdu",
+        type: "single"
+    },
+    {
+        name: "الإصابة في تمييز الصحابة - اردو",
+        type: "multi",
+        publisher: "N/A",
+        language: "Urdu",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/AlIsabahFiTamayyizAlSahabah_Urdu1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/AlIsabahFiTamayyizAlSahabah_Urdu2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/AlIsabahFiTamayyizAlSahabah_Urdu3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/AlIsabahFiTamayyizAlSahabah_Urdu4.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/AlIsabahFiTamayyizAlSahabah_Urdu5.pdf" },
+            { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/AlIsabahFiTamayyizAlSahabah_Urdu6.pdf" },
+            { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/AlIsabahFiTamayyizAlSahabah_Urdu7.pdf" },
+            { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/AlIsabahFiTamayyizAlSahabah_Urdu8.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "الصارم المسلول على شاتم الرسول - اردو",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/AlSarimAlMaslulAlaShatimAlRasul_Urdu.pdf",
+        publisher: "N/A",
+        language: "Urdu",
+        type: "single"
+    },
+    {
+        name: "السنة للمروزي - اردو",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/AlSunnahLiAlMarwazi_Urdu.pdf",
+        publisher: "N/A",
+        language: "Urdu",
+        type: "single"
+    },
+    {
+        name: "الطبقات الكبرى لابن سعد - اردو",
+        type: "multi",
+        publisher: "N/A",
+        language: "Urdu",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/AlTabaqatAlKubraTabaqatIbnSad_Urdu1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/AlTabaqatAlKubraTabaqatIbnSad_Urdu2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/AlTabaqatAlKubraTabaqatIbnSad_Urdu3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/AlTabaqatAlKubraTabaqatIbnSad_Urdu4.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "فضائل الصحابة لأحمد بن حنبل - اردو",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/FadailAlSahabahLiAhmadIbnHanbal_Urdu.pdf",
+        publisher: "N/A",
+        language: "Urdu",
+        type: "single"
+    },
+    {
+        name: "غنية الطالبين - اردو",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/GhuniyahAlTalibeen_Urdu.pdf",
+        publisher: "N/A",
+        language: "Urdu",
+        type: "single"
+    },
+    {
+        name: "جامع الترمذي - اردو",
+        type: "multi",
+        publisher: "N/A",
+        language: "Urdu",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/JamiAlTirmidhi_Urdu1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/JamiAlTirmidhi_Urdu2.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "معرفة علوم الحديث - اردو",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/MaarfahUlumAlHadith_Urdu.pdf",
+        publisher: "N/A",
+        language: "Urdu",
+        type: "single"
+    },
+    {
+        name: "مرقاة المفاتيح شرح مشكاة المصابيح - اردو",
+        type: "multi",
+        publisher: "N/A",
+        language: "Urdu",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/MirqatAlMafatihSharhMishkat_Urdu1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/MirqatAlMafatihSharhMishkat_Urdu2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/MirqatAlMafatihSharhMishkat_Urdu3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/MirqatAlMafatihSharhMishkat_Urdu4.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/MirqatAlMafatihSharhMishkat_Urdu5.pdf" },
+            { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/MirqatAlMafatihSharhMishkat_Urdu6.pdf" },
+            { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/MirqatAlMafatihSharhMishkat_Urdu7.pdf" },
+            { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/MirqatAlMafatihSharhMishkat_Urdu8.pdf" },
+            { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/MirqatAlMafatihSharhMishkat_Urdu9.pdf" },
+            { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/MirqatAlMafatihSharhMishkat_Urdu10.pdf" },
+            { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/MirqatAlMafatihSharhMishkat_Urdu11.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "موطأ الإمام مالك - اردو",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/MuattaImamMalik_Urdu.pdf",
+        publisher: "N/A",
+        language: "Urdu",
+        type: "single"
+    },
+    {
+        name: "مقدمة ابن الصلاح - اردو",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/MuqaddimahIbnESalah_Urdu.pdf",
+        publisher: "N/A",
+        language: "Urdu",
+        type: "single"
+    },
+    {
+        name: "مسند الدارمي - اردو",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/MusnadAlDarmiSunanDarmi_Urdu.pdf",
+        publisher: "N/A",
+        language: "Urdu",
+        type: "single"
+    },
+    {
+        name: "مسند إسحاق بن راهويه - اردو",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/MusnadIshaqBinRahawayh_Urdu.pdf",
+        publisher: "N/A",
+        language: "Urdu",
+        type: "single"
+    },
+    {
+        name: "موطأ الإمام مالك - كتاب و سنت - اردو",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/MuwattaImamMalik_KitabOSunnat_Urdu.pdf",
+        publisher: "كتاب و سنت",
+        language: "Urdu",
+        type: "single"
+    },
+    {
+        name: "صحيح البخاري - اردو",
+        type: "multi",
+        publisher: "N/A",
+        language: "Urdu",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/SahihBukhari_Urdu1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/SahihBukhari_Urdu2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/SahihBukhari_Urdu3.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "صحيح مسلم - اردو",
+        type: "multi",
+        publisher: "N/A",
+        language: "Urdu",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/SahihMuslim_Urdu1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/SahihMuslim_Urdu2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/SahihMuslim_Urdu3.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "شرح معاني الآثار - اردو",
+        type: "multi",
+        publisher: "N/A",
+        language: "Urdu",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/SharhMaaniAlAthar_Urdu1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/SharhMaaniAlAthar_Urdu2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/SharhMaaniAlAthar_Urdu3.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "سبل السلام - اردو",
+        type: "multi",
+        publisher: "N/A",
+        language: "Urdu",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/SubulAlSalam_Urdu1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/SubulAlSalam_Urdu2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/SubulAlSalam_Urdu3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/SubulAlSalam_Urdu4.pdf" },
+            { name: "04.2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/SubulAlSalam_Urdu4.2.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "سنن أبي داود - اردو",
+        type: "multi",
+        publisher: "N/A",
+        language: "Urdu",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/SunanAbuDawud_Urdu1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/SunanAbuDawud_Urdu2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/SunanAbuDawud_Urdu3.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "سنن الدارمي - اردو",
+        type: "multi",
+        publisher: "N/A",
+        language: "Urdu",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/SunanDarmi_Urdu01.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/SunanDarmi_Urdu02.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "سنن ابن ماجة - اردو",
+        type: "multi",
+        publisher: "N/A",
+        language: "Urdu",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/SunanIbnMajah_Urdu1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/SunanIbnMajah_Urdu2.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "سنن النسائي - اردو",
+        type: "multi",
+        publisher: "N/A",
+        language: "Urdu",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/SunanNasai_Urdu1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/SunanNasai_Urdu2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/SunanNasai_Urdu3.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "تقريب التهذيب - اردو",
+        type: "multi",
+        publisher: "N/A",
+        language: "Urdu",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/TaqribAlTahdhib_Urdu1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/TaqribAlTahdhib_Urdu2.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "تاريخ الخلفاء - اردو",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/TareekhAlKhulafa_Urdu.pdf",
+        publisher: "N/A",
+        language: "Urdu",
+        type: "single"
+    },
+    {
+        name: "تاريخ ابن خلدون - اردو",
+        type: "multi",
+        publisher: "N/A",
+        language: "Urdu",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/TarikhIbnKhuldoon_Urdu1.pdf" },
+            { name: "01_muqaddimah", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/TarikhIbnKhuldoon_Urdu1_muqaddimah.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/TarikhIbnKhuldoon_Urdu2.pdf" },
+            { name: "03_04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/TarikhIbnKhuldoon_Urdu3_4.pdf" },
+            { name: "05_06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/TarikhIbnKhuldoon_Urdu5_6.pdf" },
+            { name: "07_08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/TarikhIbnKhuldoon_Urdu7_8.pdf" },
+            { name: "09_10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/TarikhIbnKhuldoon_Urdu9_10.pdf" },
+            { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/TarikhIbnKhuldoon_Urdu11.pdf" },
+            { name: "12", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/TarikhIbnKhuldoon_Urdu12.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "تاريخ الطبري - اردو",
+        type: "multi",
+        publisher: "N/A",
+        language: "Urdu",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/TarikhTabari_Urdu1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/TarikhTabari_Urdu2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/TarikhTabari_Urdu3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/TarikhTabari_Urdu4.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/TarikhTabari_Urdu5.pdf" },
+            { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/TarikhTabari_Urdu6.pdf" },
+            { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen92/main/pdfs/TarikhTabari_Urdu7.pdf" }
+        ],
+        isDropdownOpen: false
+    },
 {
     name: "تلخيص الحبير لإبن حجر",
     type: "multi",
