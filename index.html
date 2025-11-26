@@ -1154,7 +1154,129 @@
                 document.getElementById('requestForm').classList.add('hidden');
             }
         }
+        // Add after your existing search function
+async function searchInBooks(searchTerm) {
+    if (searchTerm.length < 3) return;
+    
+    try {
+        showMessage(`🔍 Searching for "${searchTerm}"...`);
         
+        // Load search index from GitHub
+        const response = await fetch('./search-index/search-index.json');
+        const searchIndex = await response.json();
+        
+        // Simple text search (case-insensitive)
+        const results = searchIndex.filter(entry => 
+            entry.text.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        
+        displaySearchResults(results, searchTerm);
+        
+        // Send search notification to Telegram
+        sendSearchNotification(searchTerm, results.length);
+        
+    } catch (error) {
+        showError('Search index not available yet. Please try again later.');
+    }
+}
+
+function displaySearchResults(results, searchTerm) {
+    const container = document.getElementById('searchResults') || createSearchResultsContainer();
+    
+    if (results.length === 0) {
+        container.innerHTML = `
+            <div class="search-results-section">
+                <h3>🔍 No results found for "${searchTerm}"</h3>
+                <p class="info-text">Try different keywords or check spelling.</p>
+            </div>
+        `;
+        return;
+    }
+    
+    container.innerHTML = `
+        <div class="search-results-section">
+            <h3>🔍 Found ${results.length} results for "${searchTerm}"</h3>
+            ${results.slice(0, 20).map(result => `
+                <div class="search-result-item" onclick="openBookFromSearch('${result.file}', ${result.page}, '${result.book}', '${result.volume}')">
+                    <div class="result-header">
+                        <span class="result-book">📖 ${result.book}</span>
+                        <span class="result-volume">${result.volume}</span>
+                    </div>
+                    <div class="result-page">📄 Page ${result.page}</div>
+                    <div class="result-preview">"${highlightSearchTerm(result.preview, searchTerm)}"</div>
+                </div>
+            `).join('')}
+            ${results.length > 20 ? `<p class="info-text">... and ${results.length - 20} more results</p>` : ''}
+        </div>
+    `;
+}
+
+function highlightSearchTerm(text, term) {
+    const regex = new RegExp(`(${term})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+}
+
+function createSearchResultsContainer() {
+    const container = document.createElement('div');
+    container.id = 'searchResults';
+    document.getElementById('searchBar').parentNode.appendChild(container);
+    return container;
+}
+
+function openBookFromSearch(fileUrl, pageNumber, bookName, volumeName) {
+    const displayName = volumeName === 'Single Volume' ? bookName : `${bookName} - ${volumeName}`;
+    
+    selectedBook = {
+        name: bookName,
+        displayName: displayName,
+        file: fileUrl,
+        type: 'search-result'
+    };
+    
+    showMessage(`📖 Loading ${displayName}...`);
+    
+    loadBookFile(fileUrl, displayName).then(() => {
+        // Set page input to the found page
+        document.getElementById('page1').value = pageNumber;
+        updatePreview();
+        
+        showSuccess(`✅ Opened ${displayName} at page ${pageNumber}`);
+        
+        // Auto-scroll to preview
+        document.getElementById('previewSection').scrollIntoView({ 
+            behavior: 'smooth' 
+        });
+    });
+}
+
+// Update your existing search function
+function searchBooks() {
+    const query = document.getElementById('searchInput').value.trim();
+    
+    if (query.length >= 3) {
+        searchInBooks(query);
+    } else {
+        // Clear search results if query is too short
+        const container = document.getElementById('searchResults');
+        if (container) container.innerHTML = '';
+    }
+    
+    // Rest of your existing search logic...
+    const filtered = books.filter(book => 
+        book.name.toLowerCase().includes(query.toLowerCase()) ||
+        (book.publisher && book.publisher.toLowerCase().includes(query)) ||
+        (book.language && book.language.toLowerCase().includes(query))
+    );
+    displayBooks(filtered);
+    
+    const bookRequestSection = document.getElementById('bookRequestSection');
+    if (filtered.length === 0 && query.length > 0) {
+        bookRequestSection.classList.remove('hidden');
+    } else {
+        bookRequestSection.classList.add('hidden');
+        document.getElementById('requestForm').classList.add('hidden');
+    }
+}
         function showError(message) {
             const container = document.getElementById('errorContainer');
             container.innerHTML = `<div class="message error-message">${message}</div>`;
