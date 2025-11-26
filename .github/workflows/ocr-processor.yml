@@ -1,0 +1,39 @@
+name: PDF Text Extraction
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'books-index.js'
+  workflow_dispatch:  # Allow manual trigger
+  schedule:
+    - cron: '0 0 * * 0'  # Run every Sunday at midnight
+
+jobs:
+  extract-text:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: 🐍 Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: 📦 Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests PyPDF2
+        
+    - name: 🚀 Run OCR Extraction
+      run: |
+        python scripts/ocr-extractor.py
+        
+    - name: 💾 Commit search index
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add search-index/
+        git commit -m "🤖 Auto-update search index [skip ci]" || echo "No changes to commit"
+        git push
