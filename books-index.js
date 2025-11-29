@@ -4415,6 +4415,459 @@ const booksIndex = {
         ],
         isDropdownOpen: false
     },
+    {
+        name: "الهداية إلى بلوغ النهاية لمكي بن أبي طالب",
+        type: "multi",
+        publisher: "N/A",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlHidayahIlaBulughAlNihayahMakkiIbnAbiTalib1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlHidayahIlaBulughAlNihayahMakkiIbnAbiTalib2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlHidayahIlaBulughAlNihayahMakkiIbnAbiTalib3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlHidayahIlaBulughAlNihayahMakkiIbnAbiTalib4.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlHidayahIlaBulughAlNihayahMakkiIbnAbiTalib5.pdf" },
+            { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlHidayahIlaBulughAlNihayahMakkiIbnAbiTalib6.pdf" },
+            { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlHidayahIlaBulughAlNihayahMakkiIbnAbiTalib7.pdf" },
+            { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlHidayahIlaBulughAlNihayahMakkiIbnAbiTalib8.pdf" },
+            { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlHidayahIlaBulughAlNihayahMakkiIbnAbiTalib9.pdf" },
+            { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlHidayahIlaBulughAlNihayahMakkiIbnAbiTalib10.pdf" },
+            { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlHidayahIlaBulughAlNihayahMakkiIbnAbiTalib11.pdf" },
+            { name: "12", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlHidayahIlaBulughAlNihayahMakkiIbnAbiTalib12.pdf" },
+            { name: "13Index", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlHidayahIlaBulughAlNihayahMakkiIbnAbiTalib13Index.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "الكشف والبيان عن تفسير القرآن للثعلبي - دار التفسير",
+        type: "multi",
+        publisher: "دار التفسير",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir0.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir4.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir5.pdf" },
+            { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir6.pdf" },
+            { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir7.pdf" },
+            { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir8.pdf" },
+            { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir9.pdf" },
+            { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir10.pdf" },
+            { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir11.pdf" },
+            { name: "12", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir12.pdf" },
+            { name: "13", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir13.pdf" },
+            { name: "14", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir14.pdf" },
+            { name: "15", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir15.pdf" },
+            { name: "16", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir16.pdf" },
+            { name: "17", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir17.pdf" },
+            { name: "18", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir18.pdf" },
+            { name: "19", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir19.pdf" },
+            { name: "20", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir20.pdf" },
+            { name: "21", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir21.pdf" },
+            { name: "22", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir22.pdf" },
+            { name: "23", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir23.pdf" },
+            { name: "24", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir24.pdf" },
+            { name: "25", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir25.pdf" },
+            { name: "26", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir26.pdf" },
+            { name: "27", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir27.pdf" },
+            { name: "28", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir28.pdf" },
+            { name: "29", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir29.pdf" },
+            { name: "30", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir30.pdf" },
+            { name: "31", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir31.pdf" },
+            { name: "32", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir32.pdf" },
+            { name: "33", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlKashfAlBayanAnTafsirAlQuranTafsirAlThaalbi_DarAlTafsir33.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "المصنف لابن أبي شيبة - دار التاج",
+        type: "multi",
+        publisher: "دار التاج",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlMusannafLiIbnAbiShaybah_DarAlTaj01.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlMusannafLiIbnAbiShaybah_DarAlTaj02.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlMusannafLiIbnAbiShaybah_DarAlTaj03.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlMusannafLiIbnAbiShaybah_DarAlTaj04.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlMusannafLiIbnAbiShaybah_DarAlTaj05.pdf" },
+            { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlMusannafLiIbnAbiShaybah_DarAlTaj06.pdf" },
+            { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlMusannafLiIbnAbiShaybah_DarAlTaj07.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "المصنف لابن أبي شيبة - مكتبة الرشد",
+        type: "multi",
+        publisher: "مكتبة الرشد",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlMusannafLiIbnAbiShaybah_MaktabahAlRush00.pdf" },
+            { name: "0q1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlMusannafLiIbnAbiShaybah_MaktabahAlRush0q1.pdf" },
+            { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlMusannafLiIbnAbiShaybah_MaktabahAlRush01p.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlMusannafLiIbnAbiShaybah_MaktabahAlRush02.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlMusannafLiIbnAbiShaybah_MaktabahAlRush03.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlMusannafLiIbnAbiShaybah_MaktabahAlRush04.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlMusannafLiIbnAbiShaybah_MaktabahAlRush05.pdf" },
+            { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlMusannafLiIbnAbiShaybah_MaktabahAlRush06.pdf" },
+            { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlMusannafLiIbnAbiShaybah_MaktabahAlRush07.pdf" },
+            { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlMusannafLiIbnAbiShaybah_MaktabahAlRush08.pdf" },
+            { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlMusannafLiIbnAbiShaybah_MaktabahAlRush09.pdf" },
+            { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlMusannafLiIbnAbiShaybah_MaktabahAlRush10.pdf" },
+            { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlMusannafLiIbnAbiShaybah_MaktabahAlRush11.pdf" },
+            { name: "12", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlMusannafLiIbnAbiShaybah_MaktabahAlRush12.pdf" },
+            { name: "13", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlMusannafLiIbnAbiShaybah_MaktabahAlRush13.pdf" },
+            { name: "14", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlMusannafLiIbnAbiShaybah_MaktabahAlRush14.pdf" },
+            { name: "15", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlMusannafLiIbnAbiShaybah_MaktabahAlRush15.pdf" },
+            { name: "16", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlMusannafLiIbnAbiShaybah_MaktabahAlRush16.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "التيسير في التفسير لأبي حفص النسفي - دار اللباب",
+        type: "multi",
+        publisher: "دار اللباب",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlTaysirFiAlTafsirAbuHafsAlNasafi_DarAlLubab1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlTaysirFiAlTafsirAbuHafsAlNasafi_DarAlLubab2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlTaysirFiAlTafsirAbuHafsAlNasafi_DarAlLubab3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlTaysirFiAlTafsirAbuHafsAlNasafi_DarAlLubab4.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlTaysirFiAlTafsirAbuHafsAlNasafi_DarAlLubab5.pdf" },
+            { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlTaysirFiAlTafsirAbuHafsAlNasafi_DarAlLubab6.pdf" },
+            { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlTaysirFiAlTafsirAbuHafsAlNasafi_DarAlLubab7.pdf" },
+            { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlTaysirFiAlTafsirAbuHafsAlNasafi_DarAlLubab8.pdf" },
+            { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlTaysirFiAlTafsirAbuHafsAlNasafi_DarAlLubab9.pdf" },
+            { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlTaysirFiAlTafsirAbuHafsAlNasafi_DarAlLubab10.pdf" },
+            { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlTaysirFiAlTafsirAbuHafsAlNasafi_DarAlLubab11.pdf" },
+            { name: "12", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlTaysirFiAlTafsirAbuHafsAlNasafi_DarAlLubab12.pdf" },
+            { name: "13", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlTaysirFiAlTafsirAbuHafsAlNasafi_DarAlLubab13.pdf" },
+            { name: "14", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlTaysirFiAlTafsirAbuHafsAlNasafi_DarAlLubab14.pdf" },
+            { name: "15", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlTaysirFiAlTafsirAbuHafsAlNasafi_DarAlLubab15.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "الوسيط في تفسير القرآن المجيد للواحدي - دار الكتب العلمية",
+        type: "multi",
+        publisher: "دار الكتب العلمية",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlWasitFiTafsirAlQuranAlMajidLiAlWahidi_DarAlKutubAlIlmiyyah0.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlWasitFiTafsirAlQuranAlMajidLiAlWahidi_DarAlKutubAlIlmiyyah1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlWasitFiTafsirAlQuranAlMajidLiAlWahidi_DarAlKutubAlIlmiyyah2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlWasitFiTafsirAlQuranAlMajidLiAlWahidi_DarAlKutubAlIlmiyyah3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlWasitFiTafsirAlQuranAlMajidLiAlWahidi_DarAlKutubAlIlmiyyah4.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "بحر العلوم تفسير السمرقندي - دار الكتب العلمية",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/BahrAlUlumTafsirAlSamarqandi_DarAlKutubAlIlmiyyah.pdf",
+        publisher: "دار الكتب العلمية",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "غرائب التفسير وعجائب التأويل للكرماني - تحقيق الإجلي - دار القلبة",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/GharaibAlTafsirWaAjaibAlTawilAlKirmani_TahqiqAlIjli_DarAlQalbah.pdf",
+        publisher: "دار القلبة",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "كتاب فيه لغة القرآن لأبي زكريا يحيى بن زياد الفراء",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/KitabFihLughatAlQuran_AbuZakariyyaYahyaIbnZiyadAlFarra.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "كتاب معاني القرآن للأخفش - مكتبة الخانجي",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/KitabMaaniAlQuranLiAlAkhfash_MaktabahAlKhanji.pdf",
+        publisher: "مكتبة الخانجي",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "لطائف الإشارات تفسير القشيري - دار الكتب العلمية",
+        type: "multi",
+        publisher: "دار الكتب العلمية",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/LataifAlIsharatTafsirAlQushayri_DarAlKutubAlIlmiyyah0.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/LataifAlIsharatTafsirAlQushayri_DarAlKutubAlIlmiyyah1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/LataifAlIsharatTafsirAlQushayri_DarAlKutubAlIlmiyyah2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/LataifAlIsharatTafsirAlQushayri_DarAlKutubAlIlmiyyah3.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "معاني القرآن وإعرابه لأبي إسحاق الزجاج",
+        type: "multi",
+        publisher: "N/A",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/MaaniAlQuranWaIrabuhuAbiIshaqAlZajjaj0.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/MaaniAlQuranWaIrabuhuAbiIshaqAlZajjaj1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/MaaniAlQuranWaIrabuhuAbiIshaqAlZajjaj2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/MaaniAlQuranWaIrabuhuAbiIshaqAlZajjaj3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/MaaniAlQuranWaIrabuhuAbiIshaqAlZajjaj4.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/MaaniAlQuranWaIrabuhuAbiIshaqAlZajjaj5.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "معاني القرآن وإعرابه لأبي إسحاق الزجاج",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/MaaniAlQuranWaIrabuhuAbiIshaqAlZajjaj.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "تفسير عبد الرزاق - دار الكتب العلمية",
+        type: "multi",
+        publisher: "دار الكتب العلمية",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAbdAlRazzaq_DarAlKutubAlIlmiyyah1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAbdAlRazzaq_DarAlKutubAlIlmiyyah2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAbdAlRazzaq_DarAlKutubAlIlmiyyah3.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "تفسير البغوي - دار الطيبة",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlBaghwi_DarAlTayyabah.pdf",
+        publisher: "دار الطيبة",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "تفسير الكشاف للزمخشري",
+        type: "multi",
+        publisher: "N/A",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlKashshafAlZamkhashri0.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlKashshafAlZamkhashri1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlKashshafAlZamkhashri2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlKashshafAlZamkhashri3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlKashshafAlZamkhashri4.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlKashshafAlZamkhashri5.pdf" },
+            { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlKashshafAlZamkhashri6.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "تفسير الماتريدي تأويلات أهل السنة - دار الكتب العلمية",
+        type: "multi",
+        publisher: "دار الكتب العلمية",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlMaturidiTawilatAhlAlSunnah_DarAlKutubAlIlmiyyah1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlMaturidiTawilatAhlAlSunnah_DarAlKutubAlIlmiyyah2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlMaturidiTawilatAhlAlSunnah_DarAlKutubAlIlmiyyah3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlMaturidiTawilatAhlAlSunnah_DarAlKutubAlIlmiyyah4.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlMaturidiTawilatAhlAlSunnah_DarAlKutubAlIlmiyyah5.pdf" },
+            { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlMaturidiTawilatAhlAlSunnah_DarAlKutubAlIlmiyyah6.pdf" },
+            { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlMaturidiTawilatAhlAlSunnah_DarAlKutubAlIlmiyyah7.pdf" },
+            { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlMaturidiTawilatAhlAlSunnah_DarAlKutubAlIlmiyyah8.pdf" },
+            { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlMaturidiTawilatAhlAlSunnah_DarAlKutubAlIlmiyyah9.pdf" },
+            { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlMaturidiTawilatAhlAlSunnah_DarAlKutubAlIlmiyyah10.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "تفسير القرآن العظيم تفسير ابن زمنين - الفاروق الحديثة",
+        type: "multi",
+        publisher: "الفاروق الحديثة",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlQuranAlAzimTafsirIbnZamnin_AlFaruqAlHadithah0.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlQuranAlAzimTafsirIbnZamnin_AlFaruqAlHadithah1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlQuranAlAzimTafsirIbnZamnin_AlFaruqAlHadithah2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlQuranAlAzimTafsirIbnZamnin_AlFaruqAlHadithah3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlQuranAlAzimTafsirIbnZamnin_AlFaruqAlHadithah4.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlQuranAlAzimTafsirIbnZamnin_AlFaruqAlHadithah5.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "تفسير القرآن من الجامع لابن وهب - دار الغرب الإسلامي",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlQuranMinAlJamiLiIbnWahb_TafsirIbnWahb_DarAlGharbAlIslami.pdf",
+        publisher: "دار الغرب الإسلامي",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "تفسير السمعاني - دار الوطن",
+        type: "multi",
+        publisher: "دار الوطن",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlSammaani_DarAlWatan1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlSammaani_DarAlWatan2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlSammaani_DarAlWatan3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlSammaani_DarAlWatan4.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlSammaani_DarAlWatan5.pdf" },
+            { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlSammaani_DarAlWatan6.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "تفسير التستري - دار الكتب العلمية",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirAlTustari_DarAlKutubAlIlmiyyah.pdf",
+        publisher: "دار الكتب العلمية",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "تفسير القرطبي - اردو",
+        type: "multi",
+        publisher: "N/A",
+        language: "Urdu",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirEQurtubi_Urdu1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirEQurtubi_Urdu2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirEQurtubi_Urdu3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirEQurtubi_Urdu4.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirEQurtubi_Urdu5.pdf" },
+            { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirEQurtubi_Urdu6.pdf" },
+            { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirEQurtubi_Urdu7.pdf" },
+            { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirEQurtubi_Urdu8.pdf" },
+            { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirEQurtubi_Urdu9.pdf" },
+            { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirEQurtubi_Urdu10.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "تفسير ابن أبي حاتم الرازي - دار ابن الجوزي",
+        type: "multi",
+        publisher: "دار ابن الجوزي",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirIbnAbiHatimAlRazi_DarIbnAlJawzi0.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirIbnAbiHatimAlRazi_DarIbnAlJawzi1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirIbnAbiHatimAlRazi_DarIbnAlJawzi2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirIbnAbiHatimAlRazi_DarIbnAlJawzi3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirIbnAbiHatimAlRazi_DarIbnAlJawzi4.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirIbnAbiHatimAlRazi_DarIbnAlJawzi5.pdf" },
+            { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirIbnAbiHatimAlRazi_DarIbnAlJawzi6.pdf" },
+            { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirIbnAbiHatimAlRazi_DarIbnAlJawzi7.pdf" },
+            { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirIbnAbiHatimAlRazi_DarIbnAlJawzi8.pdf" },
+            { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirIbnAbiHatimAlRazi_DarIbnAlJawzi9.pdf" },
+            { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirIbnAbiHatimAlRazi_DarIbnAlJawzi10.pdf" },
+            { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirIbnAbiHatimAlRazi_DarIbnAlJawzi11.pdf" },
+            { name: "12", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirIbnAbiHatimAlRazi_DarIbnAlJawzi12.pdf" },
+            { name: "13", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirIbnAbiHatimAlRazi_DarIbnAlJawzi13.pdf" },
+            { name: "14", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirIbnAbiHatimAlRazi_DarIbnAlJawzi14.pdf" },
+            { name: "15", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirIbnAbiHatimAlRazi_DarIbnAlJawzi15.pdf" },
+            { name: "16", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirIbnAbiHatimAlRazi_DarIbnAlJawzi16.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "تفسير ابن المنذر - دار المآثر",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirIbnAlMundhir_DarAlMaathir.pdf",
+        publisher: "دار المآثر",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "تفسير ابن كثير - اردو",
+        type: "multi",
+        publisher: "N/A",
+        language: "Urdu",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirIbnKathir_Urdu1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirIbnKathir_Urdu2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirIbnKathir_Urdu3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirIbnKathir_Urdu4.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirIbnKathir_Urdu5.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "تفسير إسحاق البستي",
+        type: "multi",
+        publisher: "N/A",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirIshaqAlBasti1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirIshaqAlBasti2.pdf" },
+            { name: "02p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirIshaqAlBasti2p.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "تفسير مقاتل بن سليمان - دار إحياء التراث العربي",
+        type: "multi",
+        publisher: "دار إحياء التراث العربي",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirMuqatilIbnSulayman_DarAhyaAlTurathAlArabi00.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirMuqatilIbnSulayman_DarAhyaAlTurathAlArabi01.pdf" },
+            { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirMuqatilIbnSulayman_DarAhyaAlTurathAlArabi01p.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirMuqatilIbnSulayman_DarAhyaAlTurathAlArabi02.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirMuqatilIbnSulayman_DarAhyaAlTurathAlArabi03.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirMuqatilIbnSulayman_DarAhyaAlTurathAlArabi05.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "تفسير مقاتل بن سليمان - مؤسسة التاريخ العربي",
+        type: "multi",
+        publisher: "مؤسسة التاريخ العربي",
+        language: "Arabic",
+        volumes: [
+            { name: "0Muqaddimah", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirMuqatilIbnSulayman_MuassasahAlTarikhAlArabi0Muqaddimah.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirMuqatilIbnSulayman_MuassasahAlTarikhAlArabi01.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirMuqatilIbnSulayman_MuassasahAlTarikhAlArabi02.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirMuqatilIbnSulayman_MuassasahAlTarikhAlArabi04.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirMuqatilIbnSulayman_MuassasahAlTarikhAlArabi05.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "تفسير سفيان الثوري - دار الكتب العلمية",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirSufyanAlThawri_DarAlKutubAlIlmiyyah.pdf",
+        publisher: "دار الكتب العلمية",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "تفسير يحيى بن سلام - دار الكتب العلمية",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TafsirYahyaIbnSalam_DarAlKutubAlIlmiyyah.pdf",
+        publisher: "دار الكتب العلمية",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "تاريخ ابن كثير - اردو",
+        type: "multi",
+        publisher: "N/A",
+        language: "Urdu",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TarikhIbnEKathir_Urdu1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TarikhIbnEKathir_Urdu2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TarikhIbnEKathir_Urdu3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TarikhIbnEKathir_Urdu4.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TarikhIbnEKathir_Urdu5.pdf" },
+            { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TarikhIbnEKathir_Urdu6.pdf" },
+            { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TarikhIbnEKathir_Urdu7.pdf" },
+            { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TarikhIbnEKathir_Urdu8.pdf" },
+            { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TarikhIbnEKathir_Urdu9.pdf" },
+            { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TarikhIbnEKathir_Urdu10.pdf" },
+            { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TarikhIbnEKathir_Urdu11.pdf" },
+            { name: "12", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TarikhIbnEKathir_Urdu12.pdf" },
+            { name: "13", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TarikhIbnEKathir_Urdu13.pdf" },
+            { name: "14", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TarikhIbnEKathir_Urdu14.pdf" },
+            { name: "15", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TarikhIbnEKathir_Urdu15.pdf" },
+            { name: "16", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/TarikhIbnEKathir_Urdu16.pdf" }
+        ],
+        isDropdownOpen: false
+    },
 {
     name: "تلخيص الحبير لإبن حجر",
     type: "multi",
