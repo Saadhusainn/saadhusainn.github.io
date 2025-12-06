@@ -2319,20 +2319,19 @@
     }
 }
         
-        function viewBook(bookName, filePath) {
-    // Send view notification
+function viewBook(bookName, filePath) {
     sendBookActionNotification('👀 Book Viewed', bookName);
-    
     showSuccess(`Opening ${bookName}...`);
+    
     if (filePath) {
-        const viewerUrl = `https://docs.google.com/gview?url=${encodeURIComponent(filePath)}&embedded=true`;
-        window.open(viewerUrl, '_blank', 'noopener,noreferrer');
+        const pdfJsViewer = `https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(filePath)}`;
+        window.open(pdfJsViewer, '_blank', 'noopener,noreferrer');
     }
+    
     setTimeout(() => {
-        showSuccess(`✅ ${bookName} opened in new tab!`);
+        showSuccess(`✅ ${bookName} opened in Mozilla PDF viewer!`);
     }, 1000);
-}
-        
+}        
         function downloadVolume(bookName, volumeName, volumeFile) {
     // Send volume download notification
     sendBookActionNotification('📥 Volume Downloaded', bookName, `\n🔢 Volume: ${volumeName}`);
@@ -2346,21 +2345,22 @@
     }, 1000);
 }
         
-        function viewVolume(bookName, volumeName, volumeFile) {
+function viewVolume(bookName, volumeName, volumeFile) {
     // Send volume view notification
     sendBookActionNotification('👀 Volume Viewed', bookName, `\n🔢 Volume: ${volumeName}`);
-    
     showSuccess(`Opening ${bookName} - ${volumeName}...`);
+    
     if (volumeFile) {
-        const viewerUrl = `https://docs.google.com/gview?url=${encodeURIComponent(volumeFile)}&embedded=true`;
-        window.open(viewerUrl, '_blank', 'noopener,noreferrer');
+        // Using Mozilla's PDF.js (the same engine Firefox uses internally)
+        const pdfJsViewer = `https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(volumeFile)}`;
+        window.open(pdfJsViewer, '_blank', 'noopener,noreferrer');
     }
+    
     setTimeout(() => {
-        showSuccess(`✅ ${bookName} - ${volumeName} opened in new tab!`);
+        showSuccess(`✅ ${bookName} - ${volumeName} opened in Mozilla PDF viewer!`);
         document.getElementById('bookOpeningMessage').textContent = '';
     }, 1000);
-}
-        
+}        
         async function loadBookFile(filePath, displayName) {
             try {
                 const container = document.getElementById('errorContainer');
