@@ -4868,6 +4868,954 @@ const booksIndex = {
         ],
         isDropdownOpen: false
     },
+        
+    {
+        name: "أحاديث يزيد بن أبي حبيب المصري - دار الحديث",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AhadithYazidIbnAbiHabibAlMisri_DarAlHadith.pdf",
+        publisher: "دار الحديث",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "أخبار الوافدات من النساء على معاوية لابن بكار",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AkhbarAlWafidatMinAlNisaAlaMuawiyahLiIbnBakkar.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "الأمثال لأبي عبيد - دار المأمون للتراث",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlAmthalAbuUbaydDarAlMamunAlTurath.pdf",
+        publisher: "دار المأمون للتراث",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "الأصل لمحمد بن الحسن الشيباني - تحقيق بوينوكلان - دار ابن حزم",
+        type: "multi",
+        publisher: "دار ابن حزم",
+        language: "Arabic",
+        volumes: [
+            { name: "00CoverPage", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlAslLiMuhammadIbnAlHasan_TahqiqBuwaynukalin_DarIbnHazam00CoverPage.pdf" },
+            { name: "00Muqaddimah", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlAslLiMuhammadIbnAlHasan_TahqiqBuwaynukalin_DarIbnHazam00Muqaddimah.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlAslLiMuhammadIbnAlHasan_TahqiqBuwaynukalin_DarIbnHazam1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlAslLiMuhammadIbnAlHasan_TahqiqBuwaynukalin_DarIbnHazam2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlAslLiMuhammadIbnAlHasan_TahqiqBuwaynukalin_DarIbnHazam3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlAslLiMuhammadIbnAlHasan_TahqiqBuwaynukalin_DarIbnHazam4.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlAslLiMuhammadIbnAlHasan_TahqiqBuwaynukalin_DarIbnHazam5.pdf" },
+            { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlAslLiMuhammadIbnAlHasan_TahqiqBuwaynukalin_DarIbnHazam6.pdf" },
+            { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlAslLiMuhammadIbnAlHasan_TahqiqBuwaynukalin_DarIbnHazam7.pdf" },
+            { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlAslLiMuhammadIbnAlHasan_TahqiqBuwaynukalin_DarIbnHazam8.pdf" },
+            { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlAslLiMuhammadIbnAlHasan_TahqiqBuwaynukalin_DarIbnHazam9.pdf" },
+            { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlAslLiMuhammadIbnAlHasan_TahqiqBuwaynukalin_DarIbnHazam10.pdf" },
+            { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlAslLiMuhammadIbnAlHasan_TahqiqBuwaynukalin_DarIbnHazam11.pdf" },
+            { name: "12", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlAslLiMuhammadIbnAlHasan_TahqiqBuwaynukalin_DarIbnHazam12.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "الأصمعيات للأصمعي - دار المعارف بمصر",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlAsmaiyatLiAlAsmai_DarAlMaarifBiMisr.pdf",
+        publisher: "دار المعارف بمصر",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "الأزمنة وتلبية الجاهلية",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlAzminahWaTalbiyahAlJahiliyyah.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "الفرائض للثوري - دار العاصمة",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlFaraidLiAlThawri_DarAlAsimah.pdf",
+        publisher: "دار العاصمة",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "الفقه الأبسط شرح على فقهيين الأبسط والأكبر المنسوبين لأبي حنيفة - تأليف محمد بن عبد الرحمن الخميس",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlFiqhAlAbsatAlSharhAlaFiqhiyyinAlAbsatWaAlAkbarAlMansubinLiAbiHanifahTalifMuhammadIbnAbdAlRahmanAlKhamis.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "الفتنة ووقعة الجمل لسيف بن عمر - دار النفائس",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlFitnahWaWaqahAlJamalLiSayfIbnUmar_DarAlNafais.pdf",
+        publisher: "دار النفائس",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "الحجة على أهل المدينة لمحمد بن الحسن الشيباني - عالم الكتب",
+        type: "multi",
+        publisher: "عالم الكتب",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlHujjahAlaAhlAlMadinahLiMuhammadIbnAlHasanAlShaybani_AlimAlKutub00.pdf" },
+            { name: "01a", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlHujjahAlaAhlAlMadinahLiMuhammadIbnAlHasanAlShaybani_AlimAlKutub01a.pdf" },
+            { name: "01b", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlHujjahAlaAhlAlMadinahLiMuhammadIbnAlHasanAlShaybani_AlimAlKutub01b.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlHujjahAlaAhlAlMadinahLiMuhammadIbnAlHasanAlShaybani_AlimAlKutub02.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlHujjahAlaAhlAlMadinahLiMuhammadIbnAlHasanAlShaybani_AlimAlKutub03.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlHujjahAlaAhlAlMadinahLiMuhammadIbnAlHasanAlShaybani_AlimAlKutub04.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "الجمل في النحو - مؤسسة الرسالة",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlJamalFiAlNahw_MuassasahAlRisalah.pdf",
+        publisher: "مؤسسة الرسالة",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "الجامع الكبير لمحمد بن الحسن - مطبعة الاستقامة",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlJamiAlKabirLiMuhammadIbnAlHasan_MatbaahAlIstiqamah.pdf",
+        publisher: "مطبعة الاستقامة",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "الجامع الصغير ومع شرحه النافع الكبير لمحمد بن الحسن - عالم الكتب إدارة القرآن",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlJamiAlSaghirMaSharhuhuAlNafiAlKabirLiMuhammadIbnAlHasan_AlimAlKutubIdarahAlQuran.pdf",
+        publisher: "عالم الكتب إدارة القرآن",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "الجامع لابن وهب - تحقيق رفعت فوزي - دار الوفاء",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlJamiIbnWahb_TahqiqRafatFuzi_DarAlWafa.pdf",
+        publisher: "دار الوفاء",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "الكتاب لسيبويه عمرو بن عثمان بن قنبر الحارثي - دار الجيل",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlKitabLiSibuyahAmrIbnUthmanIbnQanbarAlHarthi_DarAlJil.pdf",
+        publisher: "دار الجيل",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "المدونة الكبرى للإمام مالك - دار الكتب العلمية",
+        type: "multi",
+        publisher: "دار الكتب العلمية",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlMudawwanahAlKubraLiMalik_DarAlKutubAlIlmiyyah1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlMudawwanahAlKubraLiMalik_DarAlKutubAlIlmiyyah2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlMudawwanahAlKubraLiMalik_DarAlKutubAlIlmiyyah3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlMudawwanahAlKubraLiMalik_DarAlKutubAlIlmiyyah4.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "المحاربة من الموطأ لابن وهب",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlMuharibahMinAlMuwattaLiIbnWahab.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "المخرج في الحيل لمحمد بن الحسن - مكتبة الثقافة الدينية",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlMukharijFiAlHilLiMuhammadIbnAlHasan_MaktabahAlThaqafahAlDiniyyah.pdf",
+        publisher: "مكتبة الثقافة الدينية",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "المختصر الكبير لعبد الحكم",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlMukhtasarAlKabirLiAbdAlHakam.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "المصنف لعبد الرزاق - دار التأصيل",
+        type: "multi",
+        publisher: "دار التأصيل",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlMusannafLiAbdAlRazzaq_DarAlTasil0.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlMusannafLiAbdAlRazzaq_DarAlTasil1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlMusannafLiAbdAlRazzaq_DarAlTasil2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlMusannafLiAbdAlRazzaq_DarAlTasil3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlMusannafLiAbdAlRazzaq_DarAlTasil4.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlMusannafLiAbdAlRazzaq_DarAlTasil5.pdf" },
+            { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlMusannafLiAbdAlRazzaq_DarAlTasil6.pdf" },
+            { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlMusannafLiAbdAlRazzaq_DarAlTasil7.pdf" },
+            { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlMusannafLiAbdAlRazzaq_DarAlTasil8.pdf" },
+            { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlMusannafLiAbdAlRazzaq_DarAlTasil9.pdf" },
+            { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlMusannafLiAbdAlRazzaq_DarAlTasil10.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "الموطأ للإمام مالك برواية أبي مصعب الزهري - دار التأصيل",
+        type: "multi",
+        publisher: "دار التأصيل",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlMuwattaLiAlImamMalikBiRiwayahAbiMusabAlZuhri_DarAlTasil1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlMuwattaLiAlImamMalikBiRiwayahAbiMusabAlZuhri_DarAlTasil2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlMuwattaLiAlImamMalikBiRiwayahAbiMusabAlZuhri_DarAlTasil3.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "الناسخ والمنسوخ في القرآن للزهري - دار ابن عفان ودار ابن القيم",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlNasikhWaAlMansukhFiAlQuranAlZuhri_DarIbnAffanDarIbnAlQayyam.pdf",
+        publisher: "دار ابن عفان ودار ابن القيم",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "القدر لابن وهب - العثيم - دار السلطان",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlQadrIbnWahb_AlUthaym_DarAlSultan.pdf",
+        publisher: "دار السلطان",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "القدر لابن وهب - تحقيق الحفيان - دار العطاء",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlQadrIbnWahb_TahqiqAlHafyan_DarAlAta.pdf",
+        publisher: "دار العطاء",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "القوافي للأخفش الأوسط",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlQawafiLiAlAkhfashAlAwsat.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "الشاء للأصمعي",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlShaLiAlAsmai.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "التصريف لتفسير القرآن",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlTasarifLiTafsirAlQuran.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "الزهد للمعافى بن عمران الموصلي - دار البشائر الإسلامية",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlZuhdLiAlMaafiIbnImranAlMusli_DarAlBashairAlIslamiyyah.pdf",
+        publisher: "دار البشائر الإسلامية",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "الزهد والرقائق لابن المبارك - تحقيق الأعظمي",
+        type: "multi",
+        publisher: "N/A",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlZuhdWaAlRaqaiqLiIbnAlMubarak_TahqiqAlAzami1.pdf" },
+            { name: "01a", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlZuhdWaAlRaqaiqLiIbnAlMubarak_TahqiqAlAzami1a.pdf" },
+            { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlZuhdWaAlRaqaiqLiIbnAlMubarak_TahqiqAlAzami1p.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "أمثال العرب - دار الرائد العربي",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AmthalAlArab_DarAlRaidAlArabi.pdf",
+        publisher: "دار الرائد العربي",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "أنساب الخيل في الجاهلية والإسلام وأخبارها لابن الكلبي",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AnsabAlKhaylFiAlJahiliyyahWaAlIslamWaAkhbaruha_IbnAlKalbi.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "أوالي الليث بن سعد - مكتبة دار الوفاء",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AwaliAlLaythIbnSad_MaktabahDarAlWafa.pdf",
+        publisher: "مكتبة دار الوفاء",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "باهر البرهان في معاني مشكلات القرآن لبَيان الحق النيسابوري",
+        type: "multi",
+        publisher: "N/A",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/BahirAlBurhanFiMaaniMushkilatAlQuranLiBayanAlHaqAlNisaburi1.pdf" },
+            { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/BahirAlBurhanFiMaaniMushkilatAlQuranLiBayanAlHaqAlNisaburi1p.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "ديوان الأفوه الأودي - دار صادر",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/DiwanAlAfwuhAlAwdi_DarSadir.pdf",
+        publisher: "دار صادر",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "ديوان الحارث بن حلزة اليشكري - دار العلم للنووي",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/DiwanAlHarithIbnHalzahAlYashkri_DarAlIlmamAlNawawi.pdf",
+        publisher: "دار العلم للنووي",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "ديوان أمير بن الطفيل - دار صادر",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/DiwanAmirIbnAlTufayl_DarSadir.pdf",
+        publisher: "دار صادر",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "ديوان عمرو بن قميئة - دار صادر",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/DiwanAmrIbnQumiah_DarSadir.pdf",
+        publisher: "دار صادر",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "ديوان امرئ القيس - تحقيق المستوي - دار المعرفة",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/DiwanImriAlQays_TahqiqAlMustawi_DarAlMarfah.pdf",
+        publisher: "دار المعرفة",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "ديوان جرير بشرح محمد بن حبيب",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/DiwanJarirBiSharhMuhammadIbnHabib.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "ديوان ليلى الأخيلية - دار صادر",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/DiwanLaylaAlAkhiliyah_DarSadir.pdf",
+        publisher: "دار صادر",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "ديوان معاوية بن أبي سفيان - دار صادر",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/DiwanMuawiyahIbnAbiSufyan_DarSadir.pdf",
+        publisher: "دار صادر",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "ديوان قيس بن الخطيم - دار صادر",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/DiwanQaysIbnAlKhutaym_DarSadir.pdf",
+        publisher: "دار صادر",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "ديوان سلمة بن جندل - دار الكتب العلمية",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/DiwanSulamahIbnJundal_DarAlKutubAlIlmiyyah.pdf",
+        publisher: "دار الكتب العلمية",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "ديوان سويد بن أبي كاهل اليشكري - سعادة وزارة الإعلام على نشره",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/DiwanSuwaydIbnAbiKahilAlYashkari_SaadatWazarahAlIlamAlaNashruh.pdf",
+        publisher: "سعادة وزارة الإعلام على نشره",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "ديوان طرفة بن العبد - دار الكتب العلمية",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/DiwanTarfahIbnAlAbd_DarAlKutubAlIlmiyyah.pdf",
+        publisher: "دار الكتب العلمية",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "فتوح الشام للواقدي",
+        type: "multi",
+        publisher: "N/A",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/FutuhAlShamLiAlWaqidi1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/FutuhAlShamLiAlWaqidi2.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "حذف من نسب قريش مراج السدوسي",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/HadhafMinNasabAlQurayshMurajAlSudusi.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "إيجاز البيان عن معاني القرآن - دار الغرب الإسلامي",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/IjazAlBayanAnMaaniAlQuran_DarAlGharbAlIslami.pdf",
+        publisher: "دار الغرب الإسلامي",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "اختلاف أبي حنيفة وابن أبي ليلى للقاضي أبي يوسف - مطبعة الوفاء",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/IkhtilafAbiHanifahWaIbnAbiLaylaLiQadiAbuYusuf_MatbaahAlWafa.pdf",
+        publisher: "مطبعة الوفاء",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "جماع العلم للشافعي - دار الآثار",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/JimaAlIlmLiAlShafii_DarAlAthar.pdf",
+        publisher: "دار الآثار",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "جمهرة النسب لابن الكلبي - تحقيق علي عمر - مكتبة الثقافة الدينية",
+        type: "multi",
+        publisher: "مكتبة الثقافة الدينية",
+        language: "Arabic",
+        volumes: [
+            { name: "1_1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/JumharahAlNasbIbnAlKalbi_TahqiqAliUmar_MaktabahAlThaqafahAlDiniyyah1_1.pdf" },
+            { name: "1_2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TahqiqAliUmar_MaktabahAlThaqafahAlDiniyyah1_2.pdf" },
+            { name: "2_1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/JumharahAlNasbIbnAlKalbi_TahqiqAliUmar_MaktabahAlThaqafahAlDiniyyah2_1.pdf" },
+            { name: "2_2", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/JumharahAlNasbIbnAlKalbi_TahqiqAliUmar_MaktabahAlThaqafahAlDiniyyah2_2.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "جمهرة النسب لابن الكلبي - تحقيق فرج - مطبعة حكومة الكويت",
+        type: "multi",
+        publisher: "مطبعة حكومة الكويت",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/JumharahAlNasbIbnAlKalbi_TahqiqFarraj_MatbaahHukumatAlKuwayt1.pdf" },
+            { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/JumharahAlNasbIbnAlKalbi_TahqiqFarraj_MatbaahHukumatAlKuwayt1p.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "جمهرة النسب لابن الكلبي - تحقيق ناجي - عالم الكتب",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/JumharahAlNasbIbnAlKalbi_TahqiqNaji_AlimAlKutub.pdf",
+        publisher: "عالم الكتب",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "جمهرة أشعار العرب لأبي زيد القرشي - دار صادر",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/JumharahAsharAlArabAbuZaydAlQurashi_DarSadir.pdf",
+        publisher: "دار صادر",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "جزء فيه حديث سفيان بن عيينة رواية زكريا المروزي - مكتبة دار المنار",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/JuzFihHadithSufyanIbnUyaynahRiwayahZakariyyaAlMarwazi_MaktabahDarAlMinar.pdf",
+        publisher: "مكتبة دار المنار",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "كتاب الأمثال مراج السدوسي",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlAmthalMurajAlSudhusi.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "كتاب الأموال لأبي عبيد - دار الفكر",
+        type: "multi",
+        publisher: "دار الفكر",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlAmwalAbuUbayd_DarAlFikr1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlAmwalAbuUbayd_DarAlFikr2.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "كتاب الأصنام لابن الكلبي - دار الكتب المصرية",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlAsnamIbnAlKalbi_DarAlKutubAlMisriyah.pdf",
+        publisher: "دار الكتب المصرية",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "كتاب الآثار لمحمد بن الحسن الشيباني - دار الكتب العلمية",
+        type: "multi",
+        publisher: "دار الكتب العلمية",
+        language: "Arabic",
+        volumes: [
+            { name: "Muqaddimah", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlAtharLiMuhammadIbnAlHasan_DarAlKutubAlIlmiyyahMuqaddimah.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlAtharLiMuhammadIbnAlHasan_DarAlKutubAlIlmiyyah1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlAtharLiMuhammadIbnAlHasan_DarAlKutubAlIlmiyyah2.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "كتاب الآثار لمحمد بن الحسن الشيباني - دار النوادر",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlAtharLiMuhammadIbnAlHasan_DarAlNawadir.pdf",
+        publisher: "دار النوادر",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "كتاب الدعاء للدُّبِّي - مكتبة الرشد",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlDuaAlDubbi_MaktabahAlRushd.pdf",
+        publisher: "مكتبة الرشد",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "كتاب الجيم لأبي عمرو الشيباني",
+        type: "multi",
+        publisher: "N/A",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlJimLiAbiAmrAlShaybani0.pdf" },
+            { name: "00p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlJimLiAbiAmrAlShaybani0p.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlJimLiAbiAmrAlShaybani1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlJimLiAbiAmrAlShaybani2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlJimLiAbiAmrAlShaybani3.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "كتاب الخراج لأبي يوسف - دار المعرفة",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlKharajLiAbiYusuf_DarAlMaarfah.pdf",
+        publisher: "دار المعرفة",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "كتاب الخراج لأبي يوسف - دار السلام",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlKharajLiAbiYusuf_DarAlSalam.pdf",
+        publisher: "دار السلام",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "كتاب المغازي للواقدي",
+        type: "multi",
+        publisher: "N/A",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlMaghaziLiAlWaqidi0.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlMaghaziLiAlWaqidi1.pdf" },
+            { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlMaghaziLiAlWaqidi1p.pdf" },
+            { name: "02p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlMaghaziLiAlWaqidi2p.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "كتاب المغازي للواقدي - عالم الكتب",
+        type: "multi",
+        publisher: "عالم الكتب",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlMaghaziLiAlWaqidi_AlimAlKutub1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlMaghaziLiAlWaqidi_AlimAlKutub2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlMaghaziLiAlWaqidi_AlimAlKutub3.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "كتاب المناسك لابن أبي عروبة - دار البشائر الإسلامية",
+        type: "multi",
+        publisher: "دار البشائر الإسلامية",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlManasikLiIbnAbiArubah_DarAlBashairAlIslamiyyah01.pdf" },
+            { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlManasikLiIbnAbiArubah_DarAlBashairAlIslamiyyah01p.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "كتاب الناسخ والمنسوخ في كتاب الله تعالى لقتادة - مؤسسة الرسالة",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlNasikhWaAlMansukhFiKitabAllahTaalaQatadah_MuassasahAlRisalah.pdf",
+        publisher: "مؤسسة الرسالة",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "كتاب النوادر في اللغة لأبي زيد الأنصاري",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlNawadirFiAlLughahAbiZaydAlAnsari.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "كتاب الردة للواقدي",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlRaddahLiAlWaqidi.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "كتاب الرسالة للشافعي - مصطفى البابي الحلبي",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlRisalahLiAlShafi_MustafaAlBabiAlHabibi.pdf",
+        publisher: "مصطفى البابي الحلبي",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "كتاب سيبويه - مكتبة الخانجي",
+        type: "multi",
+        publisher: "مكتبة الخانجي",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlSibawayha_MaktabahAlKhanji0.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlSibawayha_MaktabahAlKhanji1.pdf" },
+            { name: "01p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlSibawayha_MaktabahAlKhanji1p.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlSibawayha_MaktabahAlKhanji2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlSibawayha_MaktabahAlKhanji3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlSibawayha_MaktabahAlKhanji4.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlSibawayha_MaktabahAlKhanji5.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "كتاب سيبويه - عالم الكتب",
+        type: "multi",
+        publisher: "عالم الكتب",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlSibuwayh_AlimAlKutub1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlSibuwayh_AlimAlKutub2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlSibuwayh_AlimAlKutub3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlSibuwayh_AlimAlKutub4.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlSibuwayh_AlimAlKutub5.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "كتاب السير لأبي إسحاق الفزاري - مؤسسة الرسالة",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlSirLiAbiIshaqAlFazzari_MuassasahAlRisalah.pdf",
+        publisher: "مؤسسة الرسالة",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "كتاب التيجان في ملوك حمير",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlTijanFiMulukHamir.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "كتاب الزهد لأسد بن موسى",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabAlZuhdLiAsadIbnMusa.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "كتاب فحول الشعراء للأصمعي - دار الكتاب الجديد",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabFuhulAlShuaraLiAlAsami_DarAlKitabAlJadid.pdf",
+        publisher: "دار الكتاب الجديد",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "كتاب مسائل نافع بن الأزرق في غريب القرآن في شرح العرب",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/KitabMasailNafiIbnAlAzraqGharibAlQuranFiSharAlArab.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "مجالس ابن القاسم التي سألها مالكاً",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/MajalisIbnAlQasimAllatiSaalaAnhaMalikan.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "مجاز القرآن لأبي عبيدة معمر بن المثنى - مكتبة الخانجي",
+        type: "multi",
+        publisher: "مكتبة الخانجي",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/MajazAlQuranAbuUbaydahMamarIbnAlMuthanna_MaktabahAlKhanji1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/MajazAlQuranAbuUbaydahMamarIbnAlMuthanna_MaktabahAlKhanji2.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "مشيخة ابن تمّام - مجمع اللغة العربية",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/MashikhahIbnTamhan_MajmaahAlLughahAlArabiyyah.pdf",
+        publisher: "مجمع اللغة العربية",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "مباحث التفسير",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/MubahithAlTafsir.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "منتخب الكلام في تفسير الأحلام",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/MuntakhabAlKalamFiTafsirAlAhlam.pdf",
+        publisher: "N/A",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "مسند أبي حنيفة لأبي نعيم الأصبهاني - مكتبة الكوثر",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/MusnadAbiHanifahAbuNuaymAlAsbahani_MaktabahAlKawthar.pdf",
+        publisher: "مكتبة الكوثر",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "مسند أبي حنيفة للحارثي - دار الكتب العلمية",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/MusnadAbiHanifahAlHarithi_DarAlKutubAlIlmiyyah.pdf",
+        publisher: "دار الكتب العلمية",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "مسند الحميدي - دار السقا",
+        type: "multi",
+        publisher: "دار السقا",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/MusnadAlHumaydi_DarAlSaqa0.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/MusnadAlHumaydi_DarAlSaqa1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/MusnadAlHumaydi_DarAlSaqa2.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "مسند الإمام عبد الله بن المبارك - مكتبة المعارف",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/MusnadAlImamAbdAllahIbnAlMubarak_MaktabahAlMaarif.pdf",
+        publisher: "مكتبة المعارف",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "مسند الشافعي ترتيب السندي",
+        type: "multi",
+        publisher: "N/A",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/MusnadAlShafiiTartibAlSindi0.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/MusnadAlShafiiTartibAlSindi1.pdf" },
+            { name: "2_1", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/MusnadAlShafiiTartibAlSindi2_1.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "مسند الشافعي ترتيب سنجر",
+        type: "multi",
+        publisher: "N/A",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/MusnadAlShafiiTartibSanjar1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/MusnadAlShafiiTartibSanjar2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/MusnadAlShafiiTartibSanjar3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/MusnadAlShafiiTartibSanjar4.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "موطأ الإمام مالك رواية محمد بن الحسن - المكتبة العلمية",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/MuwattaAlImamMalikRiwayahMuhammadIbnAlHasan_AlMaktabahAlIlmiyyah.pdf",
+        publisher: "المكتبة العلمية",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "نسب معد واليمن الكبير لابن الكلبي - عالم الكتب",
+        type: "multi",
+        publisher: "عالم الكتب",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/NasbMadWaAlYamanAlKabirIbnAlKalbi_AlimAlKutub1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/NasbMadWaAlYamanAlKabirIbnAlKalbi_AlimAlKutub2.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "نسخة أبي مُشير - دار الصحابة للتراث",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/NuskhaAbiMushir_DarAlSahabahLiAlTurath.pdf",
+        publisher: "دار الصحابة للتراث",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "صحيفة همام بن منبه - المكتب الإسلامي ودار عمار",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/SahifahHammamIbnMunibbah_AlMaktabAlIslamiDarAmmar.pdf",
+        publisher: "المكتب الإسلامي ودار عمار",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "شرح المعلقات العشر - مؤسسة الأعلمي",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/SharhAlMuallaqatAlTis_MuassasahAlAlami.pdf",
+        publisher: "مؤسسة الأعلمي",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "شرح نقائض جرير والفرزدق",
+        type: "multi",
+        publisher: "N/A",
+        language: "Arabic",
+        volumes: [
+            { name: "00p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/SharhNaqaidJarirWaAlFarzdaq0p.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/SharhNaqaidJarirWaAlFarzdaq1.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "سيرة ابن هشام",
+        type: "multi",
+        publisher: "N/A",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/SirahIbnHisham1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/SirahIbnHisham2.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "سيرة ابن هشام - دار الفاروق",
+        type: "multi",
+        publisher: "دار الفاروق",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/SirahIbnHisham_DarAlFaruq1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/SirahIbnHisham_DarAlFaruq2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/SirahIbnHisham_DarAlFaruq3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/SirahIbnHisham_DarAlFaruq4.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "سيرة ابن هشام - دار الجيل",
+        type: "multi",
+        publisher: "دار الجيل",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/SirahIbnHisham_DarAlJil1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/SirahIbnHisham_DarAlJil2.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "سيرة ابن هشام - دار الكتاب العربي",
+        type: "multi",
+        publisher: "دار الكتاب العربي",
+        language: "Arabic",
+        volumes: [
+            { name: "00p", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/SirahIbnHisham_DarAlKitabAlArabi0p.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/SirahIbnHisham_DarAlKitabAlArabi2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/SirahIbnHisham_DarAlKitabAlArabi3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/SirahIbnHisham_DarAlKitabAlArabi4.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "سيرة ابن إسحاق - السير والمغازي - دار الفكر",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/SirahIbnIshaqAlSiyrWaAlMaghazi_DarAlFikr.pdf",
+        publisher: "دار الفكر",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "سيرة عمر بن عبد العزيز لعبد الحكم - عالم الكتب",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/SirahUmarIbnAbdAlAzizLiAbdAlHakam_AlimAlKutub.pdf",
+        publisher: "عالم الكتب",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "تذكرة الأديب في تفسير الغريب لابن الجوزي - دار الكتب العلمية",
+        file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TadhkirahAlAdibFiTafsirAlGharibLiIbnAlJawzi_DarAlKutubAlIlmiyyah.pdf",
+        publisher: "دار الكتب العلمية",
+        language: "Arabic",
+        type: "single"
+    },
+    {
+        name: "تفسير الكشاف للزمخشري - دار الكتب العربية",
+        type: "multi",
+        publisher: "دار الكتب العربية",
+        language: "Arabic",
+        volumes: [
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlKashshafAlZamkhashri_DarAlKutubAlArabi1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlKashshafAlZamkhashri_DarAlKutubAlArabi2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlKashshafAlZamkhashri_DarAlKutubAlArabi3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlKashshafAlZamkhashri_DarAlKutubAlArabi4.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "تفسير القرآن العظيم للسخاوي",
+        type: "multi",
+        publisher: "N/A",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlQuranAlAzimAlSakhawi0.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlQuranAlAzimAlSakhawi1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlQuranAlAzimAlSakhawi2.pdf" }
+        ],
+        isDropdownOpen: false
+    },
+    {
+        name: "تفسير الرازي - مفاتيح الغيب أو التفسير الكبير - دار إحياء التراث العربي",
+        type: "multi",
+        publisher: "دار إحياء التراث العربي",
+        language: "Arabic",
+        volumes: [
+            { name: "00", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_0.pdf" },
+            { name: "01", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_1.pdf" },
+            { name: "02", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_2.pdf" },
+            { name: "03", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_3.pdf" },
+            { name: "04", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_4.pdf" },
+            { name: "05", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_5.pdf" },
+            { name: "06", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_6.pdf" },
+            { name: "07", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_7.pdf" },
+            { name: "08", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_8.pdf" },
+            { name: "09", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_9.pdf" },
+            { name: "10", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_10.pdf" },
+            { name: "11", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_11.pdf" },
+            { name: "12", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_12.pdf" },
+            { name: "13", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_13.pdf" },
+            { name: "14", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_14.pdf" },
+            { name: "15", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_15.pdf" },
+            { name: "16", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_16.pdf" },
+            { name: "17", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_17.pdf" },
+            { name: "18", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_18.pdf" },
+            { name: "19", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_19.pdf" },
+            { name: "20", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_20.pdf" },
+            { name: "21", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_21.pdf" },
+            { name: "22", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_22.pdf" },
+            { name: "23", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_23.pdf" },
+            { name: "24", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_24.pdf" },
+            { name: "25", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_25.pdf" },
+            { name: "26", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_26.pdf" },
+            { name: "27", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_27.pdf" },
+            { name: "28", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_28.pdf" },
+            { name: "29", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_29.pdf" },
+            { name: "30", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_30.pdf" },
+            { name: "31", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_31.pdf" },
+            { name: "32", file: "https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/TafsirAlRaziMafatihAlGhaybAwAlTafsirAlKabir_DarIhyaAlTurathAlArabi_32.pdf" }
+        ],
+        isDropdownOpen: false
+    },
 {
     name: "تلخيص الحبير لإبن حجر",
     type: "multi",
