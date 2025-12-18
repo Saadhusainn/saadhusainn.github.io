@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Books Database</title>
+    <title>Book Library</title>
     <style>
         * {
             margin: 0;
@@ -12,10 +12,11 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
+            color: #333;
         }
 
         .container {
@@ -26,7 +27,7 @@
         header {
             text-align: center;
             color: white;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         header h1 {
@@ -36,321 +37,249 @@
         }
 
         header p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             opacity: 0.9;
         }
 
-        .search-filter {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
+        .search-container {
             margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
         .search-box {
+            flex: 1;
+            min-width: 250px;
             position: relative;
         }
 
         .search-box input {
             width: 100%;
-            padding: 12px 15px;
+            padding: 12px 40px 12px 16px;
+            border: none;
+            border-radius: 25px;
             font-size: 1rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 5px;
-            transition: border-color 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
         }
 
         .search-box input:focus {
             outline: none;
-            border-color: #667eea;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .search-box svg {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            color: #999;
+            pointer-events: none;
         }
 
         .filter-buttons {
             display: flex;
-            flex-wrap: wrap;
             gap: 10px;
+            flex-wrap: wrap;
         }
 
         .filter-btn {
-            padding: 10px 15px;
-            border: 2px solid #667eea;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 20px;
             background: white;
             color: #667eea;
-            border-radius: 5px;
+            font-weight: 600;
             cursor: pointer;
-            font-size: 0.95rem;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .filter-btn:hover,
         .filter-btn.active {
             background: #667eea;
             color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .results-info {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
         }
 
         .books-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
+            gap: 20px;
+            margin-top: 20px;
         }
 
         .book-card {
             background: white;
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
+            cursor: pointer;
         }
 
         .book-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
 
-        .book-header {
+        .book-cover {
+            width: 100%;
+            height: 220px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
-            padding: 20px;
+            font-size: 3rem;
             text-align: center;
-        }
-
-        .book-title {
-            font-size: 1.3rem;
+            padding: 20px;
             font-weight: bold;
-            margin-bottom: 5px;
             word-break: break-word;
         }
 
-        .book-author {
-            font-size: 0.95rem;
-            opacity: 0.9;
-            font-style: italic;
-        }
-
-        .book-body {
-            padding: 20px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
         .book-info {
+            padding: 16px;
+            flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-bottom: 15px;
         }
 
-        .info-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px;
-            background: #f5f5f5;
-            border-radius: 5px;
-            font-size: 0.9rem;
-        }
-
-        .info-label {
-            font-weight: 600;
-            color: #333;
-        }
-
-        .info-value {
-            color: #667eea;
-            font-weight: 500;
-        }
-
-        .volumes-container {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 2px solid #e0e0e0;
-        }
-
-        .volumes-title {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-        }
-
-        .volume-item {
-            background: #f9f9f9;
-            padding: 10px;
+        .book-title {
+            font-size: 1.1rem;
+            font-weight: 700;
             margin-bottom: 8px;
-            border-left: 4px solid #667eea;
-            border-radius: 3px;
-            font-size: 0.85rem;
-        }
-
-        .volume-name {
-            font-weight: 500;
             color: #333;
-            margin-bottom: 4px;
+            word-break: break-word;
+            line-height: 1.3;
         }
 
-        .volume-size {
+        .book-author {
+            font-size: 0.9rem;
             color: #666;
-            font-size: 0.8rem;
+            margin-bottom: 12px;
         }
 
-        .download-btn {
+        .book-meta {
             display: flex;
+            flex-direction: column;
             gap: 8px;
-            flex-wrap: wrap;
             margin-top: auto;
+            padding-top: 12px;
+            border-top: 1px solid #eee;
         }
 
-        .btn {
-            flex: 1;
-            min-width: 100px;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        .book-size {
+            font-size: 0.85rem;
+            color: #667eea;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .book-year {
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .book-link {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 8px 12px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
             font-size: 0.9rem;
             font-weight: 600;
-            transition: all 0.3s;
             text-align: center;
-            text-decoration: none;
+            transition: all 0.3s ease;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .book-link:hover {
+            background: #764ba2;
+            transform: translateX(4px);
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
             color: white;
         }
 
-        .btn-primary:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            opacity: 0.8;
         }
 
-        .btn-secondary {
-            background: #f0f0f0;
-            color: #333;
-            border: 2px solid #ddd;
-        }
-
-        .btn-secondary:hover {
-            background: #e8e8e8;
-        }
-
-        .stats {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            color: #666;
-            font-size: 0.95rem;
-        }
-
-        .no-results {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 40px 20px;
-            color: #666;
-        }
-
-        .no-results p {
-            font-size: 1.1rem;
+        .empty-state h2 {
+            font-size: 1.5rem;
             margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            opacity: 0.8;
         }
 
         .loading {
             text-align: center;
             color: white;
+            padding: 40px;
             font-size: 1.1rem;
         }
 
-        .error {
-            background: #ff6b6b;
-            color: white;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            margin-bottom: 20px;
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
         }
 
-        /* Mobile Responsive */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         @media (max-width: 768px) {
             header h1 {
                 font-size: 1.8rem;
             }
 
-            header p {
-                font-size: 1rem;
-            }
-
             .books-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .search-filter {
-                padding: 15px;
-                gap: 12px;
-            }
-
-            .filter-buttons {
-                gap: 8px;
-            }
-
-            .filter-btn {
-                padding: 8px 12px;
-                font-size: 0.85rem;
-            }
-
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
                 gap: 15px;
-                padding: 15px;
             }
 
-            .stat-number {
-                font-size: 1.5rem;
+            .book-cover {
+                height: 180px;
+                font-size: 2.5rem;
             }
 
-            .book-header {
-                padding: 15px;
-            }
-
-            .book-title {
-                font-size: 1.1rem;
-            }
-
-            .book-body {
-                padding: 15px;
-            }
-
-            .download-btn {
+            .search-container {
                 flex-direction: column;
             }
 
-            .btn {
+            .filter-buttons {
                 width: 100%;
             }
         }
@@ -362,40 +291,33 @@
 
             header h1 {
                 font-size: 1.5rem;
-                margin-bottom: 8px;
             }
 
             header p {
                 font-size: 0.9rem;
             }
 
-            .search-filter {
-                padding: 12px;
-                margin-bottom: 20px;
-            }
-
-            .filter-buttons {
-                gap: 6px;
-                justify-content: center;
-            }
-
-            .filter-btn {
-                padding: 6px 10px;
-                font-size: 0.75rem;
-            }
-
-            .info-item {
-                padding: 6px;
-                font-size: 0.85rem;
-            }
-
-            .volume-item {
-                padding: 8px;
-                margin-bottom: 6px;
+            .books-grid {
+                grid-template-columns: 1fr;
             }
 
             .book-card {
-                border-radius: 8px;
+                flex-direction: row;
+            }
+
+            .book-cover {
+                width: 120px;
+                height: 120px;
+                min-width: 120px;
+                font-size: 2rem;
+            }
+
+            .book-info {
+                padding: 12px;
+            }
+
+            .book-title {
+                font-size: 1rem;
             }
         }
     </style>
@@ -403,214 +325,171 @@
 <body>
     <div class="container">
         <header>
-            <h1>📚 Books Database</h1>
-            <p>Browse and download books with detailed information</p>
+            <h1>📚 Book Library</h1>
+            <p>Discover and explore our collection</p>
         </header>
 
-        <div class="stats" id="stats">
-            <div class="stat-item">
-                <div class="stat-number" id="totalBooks">0</div>
-                <div class="stat-label">Total Books</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" id="totalVolumes">0</div>
-                <div class="stat-label">Total Volumes</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" id="totalSize">0</div>
-                <div class="stat-label">Total Size</div>
-            </div>
-        </div>
-
-        <div class="search-filter">
+        <div class="search-container">
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="🔍 Search by title, author, or language...">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Search by title or author..."
+                    aria-label="Search books"
+                >
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
             </div>
             <div class="filter-buttons">
-                <button class="filter-btn active" data-filter="all">All Books</button>
-                <button class="filter-btn" data-filter="language">By Language</button>
-                <button class="filter-btn" data-filter="size">By Size</button>
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="pdf">PDF</button>
+                <button class="filter-btn" data-filter="epub">EPUB</button>
             </div>
         </div>
 
+        <div class="results-info" id="resultsInfo"></div>
+
         <div id="booksContainer" class="books-grid">
-            <div class="loading">Loading books...</div>
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>Loading books...</p>
+            </div>
         </div>
     </div>
 
     <script src="books-index.js"></script>
     <script>
         let allBooks = [];
-        let filteredBooks = [];
         let currentFilter = 'all';
-
-        // Initialize the page
-        async function init() {
-            try {
-                if (typeof booksData !== 'undefined') {
-                    allBooks = booksData;
-                    displayBooks(allBooks);
-                    updateStats(allBooks);
-                } else {
-                    showError('Books data not found. Please ensure books-index.js is loaded correctly.');
-                }
-            } catch (error) {
-                showError('Error loading books: ' + error.message);
-            }
-        }
-
-        // Display books in grid
-        function displayBooks(books) {
-            const container = document.getElementById('booksContainer');
-            
-            if (books.length === 0) {
-                container.innerHTML = '<div class="no-results"><p>No books found matching your criteria.</p></div>';
-                return;
-            }
-
-            container.innerHTML = books.map(book => createBookCard(book)).join('');
-        }
-
-        // Create individual book card
-        function createBookCard(book) {
-            const volumesHTML = book.volumes && book.volumes.length > 0 
-                ? `<div class="volumes-container">
-                    <div class="volumes-title">📦 Volumes (${book.volumes.length})</div>
-                    ${book.volumes.map(volume => `
-                        <div class="volume-item">
-                            <div class="volume-name">${volume.name}</div>
-                            <div class="volume-size">Size: ${formatFileSize(volume.size)}</div>
-                        </div>
-                    `).join('')}
-                   </div>`
-                : '';
-
-            return `
-                <div class="book-card">
-                    <div class="book-header">
-                        <div class="book-title">${escapeHtml(book.title)}</div>
-                        <div class="book-author">${escapeHtml(book.author || 'Unknown Author')}</div>
-                    </div>
-                    <div class="book-body">
-                        <div class="book-info">
-                            <div class="info-item">
-                                <span class="info-label">Language</span>
-                                <span class="info-value">${escapeHtml(book.language || 'N/A')}</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Format</span>
-                                <span class="info-value">${escapeHtml(book.format || 'N/A')}</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Total Size</span>
-                                <span class="info-value">${formatFileSize(book.totalSize || 0)}</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Year</span>
-                                <span class="info-value">${book.year || 'N/A'}</span>
-                            </div>
-                        </div>
-                        ${volumesHTML}
-                        <div class="download-btn">
-                            ${book.downloadUrl 
-                                ? `<a href="${book.downloadUrl}" class="btn btn-primary" target="_blank" rel="noopener noreferrer">📥 Download</a>` 
-                                : '<button class="btn btn-secondary" disabled>No Download</button>'
-                            }
-                            ${book.infoUrl 
-                                ? `<a href="${book.infoUrl}" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">ℹ️ Info</a>` 
-                                : ''
-                            }
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
+        let searchTerm = '';
 
         // Format file size
         function formatFileSize(bytes) {
-            if (!bytes || bytes === 0) return '0 B';
+            if (bytes === 0) return '0 B';
             const k = 1024;
             const sizes = ['B', 'KB', 'MB', 'GB'];
             const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
+            return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
         }
 
-        // Update statistics
-        function updateStats(books) {
-            let totalVolumes = 0;
-            let totalSize = 0;
-
-            books.forEach(book => {
-                if (book.volumes) {
-                    totalVolumes += book.volumes.length;
-                }
-                totalSize += (book.totalSize || 0);
-            });
-
-            document.getElementById('totalBooks').textContent = books.length;
-            document.getElementById('totalVolumes').textContent = totalVolumes;
-            document.getElementById('totalSize').textContent = formatFileSize(totalSize);
+        // Get file extension from URL
+        function getFileExtension(url) {
+            const match = url.match(/\.(\w+)$/i);
+            return match ? match[1].toLowerCase() : 'unknown';
         }
 
-        // Search functionality
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-            filteredBooks = allBooks.filter(book => {
-                return (book.title && book.title.toLowerCase().includes(query)) ||
-                       (book.author && book.author.toLowerCase().includes(query)) ||
-                       (book.language && book.language.toLowerCase().includes(query));
-            });
-            applyFilter();
-        });
+        // Filter and search books
+        function filterBooks() {
+            let filtered = allBooks;
 
-        // Filter buttons
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentFilter = btn.dataset.filter;
-                applyFilter();
-            });
-        });
-
-        // Apply filters
-        function applyFilter() {
-            let booksToDisplay = filteredBooks.length > 0 ? filteredBooks : allBooks;
-
-            if (currentFilter === 'language') {
-                booksToDisplay = booksToDisplay.sort((a, b) => 
-                    (a.language || '').localeCompare(b.language || '')
-                );
-            } else if (currentFilter === 'size') {
-                booksToDisplay = booksToDisplay.sort((a, b) => 
-                    (b.totalSize || 0) - (a.totalSize || 0)
+            // Apply search filter
+            if (searchTerm) {
+                const term = searchTerm.toLowerCase();
+                filtered = filtered.filter(book =>
+                    (book.title && book.title.toLowerCase().includes(term)) ||
+                    (book.author && book.author.toLowerCase().includes(term))
                 );
             }
 
-            displayBooks(booksToDisplay);
-            updateStats(booksToDisplay);
+            // Apply file type filter
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(book => {
+                    const ext = getFileExtension(book.url);
+                    return ext === currentFilter;
+                });
+            }
+
+            displayBooks(filtered);
+            updateResultsInfo(filtered.length);
         }
 
-        // Escape HTML to prevent XSS
-        function escapeHtml(text) {
-            const map = {
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                '"': '&quot;',
-                "'": '&#039;'
-            };
-            return (text || '').replace(/[&<>"']/g, m => map[m]);
-        }
-
-        // Show error message
-        function showError(message) {
+        // Display books
+        function displayBooks(books) {
             const container = document.getElementById('booksContainer');
-            container.innerHTML = `<div class="error">${escapeHtml(message)}</div>`;
+
+            if (books.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C6.248 6.253 2 10.501 2 15.757c0 5.256 4.248 9.504 10 9.504s10-4.248 10-9.504c0-5.256-4.248-9.504-10-9.504z"></path>
+                        </svg>
+                        <h2>No books found</h2>
+                        <p>Try adjusting your search or filters</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = books.map(book => `
+                <div class="book-card">
+                    <div class="book-cover">
+                        ${book.title ? book.title.charAt(0).toUpperCase() : '📖'}
+                    </div>
+                    <div class="book-info">
+                        <h3 class="book-title">${book.title || 'Untitled'}</h3>
+                        ${book.author ? `<p class="book-author">By ${book.author}</p>` : ''}
+                        <div class="book-meta">
+                            ${book.fileSize ? `<span class="book-size">💾 ${formatFileSize(book.fileSize)}</span>` : ''}
+                            ${book.year ? `<span class="book-year">📅 ${book.year}</span>` : ''}
+                        </div>
+                        <a href="${book.url}" class="book-link" target="_blank" rel="noopener noreferrer">
+                            Read ${getFileExtension(book.url).toUpperCase()}
+                        </a>
+                    </div>
+                </div>
+            `).join('');
         }
 
-        // Initialize on page load
-        window.addEventListener('DOMContentLoaded', init);
+        // Update results info
+        function updateResultsInfo(count) {
+            const info = document.getElementById('resultsInfo');
+            let message = `Found ${count} book${count !== 1 ? 's' : ''}`;
+            
+            if (searchTerm) {
+                message += ` matching "${searchTerm}"`;
+            }
+            
+            if (currentFilter !== 'all') {
+                message += ` (${currentFilter.toUpperCase()})`;
+            }
+            
+            info.textContent = message;
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            searchTerm = e.target.value.trim();
+            filterBooks();
+        });
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                currentFilter = e.target.dataset.filter;
+                filterBooks();
+            });
+        });
+
+        // Load books from books-index.js
+        function loadBooks() {
+            if (typeof booksIndex !== 'undefined' && Array.isArray(booksIndex)) {
+                allBooks = booksIndex;
+                filterBooks();
+            } else {
+                const container = document.getElementById('booksContainer');
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h2>Unable to load books</h2>
+                        <p>Please ensure books-index.js is properly configured</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', loadBooks);
     </script>
 </body>
 </html>
