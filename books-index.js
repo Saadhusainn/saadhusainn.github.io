@@ -9,6 +9,13 @@ const booksIndex = {
             language: "Arabic",
             type: "single"
         },
+{
+name:"الفكوك في أسرار مستندات حكم الفصوص للقونوي أو شرح فصوص الحكم – صدر الدين القونوي",
+file:"file: "https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlFukukFiAsrarMustandatHikmAlFususLiAlQunuwi_BooksPublisher.pdf",
+publisher:"Books Publisher",
+language:"العربية",
+type:"single",
+},
         {
     name: "العلل لابن الجوزي - ط العلمية",
     file: "https://raw.githubusercontent.com/saadhusainn/sijjeen98/main/pdfs/AlIlalLiIbnAlJawzi_AlIlmiyyah.pdf",
