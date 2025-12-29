@@ -11,7 +11,7 @@ const booksIndex = {
         },
 {
 name:"الفكوك في أسرار مستندات حكم الفصوص للقونوي أو شرح فصوص الحكم – صدر الدين القونوي",
-file:"https://raw.githubusercontent.com/saadhusainn/sijjeen91/main/pdfs/AlFukukFiAsrarMustandatHikmAlFususLiAlQunuwi_BooksPublisher.pdf",
+file:"https://raw.githubusercontent.com/saadhusainn/sijjeen90/main/pdfs/AlFukukFiAsrarMustandatHikmAlFususLiAlQunuwi_BooksPublisher.pdf",
 publisher:"Books Publisher",
 language:"العربية",
 type:"single",
