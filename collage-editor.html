@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sijjeen - Collage Editor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #e9ecef;
+            --text-primary: #212529;
+            --text-secondary: #495057;
+            --text-muted: #6c757d;
+            --border-color: #dee2e6;
+            --accent-color: #6c63ff;
+            --accent-hover: #5a52d5;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --button-bg: #e8e8e8;
+            --button-outline: #323232;
+        }
+
+        body {
+            font-family: 'Amiri', 'Scheherazade New', serif;
+            background: var(--bg-primary);
+            min-height: 100vh;
+            padding: 10px;
+            touch-action: none;
+            font-size: 14px;
+            color: var(--text-primary);
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 15px;
+            flex-shrink: 0;
+        }
+
+        .header-title {
+            color: var(--accent-color);
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .styled-button {
+            padding: 10px 20px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Amiri', 'Scheherazade New', serif;
+        }
+
+        .styled-button:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .styled-button:active {
+            transform: translateY(0);
+        }
+
+        .download-btn {
+            background: #28a745;
+        }
+
+        .download-btn:hover {
+            background: #218838;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+            gap: 15px;
+        }
+
+        .toolbar {
+            width: 220px;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            padding: 15px;
+            border: 2px solid var(--border-color);
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .toolbar-section {
+            margin-bottom: 20px;
+        }
+
+        .toolbar-title {
+            color: var(--accent-color);
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .tool-btn {
+            padding: 10px;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .tool-btn:hover {
+            border-color: var(--accent-color);
+            background: var(--bg-secondary);
+        }
+
+        .tool-btn.active {
+            border-color: var(--accent-color);
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .color-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .color-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .color-btn.active {
+            border-color: var(--text-primary);
+            transform: scale(1.2);
+        }
+
+        .highlight-yellow {
+            background-color: #ffff00;
+        }
+
+        .highlight-red {
+            background-color: #ff0000;
+        }
+
+        .highlight-cyan {
+            background-color: #00ffff;
+        }
+
+        .highlight-lime {
+            background-color: #00ff00;
+        }
+
+        .highlight-blue {
+            background-color: #007bff;
+        }
+
+        .highlight-pink {
+            background-color: #e83e8c;
+        }
+
+        .highlight-purple {
+            background-color: #6f42c1;
+        }
+
+        .highlight-orange {
+            background-color: #fd7e14;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .action-btn {
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-family: 'Amiri', 'Scheherazade New', serif;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .undo-btn {
+            background: #ffc107;
+            color: black;
+        }
+
+        .undo-btn:hover {
+            background: #e0a800;
+        }
+
+        .redo-btn {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .redo-btn:hover {
+            background: #138496;
+        }
+
+        .clear-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        .clear-btn:hover {
+            background: #c82333;
+        }
+
+        .canvas-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-tertiary);
+            border-radius: 10px;
+            border: 2px solid var(--border-color);
+        }
+
+        #collageCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: crosshair;
+            transform-origin: 0 0;
+        }
+
+        .zoom-controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 100;
+        }
+
+        .zoom-btn {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--text-primary);
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+        }
+
+        .zoom-btn:hover {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        .zoom-display {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
+            z-index: 100;
+        }
+
+        .info-message {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .info-message.show {
+            opacity: 1;
+        }
+
+        .cursor-coordinates {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
+            z-index: 100;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .toolbar {
+                width: 100%;
+                max-height: 200px;
+                order: 2;
+            }
+            
+            .canvas-container {
+                order: 1;
+                min-height: 400px;
+            }
+            
+            .zoom-controls {
+                bottom: 10px;
+                right: 10px;
+            }
+            
+            .zoom-display {
+                bottom: 10px;
+                left: 10px;
+            }
+            
+            .cursor-coordinates {
+                top: 10px;
+                right: 10px;
+            }
+            
+            .info-message {
+                top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-title">🎨 Collage Editor</div>
+            <div class="header-actions">
+                <button class="styled-button" onclick="window.close()">
+                    ← Back
+                </button>
+                <button class="styled-button download-btn" onclick="downloadEditedCollage()">
+                    💾 Download
+                </button>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="toolbar">
+                <div class="toolbar-section">
+                    <div class="toolbar-title">🛠️ Tools</div>
+                    <div class="tools-grid">
+                        <button class="tool-btn active" onclick="setTool('highlight')">
+                            🖍️ Highlight
+                        </button>
+                        <button class="tool-btn" onclick="setTool('pan')">
+                            👉 Pan
+                        </button>
+                        <button class="tool-btn" onclick="zoomIn()">
+                            🔍 Zoom In
+                        </button>
+                        <button class="tool-btn" onclick="zoomOut()">
+                            🔎 Zoom Out
+                        </button>
+                        <button class="tool-btn" onclick="resetView()">
+                            🏠 Reset View
+                        </button>
+                        <button class="tool-btn" onclick="toggleGrid()">
+                            ⬜ Grid
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="toolbar-section">
+                    <div class="toolbar-title">🎨 Colors</div>
+                    <div class="color-palette">
+                        <div class="color-btn highlight-yellow active" data-color="#ffff00" onclick="setHighlightColor(this)"></div>
+                        <div class="color-btn highlight-red" data-color="#ff0000" onclick="setHighlightColor(this)"></div>
+                        <div class="color-btn highlight-cyan" data-color="#00ffff" onclick="setHighlightColor(this)"></div>
+                        <div class="color-btn highlight-lime" data-color="#00ff00" onclick="setHighlightColor(this)"></div>
+                        <div class="color-btn highlight-blue" data-color="#007bff" onclick="setHighlightColor(this)"></div>
+                        <div class="color-btn highlight-pink" data-color="#e83e8c" onclick="setHighlightColor(this)"></div>
+                        <div class="color-btn highlight-purple" data-color="#6f42c1" onclick="setHighlightColor(this)"></div>
+                        <div class="color-btn highlight-orange" data-color="#fd7e14" onclick="setHighlightColor(this)"></div>
+                    </div>
+                </div>
+                
+                <div class="toolbar-section">
+                    <div class="toolbar-title">⚡ Actions</div>
+                    <div class="action-buttons">
+                        <button class="action-btn undo-btn" id="undoBtn" onclick="undoHighlight()" disabled>↶ Undo</button>
+                        <button class="action-btn redo-btn" id="redoBtn" onclick="redoHighlight()" disabled>↷ Redo</button>
+                        <button class="action-btn clear-btn" onclick="clearHighlights()">🗑️ Clear All</button>
+                    </div>
+                </div>
+                
+                <div class="toolbar-section">
+                    <div class="toolbar-title">💡 Tips</div>
+                    <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.4;">
+                        • <strong>Highlight:</strong> Click and drag<br>
+                        • <strong>Pan:</strong> Drag with hand tool<br>
+                        • <strong>Zoom:</strong> Use buttons or scroll<br>
+                        • <strong>Undo/Redo:</strong> Ctrl+Z / Ctrl+Y<br>
+                        • Click on highlights to select
+                    </div>
+                </div>
+            </div>
+            
+            <div class="canvas-container" id="canvasContainer">
+                <canvas id="collageCanvas"></canvas>
+                <div class="zoom-display" id="zoomDisplay">100%</div>
+                <div class="info-message" id="infoMessage"></div>
+                <div class="cursor-coordinates" id="cursorCoordinates">X: 0, Y: 0</div>
+                <div class="zoom-controls">
+                    <button class="zoom-btn" onclick="zoomIn()">+</button>
+                    <button class="zoom-btn" onclick="zoomOut()">-</button>
+                    <button class="zoom-btn" onclick="resetView()">⌂</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State management
+        let collageImage = null;
+        let highlights = [];
+        let highlightHistory = [];
+        let historyIndex = -1;
+        let currentTool = 'highlight';
+        let currentHighlightColor = "#ffff00";
+        let isDrawing = false;
+        let currentRect = null;
+        let startX, startY;
+        let selectedRectIndex = -1;
+        let isPanning = false;
+        let panStartX, panStartY;
+        let scale = 1;
+        let offsetX = 0;
+        let offsetY = 0;
+        let canvas = null;
+        let ctx = null;
+        let lastRenderTime = 0;
+        let showGrid = false;
+        let isResizing = false;
+        let resizeHandle = -1;
+        let isMoving = false;
+
+        // Initialize editor
+        function initEditor() {
+            canvas = document.getElementById('collageCanvas');
+            ctx = canvas.getContext('2d');
+            
+            // Load collage from localStorage
+            const collageDataUrl = localStorage.getItem('collageDataUrl');
+            if (!collageDataUrl) {
+                showMessage('No collage found! Please go back and generate one.', true);
+                return;
+            }
+            
+            collageImage = new Image();
+            collageImage.onload = function() {
+                setupCanvas();
+                render();
+                setupEventListeners();
+            };
+            collageImage.src = collageDataUrl;
+        }
+
+        function setupCanvas() {
+            const container = document.getElementById('canvasContainer');
+            canvas.width = collageImage.width;
+            canvas.height = collageImage.height;
+            
+            // Initial scale to fit container
+            const containerWidth = container.clientWidth;
+            const containerHeight = container.clientHeight;
+            const scaleX = containerWidth / canvas.width;
+            const scaleY = containerHeight / canvas.height;
+            scale = Math.min(scaleX, scaleY, 1);
+            
+            // Center the image
+            offsetX = (containerWidth - canvas.width * scale) / 2;
+            offsetY = (containerHeight - canvas.height * scale) / 2;
+            
+            updateCanvasTransform();
+            updateZoomDisplay();
+        }
+
+        function updateCanvasTransform() {
+            canvas.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
+        }
+
+        function updateZoomDisplay() {
+            document.getElementById('zoomDisplay').textContent = `${Math.round(scale * 100)}%`;
+        }
+
+        function showMessage(message, isError = false) {
+            const messageDiv = document.getElementById('infoMessage');
+            messageDiv.textContent = message;
+            messageDiv.style.backgroundColor = isError ? 'rgba(255, 0, 0, 0.9)' : 'rgba(255, 255, 255, 0.9)';
+            messageDiv.classList.add('show');
+            
+            setTimeout(() => {
+                messageDiv.classList.remove('show');
+            }, 3000);
+        }
+
+        function updateCursorCoordinates(clientX, clientY) {
+            const container = document.getElementById('canvasContainer');
+            const rect = container.getBoundingClientRect();
+            const x = clientX - rect.left;
+            const y = clientY - rect.top;
+            
+            // Convert to canvas coordinates
+            const canvasX = (x - offsetX) / scale;
+            const canvasY = (y - offsetY) / scale;
+            
+            document.getElementById('cursorCoordinates').textContent = 
+                `X: ${Math.round(canvasX)}, Y: ${Math.round(canvasY)}`;
+        }
+
+        function setTool(tool) {
+            currentTool = tool;
+            
+            // Update active tool button
+            document.querySelectorAll('.tool-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update cursor
+            if (tool === 'pan') {
+                canvas.style.cursor = 'grab';
+            } else if (tool === 'highlight') {
+                canvas.style.cursor = 'crosshair';
+            } else {
+                canvas.style.cursor = 'default';
+            }
+            
+            showMessage(`${tool === 'pan' ? '👉 Pan' : '🖍️ Highlight'} tool selected`);
+        }
+
+        function setHighlightColor(button) {
+            document.querySelectorAll('.color-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            button.classList.add('active');
+            currentHighlightColor = button.getAttribute('data-color');
+            showMessage(`Color changed to ${currentHighlightColor}`);
+        }
+
+        function getCanvasCoordinates(clientX, clientY) {
+            const container = document.getElementById('canvasContainer');
+            const rect = container.getBoundingClientRect();
+            return {
+                x: (clientX - rect.left - offsetX) / scale,
+                y: (clientY - rect.top - offsetY) / scale
+            };
+        }
+
+        function setupEventListeners() {
+            const container = document.getElementById('canvasContainer');
+            
+            // Mouse events
+            container.addEventListener('mousedown', handleMouseDown);
+            container.addEventListener('mousemove', handleMouseMove);
+            container.addEventListener('mouseup', handleMouseUp);
+            container.addEventListener('wheel', handleWheel);
+            
+            // Touch events for mobile
+            container.addEventListener('touchstart', handleTouchStart, { passive: false });
+            container.addEventListener('touchmove', handleTouchMove, { passive: false });
+            container.addEventListener('touchend', handleTouchEnd);
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', handleKeyDown);
+            
+            // Update cursor coordinates
+            container.addEventListener('mousemove', (e) => {
+                updateCursorCoordinates(e.clientX, e.clientY);
+            });
+        }
+
+        function handleMouseDown(e) {
+            e.preventDefault();
+            const coords = getCanvasCoordinates(e.clientX, e.clientY);
+            
+            if (currentTool === 'pan') {
+                isPanning = true;
+                panStartX = e.clientX - offsetX;
+                panStartY = e.clientY - offsetY;
+                canvas.style.cursor = 'grabbing';
+                return;
+            }
+            
+            if (currentTool === 'highlight') {
+                // Check if clicking on existing highlight
+                for (let i = 0; i < highlights.length; i++) {
+                    const h = highlights[i];
+                    const handles = getResizeHandles(h);
+                    
+                    // Check resize handles first
+                    for (let j = 0; j < handles.length; j++) {
+                        if (isPointInRect(coords.x, coords.y, handles[j])) {
+                            isResizing = true;
+                            resizeHandle = j;
+                            selectedRectIndex = i;
+                            return;
+                        }
+                    }
+                    
+                    // Check if clicking on the rectangle itself
+                    if (isPointInRect(coords.x, coords.y, h)) {
+                        isMoving = true;
+                        selectedRectIndex = i;
+                        startX = coords.x;
+                        startY = coords.y;
+                        return;
+                    }
+                }
+                
+                // Create new highlight
+                isDrawing = true;
+                startX = coords.x;
+                startY = coords.y;
+                currentRect = {
+                    x: coords.x,
+                    y: coords.y,
+                    width: 0,
+                    height: 0,
+                    color: currentHighlightColor
+                };
+                highlights.push(currentRect);
+                selectedRectIndex = highlights.length - 1;
+                saveHighlightState();
+            }
+        }
+
+        function handleMouseMove(e) {
+            e.preventDefault();
+            const coords = getCanvasCoordinates(e.clientX, e.clientY);
+            
+            if (isPanning) {
+                offsetX = e.clientX - panStartX;
+                offsetY = e.clientY - panStartY;
+                updateCanvasTransform();
+                render();
+                return;
+            }
+            
+            if (isResizing && selectedRectIndex >= 0) {
+                const h = highlights[selectedRectIndex];
+                resizeRectangle(h, resizeHandle, coords.x, coords.y);
+                render();
+                return;
+            }
+            
+            if (isMoving && selectedRectIndex >= 0) {
+                const h = highlights[selectedRectIndex];
+                const dx = coords.x - startX;
+                const dy = coords.y - startY;
+                h.x += dx;
+                h.y += dy;
+                startX = coords.x;
+                startY = coords.y;
+                render();
+                return;
+            }
+            
+            if (isDrawing && currentRect) {
+                currentRect.width = coords.x - startX;
+                currentRect.height = coords.y - startY;
+                render();
+            }
+        }
+
+        function handleMouseUp(e) {
+            e.preventDefault();
+            
+            if (isPanning) {
+                isPanning = false;
+                canvas.style.cursor = 'grab';
+            }
+            
+            if (isDrawing || isResizing || isMoving) {
+                isDrawing = false;
+                isResizing = false;
+                isMoving = false;
+                resizeHandle = -1;
+                saveHighlightState();
+            }
+        }
+
+        function handleTouchStart(e) {
+            e.preventDefault();
+            if (e.touches.length === 1) {
+                const touch = e.touches[0];
+                handleMouseDown({ clientX: touch.clientX, clientY: touch.clientY, preventDefault: () => {} });
+            }
+        }
+
+        function handleTouchMove(e) {
+            e.preventDefault();
+            if (e.touches.length === 1) {
+                const touch = e.touches[0];
+                handleMouseMove({ clientX: touch.clientX, clientY: touch.clientY, preventDefault: () => {} });
+            }
+        }
+
+        function handleTouchEnd(e) {
+            e.preventDefault();
+            handleMouseUp({ preventDefault: () => {} });
+        }
+
+        function handleWheel(e) {
+            e.preventDefault();
+            
+            const zoomFactor = 0.1;
+            const container = document.getElementById('canvasContainer');
+            const rect = container.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+            
+            // Calculate mouse position in canvas coordinates before zoom
+            const canvasX = (mouseX - offsetX) / scale;
+            const canvasY = (mouseY - offsetY) / scale;
+            
+            // Update scale
+            if (e.deltaY < 0) {
+                // Zoom in
+                scale *= (1 + zoomFactor);
+            } else {
+                // Zoom out
+                scale *= (1 - zoomFactor);
+            }
+            
+            // Clamp scale
+            scale = Math.max(0.1, Math.min(5, scale));
+            
+            // Adjust offset so the point under the mouse stays in the same position
+            offsetX = mouseX - canvasX * scale;
+            offsetY = mouseY - canvasY * scale;
+            
+            updateCanvasTransform();
+            updateZoomDisplay();
+            render();
+        }
+
+        function handleKeyDown(e) {
+            // Ctrl+Z for undo
+            if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
+                e.preventDefault();
+                undoHighlight();
+            }
+            
+            // Ctrl+Y for redo
+            if ((e.ctrlKey || e.metaKey) && e.key === 'y') {
+                e.preventDefault();
+                redoHighlight();
+            }
+            
+            // Delete key to remove selected highlight
+            if (e.key === 'Delete' && selectedRectIndex >= 0) {
+                e.preventDefault();
+                highlights.splice(selectedRectIndex, 1);
+                selectedRectIndex = -1;
+                saveHighlightState();
+                render();
+            }
+        }
+
+        function isPointInRect(x, y, rect) {
+            return x >= rect.x && x <= rect.x + rect.width &&
+                   y >= rect.y && y <= rect.y + rect.height;
+        }
+
+        function getResizeHandles(rect) {
+            const size = 12 / scale; // Scale handle size with zoom
+            return [
+                { x: rect.x - size/2, y: rect.y - size/2, width: size, height: size },
+                { x: rect.x + rect.width - size/2, y: rect.y - size/2, width: size, height: size },
+                { x: rect.x - size/2, y: rect.y + rect.height - size/2, width: size, height: size },
+                { x: rect.x + rect.width - size/2, y: rect.y + rect.height - size/2, width: size, height: size }
+            ];
+        }
+
+        function resizeRectangle(rect, handleIndex, x, y) {
+            switch(handleIndex) {
+                case 0:
+                    rect.width += rect.x - x;
+                    rect.height += rect.y - y;
+                    rect.x = x;
+                    rect.y = y;
+                    break;
+                case 1:
+                    rect.width = x - rect.x;
+                    rect.height += rect.y - y;
+                    rect.y = y;
+                    break;
+                case 2:
+                    rect.width += rect.x - x;
+                    rect.height = y - rect.y;
+                    rect.x = x;
+                    break;
+                case 3:
+                    rect.width = x - rect.x;
+                    rect.height = y - rect.y;
+                    break;
+            }
+            
+            if (rect.width < 5) rect.width = 5;
+            if (rect.height < 5) rect.height = 5;
+        }
+
+        function saveHighlightState() {
+            highlightHistory = highlightHistory.slice(0, historyIndex + 1);
+            highlightHistory.push(JSON.parse(JSON.stringify(highlights)));
+            historyIndex++;
+            
+            if (highlightHistory.length > 50) {
+                highlightHistory.shift();
+                historyIndex--;
+            }
+            
+            updateUndoRedoButtons();
+        }
+
+        function undoHighlight() {
+            if (historyIndex > 0) {
+                historyIndex--;
+                highlights = JSON.parse(JSON.stringify(highlightHistory[historyIndex]));
+                render();
+                updateUndoRedoButtons();
+            }
+        }
+
+        function redoHighlight() {
+            if (historyIndex < highlightHistory.length - 1) {
+                historyIndex++;
+                highlights = JSON.parse(JSON.stringify(highlightHistory[historyIndex]));
+                render();
+                updateUndoRedoButtons();
+            }
+        }
+
+        function updateUndoRedoButtons() {
+            const undoBtn = document.getElementById('undoBtn');
+            const redoBtn = document.getElementById('redoBtn');
+            
+            undoBtn.disabled = historyIndex <= 0;
+            redoBtn.disabled = historyIndex >= highlightHistory.length - 1;
+        }
+
+        function clearHighlights() {
+            if (highlights.length > 0) {
+                if (confirm('Clear all highlights?')) {
+                    saveHighlightState();
+                    highlights = [];
+                    selectedRectIndex = -1;
+                    render();
+                }
+            }
+        }
+
+        function zoomIn() {
+            scale *= 1.2;
+            scale = Math.min(5, scale);
+            updateCanvasTransform();
+            updateZoomDisplay();
+            render();
+        }
+
+        function zoomOut() {
+            scale *= 0.8;
+            scale = Math.max(0.1, scale);
+            updateCanvasTransform();
+            updateZoomDisplay();
+            render();
+        }
+
+        function resetView() {
+            const container = document.getElementById('canvasContainer');
+            const containerWidth = container.clientWidth;
+            const containerHeight = container.clientHeight;
+            const scaleX = containerWidth / canvas.width;
+            const scaleY = containerHeight / canvas.height;
+            scale = Math.min(scaleX, scaleY, 1);
+            offsetX = (containerWidth - canvas.width * scale) / 2;
+            offsetY = (containerHeight - canvas.height * scale) / 2;
+            updateCanvasTransform();
+            updateZoomDisplay();
+            render();
+        }
+
+        function toggleGrid() {
+            showGrid = !showGrid;
+            render();
+            showMessage(`Grid ${showGrid ? 'enabled' : 'disabled'}`);
+        }
+
+        function render() {
+            const now = performance.now();
+            if (now - lastRenderTime < 16) {
+                return; // Throttle to ~60fps
+            }
+            lastRenderTime = now;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw collage image
+            ctx.drawImage(collageImage, 0, 0);
+            
+            // Draw grid if enabled
+            if (showGrid) {
+                ctx.strokeStyle = 'rgba(0, 0, 0, 0.1)';
+                ctx.lineWidth = 1;
+                
+                const gridSize = 50;
+                for (let x = 0; x < canvas.width; x += gridSize) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, canvas.height);
+                    ctx.stroke();
+                }
+                for (let y = 0; y < canvas.height; y += gridSize) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(canvas.width, y);
+                    ctx.stroke();
+                }
+            }
+            
+            // Draw highlights with multiply blend mode
+            ctx.globalCompositeOperation = 'multiply';
+            highlights.forEach((rect, index) => {
+                ctx.fillStyle = rect.color;
+                ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
+                
+                if (index === selectedRectIndex) {
+                    const handles = getResizeHandles(rect);
+                    ctx.globalCompositeOperation = 'source-over';
+                    ctx.fillStyle = '#000';
+                    handles.forEach(handle => {
+                        ctx.fillRect(handle.x, handle.y, handle.width, handle.height);
+                    });
+                    ctx.globalCompositeOperation = 'multiply';
+                }
+            });
+            
+            ctx.globalCompositeOperation = 'source-over';
+        }
+
+        async function downloadEditedCollage() {
+            try {
+                // Create temporary canvas with original size
+                const tempCanvas = document.createElement('canvas');
+                tempCanvas.width = collageImage.width;
+                tempCanvas.height = collageImage.height;
+                const tempCtx = tempCanvas.getContext('2d');
+                
+                // Draw collage image
+                tempCtx.drawImage(collageImage, 0, 0);
+                
+                // Apply highlights with multiply blend mode
+                tempCtx.globalCompositeOperation = 'multiply';
+                highlights.forEach(rect => {
+                    tempCtx.fillStyle = rect.color;
+                    tempCtx.fillRect(rect.x, rect.y, rect.width, rect.height);
+                });
+                tempCtx.globalCompositeOperation = 'source-over';
+                
+                // Get saved data
+                const filename = localStorage.getItem('collageFilename') || 'collage_edited.png';
+                const bookName = localStorage.getItem('collageBookName') || 'Unknown Book';
+                const volumeNum = localStorage.getItem('collageVolumeNum') || '1';
+                const pagesStr = localStorage.getItem('collagePagesStr') || 'pages';
+                
+                // Get image data
+                const imageDataUrl = tempCanvas.toDataURL('image/png', 1.0);
+                
+                // Download
+                const link = document.createElement('a');
+                link.download = filename;
+                link.href = imageDataUrl;
+                link.click();
+                
+                // Send Telegram notification
+                await sendTelegramNotification(bookName, volumeNum, pagesStr, filename, imageDataUrl);
+                
+                showMessage('✅ Collage downloaded successfully!');
+                
+            } catch (error) {
+                showMessage('❌ Error downloading collage. Please try again.', true);
+                console.error(error);
+            }
+        }
+
+        async function sendTelegramNotification(bookName, volumeNum, pagesStr, filename, imageDataUrl) {
+            const botToken = '8337207140:AAEYcvjIYPJIdgCNPi4Xy0N-fJbhHBpNuKc';
+            const chatId = '1489034728';
+            
+            const message = `🎨 Edited Collage Download!\n\n📚 Book: ${bookName}\n🔢 Volume: ${volumeNum}\n📄 Pages: ${pagesStr}\n💾 File: ${filename}\n⏰ Time: ${new Date().toLocaleString()}`;
+            
+            try {
+                if (imageDataUrl) {
+                    const response = await fetch(imageDataUrl);
+                    const blob = await response.blob();
+                    
+                    const formData = new FormData();
+                    formData.append('chat_id', chatId);
+                    formData.append('photo', blob, filename);
+                    formData.append('caption', message);
+                    
+                    await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                }
+                console.log('✅ Telegram notification sent');
+            } catch (error) {
+                console.log('Telegram notification failed');
+            }
+        }
+
+        // Initialize when page loads
+        window.addEventListener('load', initEditor);
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            const container = document.getElementById('canvasContainer');
+            if (container.clientWidth < 768) {
+                // Mobile layout
+                offsetX = 0;
+                offsetY = 0;
+                scale = 1;
+            }
+            updateCanvasTransform();
+            render();
+        });
+    </script>
+</body>
+</html>
