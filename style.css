@@ -29,12 +29,11 @@
     --accent-color: #6c63ff;
     --accent-hover: #5a52d5;
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --button-bg: #e8e8e8;
-    --button-outline: #323232;
+    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 body {
-    font-family: 'My Arabic Font', 'iOS Semibold', serif;
+    font-family: 'Amiri', 'Scheherazade New', serif;
     background: var(--bg-primary);
     min-height: 100vh;
     padding: 10px;
@@ -53,6 +52,7 @@ body {
     border: 1px solid var(--border-color);
 }
 
+/* Header */
 .header {
     display: flex;
     justify-content: space-between;
@@ -62,12 +62,24 @@ body {
     gap: 15px;
 }
 
+.title-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+}
+
+.site-logo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
 .title {
     color: var(--accent-color);
     font-size: 2.5em;
     font-weight: bold;
-    text-align: left;
-    flex: 1;
 }
 
 .durood {
@@ -95,27 +107,44 @@ body {
 
 /* Button Styles */
 .styled-button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: 12px 24px;
     background: var(--accent-color);
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s;
-    font-family: 'My Arabic Font', 'iOS Semibold', serif;
+    font-family: 'Amiri', 'Scheherazade New', serif;
     text-decoration: none;
+    gap: 10px;
 }
 
 .styled-button:hover {
     background: var(--accent-hover);
     transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(108, 99, 255, 0.2);
 }
 
 .styled-button:active {
     transform: translateY(0);
+}
+
+.button-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.button-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
 }
 
 .highlight-btn {
@@ -124,6 +153,17 @@ body {
 
 .highlight-btn:hover {
     background: #ff5252;
+}
+
+.show-more-btn {
+    width: 100%;
+    margin-top: 15px;
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.show-more-btn:hover {
+    background: var(--border-color);
 }
 
 /* Upload Section */
@@ -141,24 +181,25 @@ body {
 
 .search-bar input {
     width: 100%;
-    padding: 12px 50px 12px 15px;
-    font-size: 15px;
+    padding: 14px 50px 14px 20px;
+    font-size: 16px;
     border: 2px solid var(--border-color);
     border-radius: 50px;
     outline: none;
-    font-family: 'My Arabic Font', 'iOS Semibold', serif;
+    font-family: 'Amiri', 'Scheherazade New', serif;
     background: var(--bg-secondary);
     color: var(--text-primary);
+    transition: all 0.3s;
 }
 
 .search-bar input:focus {
     border-color: var(--accent-color);
-    box-shadow: 0 0 10px rgba(108, 99, 255, 0.3);
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
 }
 
 .search-icon {
     position: absolute;
-    right: 15px;
+    right: 20px;
     top: 50%;
     transform: translateY(-50%);
     color: var(--text-muted);
@@ -170,20 +211,21 @@ body {
     max-height: 400px;
     overflow-y: auto;
     border: 2px solid var(--border-color);
-    border-radius: 10px;
-    margin-bottom: 20px;
-    padding: 5px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    padding: 10px;
     background: var(--bg-secondary);
 }
 
+/* Optimized Book Items */
 .book-item {
-    padding: 5px 5px;
-    margin: 3px 0;
+    padding: 12px 15px;
+    margin: 6px 0;
     background: var(--bg-secondary);
     border: 2px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.2s;
     font-size: 14px;
     text-align: left;
     color: var(--text-primary);
@@ -203,7 +245,7 @@ body {
 
 .book-folder {
     background: var(--bg-tertiary);
-    border-left: 4px solid var(--accent-color);
+    border-left: 5px solid var(--accent-color);
 }
 
 .book-meta {
@@ -222,17 +264,19 @@ body {
 .action-button {
     padding: 6px 12px;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
     font-size: 12px;
     font-weight: bold;
-    transition: all 0.3s;
-    font-family: 'My Arabic Font', 'iOS Semibold', serif;
+    transition: all 0.2s;
+    font-family: 'Amiri', 'Scheherazade New', serif;
     display: flex;
     align-items: center;
     justify-content: center;
     background: transparent;
     color: var(--text-primary);
+    min-width: 30px;
+    min-height: 30px;
 }
 
 .action-button:hover {
@@ -240,8 +284,8 @@ body {
 }
 
 .action-button img {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     object-fit: contain;
 }
 
@@ -253,10 +297,11 @@ body {
     background: rgba(23, 162, 184, 0.1);
 }
 
+/* Optimized Volume Dropdown */
 .volume-dropdown {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease-out;
+    transition: max-height 0.2s ease-out;
     margin-top: 8px;
 }
 
@@ -266,7 +311,7 @@ body {
 
 .volumes-list {
     border: 1px solid var(--border-color);
-    border-radius: 6px;
+    border-radius: 8px;
     padding: 8px;
     background: var(--bg-secondary);
     max-height: 280px;
@@ -278,9 +323,9 @@ body {
     margin: 4px 0;
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.2s;
     font-size: 13px;
     color: var(--text-primary);
 }
@@ -300,14 +345,49 @@ body {
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
-    padding: 3px 8px;
-    transition: transform 0.3s;
+    padding: 4px 8px;
+    transition: transform 0.2s;
     user-select: none;
     color: var(--text-muted);
+    min-width: 20px;
+    text-align: center;
 }
 
 .dropdown-toggle.open {
     transform: rotate(90deg);
+}
+
+/* Book Header */
+.book-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.book-title {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.book-title-text {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.book-icon {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+.book-main-actions {
+    display: flex;
+    gap: 6px;
+    margin-left: 10px;
 }
 
 /* Collage Settings */
@@ -324,11 +404,19 @@ body {
 }
 
 .setting-group label {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     font-weight: bold;
     color: var(--accent-color);
     margin-bottom: 12px;
     font-size: 15px;
+}
+
+.setting-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
 }
 
 .page-count-selector {
@@ -348,13 +436,13 @@ body {
 
 .page-count-option span {
     display: block;
-    padding: 10px 15px;
+    padding: 12px 15px;
     background: var(--bg-secondary);
     border: 2px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 10px;
     text-align: center;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.2s;
     font-size: 14px;
 }
 
@@ -387,21 +475,21 @@ body {
 }
 
 .page-input-group input {
-    padding: 8px 12px;
+    padding: 10px 14px;
     font-size: 14px;
     border: 2px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 10px;
     width: 80px;
     text-align: center;
-    font-family: 'My Arabic Font', 'iOS Semibold', serif;
-    transition: all 0.3s;
+    font-family: 'Amiri', 'Scheherazade New', serif;
+    transition: all 0.2s;
     background: var(--bg-secondary);
     color: var(--text-primary);
 }
 
 .page-input-group input:focus {
     border-color: var(--accent-color);
-    box-shadow: 0 0 5px rgba(108, 99, 255, 0.3);
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
 }
 
 /* Watermark Section */
@@ -439,11 +527,16 @@ body {
 
 .watermark-slider input::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     background: var(--accent-color);
     border-radius: 50%;
     cursor: pointer;
+    transition: all 0.2s;
+}
+
+.watermark-slider input::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
 }
 
 .watermark-slider span {
@@ -470,7 +563,7 @@ body {
 
 .preview-canvas {
     border: 3px solid var(--accent-color);
-    border-radius: 10px;
+    border-radius: 12px;
     box-shadow: var(--shadow);
     display: block;
     max-width: 100%;
@@ -502,76 +595,136 @@ body {
 .request-input {
     width: 100%;
     max-width: 400px;
-    padding: 12px;
+    padding: 12px 16px;
     font-size: 14px;
     border: 2px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 10px;
     margin-bottom: 10px;
-    font-family: 'My Arabic Font', 'iOS Semibold', serif;
+    font-family: 'Amiri', 'Scheherazade New', serif;
     background: var(--bg-secondary);
     color: var(--text-primary);
+    transition: all 0.2s;
 }
 
 .request-input:focus {
     border-color: var(--accent-color);
-    box-shadow: 0 0 5px rgba(108, 99, 255, 0.3);
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
 }
 
 /* Contact Section */
 .contact-section {
     margin-top: 40px;
-    padding: 25px;
-    background: var(--bg-tertiary);
-    border-radius: 15px;
+    padding: 30px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 20px;
     text-align: center;
-    border-top: 3px solid var(--accent-color);
+    border-top: 5px solid var(--accent-color);
+    box-shadow: var(--card-shadow);
+}
+
+.contact-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.contact-title-icon {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
 }
 
 .contact-title {
     color: var(--accent-color);
-    font-size: 1.3em;
-    margin-bottom: 20px;
+    font-size: 1.8em;
     font-weight: bold;
+    margin: 0;
 }
 
-.contact-info {
+.contact-subtitle {
+    color: var(--text-secondary);
+    font-size: 1em;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.contact-card {
     display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 20px;
+    align-items: center;
+    gap: 20px;
+    padding: 25px;
+    background: var(--bg-secondary);
+    border-radius: 15px;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: all 0.3s;
+    border: 2px solid transparent;
+    box-shadow: var(--card-shadow);
 }
 
-.contact-item {
+.contact-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-color);
+    box-shadow: 0 10px 20px rgba(108, 99, 255, 0.15);
+}
+
+.contact-card-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
+    flex-shrink: 0;
 }
 
-.contact-label {
-    font-weight: bold;
-    color: var(--text-primary);
-    min-width: 80px;
-    text-align: right;
+.contact-card-icon img {
+    width: 30px;
+    height: 30px;
+    filter: brightness(0) invert(1);
 }
 
-.contact-link {
+.contact-card-content {
+    flex: 1;
+    text-align: left;
+}
+
+.contact-card-content h4 {
     color: var(--accent-color);
-    text-decoration: none;
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.contact-card-content p {
+    color: var(--text-secondary);
+    font-size: 0.95em;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.contact-card-link {
+    color: var(--accent-color);
     font-weight: bold;
-    transition: color 0.3s;
+    font-size: 0.9em;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: gap 0.2s;
 }
 
-.contact-link:hover {
-    color: var(--accent-hover);
-    text-decoration: underline;
-}
-
-.copyright {
-    color: var(--text-muted);
-    font-size: 13px;
-    margin-top: 15px;
+.contact-card:hover .contact-card-link {
+    gap: 10px;
 }
 
 /* Utility Classes */
@@ -586,24 +739,24 @@ body {
 }
 
 .error-message {
-    background: #fee;
-    border: 2px solid #fcc;
+    background: linear-gradient(135deg, #fee 0%, #fcc 100%);
+    border: 2px solid #f99;
     color: #c33;
-    padding: 10px 15px;
-    border-radius: 8px;
+    padding: 12px 18px;
+    border-radius: 10px;
     margin: 10px 0;
-    font-size: 13px;
+    font-size: 14px;
     animation: shake 0.5s ease-in-out;
 }
 
 .success-message {
-    background: #efe;
-    border: 2px solid #cfc;
+    background: linear-gradient(135deg, #efe 0%, #cfc 100%);
+    border: 2px solid #9c9;
     color: #363;
-    padding: 10px 15px;
-    border-radius: 8px;
+    padding: 12px 18px;
+    border-radius: 10px;
     margin: 10px 0;
-    font-size: 13px;
+    font-size: 14px;
     animation: bounceIn 0.5s ease-out;
 }
 
@@ -673,30 +826,6 @@ body {
     }
 }
 
-/* Book Header */
-.book-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.book-title {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.book-title-text {
-    flex: 1;
-}
-
-.book-main-actions {
-    display: flex;
-    gap: 6px;
-    margin-left: 10px;
-}
-
 /* Animations */
 @keyframes fadeIn {
     from { opacity: 0; }
@@ -756,8 +885,18 @@ body {
         gap: 10px;
     }
     
+    .title-section {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .site-logo {
+        width: 40px;
+        height: 40px;
+    }
+    
     .title {
-        font-size: 2em;
+        font-size: 1.8em;
         text-align: center;
     }
     
@@ -767,19 +906,18 @@ body {
         line-height: 1.4;
     }
     
-    .contact-info {
-        align-items: flex-start;
+    .contact-grid {
+        grid-template-columns: 1fr;
     }
     
-    .contact-item {
+    .contact-card {
         flex-direction: column;
-        align-items: flex-start;
-        gap: 5px;
+        text-align: center;
+        padding: 20px;
     }
     
-    .contact-label {
-        min-width: auto;
-        text-align: left;
+    .contact-card-content {
+        text-align: center;
     }
     
     .page-count-selector {
@@ -814,5 +952,15 @@ body {
     .preview-actions {
         flex-direction: column;
         align-items: center;
+    }
+    
+    .styled-button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+    
+    .search-bar input {
+        padding: 12px 45px 12px 15px;
+        font-size: 14px;
     }
 }
