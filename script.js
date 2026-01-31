@@ -2,6 +2,9 @@
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
 let books = [];
+let filteredBooks = [];
+let currentDisplayIndex = 0;
+const PAGE_SIZE = 30;
 let selectedBook = null;
 let pageCount = 2;
 let pdfDocument = null;
@@ -100,40 +103,208 @@ async function loadBooks() {
             </div>
         `;
         
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
         // Load books from external index file
         books = [...booksIndex.single, ...booksIndex.multi];
-        displayBooks(books);
+        filteredBooks = [...books];
+        currentDisplayIndex = 0;
+        
+        // Initial display of first PAGE_SIZE books
+        displayBooksPaginated();
         
     } catch (error) {
         showError('Error loading books structure.');
     }
 }
 
-function searchBooks() {
-    const query = document.getElementById('searchInput').value.toLowerCase();
+function loadMoreBooks() {
+    currentDisplayIndex += PAGE_SIZE;
+    displayBooksPaginated();
+}
+
+function displayBooksPaginated() {
+    const list = document.getElementById('booksList');
     
-    // Send search notification
-    if (query.length > 0) {
-        sendSearchNotification(query);
+    // Clear list for initial display, append for "Show More"
+    if (currentDisplayIndex <= PAGE_SIZE) {
+        list.innerHTML = '';
     }
     
-    const filtered = books.filter(book => 
-        book.name.toLowerCase().includes(query) ||
-        (book.publisher && book.publisher.toLowerCase().includes(query)) ||
-        (book.language && book.language.toLowerCase().includes(query))
-    );
-    displayBooks(filtered);
+    const booksToDisplay = filteredBooks.slice(currentDisplayIndex, currentDisplayIndex + PAGE_SIZE);
+    
+    if (booksToDisplay.length === 0 && currentDisplayIndex === 0) {
+        const searchQuery = document.getElementById('searchInput').value;
+        if (searchQuery.length > 0) {
+            list.innerHTML = '<div class="no-results">No books found matching your search</div>';
+        } else {
+            list.innerHTML = '<div class="no-results">No books available</div>';
+        }
+        document.getElementById('showMoreBtn').classList.add('hidden');
+        return;
+    }
+    
+    booksToDisplay.forEach((book) => {
+        const item = createBookItem(book);
+        list.appendChild(item);
+    });
+    
+    // Show/Hide "Show More" button
+    const showMoreBtn = document.getElementById('showMoreBtn');
+    if (currentDisplayIndex + PAGE_SIZE < filteredBooks.length) {
+        showMoreBtn.classList.remove('hidden');
+        showMoreBtn.innerHTML = `<span class="button-top">📚 Show More (${filteredBooks.length - (currentDisplayIndex + PAGE_SIZE)} remaining)</span>`;
+    } else {
+        showMoreBtn.classList.add('hidden');
+    }
     
     // Show book request section if no results
     const bookRequestSection = document.getElementById('bookRequestSection');
-    if (filtered.length === 0 && query.length > 0) {
+    const searchQuery = document.getElementById('searchInput').value;
+    if (filteredBooks.length === 0 && searchQuery.length > 0) {
         bookRequestSection.classList.remove('hidden');
     } else {
         bookRequestSection.classList.add('hidden');
         document.getElementById('requestForm').classList.add('hidden');
     }
+}
+
+function createBookItem(book) {
+    const item = document.createElement('div');
+    item.className = 'book-item';
+    
+    if (book.type === 'multi') {
+        item.classList.add('book-folder');
+        let metaHTML = '';
+        if (book.publisher || book.language) {
+            metaHTML = `<div class="book-meta">`;
+            if (book.publisher) metaHTML += `<strong>Publisher:</strong> ${book.publisher}<br>`;
+            if (book.language) metaHTML += `<strong>Language:</strong> ${book.language}`;
+            metaHTML += `</div>`;
+        }
+        
+        const dropdownIcon = book.isDropdownOpen ? '▶' : '▶';
+        const dropdownClass = book.isDropdownOpen ? 'dropdown-toggle open' : 'dropdown-toggle';
+        
+        item.innerHTML = `
+            <div class="book-header">
+                <div class="book-title">
+                    <div class="book-title-text">
+                        <img src="assets/book-type-multi.png" alt="Multi-book" class="book-icon">
+                        <span>${book.name}</span>
+                    </div>
+                    <span class="${dropdownClass}" onclick="toggleVolumeDropdown(event, '${book.name}')">
+                        ${dropdownIcon}
+                    </span>
+                </div>
+                <div class="book-main-actions">
+                    <button class="action-button download-btn" onclick="downloadAllVolumes('${book.name}')">
+                        <img src="assets/download.png" alt="Download All">
+                    </button>
+                </div>
+            </div>
+            ${metaHTML}
+            <div class="volume-dropdown ${book.isDropdownOpen ? 'open' : ''}" id="dropdown-${book.name}">
+                <div class="volumes-list">
+                    ${book.volumes.map(vol => `
+                        <div class="volume-item" onclick="selectVolume(event, '${book.name}', '${vol.name}', '${vol.file}')">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span>📖 ${vol.name}</span>
+                                <div class="book-actions">
+                                    <button class="action-button download-btn" onclick="event.stopPropagation(); downloadVolume('${book.name}', '${vol.name}', '${vol.file}')">
+                                        <img src="assets/download.png" alt="Download">
+                                    </button>
+                                    <button class="action-button view-btn" onclick="event.stopPropagation(); viewVolume('${book.name}', '${vol.name}', '${vol.file}')">
+                                        <img src="assets/view.png" alt="View">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    } else {
+        let metaHTML = '';
+        if (book.publisher || book.language) {
+            metaHTML = `<div class="book-meta">`;
+            if (book.publisher) metaHTML += `<strong>Publisher:</strong> ${book.publisher}<br>`;
+            if (book.language) metaHTML += `<strong>Language:</strong> ${book.language}`;
+            metaHTML += `</div>`;
+        }
+        
+        item.innerHTML = `
+            <div class="book-header">
+                <div class="book-title">
+                    <div class="book-title-text">
+                        <img src="assets/book-type-single.png" alt="Single book" class="book-icon">
+                        <span>${book.name}</span>
+                    </div>
+                </div>
+                <div class="book-main-actions">
+                    <button class="action-button download-btn" onclick="downloadBook('${book.name}', '${book.file}')">
+                        <img src="assets/download.png" alt="Download">
+                    </button>
+                    <button class="action-button view-btn" onclick="viewBook('${book.name}', '${book.file}')">
+                        <img src="assets/view.png" alt="View">
+                    </button>
+                </div>
+            </div>
+            ${metaHTML}
+        `;
+        item.onclick = () => selectBook(book);
+    }
+    
+    return item;
+}
+
+// Optimized search with debouncing
+let searchTimeout = null;
+function searchBooks() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    
+    // Clear previous timeout
+    if (searchTimeout) {
+        clearTimeout(searchTimeout);
+    }
+    
+    // Set new timeout for debouncing (300ms)
+    searchTimeout = setTimeout(() => {
+        // Send search notification
+        if (query.length > 0) {
+            sendSearchNotification(query);
+        }
+        
+        // Filter books based on query
+        filteredBooks = books.filter(book => {
+            // Check book name
+            if (book.name.toLowerCase().includes(query)) {
+                return true;
+            }
+            
+            // Check publisher
+            if (book.publisher && book.publisher.toLowerCase().includes(query)) {
+                return true;
+            }
+            
+            // Check language
+            if (book.language && book.language.toLowerCase().includes(query)) {
+                return true;
+            }
+            
+            // For multi-volume books, check volume names too
+            if (book.type === 'multi' && book.volumes) {
+                return book.volumes.some(vol => vol.name.toLowerCase().includes(query));
+            }
+            
+            return false;
+        });
+        
+        // Reset pagination
+        currentDisplayIndex = 0;
+        
+        // Display filtered results
+        displayBooksPaginated();
+        
+    }, 300); // 300ms debounce
 }
 
 function showError(message) {
@@ -152,110 +323,37 @@ function showSuccess(message) {
     }, 3000);
 }
 
-function displayBooks(booksToDisplay) {
-    const list = document.getElementById('booksList');
-    list.innerHTML = '';
-    
-    if (booksToDisplay.length === 0) {
-        const searchQuery = document.getElementById('searchInput').value;
-        if (searchQuery.length > 0) {
-            list.innerHTML = '<div class="no-results">No books found matching your search</div>';
-        } else {
-            list.innerHTML = '<div class="no-results">No books available</div>';
-        }
-        return;
-    }
-    
-    booksToDisplay.forEach((book) => {
-        const item = document.createElement('div');
-        item.className = 'book-item';
-        
-        if (book.type === 'multi') {
-            item.classList.add('book-folder');
-            let metaHTML = '';
-            if (book.publisher || book.language) {
-                metaHTML = `<div class="book-meta">`;
-                if (book.publisher) metaHTML += `<strong>Publisher:</strong> ${book.publisher}<br>`;
-                if (book.language) metaHTML += `<strong>Language:</strong> ${book.language}`;
-                metaHTML += `</div>`;
-            }
-            
-            const dropdownIcon = book.isDropdownOpen ? '▶' : '▶';
-            const dropdownClass = book.isDropdownOpen ? 'dropdown-toggle open' : 'dropdown-toggle';
-            
-            item.innerHTML = `
-                <div class="book-header">
-                    <div class="book-title">
-                        <span class="book-title-text">📁 ${book.name}</span>
-                        <span class="${dropdownClass}" onclick="toggleVolumeDropdown(event, '${book.name}')">
-                            ${dropdownIcon}
-                        </span>
-                    </div>
-                    <div class="book-main-actions">
-                        <button class="action-button download-btn" onclick="downloadAllVolumes('${book.name}')">
-                            <img src="https://i.ibb.co/VWNPkcy9/download-icon.png" alt="Download All">
-                        </button>
-                    </div>
-                </div>
-                ${metaHTML}
-                <div class="volume-dropdown ${book.isDropdownOpen ? 'open' : ''}" id="dropdown-${book.name}">
-                    <div class="volumes-list">
-                        ${book.volumes.map(vol => `
-                            <div class="volume-item" onclick="selectVolume(event, '${book.name}', '${vol.name}', '${vol.file}')">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <span>📖 ${vol.name}</span>
-                                    <div class="book-actions">
-                                        <button class="action-button download-btn" onclick="event.stopPropagation(); downloadVolume('${book.name}', '${vol.name}', '${vol.file}')">
-                                            <img src="https://i.ibb.co/VWNPkcy9/download-icon.png" alt="Download">
-                                        </button>
-                                        <button class="action-button view-btn" onclick="event.stopPropagation(); viewVolume('${book.name}', '${vol.name}', '${vol.file}')">
-                                            <img src="https://i.ibb.co/kVtN0NPx/view-icon.png" alt="View">
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-        } else {
-            let metaHTML = '';
-            if (book.publisher || book.language) {
-                metaHTML = `<div class="book-meta">`;
-                if (book.publisher) metaHTML += `<strong>Publisher:</strong> ${book.publisher}<br>`;
-                if (book.language) metaHTML += `<strong>Language:</strong> ${book.language}`;
-                metaHTML += `</div>`;
-            }
-            
-            item.innerHTML = `
-                <div class="book-header">
-                    <div class="book-title">
-                        <span class="book-title-text">📄 ${book.name}</span>
-                    </div>
-                    <div class="book-main-actions">
-                        <button class="action-button download-btn" onclick="downloadBook('${book.name}', '${book.file}')">
-                            <img src="https://i.ibb.co/VWNPkcy9/download-icon.png" alt="Download">
-                        </button>
-                        <button class="action-button view-btn" onclick="viewBook('${book.name}', '${book.file}')">
-                            <img src="https://i.ibb.co/kVtN0NPx/view-icon.png" alt="View">
-                        </button>
-                    </div>
-                </div>
-                ${metaHTML}
-            `;
-            item.onclick = () => selectBook(book);
-        }
-        
-        list.appendChild(item);
-    });
-}
-
 function toggleVolumeDropdown(event, bookName) {
     event.stopPropagation();
     const book = books.find(b => b.name === bookName && b.type === 'multi');
     if (book) {
         book.isDropdownOpen = !book.isDropdownOpen;
-        displayBooks(books.filter(b => b.name.toLowerCase().includes(document.getElementById('searchInput').value.toLowerCase())));
+        
+        // Optimized: Only update the specific book item
+        const item = event.target.closest('.book-item');
+        if (item) {
+            const dropdown = item.querySelector('.volume-dropdown');
+            const toggle = item.querySelector('.dropdown-toggle');
+            
+            if (book.isDropdownOpen) {
+                dropdown.classList.add('open');
+                toggle.classList.add('open');
+                // Pre-cache volume items for better performance
+                setTimeout(() => {
+                    const volumeItems = dropdown.querySelectorAll('.volume-item');
+                    volumeItems.forEach(vol => {
+                        vol.style.opacity = '0';
+                        setTimeout(() => {
+                            vol.style.transition = 'opacity 0.2s';
+                            vol.style.opacity = '1';
+                        }, 10);
+                    });
+                }, 50);
+            } else {
+                dropdown.classList.remove('open');
+                toggle.classList.remove('open');
+            }
+        }
     }
 }
 
@@ -271,7 +369,8 @@ function selectVolume(event, bookName, volumeName, volumeFile) {
         };
         
         // Update UI
-        document.querySelectorAll('.volume-item').forEach(item => {
+        const items = document.querySelectorAll('.volume-item');
+        items.forEach(item => {
             item.classList.remove('selected');
         });
         event.target.closest('.volume-item').classList.add('selected');
