@@ -355,70 +355,171 @@
             height: 16px;
         }
 
-        /* Color Panel */
-        .mobile-color-panel {
+        /* Color Picker Popup */
+        .color-picker-popup {
             position: fixed;
-            bottom: 120px;
-            left: 10px;
-            right: 10px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
             background: var(--bg-secondary);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
-            z-index: 999;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            z-index: 1003;
             display: none;
             flex-direction: column;
-            gap: 15px;
+            gap: 20px;
+            min-width: 320px;
+            max-width: 90vw;
             border: 2px solid var(--border-color);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
-        .color-panel-title {
+        .color-picker-popup.show {
+            display: flex;
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        .popup-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            color: var(--accent-color);
-            font-weight: bold;
-            font-size: 1.1em;
+            margin-bottom: 10px;
         }
 
-        .color-panel-close {
-            background: none;
+        .popup-title {
+            color: var(--accent-color);
+            font-size: 1.3em;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .popup-title img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .popup-close {
+            background: var(--bg-tertiary);
             border: none;
-            font-size: 24px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
             cursor: pointer;
-            color: var(--text-muted);
-            width: 30px;
-            height: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
-        }
-
-        .color-panel-close:hover {
-            background: var(--bg-tertiary);
-        }
-
-        .color-panel-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            justify-items: center;
-        }
-
-        .mobile-color-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 3px solid transparent;
-            cursor: pointer;
+            font-size: 20px;
+            color: var(--text-muted);
             transition: all 0.3s;
         }
 
-        .mobile-color-btn.active {
-            border-color: var(--text-primary);
+        .popup-close:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .color-picker-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 10px 0;
+        }
+
+        .popup-color-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            border: 4px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .popup-color-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .popup-color-btn.active {
+            border-color: var(--accent-color);
             transform: scale(1.1);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .popup-color-btn.active::after {
+            content: '✓';
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .custom-color-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .custom-color-label {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .custom-color-input {
+            width: 100%;
+            height: 40px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0 15px;
+            font-size: 14px;
+            font-family: 'Amiri', 'Scheherazade New', serif;
+            color: var(--text-primary);
+            background: var(--bg-tertiary);
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .custom-color-input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
+        }
+
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1002;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .popup-overlay.show {
+            display: block;
+            opacity: 1;
         }
 
         /* Canvas Container */
@@ -551,10 +652,6 @@
                 display: none !important;
             }
             
-            .mobile-color-panel {
-                display: none !important;
-            }
-            
             .zoom-controls {
                 bottom: 30px;
                 right: 30px;
@@ -572,6 +669,15 @@
             
             .info-message {
                 top: 80px;
+            }
+            
+            .color-picker-popup {
+                min-width: 400px;
+            }
+            
+            .popup-color-btn {
+                width: 70px;
+                height: 70px;
             }
         }
 
@@ -630,6 +736,16 @@
             .zoom-control-btn {
                 width: 50px;
                 height: 50px;
+            }
+            
+            .color-picker-popup {
+                min-width: 300px;
+                padding: 20px;
+            }
+            
+            .popup-color-btn {
+                width: 55px;
+                height: 55px;
             }
         }
 
@@ -780,7 +896,7 @@
                         <img src="assets/pan.png" alt="Pan">
                         <span>Pan</span>
                     </button>
-                    <button class="mobile-tool-btn" onclick="toggleColorPanel()">
+                    <button class="mobile-tool-btn" onclick="openColorPicker()">
                         <img src="assets/colors.png" alt="Colors">
                         <span>Colors</span>
                     </button>
@@ -805,21 +921,38 @@
                 </div>
             </div>
             
-            <!-- Mobile Color Panel -->
-            <div class="mobile-color-panel hidden" id="mobileColorPanel">
-                <div class="color-panel-title">
-                    <span>Select Color</span>
-                    <button class="color-panel-close" onclick="toggleColorPanel()">×</button>
+            <!-- Color Picker Popup Overlay -->
+            <div class="popup-overlay" id="popupOverlay" onclick="closeColorPicker()"></div>
+            
+            <!-- Color Picker Popup -->
+            <div class="color-picker-popup" id="colorPickerPopup">
+                <div class="popup-header">
+                    <div class="popup-title">
+                        <img src="assets/colors.png" alt="Colors">
+                        <span>Choose Highlight Color</span>
+                    </div>
+                    <button class="popup-close" onclick="closeColorPicker()">×</button>
                 </div>
-                <div class="color-panel-grid">
-                    <div class="mobile-color-btn highlight-yellow active" data-color="#ffff00" onclick="setMobileHighlightColor(this)"></div>
-                    <div class="mobile-color-btn highlight-red" data-color="#ff0000" onclick="setMobileHighlightColor(this)"></div>
-                    <div class="mobile-color-btn highlight-cyan" data-color="#00ffff" onclick="setMobileHighlightColor(this)"></div>
-                    <div class="mobile-color-btn highlight-lime" data-color="#00ff00" onclick="setMobileHighlightColor(this)"></div>
-                    <div class="mobile-color-btn highlight-blue" data-color="#007bff" onclick="setMobileHighlightColor(this)"></div>
-                    <div class="mobile-color-btn highlight-pink" data-color="#e83e8c" onclick="setMobileHighlightColor(this)"></div>
-                    <div class="mobile-color-btn highlight-purple" data-color="#6f42c1" onclick="setMobileHighlightColor(this)"></div>
-                    <div class="mobile-color-btn highlight-orange" data-color="#fd7e14" onclick="setMobileHighlightColor(this)"></div>
+                
+                <div class="color-picker-grid">
+                    <div class="popup-color-btn highlight-yellow active" data-color="#ffff00" onclick="selectPopupColor(this)"></div>
+                    <div class="popup-color-btn highlight-red" data-color="#ff0000" onclick="selectPopupColor(this)"></div>
+                    <div class="popup-color-btn highlight-cyan" data-color="#00ffff" onclick="selectPopupColor(this)"></div>
+                    <div class="popup-color-btn highlight-lime" data-color="#00ff00" onclick="selectPopupColor(this)"></div>
+                    <div class="popup-color-btn highlight-blue" data-color="#007bff" onclick="selectPopupColor(this)"></div>
+                    <div class="popup-color-btn highlight-pink" data-color="#e83e8c" onclick="selectPopupColor(this)"></div>
+                    <div class="popup-color-btn highlight-purple" data-color="#6f42c1" onclick="selectPopupColor(this)"></div>
+                    <div class="popup-color-btn highlight-orange" data-color="#fd7e14" onclick="selectPopupColor(this)"></div>
+                </div>
+                
+                <div class="custom-color-section">
+                    <label class="custom-color-label">Custom Color (Hex):</label>
+                    <input type="text" 
+                           id="customColorInput" 
+                           class="custom-color-input" 
+                           placeholder="#ff0000" 
+                           maxlength="7"
+                           oninput="handleCustomColorInput(this)">
                 </div>
             </div>
         </div>
@@ -878,6 +1011,7 @@
                 setupEventListeners();
                 updateMobileUndoRedoButtons();
                 setupZoomButtons();
+                setupColorPicker();
             };
             collageImage.src = collageDataUrl;
         }
@@ -961,9 +1095,6 @@
             });
             event.target.closest('.mobile-tool-btn').classList.add('active');
             
-            // Close color panel if open
-            document.getElementById('mobileColorPanel').classList.add('hidden');
-            
             // Update cursor
             updateCursorForTool();
             
@@ -980,41 +1111,101 @@
             }
         }
 
-        function setHighlightColor(button) {
-            document.querySelectorAll('.color-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            button.classList.add('active');
-            currentHighlightColor = button.getAttribute('data-color');
-            showMessage(`Color changed`);
+        // Color Picker Functions
+        function setupColorPicker() {
+            // Initialize popup with current color selected
+            updatePopupColorSelection();
         }
 
-        function setMobileHighlightColor(button) {
-            document.querySelectorAll('.mobile-color-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            button.classList.add('active');
-            currentHighlightColor = button.getAttribute('data-color');
+        function openColorPicker() {
+            const popup = document.getElementById('colorPickerPopup');
+            const overlay = document.getElementById('popupOverlay');
             
-            // Also update desktop color buttons
-            document.querySelectorAll('.color-btn').forEach(btn => {
+            // Update popup to show current selected color
+            updatePopupColorSelection();
+            
+            // Show popup and overlay
+            popup.classList.add('show');
+            overlay.classList.add('show');
+            
+            // Add escape key listener
+            document.addEventListener('keydown', handleEscapeKey);
+        }
+
+        function closeColorPicker() {
+            const popup = document.getElementById('colorPickerPopup');
+            const overlay = document.getElementById('popupOverlay');
+            
+            // Hide popup and overlay
+            popup.classList.remove('show');
+            overlay.classList.remove('show');
+            
+            // Remove escape key listener
+            document.removeEventListener('keydown', handleEscapeKey);
+        }
+
+        function handleEscapeKey(e) {
+            if (e.key === 'Escape') {
+                closeColorPicker();
+            }
+        }
+
+        function updatePopupColorSelection() {
+            // Update all color buttons to show active state for current color
+            document.querySelectorAll('.popup-color-btn').forEach(btn => {
                 btn.classList.remove('active');
-                if (btn.getAttribute('data-color') === currentHighlightColor) {
+                if (btn.getAttribute('data-color').toLowerCase() === currentHighlightColor.toLowerCase()) {
                     btn.classList.add('active');
                 }
             });
             
-            showMessage(`Color changed`);
+            // Also update desktop and mobile color buttons
+            document.querySelectorAll('.color-btn, .mobile-color-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-color').toLowerCase() === currentHighlightColor.toLowerCase()) {
+                    btn.classList.add('active');
+                }
+            });
         }
 
-        function toggleColorPanel() {
-            const panel = document.getElementById('mobileColorPanel');
-            panel.classList.toggle('hidden');
+        function selectPopupColor(button) {
+            const newColor = button.getAttribute('data-color');
+            currentHighlightColor = newColor;
             
-            // Close other panels if any
-            if (!panel.classList.contains('hidden')) {
-                showMessage('Select a highlight color');
+            // Update all UI elements
+            updatePopupColorSelection();
+            
+            // Close the popup
+            setTimeout(() => {
+                closeColorPicker();
+                showMessage(`Color changed to ${newColor}`);
+            }, 300);
+        }
+
+        function handleCustomColorInput(input) {
+            let value = input.value.trim();
+            
+            // Add # if missing
+            if (value && !value.startsWith('#')) {
+                value = '#' + value;
+                input.value = value;
             }
+            
+            // Validate hex color
+            const hexColorRegex = /^#([0-9A-Fa-f]{3}){1,2}$/;
+            if (hexColorRegex.test(value)) {
+                // Update color immediately
+                currentHighlightColor = value;
+                updatePopupColorSelection();
+                showMessage(`Custom color set: ${value}`);
+            }
+        }
+
+        function setHighlightColor(button) {
+            const newColor = button.getAttribute('data-color');
+            currentHighlightColor = newColor;
+            updatePopupColorSelection();
+            showMessage(`Color changed`);
         }
 
         function setupZoomButtons() {
@@ -1107,13 +1298,16 @@
                 }
             });
             
-            // Close color panel when clicking outside
+            // Close color picker when clicking outside
             document.addEventListener('click', (e) => {
-                const colorPanel = document.getElementById('mobileColorPanel');
-                if (!colorPanel.classList.contains('hidden') && 
-                    !e.target.closest('.mobile-color-panel') && 
-                    !e.target.closest('.mobile-tool-btn[onclick*="toggleColorPanel"]')) {
-                    colorPanel.classList.add('hidden');
+                const popup = document.getElementById('colorPickerPopup');
+                const overlay = document.getElementById('popupOverlay');
+                
+                if (popup.classList.contains('show') && 
+                    !e.target.closest('.color-picker-popup') && 
+                    !e.target.closest('.mobile-tool-btn[onclick*="openColorPicker"]') &&
+                    !e.target.closest('.color-btn')) {
+                    closeColorPicker();
                 }
             });
         }
@@ -1339,6 +1533,14 @@
             if ((e.ctrlKey || e.metaKey) && e.key === 'y') {
                 e.preventDefault();
                 redoHighlight();
+            }
+            
+            // Escape to close popup
+            if (e.key === 'Escape') {
+                const popup = document.getElementById('colorPickerPopup');
+                if (popup.classList.contains('show')) {
+                    closeColorPicker();
+                }
             }
             
             // Delete key to remove selected highlight
