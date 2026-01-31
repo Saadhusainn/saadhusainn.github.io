@@ -440,22 +440,12 @@
             cursor: pointer;
             transition: all 0.3s;
             margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .color-popup-btn.active {
             border-color: var(--accent-color);
             transform: scale(1.1);
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .color-popup-btn span {
-            color: white;
-            font-weight: bold;
-            font-size: 12px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         .color-popup-footer {
@@ -832,30 +822,14 @@
                         <button class="color-popup-close" onclick="closeColorPopup()">×</button>
                     </div>
                     <div class="color-popup-grid">
-                        <div class="color-popup-btn highlight-yellow active" data-color="#ffff00" onclick="setPopupHighlightColor(this)">
-                            <span>Yellow</span>
-                        </div>
-                        <div class="color-popup-btn highlight-red" data-color="#ff0000" onclick="setPopupHighlightColor(this)">
-                            <span>Red</span>
-                        </div>
-                        <div class="color-popup-btn highlight-cyan" data-color="#00ffff" onclick="setPopupHighlightColor(this)">
-                            <span>Cyan</span>
-                        </div>
-                        <div class="color-popup-btn highlight-lime" data-color="#00ff00" onclick="setPopupHighlightColor(this)">
-                            <span>Green</span>
-                        </div>
-                        <div class="color-popup-btn highlight-blue" data-color="#007bff" onclick="setPopupHighlightColor(this)">
-                            <span>Blue</span>
-                        </div>
-                        <div class="color-popup-btn highlight-pink" data-color="#e83e8c" onclick="setPopupHighlightColor(this)">
-                            <span>Pink</span>
-                        </div>
-                        <div class="color-popup-btn highlight-purple" data-color="#6f42c1" onclick="setPopupHighlightColor(this)">
-                            <span>Purple</span>
-                        </div>
-                        <div class="color-popup-btn highlight-orange" data-color="#fd7e14" onclick="setPopupHighlightColor(this)">
-                            <span>Orange</span>
-                        </div>
+                        <div class="color-popup-btn highlight-yellow active" data-color="#ffff00" onclick="setPopupHighlightColor(this)"></div>
+                        <div class="color-popup-btn highlight-red" data-color="#ff0000" onclick="setPopupHighlightColor(this)"></div>
+                        <div class="color-popup-btn highlight-cyan" data-color="#00ffff" onclick="setPopupHighlightColor(this)"></div>
+                        <div class="color-popup-btn highlight-lime" data-color="#00ff00" onclick="setPopupHighlightColor(this)"></div>
+                        <div class="color-popup-btn highlight-blue" data-color="#007bff" onclick="setPopupHighlightColor(this)"></div>
+                        <div class="color-popup-btn highlight-pink" data-color="#e83e8c" onclick="setPopupHighlightColor(this)"></div>
+                        <div class="color-popup-btn highlight-purple" data-color="#6f42c1" onclick="setPopupHighlightColor(this)"></div>
+                        <div class="color-popup-btn highlight-orange" data-color="#fd7e14" onclick="setPopupHighlightColor(this)"></div>
                     </div>
                     <div class="color-popup-footer">
                         Click on a color to select it for highlighting
@@ -894,6 +868,8 @@
         let initialScale = 1;
         let initialOffsetX = 0;
         let initialOffsetY = 0;
+        let pinchCenterX = 0;
+        let pinchCenterY = 0;
 
         // Initialize editor
         function initEditor() {
@@ -912,9 +888,8 @@
                 setupCanvas();
                 render();
                 setupEventListeners();
-                setupTouchEvents();
-                updateMobileUndoRedoButtons();
                 setupZoomButtonListeners();
+                updateMobileUndoRedoButtons();
             };
             collageImage.src = collageDataUrl;
         }
@@ -972,7 +947,7 @@
                 `X: ${Math.round(canvasX)}, Y: ${Math.round(canvasY)}`;
         }
 
-        // Setup zoom button listeners to prevent event bubbling
+        // Setup zoom button listeners
         function setupZoomButtonListeners() {
             const zoomInBtn = document.getElementById('zoomInBtn');
             const zoomOutBtn = document.getElementById('zoomOutBtn');
@@ -983,7 +958,7 @@
                     e.stopPropagation();
                     e.preventDefault();
                     zoomIn();
-                });
+                }, true);
             }
             
             if (zoomOutBtn) {
@@ -991,7 +966,7 @@
                     e.stopPropagation();
                     e.preventDefault();
                     zoomOut();
-                });
+                }, true);
             }
             
             if (resetViewBtn) {
@@ -999,7 +974,7 @@
                     e.stopPropagation();
                     e.preventDefault();
                     resetView();
-                });
+                }, true);
             }
         }
 
@@ -1082,7 +1057,7 @@
             // Close popup
             closeColorPopup();
             
-            showMessage(`Color changed to ${button.querySelector('span').textContent}`);
+            showMessage(`Color changed`);
         }
 
         function getCanvasCoordinates(clientX, clientY) {
@@ -1097,31 +1072,23 @@
         function setupEventListeners() {
             const container = document.getElementById('canvasContainer');
             
-            // Mouse events
-            container.addEventListener('mousedown', handleMouseDown);
-            container.addEventListener('mousemove', handleMouseMove);
-            container.addEventListener('mouseup', handleMouseUp);
-            container.addEventListener('wheel', handleWheel);
+            // Mouse events - use capture phase to ensure they fire
+            container.addEventListener('mousedown', handleMouseDown, true);
+            container.addEventListener('mousemove', handleMouseMove, true);
+            container.addEventListener('mouseup', handleMouseUp, true);
+            container.addEventListener('wheel', handleWheel, true);
             
-            // Prevent default touch behavior
-            container.addEventListener('touchstart', function(e) {
-                if (e.target.closest('.zoom-controls')) {
-                    return; // Allow zoom buttons to work
-                }
+            // Touch events
+            container.addEventListener('touchstart', handleTouchStart, { passive: false });
+            container.addEventListener('touchmove', handleTouchMove, { passive: false });
+            container.addEventListener('touchend', handleTouchEnd, { passive: false });
+            
+            // Prevent default touch behavior on canvas
+            canvas.addEventListener('touchstart', function(e) {
                 e.preventDefault();
             }, { passive: false });
             
-            container.addEventListener('touchmove', function(e) {
-                if (e.target.closest('.zoom-controls')) {
-                    return; // Allow zoom buttons to work
-                }
-                e.preventDefault();
-            }, { passive: false });
-            
-            container.addEventListener('touchend', function(e) {
-                if (e.target.closest('.zoom-controls')) {
-                    return; // Allow zoom buttons to work
-                }
+            canvas.addEventListener('touchmove', function(e) {
                 e.preventDefault();
             }, { passive: false });
             
@@ -1134,20 +1101,14 @@
             });
         }
 
-        function setupTouchEvents() {
-            const container = document.getElementById('canvasContainer');
-            
-            container.addEventListener('touchstart', handleTouchStart, { passive: false });
-            container.addEventListener('touchmove', handleTouchMove, { passive: false });
-            container.addEventListener('touchend', handleTouchEnd, { passive: false });
-        }
-
         function handleMouseDown(e) {
-            e.preventDefault();
-            // Check if clicking on zoom controls
+            // Don't handle if clicking on zoom controls
             if (e.target.closest('.zoom-controls')) {
                 return;
             }
+            
+            e.preventDefault();
+            e.stopPropagation();
             
             const coords = getCanvasCoordinates(e.clientX, e.clientY);
             
@@ -1160,7 +1121,7 @@
             }
             
             if (currentTool === 'highlight') {
-                // Check if clicking on existing highlight
+                // Check if clicking on existing highlight for resizing or moving
                 for (let i = 0; i < highlights.length; i++) {
                     const h = highlights[i];
                     const handles = getResizeHandles(h);
@@ -1175,7 +1136,7 @@
                         }
                     }
                     
-                    // Check if clicking on the rectangle itself
+                    // Check if clicking on the rectangle itself for moving
                     if (isPointInRect(coords.x, coords.y, h)) {
                         isMoving = true;
                         selectedRectIndex = i;
@@ -1185,7 +1146,7 @@
                     }
                 }
                 
-                // Create new highlight
+                // If not interacting with existing highlight, create new one
                 isDrawing = true;
                 startX = coords.x;
                 startY = coords.y;
@@ -1198,16 +1159,21 @@
                 };
                 highlights.push(currentRect);
                 selectedRectIndex = highlights.length - 1;
+                
+                // Draw immediately while drawing
+                render();
                 saveHighlightState();
             }
         }
 
         function handleMouseMove(e) {
-            e.preventDefault();
-            // Check if over zoom controls
+            // Don't handle if over zoom controls
             if (e.target.closest('.zoom-controls')) {
                 return;
             }
+            
+            e.preventDefault();
+            e.stopPropagation();
             
             const coords = getCanvasCoordinates(e.clientX, e.clientY);
             
@@ -1246,7 +1212,13 @@
         }
 
         function handleMouseUp(e) {
+            // Don't handle if over zoom controls
+            if (e.target.closest('.zoom-controls')) {
+                return;
+            }
+            
             e.preventDefault();
+            e.stopPropagation();
             
             if (isPanning) {
                 isPanning = false;
@@ -1264,14 +1236,15 @@
 
         function handleTouchStart(e) {
             if (e.touches.length === 1) {
-                // Single touch - treat as mouse event
+                // Single touch
                 const touch = e.touches[0];
-                handleMouseDown({ 
-                    clientX: touch.clientX, 
-                    clientY: touch.clientY, 
-                    preventDefault: () => {},
-                    target: e.target
+                const mouseEvent = new MouseEvent('mousedown', {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY,
+                    bubbles: true,
+                    cancelable: true
                 });
+                handleMouseDown(mouseEvent);
             } else if (e.touches.length === 2) {
                 // Two fingers - start pinch zoom
                 const touch1 = e.touches[0];
@@ -1297,24 +1270,22 @@
                 // Store midpoint for centering zoom
                 pinchCenterX = (midX - offsetX) / scale;
                 pinchCenterY = (midY - offsetY) / scale;
+                
+                e.preventDefault();
             }
         }
 
         function handleTouchMove(e) {
-            if (e.touches.length === 1 && !isPanning && currentTool !== 'pan') {
-                // Single touch but not panning - ignore
-                return;
-            }
-            
             if (e.touches.length === 1) {
-                // Single touch - treat as mouse move
+                // Single touch
                 const touch = e.touches[0];
-                handleMouseMove({ 
-                    clientX: touch.clientX, 
-                    clientY: touch.clientY, 
-                    preventDefault: () => {},
-                    target: e.target
+                const mouseEvent = new MouseEvent('mousemove', {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY,
+                    bubbles: true,
+                    cancelable: true
                 });
+                handleMouseMove(mouseEvent);
             } else if (e.touches.length === 2) {
                 // Two fingers - handle pinch zoom
                 const touch1 = e.touches[0];
@@ -1349,13 +1320,18 @@
                 }
                 
                 lastTouchDistance = currentDistance;
+                e.preventDefault();
             }
         }
 
         function handleTouchEnd(e) {
             if (e.touches.length === 0) {
                 // All fingers lifted
-                handleMouseUp({ preventDefault: () => {} });
+                const mouseEvent = new MouseEvent('mouseup', {
+                    bubbles: true,
+                    cancelable: true
+                });
+                handleMouseUp(mouseEvent);
                 lastTouchDistance = null;
                 initialPinchDistance = null;
             } else if (e.touches.length === 1) {
