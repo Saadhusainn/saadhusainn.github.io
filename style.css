@@ -57,7 +57,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 2px;
     flex-wrap: wrap;
     gap: 15px;
 }
@@ -95,13 +95,13 @@ body {
 .subtitle {
     text-align: center;
     color: var(--text-secondary);
-    margin-bottom: 20px;
+    margin-bottom: 2px;
     font-size: 0.85em;
 }
 
 .section-title {
     color: var(--accent-color);
-    margin-bottom: 15px;
+    margin-bottom: 1px;
     font-size: 1.2em;
 }
 
@@ -157,7 +157,7 @@ body {
 
 .show-more-btn {
     width: 100%;
-    margin-top: 15px;
+    margin-top: 1px;
     background: var(--bg-tertiary);
     color: var(--text-primary);
 }
@@ -169,7 +169,7 @@ body {
 /* Upload Section */
 .upload-section {
     text-align: center;
-    margin: 20px 0;
+    margin: 10px 0;
 }
 
 /* Search Bar */
@@ -181,7 +181,7 @@ body {
 
 .search-bar input {
     width: 100%;
-    padding: 14px 50px 14px 20px;
+    padding: 7px 14px 7px 14px;
     font-size: 16px;
     border: 2px solid var(--border-color);
     border-radius: 50px;
@@ -213,14 +213,14 @@ body {
     border: 2px solid var(--border-color);
     border-radius: 12px;
     margin-bottom: 10px;
-    padding: 10px;
+    padding: 5px;
     background: var(--bg-secondary);
 }
 
 /* Optimized Book Items */
 .book-item {
-    padding: 12px 15px;
-    margin: 6px 0;
+    padding: 8px 5px;
+    margin: 3px 0;
     background: var(--bg-secondary);
     border: 2px solid var(--border-color);
     border-radius: 10px;
@@ -319,8 +319,8 @@ body {
 }
 
 .volume-item {
-    padding: 10px 12px;
-    margin: 4px 0;
+    padding: 2.5px 2.5px;
+    margin: 3px 0;
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
     border-radius: 6px;
