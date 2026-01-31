@@ -352,57 +352,117 @@
             height: 16px;
         }
 
-        /* Color Panel */
-        .mobile-color-panel {
+        /* Color Popup */
+        .color-popup {
             position: fixed;
-            bottom: 120px;
+            top: 0;
             left: 0;
             right: 0;
-            background: var(--bg-secondary);
-            padding: 15px;
-            border-radius: 15px 15px 0 0;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
-            z-index: 999;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
             display: none;
-            flex-direction: column;
-            gap: 15px;
+            align-items: center;
+            justify-content: center;
         }
 
-        .color-panel-title {
+        .color-popup-content {
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            padding: 20px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: popupFadeIn 0.3s ease;
+        }
+
+        @keyframes popupFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .color-popup-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            color: var(--accent-color);
-            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
         }
 
-        .color-panel-close {
+        .color-popup-title {
+            color: var(--accent-color);
+            font-size: 1.2em;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .color-popup-close {
             background: none;
             border: none;
-            font-size: 20px;
+            font-size: 24px;
             cursor: pointer;
             color: var(--text-muted);
-        }
-
-        .color-panel-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            justify-items: center;
-        }
-
-        .mobile-color-btn {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             border-radius: 50%;
-            border: 3px solid transparent;
-            cursor: pointer;
             transition: all 0.3s;
         }
 
-        .mobile-color-btn.active {
-            border-color: var(--text-primary);
-            transform: scale(1.2);
+        .color-popup-close:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .color-popup-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .color-popup-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 4px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .color-popup-btn.active {
+            border-color: var(--accent-color);
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .color-popup-btn span {
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .color-popup-footer {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-top: 15px;
         }
 
         /* Canvas Container */
@@ -411,6 +471,8 @@
             position: relative;
             overflow: hidden;
             background: var(--bg-tertiary);
+            -webkit-user-select: none;
+            user-select: none;
         }
 
         #collageCanvas {
@@ -419,6 +481,8 @@
             left: 0;
             cursor: crosshair;
             transform-origin: 0 0;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: none;
         }
 
         /* Zoom Controls */
@@ -430,6 +494,7 @@
             flex-direction: column;
             gap: 10px;
             z-index: 100;
+            pointer-events: auto;
         }
 
         .zoom-control-btn {
@@ -447,6 +512,7 @@
             color: var(--text-primary);
             transition: all 0.3s;
             box-shadow: var(--shadow);
+            -webkit-tap-highlight-color: transparent;
         }
 
         .zoom-control-btn img {
@@ -477,6 +543,7 @@
             color: var(--text-primary);
             box-shadow: var(--shadow);
             z-index: 100;
+            pointer-events: none;
         }
 
         .info-message {
@@ -511,6 +578,7 @@
             color: var(--text-primary);
             box-shadow: var(--shadow);
             z-index: 100;
+            pointer-events: none;
         }
 
         /* Responsive Design */
@@ -520,10 +588,6 @@
             }
             
             .mobile-toolbar {
-                display: none !important;
-            }
-            
-            .mobile-color-panel {
                 display: none !important;
             }
         }
@@ -550,6 +614,8 @@
             .zoom-display {
                 bottom: 160px;
                 left: 10px;
+                font-size: 12px;
+                padding: 6px 12px;
             }
             
             .cursor-coordinates {
@@ -578,6 +644,16 @@
                 width: 36px;
                 height: 36px;
                 padding: 6px;
+            }
+            
+            .zoom-control-btn {
+                width: 44px;
+                height: 44px;
+            }
+            
+            .zoom-control-btn img {
+                width: 20px;
+                height: 20px;
             }
         }
 
@@ -697,13 +773,13 @@
                 <div class="info-message" id="infoMessage"></div>
                 <div class="cursor-coordinates" id="cursorCoordinates">X: 0, Y: 0</div>
                 <div class="zoom-controls">
-                    <button class="zoom-control-btn" onclick="zoomIn()">
+                    <button class="zoom-control-btn" id="zoomInBtn" onclick="zoomIn()">
                         <img src="assets/zoom-in.png" alt="Zoom In">
                     </button>
-                    <button class="zoom-control-btn" onclick="zoomOut()">
+                    <button class="zoom-control-btn" id="zoomOutBtn" onclick="zoomOut()">
                         <img src="assets/zoom-out.png" alt="Zoom Out">
                     </button>
-                    <button class="zoom-control-btn" onclick="resetView()">
+                    <button class="zoom-control-btn" id="resetViewBtn" onclick="resetView()">
                         <img src="assets/reset.png" alt="Reset View">
                     </button>
                 </div>
@@ -720,7 +796,7 @@
                         <img src="assets/pan.png" alt="Pan">
                         <span>Pan</span>
                     </button>
-                    <button class="mobile-tool-btn" onclick="toggleColorPanel()">
+                    <button class="mobile-tool-btn" onclick="openColorPopup()">
                         <img src="assets/colors.png" alt="Colors">
                         <span>Colors</span>
                     </button>
@@ -745,21 +821,45 @@
                 </div>
             </div>
             
-            <!-- Mobile Color Panel -->
-            <div class="mobile-color-panel" id="mobileColorPanel">
-                <div class="color-panel-title">
-                    <span>Select Color</span>
-                    <button class="color-panel-close" onclick="toggleColorPanel()">×</button>
-                </div>
-                <div class="color-panel-grid">
-                    <div class="mobile-color-btn highlight-yellow active" data-color="#ffff00" onclick="setMobileHighlightColor(this)"></div>
-                    <div class="mobile-color-btn highlight-red" data-color="#ff0000" onclick="setMobileHighlightColor(this)"></div>
-                    <div class="mobile-color-btn highlight-cyan" data-color="#00ffff" onclick="setMobileHighlightColor(this)"></div>
-                    <div class="mobile-color-btn highlight-lime" data-color="#00ff00" onclick="setMobileHighlightColor(this)"></div>
-                    <div class="mobile-color-btn highlight-blue" data-color="#007bff" onclick="setMobileHighlightColor(this)"></div>
-                    <div class="mobile-color-btn highlight-pink" data-color="#e83e8c" onclick="setMobileHighlightColor(this)"></div>
-                    <div class="mobile-color-btn highlight-purple" data-color="#6f42c1" onclick="setMobileHighlightColor(this)"></div>
-                    <div class="mobile-color-btn highlight-orange" data-color="#fd7e14" onclick="setMobileHighlightColor(this)"></div>
+            <!-- Color Popup -->
+            <div class="color-popup" id="colorPopup">
+                <div class="color-popup-content">
+                    <div class="color-popup-header">
+                        <div class="color-popup-title">
+                            <img src="assets/colors.png" alt="Colors" style="width: 24px; height: 24px;">
+                            Select Highlight Color
+                        </div>
+                        <button class="color-popup-close" onclick="closeColorPopup()">×</button>
+                    </div>
+                    <div class="color-popup-grid">
+                        <div class="color-popup-btn highlight-yellow active" data-color="#ffff00" onclick="setPopupHighlightColor(this)">
+                            <span>Yellow</span>
+                        </div>
+                        <div class="color-popup-btn highlight-red" data-color="#ff0000" onclick="setPopupHighlightColor(this)">
+                            <span>Red</span>
+                        </div>
+                        <div class="color-popup-btn highlight-cyan" data-color="#00ffff" onclick="setPopupHighlightColor(this)">
+                            <span>Cyan</span>
+                        </div>
+                        <div class="color-popup-btn highlight-lime" data-color="#00ff00" onclick="setPopupHighlightColor(this)">
+                            <span>Green</span>
+                        </div>
+                        <div class="color-popup-btn highlight-blue" data-color="#007bff" onclick="setPopupHighlightColor(this)">
+                            <span>Blue</span>
+                        </div>
+                        <div class="color-popup-btn highlight-pink" data-color="#e83e8c" onclick="setPopupHighlightColor(this)">
+                            <span>Pink</span>
+                        </div>
+                        <div class="color-popup-btn highlight-purple" data-color="#6f42c1" onclick="setPopupHighlightColor(this)">
+                            <span>Purple</span>
+                        </div>
+                        <div class="color-popup-btn highlight-orange" data-color="#fd7e14" onclick="setPopupHighlightColor(this)">
+                            <span>Orange</span>
+                        </div>
+                    </div>
+                    <div class="color-popup-footer">
+                        Click on a color to select it for highlighting
+                    </div>
                 </div>
             </div>
         </div>
@@ -789,6 +889,11 @@
         let isResizing = false;
         let resizeHandle = -1;
         let isMoving = false;
+        let lastTouchDistance = null;
+        let initialPinchDistance = null;
+        let initialScale = 1;
+        let initialOffsetX = 0;
+        let initialOffsetY = 0;
 
         // Initialize editor
         function initEditor() {
@@ -807,7 +912,9 @@
                 setupCanvas();
                 render();
                 setupEventListeners();
+                setupTouchEvents();
                 updateMobileUndoRedoButtons();
+                setupZoomButtonListeners();
             };
             collageImage.src = collageDataUrl;
         }
@@ -865,6 +972,37 @@
                 `X: ${Math.round(canvasX)}, Y: ${Math.round(canvasY)}`;
         }
 
+        // Setup zoom button listeners to prevent event bubbling
+        function setupZoomButtonListeners() {
+            const zoomInBtn = document.getElementById('zoomInBtn');
+            const zoomOutBtn = document.getElementById('zoomOutBtn');
+            const resetViewBtn = document.getElementById('resetViewBtn');
+            
+            if (zoomInBtn) {
+                zoomInBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    zoomIn();
+                });
+            }
+            
+            if (zoomOutBtn) {
+                zoomOutBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    zoomOut();
+                });
+            }
+            
+            if (resetViewBtn) {
+                resetViewBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    resetView();
+                });
+            }
+        }
+
         function setTool(tool) {
             currentTool = tool;
             
@@ -889,10 +1027,9 @@
             document.querySelectorAll('.mobile-tool-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.target.closest('.mobile-tool-btn').classList.add('active');
-            
-            // Close color panel if open
-            document.getElementById('mobileColorPanel').classList.add('hidden');
+            if (event && event.target.closest('.mobile-tool-btn')) {
+                event.target.closest('.mobile-tool-btn').classList.add('active');
+            }
             
             // Update cursor
             updateCursorForTool();
@@ -910,6 +1047,14 @@
             }
         }
 
+        function openColorPopup() {
+            document.getElementById('colorPopup').style.display = 'flex';
+        }
+
+        function closeColorPopup() {
+            document.getElementById('colorPopup').style.display = 'none';
+        }
+
         function setHighlightColor(button) {
             document.querySelectorAll('.color-btn').forEach(btn => {
                 btn.classList.remove('active');
@@ -919,14 +1064,14 @@
             showMessage(`Color changed`);
         }
 
-        function setMobileHighlightColor(button) {
-            document.querySelectorAll('.mobile-color-btn').forEach(btn => {
+        function setPopupHighlightColor(button) {
+            document.querySelectorAll('.color-popup-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
             button.classList.add('active');
             currentHighlightColor = button.getAttribute('data-color');
             
-            // Also update desktop color buttons
+            // Also update desktop and mobile color buttons
             document.querySelectorAll('.color-btn').forEach(btn => {
                 btn.classList.remove('active');
                 if (btn.getAttribute('data-color') === currentHighlightColor) {
@@ -934,15 +1079,10 @@
                 }
             });
             
-            // Close color panel on mobile
-            document.getElementById('mobileColorPanel').classList.add('hidden');
+            // Close popup
+            closeColorPopup();
             
-            showMessage(`Color changed`);
-        }
-
-        function toggleColorPanel() {
-            const panel = document.getElementById('mobileColorPanel');
-            panel.classList.toggle('hidden');
+            showMessage(`Color changed to ${button.querySelector('span').textContent}`);
         }
 
         function getCanvasCoordinates(clientX, clientY) {
@@ -963,10 +1103,27 @@
             container.addEventListener('mouseup', handleMouseUp);
             container.addEventListener('wheel', handleWheel);
             
-            // Touch events for mobile
-            container.addEventListener('touchstart', handleTouchStart, { passive: false });
-            container.addEventListener('touchmove', handleTouchMove, { passive: false });
-            container.addEventListener('touchend', handleTouchEnd);
+            // Prevent default touch behavior
+            container.addEventListener('touchstart', function(e) {
+                if (e.target.closest('.zoom-controls')) {
+                    return; // Allow zoom buttons to work
+                }
+                e.preventDefault();
+            }, { passive: false });
+            
+            container.addEventListener('touchmove', function(e) {
+                if (e.target.closest('.zoom-controls')) {
+                    return; // Allow zoom buttons to work
+                }
+                e.preventDefault();
+            }, { passive: false });
+            
+            container.addEventListener('touchend', function(e) {
+                if (e.target.closest('.zoom-controls')) {
+                    return; // Allow zoom buttons to work
+                }
+                e.preventDefault();
+            }, { passive: false });
             
             // Keyboard shortcuts
             document.addEventListener('keydown', handleKeyDown);
@@ -975,17 +1132,23 @@
             container.addEventListener('mousemove', (e) => {
                 updateCursorCoordinates(e.clientX, e.clientY);
             });
+        }
+
+        function setupTouchEvents() {
+            const container = document.getElementById('canvasContainer');
             
-            container.addEventListener('touchmove', (e) => {
-                if (e.touches.length === 1) {
-                    const touch = e.touches[0];
-                    updateCursorCoordinates(touch.clientX, touch.clientY);
-                }
-            });
+            container.addEventListener('touchstart', handleTouchStart, { passive: false });
+            container.addEventListener('touchmove', handleTouchMove, { passive: false });
+            container.addEventListener('touchend', handleTouchEnd, { passive: false });
         }
 
         function handleMouseDown(e) {
             e.preventDefault();
+            // Check if clicking on zoom controls
+            if (e.target.closest('.zoom-controls')) {
+                return;
+            }
+            
             const coords = getCanvasCoordinates(e.clientX, e.clientY);
             
             if (currentTool === 'pan') {
@@ -1041,6 +1204,11 @@
 
         function handleMouseMove(e) {
             e.preventDefault();
+            // Check if over zoom controls
+            if (e.target.closest('.zoom-controls')) {
+                return;
+            }
+            
             const coords = getCanvasCoordinates(e.clientX, e.clientY);
             
             if (isPanning) {
@@ -1095,32 +1263,106 @@
         }
 
         function handleTouchStart(e) {
-            e.preventDefault();
             if (e.touches.length === 1) {
+                // Single touch - treat as mouse event
                 const touch = e.touches[0];
                 handleMouseDown({ 
                     clientX: touch.clientX, 
                     clientY: touch.clientY, 
-                    preventDefault: () => {} 
+                    preventDefault: () => {},
+                    target: e.target
                 });
+            } else if (e.touches.length === 2) {
+                // Two fingers - start pinch zoom
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                
+                // Calculate distance between fingers
+                const dx = touch2.clientX - touch1.clientX;
+                const dy = touch2.clientY - touch1.clientY;
+                lastTouchDistance = Math.sqrt(dx * dx + dy * dy);
+                
+                // Store initial values for smooth zooming
+                initialPinchDistance = lastTouchDistance;
+                initialScale = scale;
+                initialOffsetX = offsetX;
+                initialOffsetY = offsetY;
+                
+                // Calculate midpoint for zoom center
+                const container = document.getElementById('canvasContainer');
+                const rect = container.getBoundingClientRect();
+                const midX = (touch1.clientX + touch2.clientX) / 2 - rect.left;
+                const midY = (touch1.clientY + touch2.clientY) / 2 - rect.top;
+                
+                // Store midpoint for centering zoom
+                pinchCenterX = (midX - offsetX) / scale;
+                pinchCenterY = (midY - offsetY) / scale;
             }
         }
 
         function handleTouchMove(e) {
-            e.preventDefault();
+            if (e.touches.length === 1 && !isPanning && currentTool !== 'pan') {
+                // Single touch but not panning - ignore
+                return;
+            }
+            
             if (e.touches.length === 1) {
+                // Single touch - treat as mouse move
                 const touch = e.touches[0];
                 handleMouseMove({ 
                     clientX: touch.clientX, 
                     clientY: touch.clientY, 
-                    preventDefault: () => {} 
+                    preventDefault: () => {},
+                    target: e.target
                 });
+            } else if (e.touches.length === 2) {
+                // Two fingers - handle pinch zoom
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                
+                // Calculate current distance
+                const dx = touch2.clientX - touch1.clientX;
+                const dy = touch2.clientY - touch1.clientY;
+                const currentDistance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (lastTouchDistance !== null) {
+                    // Calculate zoom factor
+                    const zoomFactor = currentDistance / initialPinchDistance;
+                    const newScale = initialScale * zoomFactor;
+                    
+                    // Clamp scale
+                    scale = Math.max(0.1, Math.min(5, newScale));
+                    
+                    // Calculate midpoint for zoom center
+                    const container = document.getElementById('canvasContainer');
+                    const rect = container.getBoundingClientRect();
+                    const midX = (touch1.clientX + touch2.clientX) / 2 - rect.left;
+                    const midY = (touch1.clientY + touch2.clientY) / 2 - rect.top;
+                    
+                    // Adjust offset to zoom around the midpoint
+                    offsetX = midX - pinchCenterX * scale;
+                    offsetY = midY - pinchCenterY * scale;
+                    
+                    updateCanvasTransform();
+                    updateZoomDisplay();
+                    render();
+                }
+                
+                lastTouchDistance = currentDistance;
             }
         }
 
         function handleTouchEnd(e) {
-            e.preventDefault();
-            handleMouseUp({ preventDefault: () => {} });
+            if (e.touches.length === 0) {
+                // All fingers lifted
+                handleMouseUp({ preventDefault: () => {} });
+                lastTouchDistance = null;
+                initialPinchDistance = null;
+            } else if (e.touches.length === 1) {
+                // One finger left - reset for single touch
+                lastTouchDistance = null;
+                initialPinchDistance = null;
+            }
         }
 
         function handleWheel(e) {
@@ -1290,6 +1532,7 @@
             updateCanvasTransform();
             updateZoomDisplay();
             render();
+            showMessage('Zoomed in');
         }
 
         function zoomOut() {
@@ -1298,6 +1541,7 @@
             updateCanvasTransform();
             updateZoomDisplay();
             render();
+            showMessage('Zoomed out');
         }
 
         function resetView() {
@@ -1312,6 +1556,7 @@
             updateCanvasTransform();
             updateZoomDisplay();
             render();
+            showMessage('View reset');
         }
 
         function toggleGrid() {
@@ -1452,7 +1697,7 @@
             if (window.innerWidth < 769) {
                 // Mobile layout adjustments
                 const container = document.getElementById('canvasContainer');
-                if (container) {
+                if (container && canvas) {
                     const containerWidth = container.clientWidth;
                     const containerHeight = container.clientHeight;
                     const scaleX = containerWidth / canvas.width;
