@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'iOS Semibold';
+    src: url('assets/ios-semibold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 * {
     margin: 0;
     padding: 0;
@@ -20,7 +26,7 @@
 }
 
 body {
-    font-family: 'Amiri', 'Scheherazade New', serif;
+    font-family: 'iOS Semibold', 'Amiri', 'Scheherazade New', serif;
     background: var(--bg-primary);
     min-height: 100vh;
     padding: 10px;
@@ -91,7 +97,7 @@ body {
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s;
-    font-family: 'Amiri', 'Scheherazade New', serif;
+    font-family: 'iOS Semibold', 'Amiri', 'Scheherazade New', serif;
     text-decoration: none;
 }
 
@@ -132,7 +138,7 @@ body {
     border: 2px solid var(--border-color);
     border-radius: 50px;
     outline: none;
-    font-family: 'Amiri', 'Scheherazade New', serif;
+    font-family: 'iOS Semibold', 'Amiri', 'Scheherazade New', serif;
     background: var(--bg-secondary);
     color: var(--text-primary);
 }
@@ -213,7 +219,7 @@ body {
     font-size: 12px;
     font-weight: bold;
     transition: all 0.3s;
-    font-family: 'Amiri', 'Scheherazade New', serif;
+    font-family: 'iOS Semibold', 'Amiri', 'Scheherazade New', serif;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -379,7 +385,7 @@ body {
     border-radius: 8px;
     width: 80px;
     text-align: center;
-    font-family: 'Amiri', 'Scheherazade New', serif;
+    font-family: 'iOS Semibold', 'Amiri', 'Scheherazade New', serif;
     transition: all 0.3s;
     background: var(--bg-secondary);
     color: var(--text-primary);
@@ -493,7 +499,7 @@ body {
     border: 2px solid var(--border-color);
     border-radius: 8px;
     margin-bottom: 10px;
-    font-family: 'Amiri', 'Scheherazade New', serif;
+    font-family: 'iOS Semibold', 'Amiri', 'Scheherazade New', serif;
     background: var(--bg-secondary);
     color: var(--text-primary);
 }
