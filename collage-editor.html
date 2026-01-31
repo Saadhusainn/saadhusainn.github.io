@@ -25,15 +25,13 @@
             --accent-color: #6c63ff;
             --accent-hover: #5a52d5;
             --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --button-bg: #e8e8e8;
-            --button-outline: #323232;
         }
 
         body {
             font-family: 'Amiri', 'Scheherazade New', serif;
             background: var(--bg-primary);
             min-height: 100vh;
-            padding: 10px;
+            padding: 0;
             touch-action: none;
             font-size: 14px;
             color: var(--text-primary);
@@ -41,54 +39,64 @@
         }
 
         .container {
-            max-width: 1400px;
-            margin: 0 auto;
+            width: 100%;
             height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
+        /* Header */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
+            padding: 10px 15px;
+            background: var(--bg-secondary);
             border-bottom: 2px solid var(--border-color);
-            margin-bottom: 15px;
             flex-shrink: 0;
+            height: 60px;
         }
 
         .header-title {
             color: var(--accent-color);
-            font-size: 1.0em;
+            font-size: 1.2em;
             font-weight: bold;
         }
 
         .header-actions {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
-        .styled-button {
-            padding: 10px 20px;
+        /* Buttons */
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            padding: 8px;
             background: var(--accent-color);
-            color: white;
             border: none;
             border-radius: 8px;
-            font-size: 10px;
-            font-weight: bold;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: all 0.3s;
-            font-family: 'Amiri', 'Scheherazade New', serif;
         }
 
-        .styled-button:hover {
+        .icon-btn:hover {
             background: var(--accent-hover);
             transform: translateY(-2px);
         }
 
-        .styled-button:active {
+        .icon-btn:active {
             transform: translateY(0);
+        }
+
+        .icon-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
         }
 
         .download-btn {
@@ -99,21 +107,31 @@
             background: #218838;
         }
 
+        .back-btn {
+            background: #6c757d;
+        }
+
+        .back-btn:hover {
+            background: #5a6268;
+        }
+
+        /* Main Content */
         .content {
             flex: 1;
             display: flex;
             overflow: hidden;
-            gap: 15px;
+            position: relative;
         }
 
-        .toolbar {
+        /* Desktop Toolbar */
+        .desktop-toolbar {
             width: 220px;
             background: var(--bg-secondary);
-            border-radius: 10px;
+            border-right: 2px solid var(--border-color);
             padding: 15px;
-            border: 2px solid var(--border-color);
             overflow-y: auto;
             flex-shrink: 0;
+            display: none;
         }
 
         .toolbar-section {
@@ -121,11 +139,19 @@
         }
 
         .toolbar-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             color: var(--accent-color);
-            font-size: 0.75em;
+            font-size: 1em;
             margin-bottom: 10px;
             padding-bottom: 5px;
             border-bottom: 1px solid var(--border-color);
+        }
+
+        .toolbar-title img {
+            width: 20px;
+            height: 20px;
         }
 
         .tools-grid {
@@ -136,14 +162,18 @@
         }
 
         .tool-btn {
-            padding: 8.5px;
+            padding: 10px;
             background: var(--bg-tertiary);
             border: 2px solid var(--border-color);
             border-radius: 6px;
             cursor: pointer;
             text-align: center;
-            font-size: 10px;
+            font-size: 12px;
             transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
         }
 
         .tool-btn:hover {
@@ -155,6 +185,11 @@
             border-color: var(--accent-color);
             background: var(--accent-color);
             color: white;
+        }
+
+        .tool-btn img {
+            width: 20px;
+            height: 20px;
         }
 
         .color-palette {
@@ -182,53 +217,34 @@
             transform: scale(1.2);
         }
 
-        .highlight-yellow {
-            background-color: #ffff00;
-        }
-
-        .highlight-red {
-            background-color: #ff0000;
-        }
-
-        .highlight-cyan {
-            background-color: #00ffff;
-        }
-
-        .highlight-lime {
-            background-color: #00ff00;
-        }
-
-        .highlight-blue {
-            background-color: #007bff;
-        }
-
-        .highlight-pink {
-            background-color: #e83e8c;
-        }
-
-        .highlight-purple {
-            background-color: #6f42c1;
-        }
-
-        .highlight-orange {
-            background-color: #fd7e14;
-        }
+        .highlight-yellow { background-color: #ffff00; }
+        .highlight-red { background-color: #ff0000; }
+        .highlight-cyan { background-color: #00ffff; }
+        .highlight-lime { background-color: #00ff00; }
+        .highlight-blue { background-color: #007bff; }
+        .highlight-pink { background-color: #e83e8c; }
+        .highlight-purple { background-color: #6f42c1; }
+        .highlight-orange { background-color: #fd7e14; }
 
         .action-buttons {
             display: flex;
-            flex-direction: column;
             gap: 8px;
         }
 
         .action-btn {
+            flex: 1;
             padding: 10px;
             border: none;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 10px;
+            font-size: 13px;
             font-weight: bold;
             transition: all 0.3s;
             font-family: 'Amiri', 'Scheherazade New', serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
 
         .action-btn:hover {
@@ -241,40 +257,160 @@
             transform: none;
         }
 
-        .undo-btn {
-            background: #ffc107;
-            color: black;
+        .action-btn img {
+            width: 16px;
+            height: 16px;
         }
 
-        .undo-btn:hover {
-            background: #e0a800;
+        .undo-btn { background: #ffc107; color: black; }
+        .undo-btn:hover { background: #e0a800; }
+        .redo-btn { background: #17a2b8; color: white; }
+        .redo-btn:hover { background: #138496; }
+        .clear-btn { background: #dc3545; color: white; }
+        .clear-btn:hover { background: #c82333; }
+
+        .tips-text {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            margin-top: 10px;
         }
 
-        .redo-btn {
-            background: #17a2b8;
+        /* Mobile Toolbar */
+        .mobile-toolbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-secondary);
+            border-top: 2px solid var(--border-color);
+            padding: 10px;
+            z-index: 1000;
+            display: none;
+        }
+
+        .mobile-toolbar-top {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 10px;
+        }
+
+        .mobile-tool-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 11px;
+            color: var(--text-primary);
+            transition: all 0.3s;
+            min-width: 70px;
+        }
+
+        .mobile-tool-btn:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .mobile-tool-btn.active {
+            background: var(--accent-color);
             color: white;
         }
 
-        .redo-btn:hover {
-            background: #138496;
+        .mobile-tool-btn img {
+            width: 24px;
+            height: 24px;
         }
 
-        .clear-btn {
-            background: #dc3545;
-            color: white;
+        .mobile-toolbar-bottom {
+            display: flex;
+            gap: 10px;
+            justify-content: space-around;
         }
 
-        .clear-btn:hover {
-            background: #c82333;
+        .mobile-action-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            max-width: 120px;
         }
 
+        .mobile-action-btn img {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Color Panel */
+        .mobile-color-panel {
+            position: fixed;
+            bottom: 120px;
+            left: 0;
+            right: 0;
+            background: var(--bg-secondary);
+            padding: 15px;
+            border-radius: 15px 15px 0 0;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+            z-index: 999;
+            display: none;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .color-panel-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .color-panel-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .color-panel-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            justify-items: center;
+        }
+
+        .mobile-color-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .mobile-color-btn.active {
+            border-color: var(--text-primary);
+            transform: scale(1.2);
+        }
+
+        /* Canvas Container */
         .canvas-container {
             flex: 1;
             position: relative;
             overflow: hidden;
             background: var(--bg-tertiary);
-            border-radius: 10px;
-            border: 2px solid var(--border-color);
         }
 
         #collageCanvas {
@@ -285,19 +421,20 @@
             transform-origin: 0 0;
         }
 
+        /* Zoom Controls */
         .zoom-controls {
             position: absolute;
             bottom: 20px;
             right: 20px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
             z-index: 100;
         }
 
-        .zoom-btn {
-            width: 40px;
-            height: 40px;
+        .zoom-control-btn {
+            width: 50px;
+            height: 50px;
             background: var(--bg-secondary);
             border: 2px solid var(--border-color);
             border-radius: 50%;
@@ -305,18 +442,27 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
             color: var(--text-primary);
             transition: all 0.3s;
             box-shadow: var(--shadow);
         }
 
-        .zoom-btn:hover {
+        .zoom-control-btn img {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0) saturate(100%);
+        }
+
+        .zoom-control-btn:hover {
             background: var(--accent-color);
             color: white;
             border-color: var(--accent-color);
-            transform: scale(1.1);
+        }
+
+        .zoom-control-btn:hover img {
+            filter: brightness(0) invert(1);
         }
 
         .zoom-display {
@@ -347,6 +493,7 @@
             z-index: 100;
             opacity: 0;
             transition: opacity 0.3s;
+            pointer-events: none;
         }
 
         .info-message.show {
@@ -366,85 +513,135 @@
             z-index: 100;
         }
 
-        @media (max-width: 768px) {
-            .content {
-                flex-direction: column;
+        /* Responsive Design */
+        @media (min-width: 769px) {
+            .desktop-toolbar {
+                display: block;
             }
             
-            .toolbar {
-                width: 100%;
-                max-height: 200px;
-                order: 2;
+            .mobile-toolbar {
+                display: none !important;
+            }
+            
+            .mobile-color-panel {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .desktop-toolbar {
+                display: none;
+            }
+            
+            .mobile-toolbar {
+                display: block;
+                height: auto;
             }
             
             .canvas-container {
-                order: 1;
-                min-height: 400px;
+                margin-bottom: 140px;
             }
             
             .zoom-controls {
-                bottom: 10px;
+                bottom: 160px;
                 right: 10px;
             }
             
             .zoom-display {
-                bottom: 10px;
+                bottom: 160px;
                 left: 10px;
             }
             
             .cursor-coordinates {
                 top: 10px;
                 right: 10px;
+                font-size: 10px;
+                padding: 6px 10px;
             }
             
             .info-message {
                 top: 10px;
+                font-size: 11px;
+                padding: 8px 15px;
             }
+            
+            .header {
+                padding: 10px;
+                height: 50px;
+            }
+            
+            .header-title {
+                font-size: 1em;
+            }
+            
+            .icon-btn {
+                width: 36px;
+                height: 36px;
+                padding: 6px;
+            }
+        }
+
+        /* Utilities */
+        .hidden {
+            display: none !important;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <div class="header-title">🎨 Collage Editor</div>
+            <div class="header-title">Collage Editor</div>
             <div class="header-actions">
-                <button class="styled-button" onclick="window.close()">
-                    ← Back
+                <button class="icon-btn back-btn" onclick="window.close()">
+                    <img src="assets/back-button.png" alt="Back">
                 </button>
-                <button class="styled-button download-btn" onclick="downloadEditedCollage()">
-                    💾 Download
+                <button class="icon-btn download-btn" onclick="downloadEditedCollage()">
+                    <img src="assets/download.png" alt="Download">
                 </button>
             </div>
         </div>
         
         <div class="content">
-            <div class="toolbar">
+            <!-- Desktop Toolbar -->
+            <div class="desktop-toolbar">
                 <div class="toolbar-section">
-                    <div class="toolbar-title">🛠️ Tools</div>
+                    <div class="toolbar-title">
+                        <img src="assets/tools.png" alt="Tools">
+                        <span>Tools</span>
+                    </div>
                     <div class="tools-grid">
                         <button class="tool-btn active" onclick="setTool('highlight')">
-                            🖍️ Highlight
+                            <img src="assets/highlighter.png" alt="Highlight">
+                            <span>Highlight</span>
                         </button>
                         <button class="tool-btn" onclick="setTool('pan')">
-                            👉 Pan
+                            <img src="assets/pan.png" alt="Pan">
+                            <span>Pan</span>
                         </button>
                         <button class="tool-btn" onclick="zoomIn()">
-                            🔍 Zoom In
+                            <img src="assets/zoom-in.png" alt="Zoom In">
+                            <span>Zoom In</span>
                         </button>
                         <button class="tool-btn" onclick="zoomOut()">
-                            🔎 Zoom Out
+                            <img src="assets/zoom-out.png" alt="Zoom Out">
+                            <span>Zoom Out</span>
                         </button>
                         <button class="tool-btn" onclick="resetView()">
-                            🏠 Reset View
+                            <img src="assets/reset.png" alt="Reset">
+                            <span>Reset</span>
                         </button>
                         <button class="tool-btn" onclick="toggleGrid()">
-                            ⬜ Grid
+                            <img src="assets/grid.png" alt="Grid">
+                            <span>Grid</span>
                         </button>
                     </div>
                 </div>
                 
                 <div class="toolbar-section">
-                    <div class="toolbar-title">🎨 Colors</div>
+                    <div class="toolbar-title">
+                        <img src="assets/colors.png" alt="Colors">
+                        <span>Colors</span>
+                    </div>
                     <div class="color-palette">
                         <div class="color-btn highlight-yellow active" data-color="#ffff00" onclick="setHighlightColor(this)"></div>
                         <div class="color-btn highlight-red" data-color="#ff0000" onclick="setHighlightColor(this)"></div>
@@ -458,17 +655,32 @@
                 </div>
                 
                 <div class="toolbar-section">
-                    <div class="toolbar-title">⚡ Actions</div>
-                    <div class="action-buttons">
-                        <button class="action-btn undo-btn" id="undoBtn" onclick="undoHighlight()" disabled>↶ Undo</button>
-                        <button class="action-btn redo-btn" id="redoBtn" onclick="redoHighlight()" disabled>↷ Redo</button>
-                        <button class="action-btn clear-btn" onclick="clearHighlights()">🗑️ Clear All</button>
+                    <div class="toolbar-title">
+                        <img src="assets/tools.png" alt="Actions">
+                        <span>Actions</span>
                     </div>
+                    <div class="action-buttons">
+                        <button class="action-btn undo-btn" id="undoBtn" onclick="undoHighlight()" disabled>
+                            <img src="assets/undo.png" alt="Undo">
+                            <span>Undo</span>
+                        </button>
+                        <button class="action-btn redo-btn" id="redoBtn" onclick="redoHighlight()" disabled>
+                            <img src="assets/redo.png" alt="Redo">
+                            <span>Redo</span>
+                        </button>
+                    </div>
+                    <button class="action-btn clear-btn" onclick="clearHighlights()" style="margin-top: 8px;">
+                        <img src="assets/clear-all.png" alt="Clear All">
+                        <span>Clear All</span>
+                    </button>
                 </div>
                 
                 <div class="toolbar-section">
-                    <div class="toolbar-title">💡 Tips</div>
-                    <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.4;">
+                    <div class="toolbar-title">
+                        <img src="assets/tips.png" alt="Tips">
+                        <span>Tips</span>
+                    </div>
+                    <div class="tips-text">
                         • <strong>Highlight:</strong> Click and drag<br>
                         • <strong>Pan:</strong> Drag with hand tool<br>
                         • <strong>Zoom:</strong> Use buttons or scroll<br>
@@ -478,15 +690,76 @@
                 </div>
             </div>
             
+            <!-- Canvas Container -->
             <div class="canvas-container" id="canvasContainer">
                 <canvas id="collageCanvas"></canvas>
                 <div class="zoom-display" id="zoomDisplay">100%</div>
                 <div class="info-message" id="infoMessage"></div>
                 <div class="cursor-coordinates" id="cursorCoordinates">X: 0, Y: 0</div>
                 <div class="zoom-controls">
-                    <button class="zoom-btn" onclick="zoomIn()">+</button>
-                    <button class="zoom-btn" onclick="zoomOut()">-</button>
-                    <button class="zoom-btn" onclick="resetView()">⌂</button>
+                    <button class="zoom-control-btn" onclick="zoomIn()">
+                        <img src="assets/zoom-in.png" alt="Zoom In">
+                    </button>
+                    <button class="zoom-control-btn" onclick="zoomOut()">
+                        <img src="assets/zoom-out.png" alt="Zoom Out">
+                    </button>
+                    <button class="zoom-control-btn" onclick="resetView()">
+                        <img src="assets/reset.png" alt="Reset View">
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Toolbar -->
+            <div class="mobile-toolbar">
+                <div class="mobile-toolbar-top">
+                    <button class="mobile-tool-btn active" onclick="setMobileTool('highlight')">
+                        <img src="assets/highlighter.png" alt="Highlight">
+                        <span>Highlight</span>
+                    </button>
+                    <button class="mobile-tool-btn" onclick="setMobileTool('pan')">
+                        <img src="assets/pan.png" alt="Pan">
+                        <span>Pan</span>
+                    </button>
+                    <button class="mobile-tool-btn" onclick="toggleColorPanel()">
+                        <img src="assets/colors.png" alt="Colors">
+                        <span>Colors</span>
+                    </button>
+                    <button class="mobile-tool-btn" onclick="toggleGrid()">
+                        <img src="assets/grid.png" alt="Grid">
+                        <span>Grid</span>
+                    </button>
+                </div>
+                <div class="mobile-toolbar-bottom">
+                    <button class="mobile-action-btn undo-btn" id="mobileUndoBtn" onclick="undoHighlight()" disabled>
+                        <img src="assets/undo.png" alt="Undo">
+                        <span>Undo</span>
+                    </button>
+                    <button class="mobile-action-btn redo-btn" id="mobileRedoBtn" onclick="redoHighlight()" disabled>
+                        <img src="assets/redo.png" alt="Redo">
+                        <span>Redo</span>
+                    </button>
+                    <button class="mobile-action-btn clear-btn" onclick="clearHighlights()">
+                        <img src="assets/clear-all.png" alt="Clear All">
+                        <span>Clear</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Color Panel -->
+            <div class="mobile-color-panel" id="mobileColorPanel">
+                <div class="color-panel-title">
+                    <span>Select Color</span>
+                    <button class="color-panel-close" onclick="toggleColorPanel()">×</button>
+                </div>
+                <div class="color-panel-grid">
+                    <div class="mobile-color-btn highlight-yellow active" data-color="#ffff00" onclick="setMobileHighlightColor(this)"></div>
+                    <div class="mobile-color-btn highlight-red" data-color="#ff0000" onclick="setMobileHighlightColor(this)"></div>
+                    <div class="mobile-color-btn highlight-cyan" data-color="#00ffff" onclick="setMobileHighlightColor(this)"></div>
+                    <div class="mobile-color-btn highlight-lime" data-color="#00ff00" onclick="setMobileHighlightColor(this)"></div>
+                    <div class="mobile-color-btn highlight-blue" data-color="#007bff" onclick="setMobileHighlightColor(this)"></div>
+                    <div class="mobile-color-btn highlight-pink" data-color="#e83e8c" onclick="setMobileHighlightColor(this)"></div>
+                    <div class="mobile-color-btn highlight-purple" data-color="#6f42c1" onclick="setMobileHighlightColor(this)"></div>
+                    <div class="mobile-color-btn highlight-orange" data-color="#fd7e14" onclick="setMobileHighlightColor(this)"></div>
                 </div>
             </div>
         </div>
@@ -534,6 +807,7 @@
                 setupCanvas();
                 render();
                 setupEventListeners();
+                updateMobileUndoRedoButtons();
             };
             collageImage.src = collageDataUrl;
         }
@@ -574,7 +848,7 @@
             
             setTimeout(() => {
                 messageDiv.classList.remove('show');
-            }, 3000);
+            }, 2000);
         }
 
         function updateCursorCoordinates(clientX, clientY) {
@@ -598,18 +872,42 @@
             document.querySelectorAll('.tool-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.target.classList.add('active');
+            if (event && event.target.closest('.tool-btn')) {
+                event.target.closest('.tool-btn').classList.add('active');
+            }
             
             // Update cursor
-            if (tool === 'pan') {
+            updateCursorForTool();
+            
+            showMessage(`${tool === 'pan' ? 'Pan' : 'Highlight'} tool selected`);
+        }
+
+        function setMobileTool(tool) {
+            currentTool = tool;
+            
+            // Update active mobile tool button
+            document.querySelectorAll('.mobile-tool-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.closest('.mobile-tool-btn').classList.add('active');
+            
+            // Close color panel if open
+            document.getElementById('mobileColorPanel').classList.add('hidden');
+            
+            // Update cursor
+            updateCursorForTool();
+            
+            showMessage(`${tool === 'pan' ? 'Pan' : 'Highlight'} tool selected`);
+        }
+
+        function updateCursorForTool() {
+            if (currentTool === 'pan') {
                 canvas.style.cursor = 'grab';
-            } else if (tool === 'highlight') {
+            } else if (currentTool === 'highlight') {
                 canvas.style.cursor = 'crosshair';
             } else {
                 canvas.style.cursor = 'default';
             }
-            
-            showMessage(`${tool === 'pan' ? '👉 Pan' : '🖍️ Highlight'} tool selected`);
         }
 
         function setHighlightColor(button) {
@@ -618,7 +916,33 @@
             });
             button.classList.add('active');
             currentHighlightColor = button.getAttribute('data-color');
-            showMessage(`Color changed to ${currentHighlightColor}`);
+            showMessage(`Color changed`);
+        }
+
+        function setMobileHighlightColor(button) {
+            document.querySelectorAll('.mobile-color-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            button.classList.add('active');
+            currentHighlightColor = button.getAttribute('data-color');
+            
+            // Also update desktop color buttons
+            document.querySelectorAll('.color-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-color') === currentHighlightColor) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Close color panel on mobile
+            document.getElementById('mobileColorPanel').classList.add('hidden');
+            
+            showMessage(`Color changed`);
+        }
+
+        function toggleColorPanel() {
+            const panel = document.getElementById('mobileColorPanel');
+            panel.classList.toggle('hidden');
         }
 
         function getCanvasCoordinates(clientX, clientY) {
@@ -650,6 +974,13 @@
             // Update cursor coordinates
             container.addEventListener('mousemove', (e) => {
                 updateCursorCoordinates(e.clientX, e.clientY);
+            });
+            
+            container.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 1) {
+                    const touch = e.touches[0];
+                    updateCursorCoordinates(touch.clientX, touch.clientY);
+                }
             });
         }
 
@@ -767,7 +1098,11 @@
             e.preventDefault();
             if (e.touches.length === 1) {
                 const touch = e.touches[0];
-                handleMouseDown({ clientX: touch.clientX, clientY: touch.clientY, preventDefault: () => {} });
+                handleMouseDown({ 
+                    clientX: touch.clientX, 
+                    clientY: touch.clientY, 
+                    preventDefault: () => {} 
+                });
             }
         }
 
@@ -775,7 +1110,11 @@
             e.preventDefault();
             if (e.touches.length === 1) {
                 const touch = e.touches[0];
-                handleMouseMove({ clientX: touch.clientX, clientY: touch.clientY, preventDefault: () => {} });
+                handleMouseMove({ 
+                    clientX: touch.clientX, 
+                    clientY: touch.clientY, 
+                    preventDefault: () => {} 
+                });
             }
         }
 
@@ -895,6 +1234,7 @@
             }
             
             updateUndoRedoButtons();
+            updateMobileUndoRedoButtons();
         }
 
         function undoHighlight() {
@@ -903,6 +1243,7 @@
                 highlights = JSON.parse(JSON.stringify(highlightHistory[historyIndex]));
                 render();
                 updateUndoRedoButtons();
+                updateMobileUndoRedoButtons();
             }
         }
 
@@ -912,6 +1253,7 @@
                 highlights = JSON.parse(JSON.stringify(highlightHistory[historyIndex]));
                 render();
                 updateUndoRedoButtons();
+                updateMobileUndoRedoButtons();
             }
         }
 
@@ -919,8 +1261,16 @@
             const undoBtn = document.getElementById('undoBtn');
             const redoBtn = document.getElementById('redoBtn');
             
-            undoBtn.disabled = historyIndex <= 0;
-            redoBtn.disabled = historyIndex >= highlightHistory.length - 1;
+            if (undoBtn) undoBtn.disabled = historyIndex <= 0;
+            if (redoBtn) redoBtn.disabled = historyIndex >= highlightHistory.length - 1;
+        }
+
+        function updateMobileUndoRedoButtons() {
+            const undoBtn = document.getElementById('mobileUndoBtn');
+            const redoBtn = document.getElementById('mobileRedoBtn');
+            
+            if (undoBtn) undoBtn.disabled = historyIndex <= 0;
+            if (redoBtn) redoBtn.disabled = historyIndex >= highlightHistory.length - 1;
         }
 
         function clearHighlights() {
@@ -1099,15 +1449,23 @@
         
         // Handle window resize
         window.addEventListener('resize', () => {
-            const container = document.getElementById('canvasContainer');
-            if (container.clientWidth < 768) {
-                // Mobile layout
-                offsetX = 0;
-                offsetY = 0;
-                scale = 1;
+            if (window.innerWidth < 769) {
+                // Mobile layout adjustments
+                const container = document.getElementById('canvasContainer');
+                if (container) {
+                    const containerWidth = container.clientWidth;
+                    const containerHeight = container.clientHeight;
+                    const scaleX = containerWidth / canvas.width;
+                    const scaleY = containerHeight / canvas.height;
+                    scale = Math.min(scaleX, scaleY, 1);
+                    
+                    offsetX = (containerWidth - canvas.width * scale) / 2;
+                    offsetY = (containerHeight - canvas.height * scale) / 2;
+                    
+                    updateCanvasTransform();
+                    render();
+                }
             }
-            updateCanvasTransform();
-            render();
         });
     </script>
 </body>
