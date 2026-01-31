@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sijjeen - Book Collage Maker</title>
+    <link rel="icon" type="image/png" href="assets/sijjeen-logo.png">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +14,10 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="title">SIJJEEN</div>
+            <div class="title-section">
+                <img src="assets/sijjeen-logo.png" alt="Sijjeen Logo" class="site-logo">
+                <div class="title">SIJJEEN</div>
+            </div>
             <div class="durood">
                 صلى الله عليه وسلم صلى الله عليه وسلم 
             </div>
@@ -25,7 +29,10 @@
         <div class="upload-section">
             <input type="file" id="uploadInput" accept=".pdf" style="display: none;">
             <button class="styled-button" onclick="document.getElementById('uploadInput').click()">
-                <span class="button-top">📁 Upload Your Own PDF</span>
+                <span class="button-top">
+                    <img src="assets/upload-pdf.png" alt="Upload" class="button-icon">
+                    Upload Your Own PDF
+                </span>
             </button>
         </div>
         
@@ -50,6 +57,11 @@
                 Loading books...
             </div>
         </div>
+        
+        <!-- Show More Button -->
+        <button id="showMoreBtn" class="styled-button show-more-btn hidden" onclick="loadMoreBooks()">
+            <span class="button-top">📚 Show More Books</span>
+        </button>
         
         <!-- Book Request Section -->
         <div id="bookRequestSection" class="book-request hidden">
@@ -102,11 +114,17 @@
         <!-- Watermark Section -->
         <div id="watermarkSection" class="watermark-section hidden">
             <div class="setting-group">
-                <label>Add Watermark</label>
+                <label>
+                    <img src="assets/watermark.png" alt="Watermark" class="setting-icon">
+                    Add Watermark
+                </label>
                 <div class="watermark-controls">
                     <input type="file" id="watermarkInput" accept="image/*" style="display: none;">
                     <button class="styled-button" onclick="document.getElementById('watermarkInput').click()">
-                        <span class="button-top">🖼️ Upload Watermark</span>
+                        <span class="button-top">
+                            <img src="assets/upload-pdf.png" alt="Upload" class="button-icon">
+                            Upload Watermark
+                        </span>
                     </button>
                     <div class="watermark-slider">
                         <span>Opacity:</span>
@@ -124,33 +142,58 @@
             </div>
             <div class="preview-actions">
                 <button class="styled-button" onclick="downloadCollage()">
-                    <span class="button-top">💾 Download Collage</span>
+                    <span class="button-top">
+                        <img src="assets/download.png" alt="Download" class="button-icon">
+                        Download Collage
+                    </span>
                 </button>
                 <button class="styled-button highlight-btn" onclick="openCollageEditor()">
-                    <span class="button-top">🎨 Proceed to Highlight</span>
+                    <span class="button-top">
+                        <img src="assets/highlighter.png" alt="Highlight" class="button-icon">
+                        Proceed to Highlight
+                    </span>
                 </button>
             </div>
         </div>
         
         <!-- Contact Section -->
         <div class="contact-section">
-            <h3 class="contact-title">📞 Contact Us</h3>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <span class="contact-label">Telegram:</span>
-                    <a href="https://t.me/DancingDinosaurs" target="_blank" class="contact-link">@DancingDinosaurs</a>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-label">Instagram:</span>
-                    <a href="https://instagram.com/sijjeen_" target="_blank" class="contact-link">@sijjeen_</a>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-label">Email:</span>
-                    <a href="mailto:sijjeen@proton.me" class="contact-link">sijjeen@proton.me</a>
-                </div>
+            <div class="contact-header">
+                <img src="assets/contact-us.png" alt="Contact Us" class="contact-title-icon">
+                <h3 class="contact-title">Get in Touch</h3>
             </div>
-            <div class="copyright">
-                © 2024 Sijjeen. All rights reserved.
+            <p class="contact-subtitle">Have questions or suggestions? Reach out to us!</p>
+            <div class="contact-grid">
+                <a href="https://t.me/DancingDinosaurs" target="_blank" class="contact-card">
+                    <div class="contact-card-icon">
+                        <img src="assets/telegram.png" alt="Telegram">
+                    </div>
+                    <div class="contact-card-content">
+                        <h4>Telegram</h4>
+                        <p>@DancingDinosaurs</p>
+                        <span class="contact-card-link">Send Message →</span>
+                    </div>
+                </a>
+                <a href="https://instagram.com/sijjeen_" target="_blank" class="contact-card">
+                    <div class="contact-card-icon">
+                        <img src="assets/instagram.png" alt="Instagram">
+                    </div>
+                    <div class="contact-card-content">
+                        <h4>Instagram</h4>
+                        <p>@sijjeen_</p>
+                        <span class="contact-card-link">Follow Us →</span>
+                    </div>
+                </a>
+                <a href="mailto:sijjeen@proton.me" class="contact-card">
+                    <div class="contact-card-icon">
+                        <img src="assets/email.png" alt="Email">
+                    </div>
+                    <div class="contact-card-content">
+                        <h4>Email</h4>
+                        <p>sijjeen@proton.me</p>
+                        <span class="contact-card-link">Send Email →</span>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
