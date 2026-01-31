@@ -66,7 +66,7 @@ type:"single",
     type: "single"
 },
 {
-    name: "المقبزة في علم مصطلح الحديث للذهبي - مكتبة المطبوعات الإسلامية",
+    name: "الموقظة في علم مصطلح الحديث للذهبي - مكتبة المطبوعات الإسلامية",
     file: "https://raw.githubusercontent.com/saadhusainn/sijjeen96/main/pdfs/AlMuqizahFiIlmMustalahAlHadithLiAlDhahabi_MaktabahAlMatbuatAlIslamiyyah.pdf",
     publisher: "مكتبة المطبوعات الإسلامية",
     language: "العربية",
