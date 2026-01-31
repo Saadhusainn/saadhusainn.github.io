@@ -34,7 +34,7 @@
 }
 
 body {
-    font-family: 'iOS Semibold', 'Amiri', 'Scheherazade New', serif;
+    font-family: 'My Arabic Font', 'iOS Semibold', serif;
     background: var(--bg-primary);
     min-height: 100vh;
     padding: 10px;
@@ -105,7 +105,7 @@ body {
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s;
-    font-family: 'iOS Semibold', 'Amiri', 'Scheherazade New', serif;
+    font-family: 'My Arabic Font', 'iOS Semibold', serif;
     text-decoration: none;
 }
 
@@ -146,7 +146,7 @@ body {
     border: 2px solid var(--border-color);
     border-radius: 50px;
     outline: none;
-    font-family: 'iOS Semibold', 'Amiri', 'Scheherazade New', serif;
+    font-family: 'My Arabic Font', 'iOS Semibold', serif;
     background: var(--bg-secondary);
     color: var(--text-primary);
 }
@@ -227,7 +227,7 @@ body {
     font-size: 12px;
     font-weight: bold;
     transition: all 0.3s;
-    font-family: 'iOS Semibold', 'Amiri', 'Scheherazade New', serif;
+    font-family: 'My Arabic Font', 'iOS Semibold', serif;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -393,7 +393,7 @@ body {
     border-radius: 8px;
     width: 80px;
     text-align: center;
-    font-family: 'iOS Semibold', 'Amiri', 'Scheherazade New', serif;
+    font-family: 'My Arabic Font', 'iOS Semibold', serif;
     transition: all 0.3s;
     background: var(--bg-secondary);
     color: var(--text-primary);
@@ -507,7 +507,7 @@ body {
     border: 2px solid var(--border-color);
     border-radius: 8px;
     margin-bottom: 10px;
-    font-family: 'iOS Semibold', 'Amiri', 'Scheherazade New', serif;
+    font-family: 'My Arabic Font', 'iOS Semibold', serif;
     background: var(--bg-secondary);
     color: var(--text-primary);
 }
