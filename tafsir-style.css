@@ -1,0 +1,583 @@
+/* ==========================================
+   SIJJEEN TAFSIR - CSS
+   ========================================== */
+
+/* Variables */
+:root {
+    --bg: #ffffff;
+    --bg-secondary: #f9f9f9;
+    --bg-tertiary: #f0f0f0;
+    --text: #1a1a1a;
+    --text-secondary: #666666;
+    --text-light: #999999;
+    --accent: #2d5a45;
+    --accent-light: #e8f0ec;
+    --accent-dark: #1e3d2f;
+    --border: #eeeeee;
+    --shadow: 0 2px 8px rgba(0,0,0,0.06);
+    --shadow-lg: 0 4px 20px rgba(0,0,0,0.12);
+    
+    --font-en: 'Inter', -apple-system, sans-serif;
+    --font-ar: 'Amiri', 'Traditional Arabic', serif;
+    
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-lg: 16px;
+    
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Reset */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--font-en);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    overflow-x: hidden;
+}
+
+/* App Container */
+.app {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==========================================
+   HEADER
+   ========================================== */
+.app-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    min-height: 52px;
+}
+
+.header-back {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: var(--accent);
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.header-back:active {
+    background: var(--accent-light);
+}
+
+.header-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    flex: 1;
+    text-align: center;
+}
+
+.header-spacer {
+    width: 40px;
+}
+
+/* ==========================================
+   MAIN CONTENT
+   ========================================== */
+.app-content {
+    flex: 1;
+    padding: 12px;
+    padding-bottom: calc(80px + var(--safe-bottom));
+    overflow-y: auto;
+}
+
+/* View System */
+.view {
+    animation: fadeIn 0.2s ease;
+}
+
+.view.hidden {
+    display: none !important;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================
+   GREETING
+   ========================================== */
+.greeting {
+    text-align: center;
+    padding: 20px 12px;
+    margin-bottom: 20px;
+}
+
+.greeting-arabic {
+    font-family: var(--font-ar);
+    font-size: 22px;
+    color: var(--accent);
+    margin-bottom: 6px;
+    line-height: 1.8;
+}
+
+.greeting-text {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* ==========================================
+   LANGUAGE FILTER
+   ========================================== */
+.filter-section {
+    margin-bottom: 20px;
+}
+
+.filter-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+
+.language-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.language-btn {
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font-en);
+    background: var(--bg-secondary);
+    color: var(--text);
+}
+
+.language-btn:active {
+    transform: scale(0.95);
+}
+
+.language-btn.active {
+    background: var(--accent);
+    color: white;
+}
+
+/* ==========================================
+   SELECTORS
+   ========================================== */
+.selector-section {
+    margin-bottom: 16px;
+}
+
+.selector-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.selector-dropdown {
+    width: 100%;
+    padding: 14px 40px 14px 14px;
+    font-size: 14px;
+    font-family: var(--font-en);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg);
+    color: var(--text);
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+}
+
+.selector-dropdown:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+/* ==========================================
+   START BUTTON
+   ========================================== */
+.start-button {
+    width: 100%;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: var(--font-en);
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    margin-top: 20px;
+    box-shadow: var(--shadow);
+    transition: all 0.2s;
+}
+
+.start-button:active {
+    background: var(--accent-dark);
+    transform: scale(0.98);
+}
+
+.start-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ==========================================
+   RECENT READS
+   ========================================== */
+.recent-section {
+    margin-top: 30px;
+}
+
+.recent-section.hidden {
+    display: none;
+}
+
+.recent-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+.recent-card {
+    padding: 14px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.recent-card:active {
+    background: var(--bg-tertiary);
+    transform: scale(0.98);
+}
+
+.recent-card-content {
+    flex: 1;
+}
+
+.recent-card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+}
+
+.recent-card-meta {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.recent-card-arrow {
+    font-size: 18px;
+    color: var(--text-light);
+}
+
+/* ==========================================
+   READING VIEW
+   ========================================== */
+.surah-header {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: white;
+    padding: 24px;
+    border-radius: var(--radius-lg);
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-lg);
+}
+
+.surah-name-ar {
+    font-family: var(--font-ar);
+    font-size: 32px;
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.surah-name-en {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 4px;
+}
+
+.surah-meta {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+/* Tafsir Switcher */
+.tafsir-switcher {
+    margin-bottom: 20px;
+}
+
+.tafsir-switcher label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+/* Ayah Cards */
+.ayah-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.ayah-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: all 0.2s;
+}
+
+.ayah-card.highlighted {
+    border-color: var(--accent);
+    box-shadow: var(--shadow);
+}
+
+.ayah-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.ayah-header:active {
+    background: var(--bg-secondary);
+}
+
+.ayah-number {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.ayah-preview {
+    flex: 1;
+    font-size: 13px;
+    color: var(--text-secondary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ayah-toggle {
+    font-size: 20px;
+    color: var(--text-light);
+    flex-shrink: 0;
+}
+
+.ayah-content {
+    padding: 0 14px 14px;
+    border-top: 1px solid var(--border);
+    display: none;
+}
+
+.ayah-content.expanded {
+    display: block;
+    animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.ayah-text {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text);
+    margin-bottom: 16px;
+    white-space: pre-wrap;
+}
+
+.ayah-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.ayah-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: var(--font-en);
+    background: var(--bg-secondary);
+    color: var(--text);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.ayah-action-btn:active {
+    background: var(--bg-tertiary);
+    transform: scale(0.95);
+}
+
+.ayah-action-btn.bookmarked {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.ayah-action-btn img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+/* ==========================================
+   LOADING
+   ========================================== */
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 20px;
+    color: var(--text-secondary);
+}
+
+.spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 14px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading p {
+    margin: 4px 0;
+    font-size: 14px;
+}
+
+/* ==========================================
+   TOAST
+   ========================================== */
+.toast {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 9999;
+    box-shadow: var(--shadow-lg);
+    animation: toastIn 0.3s ease;
+}
+
+.toast.hidden {
+    display: none;
+}
+
+@keyframes toastIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ==========================================
+   FOOTER
+   ========================================== */
+.app-footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-light);
+    font-family: var(--font-ar);
+    font-size: 14px;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+}
+
+/* ==========================================
+   UTILITIES
+   ========================================== */
+.hidden {
+    display: none !important;
+}
+
+/* ==========================================
+   DESKTOP
+   ========================================== */
+@media (min-width: 600px) {
+    .app {
+        max-width: 600px;
+        margin: 0 auto;
+        box-shadow: 0 0 40px rgba(0,0,0,0.08);
+    }
+}
