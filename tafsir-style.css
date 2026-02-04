@@ -1,6 +1,17 @@
 /* ==========================================
-   SIJJEEN TAFSIR - CSS
+   SIJJEEN TAFSIR - Mobile-First CSS
    ========================================== */
+
+/* Fonts */
+@font-face {
+    font-family: 'Helvetica Arabic';
+    src: url('assets/helvetica.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Jameel Noori Nastaleeq';
+    src: url('assets/JMN.ttf') format('truetype');
+}
 
 /* Variables */
 :root {
@@ -18,13 +29,17 @@
     --shadow-lg: 0 4px 20px rgba(0,0,0,0.12);
     
     --font-en: 'Inter', -apple-system, sans-serif;
-    --font-ar: 'Amiri', 'Traditional Arabic', serif;
+    --font-ar: 'Helvetica Arabic', 'Amiri', 'Traditional Arabic', serif;
+    --font-ur: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
     
     --radius: 12px;
     --radius-sm: 8px;
     --radius-lg: 16px;
     
     --safe-bottom: env(safe-area-inset-bottom, 0px);
+    
+    /* Font size variable for dynamic control */
+    --ayah-font-size: 16px;
 }
 
 /* Reset */
@@ -43,7 +58,7 @@ body {
     font-family: var(--font-en);
     background: var(--bg);
     color: var(--text);
-    line-height: 1.5;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -webkit-tap-highlight-color: transparent;
     overflow-x: hidden;
@@ -86,6 +101,7 @@ body {
     cursor: pointer;
     border-radius: 50%;
     flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .header-back:active {
@@ -110,27 +126,11 @@ body {
 .app-content {
     flex: 1;
     padding: 12px;
-    padding-bottom: calc(80px + var(--safe-bottom));
+    padding-bottom: calc(20px + var(--safe-bottom));
     overflow-y: auto;
 }
 
-/* View System */
-.view {
-    animation: fadeIn 0.2s ease;
-}
-
-.view.hidden {
-    display: none !important;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* ==========================================
-   GREETING
-   ========================================== */
+/* Greeting */
 .greeting {
     text-align: center;
     padding: 20px 12px;
@@ -153,92 +153,116 @@ body {
 /* ==========================================
    LANGUAGE FILTER
    ========================================== */
-.filter-section {
-    margin-bottom: 20px;
-}
-
-.filter-label {
-    display: block;
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 10px;
-}
-
-.language-buttons {
+.language-filter {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 8px 0;
+    margin-bottom: 20px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
 }
 
-.language-btn {
-    padding: 10px 16px;
+.language-filter::-webkit-scrollbar {
+    display: none;
+}
+
+.lang-btn {
+    flex-shrink: 0;
+    padding: 8px 16px;
     font-size: 13px;
     font-weight: 500;
-    border: none;
-    border-radius: var(--radius-sm);
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    border-radius: 20px;
     cursor: pointer;
     transition: all 0.2s;
-    font-family: var(--font-en);
-    background: var(--bg-secondary);
-    color: var(--text);
+    -webkit-tap-highlight-color: transparent;
 }
 
-.language-btn:active {
+.lang-btn.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+.lang-btn:active {
     transform: scale(0.95);
 }
 
-.language-btn.active {
-    background: var(--accent);
-    color: white;
-}
-
 /* ==========================================
-   SELECTORS
+   SELECTOR SECTION
    ========================================== */
 .selector-section {
-    margin-bottom: 16px;
+    background: var(--bg);
+    border-radius: var(--radius);
+    padding: 18px;
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+}
+
+.selector-group {
+    margin-bottom: 18px;
+}
+
+.selector-group:last-of-type {
+    margin-bottom: 20px;
 }
 
 .selector-label {
     display: block;
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 600;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    color: var(--text);
     margin-bottom: 8px;
 }
 
-.selector-dropdown {
+/* Custom Select Styling */
+.custom-select {
     width: 100%;
     padding: 14px 40px 14px 14px;
-    font-size: 14px;
+    font-size: 15px;
     font-family: var(--font-en);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    background: var(--bg);
     color: var(--text);
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
     cursor: pointer;
-    outline: none;
+    transition: all 0.2s;
+    -webkit-appearance: none;
+    -moz-appearance: none;
     appearance: none;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-    background-position: right 0.5rem center;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%232d5a45' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-size: 1.5em 1.5em;
+    background-position: right 14px center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
-.selector-dropdown:focus {
+.custom-select:hover:not(:disabled) {
+    border-color: var(--accent);
+}
+
+.custom-select:focus {
+    outline: none;
     border-color: var(--accent);
     box-shadow: 0 0 0 3px var(--accent-light);
 }
 
-/* ==========================================
-   START BUTTON
-   ========================================== */
-.start-button {
+.custom-select:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: var(--bg-secondary);
+}
+
+.custom-select.compact {
+    padding: 10px 36px 10px 12px;
+    font-size: 14px;
+    background-position: right 10px center;
+}
+
+/* Start Button */
+.start-btn {
     width: 100%;
     padding: 16px;
     font-size: 16px;
@@ -247,21 +271,34 @@ body {
     background: var(--accent);
     color: white;
     border: none;
-    border-radius: var(--radius);
+    border-radius: var(--radius-sm);
     cursor: pointer;
-    margin-top: 20px;
-    box-shadow: var(--shadow);
     transition: all 0.2s;
+    box-shadow: var(--shadow);
+    -webkit-tap-highlight-color: transparent;
 }
 
-.start-button:active {
+.start-btn:hover:not(:disabled) {
     background: var(--accent-dark);
-    transform: scale(0.98);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
 }
 
-.start-button:disabled {
+.start-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.start-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+.btn-icon {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
 }
 
 /* ==========================================
@@ -271,131 +308,201 @@ body {
     margin-top: 30px;
 }
 
-.recent-section.hidden {
-    display: none;
-}
-
-.recent-title {
-    font-size: 12px;
+.section-title {
+    font-size: 15px;
     font-weight: 600;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    color: var(--text);
     margin-bottom: 12px;
 }
 
+.recent-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .recent-card {
-    padding: 14px;
-    background: var(--bg-secondary);
+    background: var(--bg);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    margin-bottom: 8px;
+    padding: 14px;
     cursor: pointer;
     transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .recent-card:active {
-    background: var(--bg-tertiary);
+    background: var(--bg-secondary);
     transform: scale(0.98);
 }
 
-.recent-card-content {
-    flex: 1;
+.recent-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
 }
 
-.recent-card-title {
+.recent-tafsir {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.recent-time {
+    font-size: 11px;
+    color: var(--text-light);
+}
+
+.recent-surah {
     font-size: 14px;
     font-weight: 600;
     color: var(--text);
     margin-bottom: 4px;
 }
 
-.recent-card-meta {
+.recent-ayah {
     font-size: 12px;
     color: var(--text-secondary);
-}
-
-.recent-card-arrow {
-    font-size: 18px;
-    color: var(--text-light);
 }
 
 /* ==========================================
    READING VIEW
    ========================================== */
+.reading-view {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-secondary);
+}
+
+.reading-view.hidden {
+    display: none;
+}
+
+/* Surah Header */
 .surah-header {
     background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
     color: white;
-    padding: 24px;
-    border-radius: var(--radius-lg);
+    padding: 24px 18px;
     text-align: center;
-    margin-bottom: 20px;
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow);
+}
+
+.surah-number {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.9;
+    margin-bottom: 8px;
 }
 
 .surah-name-ar {
     font-family: var(--font-ar);
-    font-size: 32px;
-    margin-bottom: 10px;
-    line-height: 1.6;
+    font-size: 28px;
+    margin-bottom: 6px;
+    line-height: 1.4;
 }
 
 .surah-name-en {
-    font-size: 14px;
-    opacity: 0.9;
-    margin-bottom: 4px;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 6px;
 }
 
 .surah-meta {
-    font-size: 12px;
-    opacity: 0.8;
+    font-size: 13px;
+    opacity: 0.85;
 }
 
-/* Tafsir Switcher */
-.tafsir-switcher {
-    margin-bottom: 20px;
-}
-
-.tafsir-switcher label {
-    display: block;
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 8px;
-}
-
-/* Ayah Cards */
-.ayah-list {
+/* Controls Bar */
+.controls-bar {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     gap: 12px;
+    padding: 12px 14px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
 }
 
+.tafsir-switcher {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 200px;
+}
+
+.switcher-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.font-controls {
+    display: flex;
+    gap: 6px;
+}
+
+.font-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.font-btn:active {
+    background: var(--accent-light);
+    border-color: var(--accent);
+    transform: scale(0.95);
+}
+
+.font-btn img {
+    width: 18px;
+    height: 18px;
+}
+
+/* Ayahs Container */
+.ayahs-container {
+    flex: 1;
+    padding: 12px;
+    padding-bottom: calc(20px + var(--safe-bottom));
+    overflow-y: auto;
+}
+
+/* Ayah Card */
 .ayah-card {
     background: var(--bg);
     border: 1px solid var(--border);
     border-radius: var(--radius);
+    margin-bottom: 12px;
     overflow: hidden;
     transition: all 0.2s;
 }
 
-.ayah-card.highlighted {
+.ayah-card.highlight {
     border-color: var(--accent);
-    box-shadow: var(--shadow);
+    box-shadow: 0 0 0 3px var(--accent-light);
 }
 
 .ayah-header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 12px;
-    padding: 14px;
+    padding: 14px 16px;
     cursor: pointer;
-    transition: background 0.2s;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .ayah-header:active {
@@ -403,97 +510,162 @@ body {
 }
 
 .ayah-number {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.ayah-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.action-btn {
     width: 32px;
     height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: none;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--text-secondary);
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.action-btn:active {
     background: var(--accent-light);
     color: var(--accent);
-    font-size: 13px;
-    font-weight: 600;
-    border-radius: 50%;
-    flex-shrink: 0;
 }
 
-.ayah-preview {
-    flex: 1;
-    font-size: 13px;
-    color: var(--text-secondary);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+.action-btn.bookmarked {
+    color: #f59e0b;
 }
 
-.ayah-toggle {
-    font-size: 20px;
+.action-btn img {
+    width: 16px;
+    height: 16px;
+}
+
+.expand-icon {
+    font-size: 12px;
     color: var(--text-light);
-    flex-shrink: 0;
+    transition: transform 0.2s;
 }
 
+.ayah-card.expanded .expand-icon {
+    transform: rotate(180deg);
+}
+
+/* Ayah Content */
 .ayah-content {
-    padding: 0 14px 14px;
-    border-top: 1px solid var(--border);
-    display: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
 }
 
-.ayah-content.expanded {
-    display: block;
-    animation: slideDown 0.2s ease;
-}
-
-@keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+.ayah-card.expanded .ayah-content {
+    max-height: 5000px;
 }
 
 .ayah-text {
-    font-size: 14px;
-    line-height: 1.8;
+    padding: 0 16px 16px 16px;
+    font-size: var(--ayah-font-size);
+    line-height: 1.9;
     color: var(--text);
-    margin-bottom: 16px;
-    white-space: pre-wrap;
+    font-family: var(--font-ar);
+    direction: rtl;
+    text-align: right;
 }
 
-.ayah-actions {
+/* Urdu Font */
+.ayah-text.urdu {
+    font-family: var(--font-ur);
+    font-size: calc(var(--ayah-font-size) + 2px);
+    line-height: 2.2;
+}
+
+/* Language Badges (in tafsir switcher dropdown) */
+.tafsir-option {
     display: flex;
+    align-items: center;
     gap: 8px;
 }
 
-.ayah-action-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 10px 16px;
-    font-size: 13px;
-    font-weight: 500;
-    font-family: var(--font-en);
-    background: var(--bg-secondary);
-    color: var(--text);
-    border: none;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: all 0.2s;
+.lang-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 12px;
+    text-transform: uppercase;
 }
 
-.ayah-action-btn:active {
-    background: var(--bg-tertiary);
-    transform: scale(0.95);
+.lang-badge.english {
+    background: #dbeafe;
+    color: #1e40af;
 }
 
-.ayah-action-btn.bookmarked {
+.lang-badge.arabic {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.lang-badge.bengali {
     background: #fef3c7;
     color: #92400e;
 }
 
-.ayah-action-btn img {
-    width: 16px;
-    height: 16px;
-    object-fit: contain;
+.lang-badge.urdu {
+    background: #fce7f3;
+    color: #9f1239;
+}
+
+.lang-badge.russian {
+    background: #e0e7ff;
+    color: #3730a3;
+}
+
+.lang-badge.kurdish {
+    background: #fed7aa;
+    color: #9a3412;
 }
 
 /* ==========================================
-   LOADING
+   MIT LICENSE FOOTER
+   ========================================== */
+.license-footer {
+    margin: 20px 12px;
+    padding: 14px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 9px;
+    color: var(--text-secondary);
+    font-family: 'Courier New', monospace;
+}
+
+.license-footer summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text);
+    user-select: none;
+    padding: 4px 0;
+}
+
+.license-footer pre {
+    margin-top: 12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    line-height: 1.5;
+}
+
+/* ==========================================
+   LOADING STATE
    ========================================== */
 .loading {
     display: flex;
@@ -502,6 +674,7 @@ body {
     justify-content: center;
     padding: 50px 20px;
     color: var(--text-secondary);
+    text-align: center;
 }
 
 .spinner {
@@ -524,7 +697,7 @@ body {
 }
 
 /* ==========================================
-   TOAST
+   TOAST NOTIFICATION
    ========================================== */
 .toast {
     position: fixed;
@@ -538,30 +711,20 @@ body {
     font-size: 14px;
     font-weight: 500;
     z-index: 9999;
+    max-width: 90%;
+    text-align: center;
+    white-space: nowrap;
     box-shadow: var(--shadow-lg);
     animation: toastIn 0.3s ease;
 }
 
 .toast.hidden {
-    display: none;
+    display: none !important;
 }
 
 @keyframes toastIn {
     from { opacity: 0; transform: translateX(-50%) translateY(20px); }
     to { opacity: 1; transform: translateX(-50%) translateY(0); }
-}
-
-/* ==========================================
-   FOOTER
-   ========================================== */
-.app-footer {
-    text-align: center;
-    padding: 20px;
-    color: var(--text-light);
-    font-family: var(--font-ar);
-    font-size: 14px;
-    background: var(--bg);
-    border-top: 1px solid var(--border);
 }
 
 /* ==========================================
@@ -572,12 +735,21 @@ body {
 }
 
 /* ==========================================
-   DESKTOP
+   DESKTOP ENHANCEMENTS
    ========================================== */
 @media (min-width: 600px) {
     .app {
         max-width: 600px;
         margin: 0 auto;
         box-shadow: 0 0 40px rgba(0,0,0,0.08);
+    }
+    
+    .ayah-card:hover {
+        border-color: var(--accent);
+    }
+    
+    .recent-card:hover {
+        border-color: var(--accent);
+        box-shadow: var(--shadow);
     }
 }
