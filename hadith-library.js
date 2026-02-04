@@ -629,6 +629,32 @@ function populateHadithView(h, bookName, bookNameAr, index, total) {
     setHtml('chainEn', h.chain_en || '<em style="color:#999">—</em>');
     setHtml('bodyEn', h.body_en || '<em style="color:#999">No translation</em>');
 
+    // Footnotes (NEW!)
+    var footnoteBox = document.getElementById('footnoteBox');
+    var footnoteAr = document.getElementById('footnoteAr');
+    var footnoteEn = document.getElementById('footnoteEn');
+
+    var hasFootnoteAr = h.footnote && 
+                        h.footnote.toLowerCase() !== 'none' && 
+                        h.footnote.toLowerCase() !== 'null' &&
+                        h.footnote.trim() !== '';
+    var hasFootnoteEn = h.footnote_en && 
+                        h.footnote_en.toLowerCase() !== 'none' && 
+                        h.footnote_en.toLowerCase() !== 'null' &&
+                        h.footnote_en.trim() !== '';
+
+    if (hasFootnoteAr || hasFootnoteEn) {
+        if (footnoteBox) footnoteBox.classList.remove('hidden');
+        if (footnoteAr) footnoteAr.innerHTML = hasFootnoteAr ? h.footnote : '';
+        if (footnoteEn) footnoteEn.innerHTML = hasFootnoteEn ? h.footnote_en : '';
+        
+        // Hide individual elements if empty
+        if (footnoteAr) footnoteAr.style.display = hasFootnoteAr ? 'block' : 'none';
+        if (footnoteEn) footnoteEn.style.display = hasFootnoteEn ? 'block' : 'none';
+    } else {
+        if (footnoteBox) footnoteBox.classList.add('hidden');
+    }
+
     // Reference
     setText('refValue', h.ref || (bookName + ': ' + num));
     if (bookNameAr) setText('refArabic', bookNameAr + ': ' + toArabicNumerals(num));
@@ -637,14 +663,14 @@ function populateHadithView(h, bookName, bookNameAr, index, total) {
     setText('gradeValue', h.grade_grade_en || 'Unknown');
     setText('gradeArabic', h.grade_grade || '');
     
-    // Grade details (grade_grades like "Albānī:Sound")
+    // Grade details
     var gradeDetails = document.getElementById('gradeDetails');
     if (gradeDetails && h.grade_grades) {
         gradeDetails.textContent = h.grade_grades;
         gradeDetails.style.display = 'inline';
     }
 
-    // Grader (NEW!)
+    // Grader
     var graderBox = document.getElementById('graderBox');
     var graderValue = document.getElementById('graderValue');
     var graderArabic = document.getElementById('graderArabic');
@@ -669,7 +695,6 @@ function populateHadithView(h, bookName, bookNameAr, index, total) {
     show('hadithArticle');
     show('readingNav');
 }
-
 function setText(id, text) {
     var el = document.getElementById(id);
     if (el) el.textContent = text;
@@ -762,22 +787,64 @@ function copyWithOptions() {
     var num = h._num || h.num || '?';
     var text = '';
     
-    if (document.getElementById('copyArabicMatan')?.checked) text += stripHtml(h.body || '') + '\n\n';
-    if (document.getElementById('copyEnglishMatan')?.checked) text += stripHtml(h.body_en || '') + '\n\n';
-    if (document.getElementById('copyArabicChain')?.checked) text += 'السند: ' + stripHtml(h.chain || '') + '\n\n';
-    if (document.getElementById('copyEnglishChain')?.checked) text += 'Chain: ' + stripHtml(h.chain_en || '') + '\n\n';
-    if (document.getElementById('copyRefEnglish')?.checked) text += 'Reference: ' + (h.ref || bookName + ': ' + num) + '\n';
-    if (document.getElementById('copyRefArabic')?.checked) text += 'المرجع: ' + bookNameAr + ': ' + toArabicNumerals(num) + '\n';
+    // Arabic text
+    if (document.getElementById('copyArabicMatan')?.checked) {
+        text += stripHtml(h.body || '') + '\n\n';
+    }
+    
+    // English text
+    if (document.getElementById('copyEnglishMatan')?.checked) {
+        text += stripHtml(h.body_en || '') + '\n\n';
+    }
+    
+    // Arabic chain
+    if (document.getElementById('copyArabicChain')?.checked) {
+        text += 'السند: ' + stripHtml(h.chain || '') + '\n\n';
+    }
+    
+    // English chain
+    if (document.getElementById('copyEnglishChain')?.checked) {
+        text += 'Chain: ' + stripHtml(h.chain_en || '') + '\n\n';
+    }
+    
+    // Footnotes (NEW!)
+    if (document.getElementById('copyFootnote')?.checked) {
+        var fnAr = h.footnote && 
+                   h.footnote.toLowerCase() !== 'none' && 
+                   h.footnote.toLowerCase() !== 'null' &&
+                   h.footnote.trim() !== '' ? h.footnote : '';
+        var fnEn = h.footnote_en && 
+                   h.footnote_en.toLowerCase() !== 'none' && 
+                   h.footnote_en.toLowerCase() !== 'null' &&
+                   h.footnote_en.trim() !== '' ? h.footnote_en : '';
+        
+        if (fnAr) text += 'حاشية: ' + stripHtml(fnAr) + '\n\n';
+        if (fnEn) text += 'Footnote: ' + stripHtml(fnEn) + '\n\n';
+    }
+    
+    // English reference
+    if (document.getElementById('copyRefEnglish')?.checked) {
+        text += 'Reference: ' + (h.ref || bookName + ': ' + num) + '\n';
+    }
+    
+    // Arabic reference
+    if (document.getElementById('copyRefArabic')?.checked) {
+        text += 'المرجع: ' + bookNameAr + ': ' + toArabicNumerals(num) + '\n';
+    }
+    
+    // Grade
     if (document.getElementById('copyGrade')?.checked) {
-        text += 'Grade: ' + (h.grade_grade_en || '') + ' (' + (h.grade_grade || '') + ')';
+        text += 'Grade: ' + (h.grade_grade_en || '');
+        if (h.grade_grade) text += ' (' + h.grade_grade + ')';
         if (h.grader_shortName_en) text += ' - ' + h.grader_shortName_en;
         text += '\n';
     }
     
+    // Copy to clipboard
     navigator.clipboard?.writeText(text.trim()).then(function() {
-        toast('✓ Copied!'); hideCopyModal();
+        toast('✓ Copied!'); 
+        hideCopyModal();
     }).catch(function() {
-        // Fallback
         var ta = document.createElement('textarea');
         ta.value = text.trim();
         ta.style.cssText = 'position:fixed;left:-9999px';
@@ -785,10 +852,10 @@ function copyWithOptions() {
         ta.select();
         document.execCommand('copy');
         document.body.removeChild(ta);
-        toast('✓ Copied!'); hideCopyModal();
+        toast('✓ Copied!'); 
+        hideCopyModal();
     });
 }
-
 function shareHadith() {
     var h = JSON.parse(localStorage.getItem('currentHadith') || '{}');
     var text = stripHtml(h.body_en || h.body || '') + '\n\n— ' + (h.ref || '');
@@ -827,6 +894,7 @@ function updateImagePreview() {
     var showEnglish = document.getElementById('imgEnglishMatan')?.checked ?? true;
     var showRef = document.getElementById('imgReference')?.checked ?? true;
     var showGrade = document.getElementById('imgGrade')?.checked ?? false;
+    var showFootnote = document.getElementById('imgFootnote')?.checked ?? false;
     
     var ratio = 'fit';
     document.querySelectorAll('input[name="imgRatio"]').forEach(function(r) {
@@ -850,13 +918,26 @@ function updateImagePreview() {
     var refText = showRef ? (h.ref || bookName + ': ' + num) : '';
     var gradeText = showGrade ? ((h.grade_grade_en || '') + (h.grader_shortName_en ? ' - ' + h.grader_shortName_en : '')) : '';
     
+    // Footnote text (only if not "none")
+    var footnoteText = '';
+    if (showFootnote) {
+        var fnEn = h.footnote_en && 
+                   h.footnote_en.toLowerCase() !== 'none' && 
+                   h.footnote_en.toLowerCase() !== 'null' &&
+                   h.footnote_en.trim() !== '' ? stripHtml(h.footnote_en) : '';
+        var fnAr = h.footnote && 
+                   h.footnote.toLowerCase() !== 'none' && 
+                   h.footnote.toLowerCase() !== 'null' &&
+                   h.footnote.trim() !== '' ? stripHtml(h.footnote) : '';
+        footnoteText = fnEn || fnAr; // Prefer English
+    }
+    
     // HD Scale
-    var scale = IMAGE_SCALE; // 3x for HD
+    var scale = IMAGE_SCALE;
     var padding = 60 * scale;
     var lineHeight = 1.8;
     var baseWidth = 800;
     
-    // Scaled sizes
     var arSize = arabicSize * scale;
     var enSize = englishSize * scale;
     
@@ -867,9 +948,14 @@ function updateImagePreview() {
     imageCtx.font = enSize + 'px Inter, sans-serif';
     var englishLines = wrapText(imageCtx, englishText, baseWidth * scale - padding * 2);
     
+    // Footnote lines
+    imageCtx.font = (enSize * 0.75) + 'px Inter, sans-serif';
+    var footnoteLines = footnoteText ? wrapText(imageCtx, '* ' + footnoteText, baseWidth * scale - padding * 2) : [];
+    
     var contentHeight = padding * 2;
     if (arabicLines.length) contentHeight += arabicLines.length * arSize * lineHeight + 40 * scale;
     if (englishLines.length) contentHeight += englishLines.length * enSize * lineHeight + 40 * scale;
+    if (footnoteLines.length) contentHeight += footnoteLines.length * (enSize * 0.75) * lineHeight + 30 * scale;
     if (showRef) contentHeight += enSize * lineHeight + 30 * scale;
     if (showGrade && gradeText) contentHeight += enSize * lineHeight + 20 * scale;
     
@@ -885,7 +971,7 @@ function updateImagePreview() {
     imageCanvas.width = width;
     imageCanvas.height = height;
     
-    // Scale down for display
+    // Scale for display
     imageCanvas.style.width = (width / scale) + 'px';
     imageCanvas.style.height = (height / scale) + 'px';
     
@@ -898,7 +984,7 @@ function updateImagePreview() {
     var extraSpace = height - contentHeight;
     if (extraSpace > 0) y += extraSpace / 2;
     
-    // Arabic text (right aligned)
+    // Arabic text
     if (arabicLines.length) {
         imageCtx.font = arSize + 'px Amiri, serif';
         imageCtx.fillStyle = arabicColor;
@@ -911,7 +997,7 @@ function updateImagePreview() {
         y += 30 * scale;
     }
     
-    // English text (left aligned)
+    // English text
     if (englishLines.length) {
         imageCtx.font = enSize + 'px Inter, sans-serif';
         imageCtx.fillStyle = englishColor;
@@ -924,7 +1010,20 @@ function updateImagePreview() {
         y += 30 * scale;
     }
     
-    // Reference (centered)
+    // Footnote (NEW!)
+    if (footnoteLines.length) {
+        imageCtx.font = (enSize * 0.75) + 'px Inter, sans-serif';
+        imageCtx.fillStyle = '#888888';
+        imageCtx.textAlign = 'left';
+        
+        footnoteLines.forEach(function(line) {
+            imageCtx.fillText(line, padding, y);
+            y += (enSize * 0.75) * lineHeight;
+        });
+        y += 20 * scale;
+    }
+    
+    // Reference
     if (showRef && refText) {
         imageCtx.font = (enSize * 0.85) + 'px Inter, sans-serif';
         imageCtx.fillStyle = englishColor;
@@ -933,7 +1032,7 @@ function updateImagePreview() {
         y += enSize * lineHeight + 15 * scale;
     }
     
-    // Grade (centered)
+    // Grade
     if (showGrade && gradeText) {
         imageCtx.font = (enSize * 0.8) + 'px Inter, sans-serif';
         imageCtx.fillStyle = arabicColor;
@@ -941,7 +1040,6 @@ function updateImagePreview() {
         imageCtx.fillText(gradeText, width / 2, y);
     }
 }
-
 function wrapText(ctx, text, maxWidth) {
     if (!text) return [];
     var words = text.split(/\s+/);
