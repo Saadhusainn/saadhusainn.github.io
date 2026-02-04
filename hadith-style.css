@@ -817,19 +817,48 @@ body {
 
 /* Grader Box */
 .grader-box {
-    font-size: 12px;
-    color: var(--text-secondary);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
     padding: 10px 14px;
     background: var(--bg-secondary);
     border-radius: var(--radius-sm);
+    margin-bottom: 10px;
+    font-size: 13px;
 }
 
 .grader-label {
-    margin-right: 6px;
+    color: var(--text-secondary);
 }
 
 .grader-value {
-    color: var(--text);
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.grader-arabic {
+    font-family: var(--font-ar);
+    color: var(--text-secondary);
+}
+
+/* Cache badge */
+.cache-badge {
+    color: var(--accent);
+    font-size: 12px;
+}
+
+/* Retry button */
+.retry-btn {
+    margin-top: 15px;
+    padding: 12px 24px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 /* Reading Navigation */
