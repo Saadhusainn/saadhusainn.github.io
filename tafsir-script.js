@@ -1,580 +1,732 @@
 /* ==========================================
-   SIJJEEN TAFSIR - JAVASCRIPT
+   SIJJEEN TAFSIR - Vanilla JavaScript
    ========================================== */
 
-// API Configuration
-const BASE_URL = 'https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir';
+// ==========================================
+// DATA - 27 Tafsirs
+// ==========================================
+var TAFSIRS = [
+    { id: 'ar-tafseer-al-saddi', name: 'Tafseer Al Saddi', author: 'Saddi', language: 'arabic', language_name: 'arabic' },
+    { id: 'ar-tafsir-ibn-kathir', name: 'Tafsir Ibn Kathir', author: 'Hafiz Ibn Kathir', language: 'arabic', language_name: 'arabic' },
+    { id: 'ar-tafsir-al-baghawi', name: 'Tafseer Al-Baghawi', author: 'Baghawy', language: 'arabic', language_name: 'arabic' },
+    { id: 'ar-tafseer-tanwir-al-miqbas', name: 'Tafseer Tanwir al-Miqbas', author: 'Tanweer', language: 'arabic', language_name: 'arabic' },
+    { id: 'ar-tafsir-al-wasit', name: 'Tafsir Al Wasit', author: 'Waseet', language: 'arabic', language_name: 'arabic' },
+    { id: 'ar-tafsir-al-tabari', name: 'Tafsir al-Tabari', author: 'Tabari', language: 'arabic', language_name: 'arabic' },
+    { id: 'ar-tafsir-muyassar', name: 'Tafsir Muyassar', author: 'Al Muyassar', language: 'arabic', language_name: 'arabic' },
+    { id: 'ar-tafseer-al-qurtubi', name: 'Tafseer Al Qurtubi', author: 'Qurtubi', language: 'arabic', language_name: 'arabic' },
+    { id: 'bn-tafisr-fathul-majid', name: 'Tafsir Fathul Majid', author: 'AbdulRahman Bin Hasan', language: 'bengali', language_name: 'bengali' },
+    { id: 'bn-tafseer-ibn-e-kaseer', name: 'Tafseer ibn Kathir', author: 'Tawheed Publication', language: 'bengali', language_name: 'bengali' },
+    { id: 'bn-tafsir-ahsanul-bayaan', name: 'Tafsir Ahsanul Bayaan', author: 'Bayaan Foundation', language: 'bengali', language_name: 'bengali' },
+    { id: 'bn-tafsir-abu-bakr-zakaria', name: 'Tafsir Abu Bakr Zakaria', author: 'King Fahd Complex', language: 'bengali', language_name: 'bengali' },
+    { id: 'en-tafisr-ibn-kathir', name: 'Tafsir Ibn Kathir (abridged)', author: 'Hafiz Ibn Kathir', language: 'english', language_name: 'english' },
+    { id: 'en-tazkirul-quran', name: 'Tazkirul Quran', author: 'Maulana Wahid Uddin Khan', language: 'english', language_name: 'english' },
+    { id: 'en-kashf-al-asrar-tafsir', name: 'Kashf Al-Asrar Tafsir', author: 'Kashf Al-Asrar', language: 'english', language_name: 'english' },
+    { id: 'en-al-qushairi-tafsir', name: 'Al Qushairi Tafsir', author: 'Al Qushairi', language: 'english', language_name: 'english' },
+    { id: 'en-kashani-tafsir', name: 'Kashani Tafsir', author: 'Kashani', language: 'english', language_name: 'english' },
+    { id: 'en-tafsir-al-tustari', name: 'Tafsir al-Tustari', author: 'Al-Tustari', language: 'english', language_name: 'english' },
+    { id: 'en-asbab-al-nuzul-by-al-wahidi', name: 'Asbab Al-Nuzul by Al-Wahidi', author: 'Al-Wahidi', language: 'english', language_name: 'english' },
+    { id: 'en-tafsir-ibn-abbas', name: 'Tanwîr al-Miqbâs (Ibn Abbas)', author: 'Ibn Abbas', language: 'english', language_name: 'english' },
+    { id: 'en-al-jalalayn', name: 'Al-Jalalayn', author: 'Al-Jalalayn', language: 'english', language_name: 'english' },
+    { id: 'en-tafsir-maarif-ul-quran', name: 'Maarif-ul-Quran', author: 'Mufti Muhammad Shafi', language: 'english', language_name: 'english' },
+    { id: 'kurd-tafsir-rebar', name: 'Rebar Kurdish Tafsir', author: 'Rebar', language: 'kurdish', language_name: 'kurdish' },
+    { id: 'ru-tafseer-al-saddi', name: 'Tafseer Al Saddi', author: 'Saddi', language: 'russian', language_name: 'russian' },
+    { id: 'ur-tafseer-ibn-e-kaseer', name: 'Tafsir Ibn Kathir', author: 'Hafiz Ibn Kathir', language: 'urdu', language_name: 'urdu' },
+    { id: 'ur-tafsir-bayan-ul-quran', name: 'Tafsir Bayan ul Quran', author: 'Dr. Israr Ahmad', language: 'urdu', language_name: 'urdu' },
+    { id: 'ur-tazkirul-quran', name: 'Tazkirul Quran', author: 'Maulana Wahid Uddin Khan', language: 'urdu', language_name: 'urdu' }
+];
 
 // 114 Surahs Data
-const SURAHS = [
-    { number: 1, name: "الفاتحة", englishName: "Al-Fatihah", englishNameTranslation: "The Opening", numberOfAyahs: 7, revelationType: "Meccan" },
-    { number: 2, name: "البقرة", englishName: "Al-Baqarah", englishNameTranslation: "The Cow", numberOfAyahs: 286, revelationType: "Medinan" },
-    { number: 3, name: "آل عمران", englishName: "Ali 'Imran", englishNameTranslation: "Family of Imran", numberOfAyahs: 200, revelationType: "Medinan" },
-    { number: 4, name: "النساء", englishName: "An-Nisa", englishNameTranslation: "The Women", numberOfAyahs: 176, revelationType: "Medinan" },
-    { number: 5, name: "المائدة", englishName: "Al-Ma'idah", englishNameTranslation: "The Table Spread", numberOfAyahs: 120, revelationType: "Medinan" },
-    { number: 6, name: "الأنعام", englishName: "Al-An'am", englishNameTranslation: "The Cattle", numberOfAyahs: 165, revelationType: "Meccan" },
-    { number: 7, name: "الأعراف", englishName: "Al-A'raf", englishNameTranslation: "The Heights", numberOfAyahs: 206, revelationType: "Meccan" },
-    { number: 8, name: "الأنفال", englishName: "Al-Anfal", englishNameTranslation: "The Spoils of War", numberOfAyahs: 75, revelationType: "Medinan" },
-    { number: 9, name: "التوبة", englishName: "At-Tawbah", englishNameTranslation: "The Repentance", numberOfAyahs: 129, revelationType: "Medinan" },
-    { number: 10, name: "يونس", englishName: "Yunus", englishNameTranslation: "Jonah", numberOfAyahs: 109, revelationType: "Meccan" },
-    { number: 11, name: "هود", englishName: "Hud", englishNameTranslation: "Hud", numberOfAyahs: 123, revelationType: "Meccan" },
-    { number: 12, name: "يوسف", englishName: "Yusuf", englishNameTranslation: "Joseph", numberOfAyahs: 111, revelationType: "Meccan" },
-    { number: 13, name: "الرعد", englishName: "Ar-Ra'd", englishNameTranslation: "The Thunder", numberOfAyahs: 43, revelationType: "Medinan" },
-    { number: 14, name: "إبراهيم", englishName: "Ibrahim", englishNameTranslation: "Abraham", numberOfAyahs: 52, revelationType: "Meccan" },
-    { number: 15, name: "الحجر", englishName: "Al-Hijr", englishNameTranslation: "The Rocky Tract", numberOfAyahs: 99, revelationType: "Meccan" },
-    { number: 16, name: "النحل", englishName: "An-Nahl", englishNameTranslation: "The Bee", numberOfAyahs: 128, revelationType: "Meccan" },
-    { number: 17, name: "الإسراء", englishName: "Al-Isra", englishNameTranslation: "The Night Journey", numberOfAyahs: 111, revelationType: "Meccan" },
-    { number: 18, name: "الكهف", englishName: "Al-Kahf", englishNameTranslation: "The Cave", numberOfAyahs: 110, revelationType: "Meccan" },
-    { number: 19, name: "مريم", englishName: "Maryam", englishNameTranslation: "Mary", numberOfAyahs: 98, revelationType: "Meccan" },
-    { number: 20, name: "طه", englishName: "Taha", englishNameTranslation: "Ta-Ha", numberOfAyahs: 135, revelationType: "Meccan" },
-    { number: 21, name: "الأنبياء", englishName: "Al-Anbya", englishNameTranslation: "The Prophets", numberOfAyahs: 112, revelationType: "Meccan" },
-    { number: 22, name: "الحج", englishName: "Al-Hajj", englishNameTranslation: "The Pilgrimage", numberOfAyahs: 78, revelationType: "Medinan" },
-    { number: 23, name: "المؤمنون", englishName: "Al-Mu'minun", englishNameTranslation: "The Believers", numberOfAyahs: 118, revelationType: "Meccan" },
-    { number: 24, name: "النور", englishName: "An-Nur", englishNameTranslation: "The Light", numberOfAyahs: 64, revelationType: "Medinan" },
-    { number: 25, name: "الفرقان", englishName: "Al-Furqan", englishNameTranslation: "The Criterion", numberOfAyahs: 77, revelationType: "Meccan" },
-    { number: 26, name: "الشعراء", englishName: "Ash-Shu'ara", englishNameTranslation: "The Poets", numberOfAyahs: 227, revelationType: "Meccan" },
-    { number: 27, name: "النمل", englishName: "An-Naml", englishNameTranslation: "The Ant", numberOfAyahs: 93, revelationType: "Meccan" },
-    { number: 28, name: "القصص", englishName: "Al-Qasas", englishNameTranslation: "The Stories", numberOfAyahs: 88, revelationType: "Meccan" },
-    { number: 29, name: "العنكبوت", englishName: "Al-'Ankabut", englishNameTranslation: "The Spider", numberOfAyahs: 69, revelationType: "Meccan" },
-    { number: 30, name: "الروم", englishName: "Ar-Rum", englishNameTranslation: "The Romans", numberOfAyahs: 60, revelationType: "Meccan" },
-    { number: 31, name: "لقمان", englishName: "Luqman", englishNameTranslation: "Luqman", numberOfAyahs: 34, revelationType: "Meccan" },
-    { number: 32, name: "السجدة", englishName: "As-Sajdah", englishNameTranslation: "The Prostration", numberOfAyahs: 30, revelationType: "Meccan" },
-    { number: 33, name: "الأحزاب", englishName: "Al-Ahzab", englishNameTranslation: "The Combined Forces", numberOfAyahs: 73, revelationType: "Medinan" },
-    { number: 34, name: "سبأ", englishName: "Saba", englishNameTranslation: "Sheba", numberOfAyahs: 54, revelationType: "Meccan" },
-    { number: 35, name: "فاطر", englishName: "Fatir", englishNameTranslation: "Originator", numberOfAyahs: 45, revelationType: "Meccan" },
-    { number: 36, name: "يس", englishName: "Ya-Sin", englishNameTranslation: "Ya Sin", numberOfAyahs: 83, revelationType: "Meccan" },
-    { number: 37, name: "الصافات", englishName: "As-Saffat", englishNameTranslation: "Those who set the Ranks", numberOfAyahs: 182, revelationType: "Meccan" },
-    { number: 38, name: "ص", englishName: "Sad", englishNameTranslation: "The Letter Saad", numberOfAyahs: 88, revelationType: "Meccan" },
-    { number: 39, name: "الزمر", englishName: "Az-Zumar", englishNameTranslation: "The Troops", numberOfAyahs: 75, revelationType: "Meccan" },
-    { number: 40, name: "غافر", englishName: "Ghafir", englishNameTranslation: "The Forgiver", numberOfAyahs: 85, revelationType: "Meccan" },
-    { number: 41, name: "فصلت", englishName: "Fussilat", englishNameTranslation: "Explained in Detail", numberOfAyahs: 54, revelationType: "Meccan" },
-    { number: 42, name: "الشورى", englishName: "Ash-Shuraa", englishNameTranslation: "The Consultation", numberOfAyahs: 53, revelationType: "Meccan" },
-    { number: 43, name: "الزخرف", englishName: "Az-Zukhruf", englishNameTranslation: "The Ornaments of Gold", numberOfAyahs: 89, revelationType: "Meccan" },
-    { number: 44, name: "الدخان", englishName: "Ad-Dukhan", englishNameTranslation: "The Smoke", numberOfAyahs: 59, revelationType: "Meccan" },
-    { number: 45, name: "الجاثية", englishName: "Al-Jathiyah", englishNameTranslation: "The Crouching", numberOfAyahs: 37, revelationType: "Meccan" },
-    { number: 46, name: "الأحقاف", englishName: "Al-Ahqaf", englishNameTranslation: "The Wind-Curved Sandhills", numberOfAyahs: 35, revelationType: "Meccan" },
-    { number: 47, name: "محمد", englishName: "Muhammad", englishNameTranslation: "Muhammad", numberOfAyahs: 38, revelationType: "Medinan" },
-    { number: 48, name: "الفتح", englishName: "Al-Fath", englishNameTranslation: "The Victory", numberOfAyahs: 29, revelationType: "Medinan" },
-    { number: 49, name: "الحجرات", englishName: "Al-Hujurat", englishNameTranslation: "The Rooms", numberOfAyahs: 18, revelationType: "Medinan" },
-    { number: 50, name: "ق", englishName: "Qaf", englishNameTranslation: "The Letter Qaf", numberOfAyahs: 45, revelationType: "Meccan" },
-    { number: 51, name: "الذاريات", englishName: "Adh-Dhariyat", englishNameTranslation: "The Winnowing Winds", numberOfAyahs: 60, revelationType: "Meccan" },
-    { number: 52, name: "الطور", englishName: "At-Tur", englishNameTranslation: "The Mount", numberOfAyahs: 49, revelationType: "Meccan" },
-    { number: 53, name: "النجم", englishName: "An-Najm", englishNameTranslation: "The Star", numberOfAyahs: 62, revelationType: "Meccan" },
-    { number: 54, name: "القمر", englishName: "Al-Qamar", englishNameTranslation: "The Moon", numberOfAyahs: 55, revelationType: "Meccan" },
-    { number: 55, name: "الرحمن", englishName: "Ar-Rahman", englishNameTranslation: "The Beneficent", numberOfAyahs: 78, revelationType: "Medinan" },
-    { number: 56, name: "الواقعة", englishName: "Al-Waqi'ah", englishNameTranslation: "The Inevitable", numberOfAyahs: 96, revelationType: "Meccan" },
-    { number: 57, name: "الحديد", englishName: "Al-Hadid", englishNameTranslation: "The Iron", numberOfAyahs: 29, revelationType: "Medinan" },
-    { number: 58, name: "المجادلة", englishName: "Al-Mujadila", englishNameTranslation: "The Pleading Woman", numberOfAyahs: 22, revelationType: "Medinan" },
-    { number: 59, name: "الحشر", englishName: "Al-Hashr", englishNameTranslation: "The Exile", numberOfAyahs: 24, revelationType: "Medinan" },
-    { number: 60, name: "الممتحنة", englishName: "Al-Mumtahanah", englishNameTranslation: "She that is to be examined", numberOfAyahs: 13, revelationType: "Medinan" },
-    { number: 61, name: "الصف", englishName: "As-Saf", englishNameTranslation: "The Ranks", numberOfAyahs: 14, revelationType: "Medinan" },
-    { number: 62, name: "الجمعة", englishName: "Al-Jumu'ah", englishNameTranslation: "Friday", numberOfAyahs: 11, revelationType: "Medinan" },
-    { number: 63, name: "المنافقون", englishName: "Al-Munafiqun", englishNameTranslation: "The Hypocrites", numberOfAyahs: 11, revelationType: "Medinan" },
-    { number: 64, name: "التغابن", englishName: "At-Taghabun", englishNameTranslation: "The Mutual Disillusion", numberOfAyahs: 18, revelationType: "Medinan" },
-    { number: 65, name: "الطلاق", englishName: "At-Talaq", englishNameTranslation: "The Divorce", numberOfAyahs: 12, revelationType: "Medinan" },
-    { number: 66, name: "التحريم", englishName: "At-Tahrim", englishNameTranslation: "The Prohibition", numberOfAyahs: 12, revelationType: "Medinan" },
-    { number: 67, name: "الملك", englishName: "Al-Mulk", englishNameTranslation: "The Sovereignty", numberOfAyahs: 30, revelationType: "Meccan" },
-    { number: 68, name: "القلم", englishName: "Al-Qalam", englishNameTranslation: "The Pen", numberOfAyahs: 52, revelationType: "Meccan" },
-    { number: 69, name: "الحاقة", englishName: "Al-Haqqah", englishNameTranslation: "The Reality", numberOfAyahs: 52, revelationType: "Meccan" },
-    { number: 70, name: "المعارج", englishName: "Al-Ma'arij", englishNameTranslation: "The Ascending Stairways", numberOfAyahs: 44, revelationType: "Meccan" },
-    { number: 71, name: "نوح", englishName: "Nuh", englishNameTranslation: "Noah", numberOfAyahs: 28, revelationType: "Meccan" },
-    { number: 72, name: "الجن", englishName: "Al-Jinn", englishNameTranslation: "The Jinn", numberOfAyahs: 28, revelationType: "Meccan" },
-    { number: 73, name: "المزمل", englishName: "Al-Muzzammil", englishNameTranslation: "The Enshrouded One", numberOfAyahs: 20, revelationType: "Meccan" },
-    { number: 74, name: "المدثر", englishName: "Al-Muddaththir", englishNameTranslation: "The Cloaked One", numberOfAyahs: 56, revelationType: "Meccan" },
-    { number: 75, name: "القيامة", englishName: "Al-Qiyamah", englishNameTranslation: "The Resurrection", numberOfAyahs: 40, revelationType: "Meccan" },
-    { number: 76, name: "الإنسان", englishName: "Al-Insan", englishNameTranslation: "The Man", numberOfAyahs: 31, revelationType: "Medinan" },
-    { number: 77, name: "المرسلات", englishName: "Al-Mursalat", englishNameTranslation: "The Emissaries", numberOfAyahs: 50, revelationType: "Meccan" },
-    { number: 78, name: "النبأ", englishName: "An-Naba", englishNameTranslation: "The Tidings", numberOfAyahs: 40, revelationType: "Meccan" },
-    { number: 79, name: "النازعات", englishName: "An-Nazi'at", englishNameTranslation: "Those who drag forth", numberOfAyahs: 46, revelationType: "Meccan" },
-    { number: 80, name: "عبس", englishName: "'Abasa", englishNameTranslation: "He Frowned", numberOfAyahs: 42, revelationType: "Meccan" },
-    { number: 81, name: "التكوير", englishName: "At-Takwir", englishNameTranslation: "The Overthrowing", numberOfAyahs: 29, revelationType: "Meccan" },
-    { number: 82, name: "الإنفطار", englishName: "Al-Infitar", englishNameTranslation: "The Cleaving", numberOfAyahs: 19, revelationType: "Meccan" },
-    { number: 83, name: "المطففين", englishName: "Al-Mutaffifin", englishNameTranslation: "The Defrauding", numberOfAyahs: 36, revelationType: "Meccan" },
-    { number: 84, name: "الإنشقاق", englishName: "Al-Inshiqaq", englishNameTranslation: "The Sundering", numberOfAyahs: 25, revelationType: "Meccan" },
-    { number: 85, name: "البروج", englishName: "Al-Buruj", englishNameTranslation: "The Mansions of the Stars", numberOfAyahs: 22, revelationType: "Meccan" },
-    { number: 86, name: "الطارق", englishName: "At-Tariq", englishNameTranslation: "The Nightcommer", numberOfAyahs: 17, revelationType: "Meccan" },
-    { number: 87, name: "الأعلى", englishName: "Al-A'la", englishNameTranslation: "The Most High", numberOfAyahs: 19, revelationType: "Meccan" },
-    { number: 88, name: "الغاشية", englishName: "Al-Ghashiyah", englishNameTranslation: "The Overwhelming", numberOfAyahs: 26, revelationType: "Meccan" },
-    { number: 89, name: "الفجر", englishName: "Al-Fajr", englishNameTranslation: "The Dawn", numberOfAyahs: 30, revelationType: "Meccan" },
-    { number: 90, name: "البلد", englishName: "Al-Balad", englishNameTranslation: "The City", numberOfAyahs: 20, revelationType: "Meccan" },
-    { number: 91, name: "الشمس", englishName: "Ash-Shams", englishNameTranslation: "The Sun", numberOfAyahs: 15, revelationType: "Meccan" },
-    { number: 92, name: "الليل", englishName: "Al-Layl", englishNameTranslation: "The Night", numberOfAyahs: 21, revelationType: "Meccan" },
-    { number: 93, name: "الضحى", englishName: "Ad-Duhaa", englishNameTranslation: "The Morning Hours", numberOfAyahs: 11, revelationType: "Meccan" },
-    { number: 94, name: "الشرح", englishName: "Ash-Sharh", englishNameTranslation: "The Relief", numberOfAyahs: 8, revelationType: "Meccan" },
-    { number: 95, name: "التين", englishName: "At-Tin", englishNameTranslation: "The Fig", numberOfAyahs: 8, revelationType: "Meccan" },
-    { number: 96, name: "العلق", englishName: "Al-'Alaq", englishNameTranslation: "The Clot", numberOfAyahs: 19, revelationType: "Meccan" },
-    { number: 97, name: "القدر", englishName: "Al-Qadr", englishNameTranslation: "The Power", numberOfAyahs: 5, revelationType: "Meccan" },
-    { number: 98, name: "البينة", englishName: "Al-Bayyinah", englishNameTranslation: "The Clear Proof", numberOfAyahs: 8, revelationType: "Medinan" },
-    { number: 99, name: "الزلزلة", englishName: "Az-Zalzalah", englishNameTranslation: "The Earthquake", numberOfAyahs: 8, revelationType: "Medinan" },
-    { number: 100, name: "العاديات", englishName: "Al-'Adiyat", englishNameTranslation: "The Courser", numberOfAyahs: 11, revelationType: "Meccan" },
-    { number: 101, name: "القارعة", englishName: "Al-Qari'ah", englishNameTranslation: "The Calamity", numberOfAyahs: 11, revelationType: "Meccan" },
-    { number: 102, name: "التكاثر", englishName: "At-Takathur", englishNameTranslation: "The Rivalry in world increase", numberOfAyahs: 8, revelationType: "Meccan" },
-    { number: 103, name: "العصر", englishName: "Al-'Asr", englishNameTranslation: "The Declining Day", numberOfAyahs: 3, revelationType: "Meccan" },
-    { number: 104, name: "الهمزة", englishName: "Al-Humazah", englishNameTranslation: "The Traducer", numberOfAyahs: 9, revelationType: "Meccan" },
-    { number: 105, name: "الفيل", englishName: "Al-Fil", englishNameTranslation: "The Elephant", numberOfAyahs: 5, revelationType: "Meccan" },
-    { number: 106, name: "قريش", englishName: "Quraysh", englishNameTranslation: "Quraysh", numberOfAyahs: 4, revelationType: "Meccan" },
-    { number: 107, name: "الماعون", englishName: "Al-Ma'un", englishNameTranslation: "The Small kindnesses", numberOfAyahs: 7, revelationType: "Meccan" },
-    { number: 108, name: "الكوثر", englishName: "Al-Kawthar", englishNameTranslation: "The Abundance", numberOfAyahs: 3, revelationType: "Meccan" },
-    { number: 109, name: "الكافرون", englishName: "Al-Kafirun", englishNameTranslation: "The Disbelievers", numberOfAyahs: 6, revelationType: "Meccan" },
-    { number: 110, name: "النصر", englishName: "An-Nasr", englishNameTranslation: "The Divine Support", numberOfAyahs: 3, revelationType: "Medinan" },
-    { number: 111, name: "المسد", englishName: "Al-Masad", englishNameTranslation: "The Palm Fiber", numberOfAyahs: 5, revelationType: "Meccan" },
-    { number: 112, name: "الإخلاص", englishName: "Al-Ikhlas", englishNameTranslation: "The Sincerity", numberOfAyahs: 4, revelationType: "Meccan" },
-    { number: 113, name: "الفلق", englishName: "Al-Falaq", englishNameTranslation: "The Daybreak", numberOfAyahs: 5, revelationType: "Meccan" },
-    { number: 114, name: "الناس", englishName: "An-Nas", englishNameTranslation: "Mankind", numberOfAyahs: 6, revelationType: "Meccan" }
+var SURAHS = [
+    { number: 1, name: 'Al-Fatihah', arabic: 'الفاتحة', verses: 7, type: 'Meccan' },
+    { number: 2, name: 'Al-Baqarah', arabic: 'البقرة', verses: 286, type: 'Medinan' },
+    { number: 3, name: 'Ali \'Imran', arabic: 'آل عمران', verses: 200, type: 'Medinan' },
+    { number: 4, name: 'An-Nisa', arabic: 'النساء', verses: 176, type: 'Medinan' },
+    { number: 5, name: 'Al-Ma\'idah', arabic: 'المائدة', verses: 120, type: 'Medinan' },
+    { number: 6, name: 'Al-An\'am', arabic: 'الأنعام', verses: 165, type: 'Meccan' },
+    { number: 7, name: 'Al-A\'raf', arabic: 'الأعراف', verses: 206, type: 'Meccan' },
+    { number: 8, name: 'Al-Anfal', arabic: 'الأنفال', verses: 75, type: 'Medinan' },
+    { number: 9, name: 'At-Tawbah', arabic: 'التوبة', verses: 129, type: 'Medinan' },
+    { number: 10, name: 'Yunus', arabic: 'يونس', verses: 109, type: 'Meccan' },
+    { number: 11, name: 'Hud', arabic: 'هود', verses: 123, type: 'Meccan' },
+    { number: 12, name: 'Yusuf', arabic: 'يوسف', verses: 111, type: 'Meccan' },
+    { number: 13, name: 'Ar-Ra\'d', arabic: 'الرعد', verses: 43, type: 'Medinan' },
+    { number: 14, name: 'Ibrahim', arabic: 'ابراهيم', verses: 52, type: 'Meccan' },
+    { number: 15, name: 'Al-Hijr', arabic: 'الحجر', verses: 99, type: 'Meccan' },
+    { number: 16, name: 'An-Nahl', arabic: 'النحل', verses: 128, type: 'Meccan' },
+    { number: 17, name: 'Al-Isra', arabic: 'الإسراء', verses: 111, type: 'Meccan' },
+    { number: 18, name: 'Al-Kahf', arabic: 'الكهف', verses: 110, type: 'Meccan' },
+    { number: 19, name: 'Maryam', arabic: 'مريم', verses: 98, type: 'Meccan' },
+    { number: 20, name: 'Taha', arabic: 'طه', verses: 135, type: 'Meccan' },
+    { number: 21, name: 'Al-Anbya', arabic: 'الأنبياء', verses: 112, type: 'Meccan' },
+    { number: 22, name: 'Al-Hajj', arabic: 'الحج', verses: 78, type: 'Medinan' },
+    { number: 23, name: 'Al-Mu\'minun', arabic: 'المؤمنون', verses: 118, type: 'Meccan' },
+    { number: 24, name: 'An-Nur', arabic: 'النور', verses: 64, type: 'Medinan' },
+    { number: 25, name: 'Al-Furqan', arabic: 'الفرقان', verses: 77, type: 'Meccan' },
+    { number: 26, name: 'Ash-Shu\'ara', arabic: 'الشعراء', verses: 227, type: 'Meccan' },
+    { number: 27, name: 'An-Naml', arabic: 'النمل', verses: 93, type: 'Meccan' },
+    { number: 28, name: 'Al-Qasas', arabic: 'القصص', verses: 88, type: 'Meccan' },
+    { number: 29, name: 'Al-\'Ankabut', arabic: 'العنكبوت', verses: 69, type: 'Meccan' },
+    { number: 30, name: 'Ar-Rum', arabic: 'الروم', verses: 60, type: 'Meccan' },
+    { number: 31, name: 'Luqman', arabic: 'لقمان', verses: 34, type: 'Meccan' },
+    { number: 32, name: 'As-Sajdah', arabic: 'السجدة', verses: 30, type: 'Meccan' },
+    { number: 33, name: 'Al-Ahzab', arabic: 'الأحزاب', verses: 73, type: 'Medinan' },
+    { number: 34, name: 'Saba', arabic: 'سبإ', verses: 54, type: 'Meccan' },
+    { number: 35, name: 'Fatir', arabic: 'فاطر', verses: 45, type: 'Meccan' },
+    { number: 36, name: 'Ya-Sin', arabic: 'يس', verses: 83, type: 'Meccan' },
+    { number: 37, name: 'As-Saffat', arabic: 'الصافات', verses: 182, type: 'Meccan' },
+    { number: 38, name: 'Sad', arabic: 'ص', verses: 88, type: 'Meccan' },
+    { number: 39, name: 'Az-Zumar', arabic: 'الزمر', verses: 75, type: 'Meccan' },
+    { number: 40, name: 'Ghafir', arabic: 'غافر', verses: 85, type: 'Meccan' },
+    { number: 41, name: 'Fussilat', arabic: 'فصلت', verses: 54, type: 'Meccan' },
+    { number: 42, name: 'Ash-Shuraa', arabic: 'الشورى', verses: 53, type: 'Meccan' },
+    { number: 43, name: 'Az-Zukhruf', arabic: 'الزخرف', verses: 89, type: 'Meccan' },
+    { number: 44, name: 'Ad-Dukhan', arabic: 'الدخان', verses: 59, type: 'Meccan' },
+    { number: 45, name: 'Al-Jathiyah', arabic: 'الجاثية', verses: 37, type: 'Meccan' },
+    { number: 46, name: 'Al-Ahqaf', arabic: 'الأحقاف', verses: 35, type: 'Meccan' },
+    { number: 47, name: 'Muhammad', arabic: 'محمد', verses: 38, type: 'Medinan' },
+    { number: 48, name: 'Al-Fath', arabic: 'الفتح', verses: 29, type: 'Medinan' },
+    { number: 49, name: 'Al-Hujurat', arabic: 'الحجرات', verses: 18, type: 'Medinan' },
+    { number: 50, name: 'Qaf', arabic: 'ق', verses: 45, type: 'Meccan' },
+    { number: 51, name: 'Adh-Dhariyat', arabic: 'الذاريات', verses: 60, type: 'Meccan' },
+    { number: 52, name: 'At-Tur', arabic: 'الطور', verses: 49, type: 'Meccan' },
+    { number: 53, name: 'An-Najm', arabic: 'النجم', verses: 62, type: 'Meccan' },
+    { number: 54, name: 'Al-Qamar', arabic: 'القمر', verses: 55, type: 'Meccan' },
+    { number: 55, name: 'Ar-Rahman', arabic: 'الرحمن', verses: 78, type: 'Medinan' },
+    { number: 56, name: 'Al-Waqi\'ah', arabic: 'الواقعة', verses: 96, type: 'Meccan' },
+    { number: 57, name: 'Al-Hadid', arabic: 'الحديد', verses: 29, type: 'Medinan' },
+    { number: 58, name: 'Al-Mujadila', arabic: 'المجادلة', verses: 22, type: 'Medinan' },
+    { number: 59, name: 'Al-Hashr', arabic: 'الحشر', verses: 24, type: 'Medinan' },
+    { number: 60, name: 'Al-Mumtahanah', arabic: 'الممتحنة', verses: 13, type: 'Medinan' },
+    { number: 61, name: 'As-Saf', arabic: 'الصف', verses: 14, type: 'Medinan' },
+    { number: 62, name: 'Al-Jumu\'ah', arabic: 'الجمعة', verses: 11, type: 'Medinan' },
+    { number: 63, name: 'Al-Munafiqun', arabic: 'المنافقون', verses: 11, type: 'Medinan' },
+    { number: 64, name: 'At-Taghabun', arabic: 'التغابن', verses: 18, type: 'Medinan' },
+    { number: 65, name: 'At-Talaq', arabic: 'الطلاق', verses: 12, type: 'Medinan' },
+    { number: 66, name: 'At-Tahrim', arabic: 'التحريم', verses: 12, type: 'Medinan' },
+    { number: 67, name: 'Al-Mulk', arabic: 'الملك', verses: 30, type: 'Meccan' },
+    { number: 68, name: 'Al-Qalam', arabic: 'القلم', verses: 52, type: 'Meccan' },
+    { number: 69, name: 'Al-Haqqah', arabic: 'الحاقة', verses: 52, type: 'Meccan' },
+    { number: 70, name: 'Al-Ma\'arij', arabic: 'المعارج', verses: 44, type: 'Meccan' },
+    { number: 71, name: 'Nuh', arabic: 'نوح', verses: 28, type: 'Meccan' },
+    { number: 72, name: 'Al-Jinn', arabic: 'الجن', verses: 28, type: 'Meccan' },
+    { number: 73, name: 'Al-Muzzammil', arabic: 'المزمل', verses: 20, type: 'Meccan' },
+    { number: 74, name: 'Al-Muddaththir', arabic: 'المدثر', verses: 56, type: 'Meccan' },
+    { number: 75, name: 'Al-Qiyamah', arabic: 'القيامة', verses: 40, type: 'Meccan' },
+    { number: 76, name: 'Al-Insan', arabic: 'الانسان', verses: 31, type: 'Medinan' },
+    { number: 77, name: 'Al-Mursalat', arabic: 'المرسلات', verses: 50, type: 'Meccan' },
+    { number: 78, name: 'An-Naba', arabic: 'النبإ', verses: 40, type: 'Meccan' },
+    { number: 79, name: 'An-Nazi\'at', arabic: 'النازعات', verses: 46, type: 'Meccan' },
+    { number: 80, name: '\'Abasa', arabic: 'عبس', verses: 42, type: 'Meccan' },
+    { number: 81, name: 'At-Takwir', arabic: 'التكوير', verses: 29, type: 'Meccan' },
+    { number: 82, name: 'Al-Infitar', arabic: 'الإنفطار', verses: 19, type: 'Meccan' },
+    { number: 83, name: 'Al-Mutaffifin', arabic: 'المطففين', verses: 36, type: 'Meccan' },
+    { number: 84, name: 'Al-Inshiqaq', arabic: 'الإنشقاق', verses: 25, type: 'Meccan' },
+    { number: 85, name: 'Al-Buruj', arabic: 'البروج', verses: 22, type: 'Meccan' },
+    { number: 86, name: 'At-Tariq', arabic: 'الطارق', verses: 17, type: 'Meccan' },
+    { number: 87, name: 'Al-A\'la', arabic: 'الأعلى', verses: 19, type: 'Meccan' },
+    { number: 88, name: 'Al-Ghashiyah', arabic: 'الغاشية', verses: 26, type: 'Meccan' },
+    { number: 89, name: 'Al-Fajr', arabic: 'الفجر', verses: 30, type: 'Meccan' },
+    { number: 90, name: 'Al-Balad', arabic: 'البلد', verses: 20, type: 'Meccan' },
+    { number: 91, name: 'Ash-Shams', arabic: 'الشمس', verses: 15, type: 'Meccan' },
+    { number: 92, name: 'Al-Layl', arabic: 'الليل', verses: 21, type: 'Meccan' },
+    { number: 93, name: 'Ad-Duhaa', arabic: 'الضحى', verses: 11, type: 'Meccan' },
+    { number: 94, name: 'Ash-Sharh', arabic: 'الشرح', verses: 8, type: 'Meccan' },
+    { number: 95, name: 'At-Tin', arabic: 'التين', verses: 8, type: 'Meccan' },
+    { number: 96, name: 'Al-\'Alaq', arabic: 'العلق', verses: 19, type: 'Meccan' },
+    { number: 97, name: 'Al-Qadr', arabic: 'القدر', verses: 5, type: 'Meccan' },
+    { number: 98, name: 'Al-Bayyinah', arabic: 'البينة', verses: 8, type: 'Medinan' },
+    { number: 99, name: 'Az-Zalzalah', arabic: 'الزلزلة', verses: 8, type: 'Medinan' },
+    { number: 100, name: 'Al-\'Adiyat', arabic: 'العاديات', verses: 11, type: 'Meccan' },
+    { number: 101, name: 'Al-Qari\'ah', arabic: 'القارعة', verses: 11, type: 'Meccan' },
+    { number: 102, name: 'At-Takathur', arabic: 'التكاثر', verses: 8, type: 'Meccan' },
+    { number: 103, name: 'Al-\'Asr', arabic: 'العصر', verses: 3, type: 'Meccan' },
+    { number: 104, name: 'Al-Humazah', arabic: 'الهمزة', verses: 9, type: 'Meccan' },
+    { number: 105, name: 'Al-Fil', arabic: 'الفيل', verses: 5, type: 'Meccan' },
+    { number: 106, name: 'Quraysh', arabic: 'قريش', verses: 4, type: 'Meccan' },
+    { number: 107, name: 'Al-Ma\'un', arabic: 'الماعون', verses: 7, type: 'Meccan' },
+    { number: 108, name: 'Al-Kawthar', arabic: 'الكوثر', verses: 3, type: 'Meccan' },
+    { number: 109, name: 'Al-Kafirun', arabic: 'الكافرون', verses: 6, type: 'Meccan' },
+    { number: 110, name: 'An-Nasr', arabic: 'النصر', verses: 3, type: 'Medinan' },
+    { number: 111, name: 'Al-Masad', arabic: 'المسد', verses: 5, type: 'Meccan' },
+    { number: 112, name: 'Al-Ikhlas', arabic: 'الإخلاص', verses: 4, type: 'Meccan' },
+    { number: 113, name: 'Al-Falaq', arabic: 'الفلق', verses: 5, type: 'Meccan' },
+    { number: 114, name: 'An-Nas', arabic: 'الناس', verses: 6, type: 'Meccan' }
 ];
 
-// 27 Tafsir Editions
-const TAFSIR_EDITIONS = [
-    { id: 169, author_name: "Hafiz Ibn Kathir", language_name: "english", name: "Tafsir Ibn Kathir (abridged)", slug: "en-tafisr-ibn-kathir" },
-    { id: 74, author_name: "Al-Jalalayn", language_name: "english", name: "Al-Jalalayn", slug: "en-al-jalalayn" },
-    { id: 168, author_name: "Mufti Muhammad Shafi", language_name: "english", name: "Maarif-ul-Quran", slug: "en-tafsir-maarif-ul-quran" },
-    { id: 817, author_name: "Maulana Wahid Uddin Khan", language_name: "english", name: "Tazkirul Quran", slug: "en-tazkirul-quran" },
-    { id: 73, author_name: "Ibn Abbas", language_name: "english", name: "Tanwîr al-Miqbâs min Tafsîr Ibn 'Abbâs", slug: "en-tafsir-ibn-abbas" },
-    { id: 86, author_name: "Al-Wahidi", language_name: "english", name: "Asbab Al-Nuzul by Al-Wahidi", slug: "en-asbab-al-nuzul-by-al-wahidi" },
-    { id: 93, author_name: "Al-Tustari", language_name: "english", name: "Tafsir al-Tustari", slug: "en-tafsir-al-tustari" },
-    { id: 107, author_name: "Kashani", language_name: "english", name: "Kashani Tafsir", slug: "en-kashani-tafsir" },
-    { id: 108, author_name: "Al Qushairi", language_name: "english", name: "Al Qushairi Tafsir", slug: "en-al-qushairi-tafsir" },
-    { id: 109, author_name: "Kashf Al-Asrar", language_name: "english", name: "Kashf Al-Asrar Tafsir", slug: "en-kashf-al-asrar-tafsir" },
-    { id: 14, author_name: "Hafiz Ibn Kathir", language_name: "arabic", name: "Tafsir Ibn Kathir", slug: "ar-tafsir-ibn-kathir" },
-    { id: 15, author_name: "Tabari", language_name: "arabic", name: "Tafsir al-Tabari", slug: "ar-tafsir-al-tabari" },
-    { id: 16, author_name: "Al Muyassar", language_name: "arabic", name: "Tafsir Muyassar", slug: "ar-tafsir-muyassar" },
-    { id: 90, author_name: "Qurtubi", language_name: "arabic", name: "Tafseer Al Qurtubi", slug: "ar-tafseer-al-qurtubi" },
-    { id: 91, author_name: "Saddi", language_name: "arabic", name: "Tafseer Al Saddi", slug: "ar-tafseer-al-saddi" },
-    { id: 92, author_name: "Tanweer", language_name: "arabic", name: "Tafseer Tanwir al-Miqbas", slug: "ar-tafseer-tanwir-al-miqbas" },
-    { id: 93, author_name: "Waseet", language_name: "arabic", name: "Tafsir Al Wasit", slug: "ar-tafsir-al-wasit" },
-    { id: 94, author_name: "Baghawy", language_name: "arabic", name: "Tafseer Al-Baghawi", slug: "ar-tafsir-al-baghawi" },
-    { id: 164, author_name: "Tawheed Publication", language_name: "bengali", name: "Tafseer ibn Kathir", slug: "bn-tafseer-ibn-e-kaseer" },
-    { id: 165, author_name: "Bayaan Foundation", language_name: "bengali", name: "Tafsir Ahsanul Bayaan", slug: "bn-tafsir-ahsanul-bayaan" },
-    { id: 166, author_name: "King Fahd Quran Printing Complex", language_name: "bengali", name: "Tafsir Abu Bakr Zakaria", slug: "bn-tafsir-abu-bakr-zakaria" },
-    { id: 381, author_name: "AbdulRahman Bin Hasan Al-Alshaikh", language_name: "bengali", name: "Tafsir Fathul Majid", slug: "bn-tafisr-fathul-majid" },
-    { id: 159, author_name: "Dr. Israr Ahmad", language_name: "urdu", name: "Tafsir Bayan ul Quran", slug: "ur-tafsir-bayan-ul-quran" },
-    { id: 160, author_name: "Hafiz Ibn Kathir", language_name: "urdu", name: "Tafsir Ibn Kathir", slug: "ur-tafseer-ibn-e-kaseer" },
-    { id: 818, author_name: "Maulana Wahid Uddin Khan", language_name: "urdu", name: "Tazkirul Quran", slug: "ur-tazkirul-quran" },
-    { id: 170, author_name: "Saddi", language_name: "russian", name: "Tafseer Al Saddi", slug: "ru-tafseer-al-saddi" },
-    { id: 804, author_name: "Rebar", language_name: "kurdish", name: "Rebar Kurdish Tafsir", slug: "kurd-tafsir-rebar" }
-];
-
-// State
-var currentView = 'selector';
-var selectedLanguage = 'english';
-var selectedTafsir = TAFSIR_EDITIONS[0].slug;
-var selectedSurah = 1;
+// ==========================================
+// STATE
+// ==========================================
+var currentLanguage = 'all';
+var selectedTafsir = null;
+var selectedSurah = null;
 var selectedAyah = 1;
 var currentSurahData = null;
-var expandedAyahs = new Set();
+var bookmarks = [];
+var recentReads = [];
+var currentFontSize = 16; // Base font size
+
+// CDN Base URL
+var CDN_BASE = 'https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir';
 
 // ==========================================
 // INITIALIZATION
 // ==========================================
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Sijjeen Tafsir - Initialized');
-    initSelectors();
-    loadRecentReads();
+    loadFromStorage();
+    populateTafsirDropdown();
+    populateSurahDropdown();
+    renderRecentCards();
 });
 
-function initSelectors() {
-    // Language buttons
-    var languages = [...new Set(TAFSIR_EDITIONS.map(t => t.language_name))];
-    var langButtons = document.getElementById('languageButtons');
-    langButtons.innerHTML = '';
-    
-    languages.forEach(function(lang) {
-        var btn = document.createElement('button');
-        btn.className = 'language-btn' + (lang === selectedLanguage ? ' active' : '');
-        btn.textContent = lang.charAt(0).toUpperCase() + lang.slice(1);
-        btn.onclick = function() { selectLanguage(lang); };
-        langButtons.appendChild(btn);
-    });
-    
-    // Initial population
-    populateTafsirSelect();
-    populateSurahSelect();
-    populateAyahSelect();
+// ==========================================
+// STORAGE
+// ==========================================
+function loadFromStorage() {
+    try {
+        bookmarks = JSON.parse(localStorage.getItem('tafsir_bookmarks') || '[]');
+        recentReads = JSON.parse(localStorage.getItem('tafsir_recent') || '[]');
+        currentFontSize = parseInt(localStorage.getItem('tafsir_font_size') || '16');
+        updateFontSize();
+    } catch (e) {
+        bookmarks = [];
+        recentReads = [];
+        currentFontSize = 16;
+    }
 }
 
-function selectLanguage(lang) {
-    selectedLanguage = lang;
+function saveBookmarks() {
+    localStorage.setItem('tafsir_bookmarks', JSON.stringify(bookmarks));
+}
+
+function saveRecentReads() {
+    localStorage.setItem('tafsir_recent', JSON.stringify(recentReads.slice(0, 10)));
+}
+
+function saveFontSize() {
+    localStorage.setItem('tafsir_font_size', currentFontSize.toString());
+}
+
+function addToRecent(tafsirId, surahNum, ayahNum) {
+    var tafsir = TAFSIRS.find(function(t) { return t.id === tafsirId; });
+    var surah = SURAHS.find(function(s) { return s.number === surahNum; });
+    if (!tafsir || !surah) return;
+
+    var recent = {
+        tafsirId: tafsirId,
+        tafsirName: tafsir.name,
+        surahNum: surahNum,
+        surahName: surah.name,
+        surahArabic: surah.arabic,
+        ayahNum: ayahNum,
+        timestamp: Date.now()
+    };
+
+    // Remove duplicate
+    recentReads = recentReads.filter(function(r) {
+        return !(r.tafsirId === tafsirId && r.surahNum === surahNum && r.ayahNum === ayahNum);
+    });
+
+    recentReads.unshift(recent);
+    saveRecentReads();
+}
+
+function isBookmarked(surahNum, ayahNum) {
+    return bookmarks.some(function(b) {
+        return b.surahNum === surahNum && b.ayahNum === ayahNum;
+    });
+}
+
+function toggleBookmark(surahNum, ayahNum) {
+    var index = bookmarks.findIndex(function(b) {
+        return b.surahNum === surahNum && b.ayahNum === ayahNum;
+    });
+
+    if (index !== -1) {
+        bookmarks.splice(index, 1);
+        toast('Bookmark removed');
+    } else {
+        var surah = SURAHS.find(function(s) { return s.number === surahNum; });
+        bookmarks.push({
+            surahNum: surahNum,
+            surahName: surah ? surah.name : 'Surah ' + surahNum,
+            ayahNum: ayahNum,
+            timestamp: Date.now()
+        });
+        toast('⭐ Bookmarked!');
+    }
+
+    saveBookmarks();
+}
+
+// ==========================================
+// LANGUAGE FILTER
+// ==========================================
+function filterByLanguage(lang) {
+    currentLanguage = lang;
     
     // Update button states
-    document.querySelectorAll('.language-btn').forEach(function(btn) {
-        btn.classList.remove('active');
-        if (btn.textContent.toLowerCase() === lang) {
-            btn.classList.add('active');
-        }
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
     });
-    
-    populateTafsirSelect();
+
+    populateTafsirDropdown();
 }
 
-function populateTafsirSelect() {
+// ==========================================
+// POPULATE DROPDOWNS
+// ==========================================
+function populateTafsirDropdown() {
     var select = document.getElementById('tafsirSelect');
-    var filtered = TAFSIR_EDITIONS.filter(function(t) { return t.language_name === selectedLanguage; });
-    
-    select.innerHTML = '';
-    filtered.forEach(function(edition) {
-        var option = document.createElement('option');
-        option.value = edition.slug;
-        option.textContent = edition.name + ' - ' + edition.author_name;
-        select.appendChild(option);
+    var filtered = currentLanguage === 'all' 
+        ? TAFSIRS 
+        : TAFSIRS.filter(function(t) { return t.language_name === currentLanguage; });
+
+    var html = '<option value="">Select a Tafsir...</option>';
+    filtered.forEach(function(tafsir) {
+        html += '<option value="' + tafsir.id + '">' + tafsir.name + ' (' + tafsir.author + ')</option>';
     });
-    
-    selectedTafsir = filtered[0].slug;
-    select.value = selectedTafsir;
-    
-    select.onchange = function() { selectedTafsir = this.value; };
+
+    select.innerHTML = html;
 }
 
-function populateSurahSelect() {
+function populateSurahDropdown() {
     var select = document.getElementById('surahSelect');
-    select.innerHTML = '';
+    var html = '<option value="">Select a Surah...</option>';
     
     SURAHS.forEach(function(surah) {
-        var option = document.createElement('option');
-        option.value = surah.number;
-        option.textContent = surah.number + '. ' + surah.name + ' (' + surah.englishName + ') - ' + surah.numberOfAyahs + ' ayahs';
-        select.appendChild(option);
+        html += '<option value="' + surah.number + '">' + 
+                surah.number + '. ' + surah.name + ' (' + surah.arabic + ')</option>';
     });
-    
-    select.value = selectedSurah;
-    select.onchange = function() {
-        selectedSurah = parseInt(this.value);
-        selectedAyah = 1;
-        populateAyahSelect();
-    };
+
+    select.innerHTML = html;
 }
 
-function populateAyahSelect() {
+function populateAyahDropdown(verseCount) {
     var select = document.getElementById('ayahSelect');
-    var surah = SURAHS.find(function(s) { return s.number === selectedSurah; });
-    var maxAyah = surah ? surah.numberOfAyahs : 7;
+    var html = '';
     
-    select.innerHTML = '';
-    for (var i = 1; i <= maxAyah; i++) {
-        var option = document.createElement('option');
-        option.value = i;
-        option.textContent = 'Ayah ' + i;
-        select.appendChild(option);
+    for (var i = 1; i <= verseCount; i++) {
+        html += '<option value="' + i + '">Ayah ' + i + '</option>';
     }
-    
-    select.value = selectedAyah;
-    select.onchange = function() { selectedAyah = parseInt(this.value); };
+
+    select.innerHTML = html;
+    select.value = '1';
+}
+
+// ==========================================
+// DROPDOWN HANDLERS
+// ==========================================
+function onTafsirChange() {
+    var select = document.getElementById('tafsirSelect');
+    selectedTafsir = select.value;
+
+    var surahSelect = document.getElementById('surahSelect');
+    surahSelect.disabled = !selectedTafsir;
+
+    if (selectedTafsir) {
+        surahSelect.innerHTML = '<option value="">Select a Surah...</option>';
+        SURAHS.forEach(function(surah) {
+            surahSelect.innerHTML += '<option value="' + surah.number + '">' + 
+                    surah.number + '. ' + surah.name + ' (' + surah.arabic + ')</option>';
+        });
+    }
+
+    updateStartButton();
+}
+
+function onSurahChange() {
+    var select = document.getElementById('surahSelect');
+    selectedSurah = parseInt(select.value);
+
+    var ayahSelect = document.getElementById('ayahSelect');
+    ayahSelect.disabled = !selectedSurah;
+
+    if (selectedSurah) {
+        var surah = SURAHS.find(function(s) { return s.number === selectedSurah; });
+        if (surah) {
+            populateAyahDropdown(surah.verses);
+        }
+    }
+
+    updateStartButton();
+}
+
+function updateStartButton() {
+    var btn = document.getElementById('startBtn');
+    btn.disabled = !selectedTafsir || !selectedSurah;
 }
 
 // ==========================================
 // START READING
 // ==========================================
 function startReading() {
-    var btn = document.getElementById('startBtn');
-    btn.disabled = true;
-    btn.innerHTML = '<div class="spinner" style="width:20px;height:20px;border-width:2px;margin:0 auto;"></div>';
-    
-    fetchSurahTafsir(selectedTafsir, selectedSurah)
-        .then(function(data) {
-            currentSurahData = data;
-            expandedAyahs = new Set([selectedAyah]);
-            saveRecentRead(selectedTafsir, selectedSurah, selectedAyah);
-            showReadingView();
-        })
-        .catch(function(err) {
-            console.error('Failed to load tafsir:', err);
-            toast('Failed to load tafsir. Please try again.');
-        })
-        .finally(function() {
-            btn.disabled = false;
-            btn.innerHTML = '📖 Start Reading';
-        });
-}
+    var ayahSelect = document.getElementById('ayahSelect');
+    selectedAyah = parseInt(ayahSelect.value);
 
-function fetchSurahTafsir(tafsirSlug, surahNumber) {
-    var url = BASE_URL + '/' + tafsirSlug + '/' + surahNumber + '.json';
-    return fetch(url).then(function(res) {
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        return res.json();
-    });
-}
-
-// ==========================================
-// READING VIEW
-// ==========================================
-function showReadingView() {
-    currentView = 'reading';
-    document.getElementById('selectorView').classList.add('hidden');
-    document.getElementById('readingView').classList.remove('hidden');
-    document.getElementById('loadingState').classList.add('hidden');
-    
-    var surah = SURAHS.find(function(s) { return s.number === selectedSurah; });
-    var tafsir = TAFSIR_EDITIONS.find(function(t) { return t.slug === selectedTafsir; });
-    
-    document.getElementById('pageTitle').textContent = surah.name + ' (' + surah.englishName + ')';
-    
-    var html = '';
-    
-    // Surah Header
-    html += '<div class="surah-header">';
-    html += '<div class="surah-name-ar">' + surah.name + '</div>';
-    html += '<div class="surah-name-en">' + surah.englishName + '</div>';
-    html += '<div class="surah-meta">' + surah.englishNameTranslation + ' • ' + surah.revelationType + ' • ' + surah.numberOfAyahs + ' Ayahs</div>';
-    html += '</div>';
-    
-    // Tafsir Switcher
-    html += '<div class="tafsir-switcher">';
-    html += '<label>Switch Tafsir:</label>';
-    html += '<select id="tafsirSwitcher" class="selector-dropdown" onchange="switchTafsir(this.value)">';
-    TAFSIR_EDITIONS.forEach(function(edition) {
-        var selected = edition.slug === selectedTafsir ? ' selected' : '';
-        html += '<option value="' + edition.slug + '"' + selected + '>' + edition.name + '</option>';
-    });
-    html += '</select>';
-    html += '</div>';
-    
-    // Ayah List
-    html += '<div class="ayah-list">';
-    if (currentSurahData && currentSurahData.ayahs) {
-        currentSurahData.ayahs.forEach(function(ayah, index) {
-            var ayahNum = ayah.ayah || (index + 1);
-            var isExpanded = expandedAyahs.has(ayahNum);
-            var isHighlighted = ayahNum === selectedAyah;
-            var isBookmarked = checkBookmark(selectedTafsir, selectedSurah, ayahNum);
-            
-            html += '<div class="ayah-card' + (isHighlighted ? ' highlighted' : '') + '" id="ayah-' + ayahNum + '">';
-            html += '<div class="ayah-header" onclick="toggleAyah(' + ayahNum + ')">';
-            html += '<div class="ayah-number">' + ayahNum + '</div>';
-            html += '<div class="ayah-preview">' + (ayah.text || '').substring(0, 100) + '...</div>';
-            html += '<div class="ayah-toggle">' + (isExpanded ? '−' : '+') + '</div>';
-            html += '</div>';
-            
-            html += '<div class="ayah-content' + (isExpanded ? ' expanded' : '') + '" id="ayah-content-' + ayahNum + '">';
-            html += '<div class="ayah-text">' + (ayah.text || 'No tafsir available for this ayah.') + '</div>';
-            html += '<div class="ayah-actions">';
-            html += '<button class="ayah-action-btn" onclick="copyAyah(' + ayahNum + ', ' + JSON.stringify(ayah.text || '').replace(/"/g, '&quot;') + ')">';
-            html += '<img src="assets/copy.png" alt="Copy"> Copy';
-            html += '</button>';
-            html += '<button class="ayah-action-btn' + (isBookmarked ? ' bookmarked' : '') + '" onclick="toggleBookmark(' + ayahNum + ')">';
-            html += '<span>' + (isBookmarked ? '⭐' : '☆') + '</span> ' + (isBookmarked ? 'Saved' : 'Save');
-            html += '</button>';
-            html += '</div>';
-            html += '</div>';
-            
-            html += '</div>';
-        });
-    }
-    html += '</div>';
-    
-    document.getElementById('readingContent').innerHTML = html;
-    document.getElementById('readingContent').classList.remove('hidden');
-    
-    // Scroll to initial ayah
-    setTimeout(function() {
-        var elem = document.getElementById('ayah-' + selectedAyah);
-        if (elem) elem.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 100);
-}
-
-function toggleAyah(ayahNum) {
-    if (expandedAyahs.has(ayahNum)) {
-        expandedAyahs.delete(ayahNum);
-    } else {
-        expandedAyahs.add(ayahNum);
-    }
-    
-    var content = document.getElementById('ayah-content-' + ayahNum);
-    var toggle = content.previousElementSibling.querySelector('.ayah-toggle');
-    
-    if (content.classList.contains('expanded')) {
-        content.classList.remove('expanded');
-        toggle.textContent = '+';
-    } else {
-        content.classList.add('expanded');
-        toggle.textContent = '−';
-    }
-}
-
-function switchTafsir(newTafsirSlug) {
-    selectedTafsir = newTafsirSlug;
-    
-    var switcher = document.getElementById('tafsirSwitcher');
-    switcher.disabled = true;
-    
-    var loading = document.getElementById('loadingState');
-    loading.classList.remove('hidden');
-    document.getElementById('readingContent').classList.add('hidden');
-    
-    fetchSurahTafsir(newTafsirSlug, selectedSurah)
-        .then(function(data) {
-            currentSurahData = data;
-            showReadingView();
-        })
-        .catch(function(err) {
-            console.error('Failed to switch tafsir:', err);
-            toast('Failed to switch tafsir.');
-        })
-        .finally(function() {
-            switcher.disabled = false;
-            loading.classList.add('hidden');
-        });
-}
-
-function copyAyah(ayahNum, text) {
-    var surah = SURAHS.find(function(s) { return s.number === selectedSurah; });
-    var tafsir = TAFSIR_EDITIONS.find(function(t) { return t.slug === selectedTafsir; });
-    
-    var copyText = surah.name + ' (' + surah.englishName + ') ' + selectedSurah + ':' + ayahNum + '\n\n' + 
-                   text + '\n\n— ' + tafsir.name;
-    
-    if (navigator.clipboard) {
-        navigator.clipboard.writeText(copyText).then(function() {
-            toast('✓ Copied to clipboard!');
-        });
-    } else {
-        // Fallback
-        var ta = document.createElement('textarea');
-        ta.value = copyText;
-        ta.style.cssText = 'position:fixed;left:-9999px';
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-        toast('✓ Copied to clipboard!');
-    }
-}
-
-// ==========================================
-// BOOKMARKS
-// ==========================================
-function toggleBookmark(ayahNum) {
-    var key = 'tafsir_bookmarks';
-    var bookmarks = JSON.parse(localStorage.getItem(key) || '[]');
-    var index = bookmarks.findIndex(function(b) {
-        return b.tafsirSlug === selectedTafsir && b.surahNumber === selectedSurah && b.ayahNumber === ayahNum;
-    });
-    
-    if (index !== -1) {
-        bookmarks.splice(index, 1);
-        toast('Bookmark removed');
-    } else {
-        bookmarks.unshift({
-            tafsirSlug: selectedTafsir,
-            surahNumber: selectedSurah,
-            ayahNumber: ayahNum,
-            timestamp: Date.now()
-        });
-        toast('⭐ Bookmarked!');
-    }
-    
-    localStorage.setItem(key, JSON.stringify(bookmarks));
-    
-    // Update button
-    showReadingView();
-}
-
-function checkBookmark(tafsirSlug, surahNumber, ayahNumber) {
-    var bookmarks = JSON.parse(localStorage.getItem('tafsir_bookmarks') || '[]');
-    return bookmarks.some(function(b) {
-        return b.tafsirSlug === tafsirSlug && b.surahNumber === surahNumber && b.ayahNumber === ayahNumber;
-    });
-}
-
-// ==========================================
-// RECENT READS
-// ==========================================
-function saveRecentRead(tafsirSlug, surahNumber, ayahNumber) {
-    var key = 'tafsir_recent';
-    var recent = JSON.parse(localStorage.getItem(key) || '[]');
-    
-    var filtered = recent.filter(function(r) {
-        return !(r.tafsirSlug === tafsirSlug && r.surahNumber === surahNumber && r.ayahNumber === ayahNumber);
-    });
-    
-    filtered.unshift({
-        tafsirSlug: tafsirSlug,
-        surahNumber: surahNumber,
-        ayahNumber: ayahNumber,
-        timestamp: Date.now()
-    });
-    
-    localStorage.setItem(key, JSON.stringify(filtered.slice(0, 10)));
-    loadRecentReads();
-}
-
-function loadRecentReads() {
-    var recent = JSON.parse(localStorage.getItem('tafsir_recent') || '[]');
-    var container = document.getElementById('recentReads');
-    
-    if (recent.length === 0) {
-        container.classList.add('hidden');
+    if (!selectedTafsir || !selectedSurah) {
+        toast('Please select Tafsir and Surah');
         return;
     }
+
+    // Update button to loading state
+    var btn = document.getElementById('startBtn');
+    var btnText = document.getElementById('startBtnText');
+    btnText.textContent = 'Loading...';
+    btn.disabled = true;
+
+    // Add to recent reads
+    addToRecent(selectedTafsir, selectedSurah, selectedAyah);
+
+    // Fetch and display
+    fetchTafsir(selectedTafsir, selectedSurah, selectedAyah);
+}
+
+// ==========================================
+// FETCH TAFSIR FROM API
+// ==========================================
+function fetchTafsir(tafsirId, surahNum, ayahNum) {
+    var url = CDN_BASE + '/' + tafsirId + '/' + surahNum + '.json';
+
+    fetch(url)
+        .then(function(response) {
+            if (!response.ok) throw new Error('Failed to load');
+            return response.json();
+        })
+        .then(function(data) {
+            currentSurahData = data;
+            displayReadingView(tafsirId, surahNum, ayahNum);
+        })
+        .catch(function(error) {
+            console.error('Error:', error);
+            toast('❌ Failed to load tafsir');
+            
+            // Reset button properly
+            resetStartButton();
+        });
+}
+
+function resetStartButton() {
+    var btn = document.getElementById('startBtn');
+    var btnText = document.getElementById('startBtnText');
+    btnText.innerHTML = '<img src="assets/book.png" alt="" class="btn-icon">Start Reading';
+    btn.disabled = !selectedTafsir || !selectedSurah;
+}
+
+// ==========================================
+// DISPLAY READING VIEW
+// ==========================================
+function displayReadingView(tafsirId, surahNum, ayahNum) {
+    var surah = SURAHS.find(function(s) { return s.number === surahNum; });
+    if (!surah) return;
+
+    // Update header
+    document.getElementById('surahNumber').textContent = 'Surah ' + surah.number;
+    document.getElementById('surahNameAr').textContent = surah.arabic;
+    document.getElementById('surahNameEn').textContent = surah.name;
+    document.getElementById('surahMeta').textContent = surah.verses + ' verses • ' + surah.type;
+
+    // Populate tafsir switcher with language badges
+    populateTafsirSwitcher(tafsirId);
+
+    // Render ayahs
+    renderAyahs(tafsirId, ayahNum);
+
+    // Show reading view
+    showView('reading');
     
-    container.classList.remove('hidden');
+    // Reset button (important!)
+    resetStartButton();
+}
+
+// ==========================================
+// POPULATE TAFSIR SWITCHER WITH BADGES
+// ==========================================
+function populateTafsirSwitcher(currentTafsirId) {
+    var select = document.getElementById('tafsirSwitchSelect');
+    select.innerHTML = '';
     
-    var html = '<h3 class="recent-title">Recent Reads</h3>';
-    
-    recent.slice(0, 5).forEach(function(read) {
-        var tafsir = TAFSIR_EDITIONS.find(function(t) { return t.slug === read.tafsirSlug; });
-        var surah = SURAHS.find(function(s) { return s.number === read.surahNumber; });
+    TAFSIRS.forEach(function(t) {
+        var option = document.createElement('option');
+        option.value = t.id;
         
-        if (!tafsir || !surah) return;
+        // Add language badge
+        var langBadge = ' [' + t.language_name.charAt(0).toUpperCase() + t.language_name.slice(1) + ']';
+        option.textContent = t.name + langBadge;
         
-        html += '<div class="recent-card" onclick="loadRecentRead(\'' + read.tafsirSlug + '\', ' + read.surahNumber + ', ' + read.ayahNumber + ')">';
-        html += '<div class="recent-card-content">';
-        html += '<div class="recent-card-title">' + surah.name + ' (' + surah.englishName + ')</div>';
-        html += '<div class="recent-card-meta">' + tafsir.name + ' • Ayah ' + read.ayahNumber + '</div>';
-        html += '</div>';
-        html += '<div class="recent-card-arrow">→</div>';
-        html += '</div>';
+        if (t.id === currentTafsirId) option.selected = true;
+        select.appendChild(option);
     });
+}
+
+// ==========================================
+// RENDER AYAHS (FIXED NUMERIC SORTING!)
+// ==========================================
+function renderAyahs(tafsirId, scrollToAyah) {
+    var container = document.getElementById('ayahsContainer');
     
+    if (!currentSurahData || !currentSurahData.ayahs) {
+        container.innerHTML = '<div class="loading"><p>No data available</p></div>';
+        return;
+    }
+
+    var tafsir = TAFSIRS.find(function(t) { return t.id === tafsirId; });
+    var fontClass = '';
+    if (tafsir && tafsir.language_name === 'urdu') {
+        fontClass = ' urdu';
+    }
+
+    // FIXED: Convert keys to integers and sort numerically
+    var ayahNumbers = Object.keys(currentSurahData.ayahs).map(function(key) {
+        return parseInt(key);
+    }).sort(function(a, b) {
+        return a - b; // Numeric sort
+    });
+
+    var html = '';
+    ayahNumbers.forEach(function(ayahNum) {
+        var ayah = currentSurahData.ayahs[ayahNum];
+        if (!ayah) return;
+        
+        var isHighlight = ayahNum === scrollToAyah;
+        var isMarked = isBookmarked(selectedSurah, ayahNum);
+
+        html += '<div class="ayah-card' + (isHighlight ? ' highlight' : '') + '" id="ayah-' + ayahNum + '">' +
+            '<div class="ayah-header" onclick="toggleAyah(' + ayahNum + ')">' +
+                '<span class="ayah-number">Ayah ' + ayahNum + '</span>' +
+                '<div class="ayah-actions">' +
+                    '<button class="action-btn' + (isMarked ? ' bookmarked' : '') + '" onclick="event.stopPropagation(); handleBookmark(' + ayahNum + ')\" title="Bookmark">' +
+                        (isMarked ? '⭐' : '☆') +
+                    '</button>' +
+                    '<button class="action-btn" onclick="event.stopPropagation(); copyAyah(' + ayahNum + ')\" title="Copy">' +
+                        '<img src="assets/copy.png" alt="Copy">' +
+                    '</button>' +
+                    '<span class="expand-icon">▼</span>' +
+                '</div>' +
+            '</div>' +
+            '<div class="ayah-content">' +
+                '<div class="ayah-text' + fontClass + '">' + ayah.text + '</div>' +
+            '</div>' +
+        '</div>';
+    });
+
+    container.innerHTML = html;
+
+    // Auto-scroll to selected ayah
+    if (scrollToAyah) {
+        setTimeout(function() {
+            var ayahCard = document.getElementById('ayah-' + scrollToAyah);
+            if (ayahCard) {
+                ayahCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                ayahCard.classList.add('expanded');
+            }
+        }, 100);
+    }
+}
+
+// ==========================================
+// TOGGLE AYAH EXPAND/COLLAPSE
+// ==========================================
+function toggleAyah(ayahNum) {
+    var card = document.getElementById('ayah-' + ayahNum);
+    if (card) {
+        card.classList.toggle('expanded');
+    }
+}
+
+// ==========================================
+// BOOKMARK HANDLER
+// ==========================================
+function handleBookmark(ayahNum) {
+    toggleBookmark(selectedSurah, ayahNum);
+    
+    // Update button
+    var card = document.getElementById('ayah-' + ayahNum);
+    if (card) {
+        var btn = card.querySelector('.action-btn');
+        var marked = isBookmarked(selectedSurah, ayahNum);
+        btn.innerHTML = marked ? '⭐' : '☆';
+        btn.classList.toggle('bookmarked', marked);
+    }
+}
+
+// ==========================================
+// COPY AYAH
+// ==========================================
+function copyAyah(ayahNum) {
+    if (!currentSurahData || !currentSurahData.ayahs[ayahNum]) {
+        toast('No data');
+        return;
+    }
+
+    var ayah = currentSurahData.ayahs[ayahNum];
+    var surah = SURAHS.find(function(s) { return s.number === selectedSurah; });
+    var tafsir = TAFSIRS.find(function(t) { return t.id === selectedTafsir; });
+
+    var text = ayah.text + '\n\n';
+    text += '— ' + surah.name + ' (' + surah.arabic + ') ' + ayahNum + '\n';
+    text += 'Tafsir: ' + tafsir.name;
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text)
+            .then(function() { toast('✓ Copied!'); })
+            .catch(function() { fallbackCopy(text); });
+    } else {
+        fallbackCopy(text);
+    }
+}
+
+function fallbackCopy(text) {
+    var textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.left = '-9999px';
+    document.body.appendChild(textarea);
+    textarea.select();
+    
+    try {
+        document.execCommand('copy');
+        toast('✓ Copied!');
+    } catch (err) {
+        toast('❌ Copy failed');
+    }
+    
+    document.body.removeChild(textarea);
+}
+
+// ==========================================
+// SWITCH TAFSIR
+// ==========================================
+function switchTafsir() {
+    var select = document.getElementById('tafsirSwitchSelect');
+    var newTafsirId = select.value;
+
+    if (newTafsirId === selectedTafsir) return;
+
+    selectedTafsir = newTafsirId;
+
+    // Show loading
+    document.getElementById('ayahsContainer').innerHTML = 
+        '<div class="loading"><div class="spinner"></div><p>Loading tafsir...</p></div>';
+
+    // Fetch new tafsir
+    fetchTafsir(newTafsirId, selectedSurah, selectedAyah);
+}
+
+// ==========================================
+// FONT SIZE CONTROLS
+// ==========================================
+function increaseFontSize() {
+    if (currentFontSize < 24) {
+        currentFontSize += 2;
+        updateFontSize();
+        saveFontSize();
+        toast('Font size: ' + currentFontSize + 'px');
+    }
+}
+
+function decreaseFontSize() {
+    if (currentFontSize > 12) {
+        currentFontSize -= 2;
+        updateFontSize();
+        saveFontSize();
+        toast('Font size: ' + currentFontSize + 'px');
+    }
+}
+
+function updateFontSize() {
+    document.documentElement.style.setProperty('--ayah-font-size', currentFontSize + 'px');
+}
+
+// ==========================================
+// RECENT CARDS
+// ==========================================
+function renderRecentCards() {
+    var container = document.getElementById('recentCards');
+    var section = document.getElementById('recentSection');
+
+    if (!recentReads.length) {
+        section.style.display = 'none';
+        return;
+    }
+
+    section.style.display = 'block';
+
+    var html = '';
+    recentReads.slice(0, 5).forEach(function(recent) {
+        var timeAgo = getTimeAgo(recent.timestamp);
+        html += '<div class="recent-card" onclick="loadRecent(\'' + recent.tafsirId + '\', ' + recent.surahNum + ', ' + recent.ayahNum + ')">' +
+            '<div class="recent-card-header">' +
+                '<span class="recent-tafsir">' + recent.tafsirName + '</span>' +
+                '<span class="recent-time">' + timeAgo + '</span>' +
+            '</div>' +
+            '<div class="recent-surah">' + recent.surahName + ' • ' + recent.surahArabic + '</div>' +
+            '<div class="recent-ayah">Starting from Ayah ' + recent.ayahNum + '</div>' +
+        '</div>';
+    });
+
     container.innerHTML = html;
 }
 
-function loadRecentRead(tafsirSlug, surahNumber, ayahNumber) {
-    selectedTafsir = tafsirSlug;
-    selectedSurah = surahNumber;
-    selectedAyah = ayahNumber;
+function loadRecent(tafsirId, surahNum, ayahNum) {
+    selectedTafsir = tafsirId;
+    selectedSurah = surahNum;
+    selectedAyah = ayahNum;
+
+    // Update dropdowns
+    document.getElementById('tafsirSelect').value = tafsirId;
+    document.getElementById('surahSelect').value = surahNum;
+    onSurahChange();
+    document.getElementById('ayahSelect').value = ayahNum;
+
+    startReading();
+}
+
+function getTimeAgo(timestamp) {
+    var seconds = Math.floor((Date.now() - timestamp) / 1000);
     
-    document.getElementById('startBtn').disabled = true;
-    document.getElementById('startBtn').innerHTML = '<div class="spinner" style="width:20px;height:20px;border-width:2px;margin:0 auto;"></div>';
-    
-    fetchSurahTafsir(tafsirSlug, surahNumber)
-        .then(function(data) {
-            currentSurahData = data;
-            expandedAyahs = new Set([ayahNumber]);
-            saveRecentRead(tafsirSlug, surahNumber, ayahNumber);
-            showReadingView();
-        })
-        .catch(function(err) {
-            console.error('Failed to load:', err);
-            toast('Failed to load tafsir.');
-        })
-        .finally(function() {
-            document.getElementById('startBtn').disabled = false;
-            document.getElementById('startBtn').innerHTML = '📖 Start Reading';
-        });
+    if (seconds < 60) return 'Just now';
+    if (seconds < 3600) return Math.floor(seconds / 60) + 'm ago';
+    if (seconds < 86400) return Math.floor(seconds / 3600) + 'h ago';
+    if (seconds < 604800) return Math.floor(seconds / 86400) + 'd ago';
+    return new Date(timestamp).toLocaleDateString();
 }
 
 // ==========================================
-// NAVIGATION
+// VIEW MANAGEMENT
 // ==========================================
+function showView(view) {
+    document.getElementById('selectorView').classList.toggle('hidden', view !== 'selector');
+    document.getElementById('readingView').classList.toggle('hidden', view !== 'reading');
+    
+    document.getElementById('pageTitle').textContent = view === 'reading' ? 'Reading' : 'Tafsir';
+}
+
 function goBack() {
-    if (currentView === 'reading') {
-        currentView = 'selector';
-        document.getElementById('readingView').classList.add('hidden');
-        document.getElementById('selectorView').classList.remove('hidden');
-        document.getElementById('pageTitle').textContent = 'Tafsir';
+    var readingView = document.getElementById('readingView');
+    if (!readingView.classList.contains('hidden')) {
+        showView('selector');
+        renderRecentCards(); // Refresh recent reads
+        resetStartButton(); // Reset button state
     } else {
-        window.history.back();
+        window.location.href = 'library.html';
     }
 }
 
 // ==========================================
-// TOAST
+// TOAST NOTIFICATION
 // ==========================================
-function toast(msg) {
+function toast(message) {
     var existing = document.getElementById('toast');
-    existing.textContent = msg;
-    existing.classList.remove('hidden');
-    
+    if (existing) existing.remove();
+
+    var toast = document.createElement('div');
+    toast.id = 'toast';
+    toast.className = 'toast';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
     setTimeout(function() {
-        existing.classList.add('hidden');
+        toast.classList.add('hidden');
+        setTimeout(function() { toast.remove(); }, 300);
     }, 2500);
 }
