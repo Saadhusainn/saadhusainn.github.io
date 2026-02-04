@@ -82,16 +82,6 @@ body {
     font-weight: bold;
 }
 
-.durood {
-    color: var(--accent-color);
-    font-size: 0.75em;
-    text-align: center;
-    line-height: 1.6;
-    direction: rtl;
-    max-width: 400px;
-    flex: 2;
-}
-
 .subtitle {
     text-align: center;
     color: var(--text-secondary);
@@ -103,6 +93,45 @@ body {
     color: var(--accent-color);
     margin-bottom: 5px;
     font-size: 1.2em;
+}
+
+.nav-link {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 12px 28px;
+    background: linear-gradient(135deg, var(--accent-color), #8a2be2);
+    color: white !important;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 
+        0 4px 15px rgba(108, 99, 255, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    font-size: 14px;
+}
+
+.nav-link:before {
+    content: '';
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    background: url('assets/library.png') no-repeat center;
+    background-size: contain;
+    filter: brightness(0) invert(1);
+}
+
+.nav-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        0 8px 25px rgba(108, 99, 255, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    background: linear-gradient(135deg, #8a2be2, var(--accent-color));
 }
 
 /* Button Styles */
@@ -893,12 +922,6 @@ body {
     .title {
         font-size: 1.8em;
         text-align: center;
-    }
-    
-    .durood {
-        max-width: 100%;
-        font-size: 0.7em;
-        line-height: 1.4;
     }
     
     .contact-grid {
