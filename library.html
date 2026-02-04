@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Library - Sijjeen</title>
+    <link rel="icon" type="image/png" href="assets/sijjeen-logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="hadith-style.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="app-header">
+            <a href="index.html" class="header-back">←</a>
+            <h1 class="header-title">Library</h1>
+            <div class="header-spacer"></div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="app-content">
+            <!-- Greeting - Surah Al-Alaq Verse 1 -->
+            <div class="greeting">
+                <p class="greeting-arabic">ٱقْرَأْ بِٱسْمِ رَبِّكَ ٱلَّذِى خَلَقَ</p>
+                <p class="greeting-text">Read in the name of your Lord who created</p>
+            </div>
+
+            <!-- Category Cards -->
+            <div class="category-list">
+                <!-- Hadith -->
+                <a href="hadith.html" class="category-card">
+                    <div class="category-icon">
+                        <img src="assets/hadith.png" alt="Hadith">
+                    </div>
+                    <div class="category-info">
+                        <h2>Hadith</h2>
+                        <p class="category-arabic">الأحاديث النبوية</p>
+                        <p class="category-meta" id="hadithMeta">Prophetic traditions</p>
+                    </div>
+                    <span class="category-arrow">→</span>
+                </a>
+
+                <!-- Quran -->
+                <div class="category-card disabled">
+                    <div class="category-icon">
+                        <img src="assets/quran.png" alt="Quran">
+                    </div>
+                    <div class="category-info">
+                        <h2>Quran</h2>
+                        <p class="category-arabic">القرآن الكريم</p>
+                        <p class="category-meta">Coming Soon</p>
+                    </div>
+                    <span class="coming-badge">Soon</span>
+                </div>
+
+                <!-- Tafsir -->
+                <div class="category-card disabled">
+                    <div class="category-icon">
+                        <img src="assets/tafsir.png" alt="Tafsir">
+                    </div>
+                    <div class="category-info">
+                        <h2>Tafsir</h2>
+                        <p class="category-arabic">التفسير</p>
+                        <p class="category-meta">Coming Soon</p>
+                    </div>
+                    <span class="coming-badge">Soon</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>صلى الله عليه وسلم</p>
+        </footer>
+    </div>
+</body>
+</html>
