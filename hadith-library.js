@@ -1,41 +1,57 @@
 /* ==========================================
-   SIJJEEN HADITH LIBRARY - Lite Version
-   Optimized for your trimmed JSON fields
+   SIJJEEN HADITH LIBRARY - ULTRA FAST VERSION
+   - CDN Support for instant loading
+   - Grader fields display
+   - HD Image Generation (3x resolution)
    ========================================== */
 
 // ==========================================
-// CONFIGURATION - ADD YOUR BOOKS HERE
+// CONFIGURATION - USE CDN URLs!
 // ==========================================
 const BOOKS_MANIFEST = [
     {
         id: "bukhari",
-        file: "hadiths/bukhari.json",
+        // USE CDN URL for fast loading!
+        file: "https://cdn.jsdelivr.net/gh/saadhusainn/saadhusainn.github.io@main/hadiths/bukhari.json",
+        // Fallback local file
+        localFile: "hadiths/bukhari.json",
         name_en: "Ṣaḥīḥ al-Bukhārī",
         name_ar: "صحيح البخاري",
         icon: "assets/sahihalbukhari.png",
-        count: 7563
+        count: 7563,
+        version: 1
     },
     {
         id: "muslim",
-        file: "hadiths/muslim.json",
+        file: "https://cdn.jsdelivr.net/gh/saadhusainn/saadhusainn.github.io@main/hadiths/muslim.json",
+        localFile: "hadiths/muslim.json",
         name_en: "Ṣaḥīḥ Muslim",
         name_ar: "صحيح مسلم",
         icon: "assets/sahihmuslim.png",
-        count: 7500
+        count: 7500,
+        version: 1
     },
-    {
+   {
         id: "abudawud",
-        file: "hadiths/abudawud.json",
-        name_en:"Sunan Abū Dāwūd",
-        name_ar:"سُنَنُ أَبِي دَاوُد",
-        icon:"assets/abudawud.png",
-        count:5274
-    }
-    // Add more books...
+        file: "https://cdn.jsdelivr.net/gh/saadhusainn/saadhusainn.github.io@main/hadiths/abudawud.json",
+        localFile: "hadiths/abudawud.json",
+        name_en: "Sunan Abū Dāwūd",
+        name_ar: "سُنَنُ أَبِي دَاوُد",
+        icon: "assets/abudawud.png",
+        count: 5274,
+        version: 1
+   }
+    // Add more books with CDN URLs
 ];
 
+// Image quality multiplier (3 = 3x resolution for HD)
+const IMAGE_SCALE = 3;
+
+// Cache settings
+const CACHE_EXPIRY_DAYS = 30;
+
 // ==========================================
-// STATE VARIABLES
+// STATE
 // ==========================================
 var currentBook = null;
 var currentBookData = [];
@@ -44,16 +60,131 @@ var currentChapter = null;
 var hadiths = [];
 var searchResults = [];
 var currentView = 'books';
-var cache = {};
 
 var imageCanvas = null;
 var imageCtx = null;
 
 // ==========================================
+// CACHE FUNCTIONS (IndexedDB for larger storage)
+// ==========================================
+var dbPromise = null;
+
+function openDB() {
+    if (dbPromise) return dbPromise;
+    
+    dbPromise = new Promise(function(resolve, reject) {
+        var request = indexedDB.open('SijjeenHadithDB', 1);
+        
+        request.onerror = function() {
+            console.warn('IndexedDB not available, using localStorage');
+            resolve(null);
+        };
+        
+        request.onsuccess = function() {
+            resolve(request.result);
+        };
+        
+        request.onupgradeneeded = function(e) {
+            var db = e.target.result;
+            if (!db.objectStoreNames.contains('books')) {
+                db.createObjectStore('books', { keyPath: 'id' });
+            }
+        };
+    });
+    
+    return dbPromise;
+}
+
+async function saveToCache(bookId, data, version) {
+    try {
+        var db = await openDB();
+        
+        if (db) {
+            // Use IndexedDB
+            return new Promise(function(resolve) {
+                var tx = db.transaction('books', 'readwrite');
+                var store = tx.objectStore('books');
+                store.put({
+                    id: bookId,
+                    data: data,
+                    version: version,
+                    timestamp: Date.now()
+                });
+                tx.oncomplete = function() {
+                    console.log('✅ Saved to IndexedDB:', bookId);
+                    resolve(true);
+                };
+                tx.onerror = function() { resolve(false); };
+            });
+        } else {
+            // Fallback to localStorage
+            try {
+                localStorage.setItem('hadith_' + bookId, JSON.stringify({
+                    data: data,
+                    version: version,
+                    timestamp: Date.now()
+                }));
+                return true;
+            } catch (e) {
+                console.warn('localStorage full');
+                return false;
+            }
+        }
+    } catch (e) {
+        return false;
+    }
+}
+
+async function getFromCache(bookId, requiredVersion) {
+    try {
+        var db = await openDB();
+        
+        if (db) {
+            return new Promise(function(resolve) {
+                var tx = db.transaction('books', 'readonly');
+                var store = tx.objectStore('books');
+                var request = store.get(bookId);
+                
+                request.onsuccess = function() {
+                    var result = request.result;
+                    if (!result) { resolve(null); return; }
+                    
+                    // Check version
+                    if (result.version !== requiredVersion) { resolve(null); return; }
+                    
+                    // Check expiry
+                    var ageInDays = (Date.now() - result.timestamp) / (1000 * 60 * 60 * 24);
+                    if (ageInDays > CACHE_EXPIRY_DAYS) { resolve(null); return; }
+                    
+                    console.log('📦 Loaded from IndexedDB:', bookId);
+                    resolve(result.data);
+                };
+                
+                request.onerror = function() { resolve(null); };
+            });
+        } else {
+            // Fallback localStorage
+            var stored = localStorage.getItem('hadith_' + bookId);
+            if (!stored) return null;
+            
+            var parsed = JSON.parse(stored);
+            if (parsed.version !== requiredVersion) return null;
+            
+            var ageInDays = (Date.now() - parsed.timestamp) / (1000 * 60 * 60 * 24);
+            if (ageInDays > CACHE_EXPIRY_DAYS) return null;
+            
+            return parsed.data;
+        }
+    } catch (e) {
+        return null;
+    }
+}
+
+// ==========================================
 // INITIALIZATION
 // ==========================================
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Initializing Sijjeen Hadith Library (Lite)...');
+    console.log('Sijjeen Hadith Library - Ultra Fast Version');
     
     if (document.getElementById('booksList')) {
         initBrowser();
@@ -64,53 +195,65 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function initBrowser() {
     renderBooks();
-    setupBrowserEvents();
+    setupEvents();
+    // Pre-warm cache for faster subsequent loads
+    preloadBooks();
 }
 
-function setupBrowserEvents() {
+function setupEvents() {
     var searchInput = document.getElementById('searchInput');
     if (searchInput) {
         searchInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                performSearch();
-            }
+            if (e.key === 'Enter') { e.preventDefault(); performSearch(); }
         });
     }
     
     var jumpInput = document.getElementById('jumpInput');
     if (jumpInput) {
         jumpInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                jumpToHadith();
-            }
+            if (e.key === 'Enter') { e.preventDefault(); jumpToHadith(); }
         });
     }
 }
 
-// ==========================================
-// UTILITY FUNCTIONS
-// ==========================================
+// Pre-load books in background for instant access later
+async function preloadBooks() {
+    for (var i = 0; i < BOOKS_MANIFEST.length; i++) {
+        var book = BOOKS_MANIFEST[i];
+        var cached = await getFromCache(book.id, book.version || 1);
+        if (!cached) {
+            // Preload in background (low priority)
+            setTimeout(function(b) {
+                return function() {
+                    preloadBook(b);
+                };
+            }(book), i * 2000); // Stagger preloads
+        }
+    }
+}
 
-// Extract hadith number from ref field like "bukhari:1" or "Bukhari: 123"
+async function preloadBook(book) {
+    try {
+        console.log('Preloading:', book.name_en);
+        var response = await fetch(book.file);
+        if (response.ok) {
+            var data = await response.json();
+            await saveToCache(book.id, data, book.version || 1);
+            // Update UI to show cached
+            renderBooks();
+        }
+    } catch (e) {
+        console.log('Preload failed for', book.id);
+    }
+}
+
+// ==========================================
+// UTILITIES
+// ==========================================
 function extractNumFromRef(ref) {
     if (!ref) return null;
     var match = String(ref).match(/[:\s](\d+)/);
     return match ? parseInt(match[1]) : null;
-}
-
-// Get hadith number from various possible fields
-function getHadithNum(h, index) {
-    // Try num field first
-    if (h.num) return parseInt(h.num);
-    
-    // Try extracting from ref
-    var fromRef = extractNumFromRef(h.ref);
-    if (fromRef) return fromRef;
-    
-    // Fallback to index + 1
-    return index + 1;
 }
 
 function normalizeArabic(text) {
@@ -121,8 +264,7 @@ function normalizeArabic(text) {
         .replace(/[أإآ]/g, 'ا')
         .replace(/ة/g, 'ه')
         .replace(/ى/g, 'ي')
-        .toLowerCase()
-        .trim();
+        .toLowerCase().trim();
 }
 
 function stripHtml(html) {
@@ -134,20 +276,18 @@ function stripHtml(html) {
         .replace(/&lt;/g, '<')
         .replace(/&gt;/g, '>')
         .replace(/&quot;/g, '"')
-        .replace(/\s+/g, ' ')
-        .trim();
+        .replace(/\s+/g, ' ').trim();
 }
 
 function truncate(text, len) {
     if (!text) return '';
-    text = String(text);
     return text.length > len ? text.substring(0, len) + '...' : text;
 }
 
 function getGradeClass(grade) {
     if (!grade) return '';
     var g = String(grade).toLowerCase();
-    if (g.indexOf('sahih') !== -1 || g.indexOf('agreed') !== -1 || g.indexOf('authentic') !== -1) return 'sahih';
+    if (g.indexOf('sahih') !== -1 || g.indexOf('agreed') !== -1 || g.indexOf('sound') !== -1) return 'sahih';
     if (g.indexOf('hasan') !== -1 || g.indexOf('good') !== -1) return 'hasan';
     if (g.indexOf('daif') !== -1 || g.indexOf('weak') !== -1) return 'daif';
     return '';
@@ -155,14 +295,12 @@ function getGradeClass(grade) {
 
 function toArabicNumerals(num) {
     var arabicNums = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
-    return String(num).replace(/[0-9]/g, function(d) {
-        return arabicNums[parseInt(d)];
-    });
+    return String(num).replace(/[0-9]/g, function(d) { return arabicNums[parseInt(d)]; });
 }
 
 function toast(msg) {
     var existing = document.getElementById('toast');
-    if (existing) existing.parentNode.removeChild(existing);
+    if (existing) existing.remove();
     
     var t = document.createElement('div');
     t.id = 'toast';
@@ -171,88 +309,60 @@ function toast(msg) {
     document.body.appendChild(t);
     
     setTimeout(function() {
-        t.className = 'toast hidden';
-        setTimeout(function() {
-            if (t.parentNode) t.parentNode.removeChild(t);
-        }, 300);
+        t.classList.add('hidden');
+        setTimeout(function() { t.remove(); }, 300);
     }, 2500);
 }
 
 // ==========================================
 // RENDER BOOKS
 // ==========================================
-function renderBooks() {
+async function renderBooks() {
     var list = document.getElementById('booksList');
     if (!list) return;
-
-    if (BOOKS_MANIFEST.length === 0) {
-        list.innerHTML = '<div class="no-results"><p>No books available</p></div>';
-        return;
-    }
 
     var html = '';
     for (var i = 0; i < BOOKS_MANIFEST.length; i++) {
         var book = BOOKS_MANIFEST[i];
+        var cached = await getFromCache(book.id, book.version || 1);
+        var badge = cached ? ' <span class="cache-badge">⚡</span>' : '';
         var nameData = (book.name_en + ' ' + book.name_ar).toLowerCase();
+        
         html += '<div class="book-item" data-book-id="' + book.id + '" data-name="' + nameData + '">' +
             '<div class="book-icon">' +
-                '<img src="' + book.icon + '" alt="' + book.name_en + '" onerror="this.style.display=\'none\'">' +
+                '<img src="' + book.icon + '" alt="" onerror="this.style.display=\'none\'">' +
             '</div>' +
             '<div class="book-info">' +
-                '<div class="book-name-en">' + book.name_en + '</div>' +
+                '<div class="book-name-en">' + book.name_en + badge + '</div>' +
                 '<div class="book-name-ar">' + book.name_ar + '</div>' +
-                '<div class="book-count">' + (book.count ? book.count.toLocaleString() : '?') + ' hadiths</div>' +
+                '<div class="book-count">' + (book.count || '?').toLocaleString() + ' hadiths</div>' +
             '</div>' +
             '<span class="item-arrow">→</span>' +
         '</div>';
     }
     list.innerHTML = html;
     
-    var items = list.querySelectorAll('.book-item');
-    for (var j = 0; j < items.length; j++) {
-        items[j].addEventListener('click', function() {
-            var bookId = this.getAttribute('data-book-id');
-            openBook(bookId);
+    list.querySelectorAll('.book-item').forEach(function(item) {
+        item.addEventListener('click', function() {
+            openBook(this.dataset.bookId);
         });
-    }
+    });
 }
 
 function filterBooks() {
-    var input = document.getElementById('bookSearchInput');
-    if (!input) return;
-    
-    var query = normalizeArabic(input.value);
-    var items = document.querySelectorAll('.book-item');
-    
-    for (var i = 0; i < items.length; i++) {
-        var item = items[i];
-        var name = item.getAttribute('data-name') || '';
-        var normalizedName = normalizeArabic(name);
-        
-        if (!query || normalizedName.indexOf(query) !== -1) {
-            item.style.display = 'flex';
-        } else {
-            item.style.display = 'none';
-        }
-    }
+    var query = normalizeArabic(document.getElementById('bookSearchInput')?.value || '');
+    document.querySelectorAll('.book-item').forEach(function(item) {
+        var name = normalizeArabic(item.dataset.name || '');
+        item.style.display = (!query || name.indexOf(query) !== -1) ? 'flex' : 'none';
+    });
 }
 
 // ==========================================
-// OPEN BOOK
+// OPEN BOOK (FAST!)
 // ==========================================
-function openBook(bookId) {
-    var book = null;
-    for (var i = 0; i < BOOKS_MANIFEST.length; i++) {
-        if (BOOKS_MANIFEST[i].id === bookId) {
-            book = BOOKS_MANIFEST[i];
-            break;
-        }
-    }
-    
-    if (!book) {
-        toast('Book not found');
-        return;
-    }
+async function openBook(bookId) {
+    var book = BOOKS_MANIFEST.find(function(b) { return b.id === bookId; });
+    if (!book) { toast('Book not found'); return; }
 
     currentBook = book;
     
@@ -261,57 +371,69 @@ function openBook(bookId) {
     
     showView('chapters');
     var chaptersList = document.getElementById('chaptersList');
-    if (chaptersList) {
-        chaptersList.innerHTML = '<div class="loading">' +
-            '<div class="spinner"></div>' +
-            '<p>Loading ' + book.name_en + '...</p>' +
-            '<p class="loading-hint">Please wait...</p>' +
-        '</div>';
-    }
     
     var bookSearch = document.getElementById('bookSearch');
     if (bookSearch) bookSearch.style.display = 'none';
+
+    // Show loading
+    if (chaptersList) {
+        chaptersList.innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading...</p></div>';
+    }
+
+    // Try cache first (instant!)
+    var cachedData = await getFromCache(bookId, book.version || 1);
     
-    // Check cache
-    if (cache[bookId]) {
-        console.log('Loading from cache');
-        currentBookData = cache[bookId];
+    if (cachedData) {
+        console.log('⚡ Instant load from cache!');
+        currentBookData = cachedData;
         processBookData();
+        toast('⚡ Loaded instantly!');
         return;
     }
-    
-    console.log('Fetching:', book.file);
-    
-    fetch(book.file)
-        .then(function(response) {
-            if (!response.ok) throw new Error('HTTP ' + response.status);
-            return response.json();
-        })
-        .then(function(data) {
-            console.log('Loaded', data.length, 'hadiths');
-            
-            // Add index-based num if missing
-            for (var i = 0; i < data.length; i++) {
-                if (!data[i].num) {
-                    data[i]._index = i;
-                    data[i]._num = getHadithNum(data[i], i);
-                }
+
+    // Not cached, download from CDN
+    console.log('Downloading from CDN:', book.file);
+    var startTime = Date.now();
+
+    try {
+        // Try CDN first, then local fallback
+        var response = await fetch(book.file);
+        
+        if (!response.ok) {
+            // Try local fallback
+            if (book.localFile) {
+                response = await fetch(book.localFile);
             }
-            
-            currentBookData = data;
-            cache[bookId] = data;
-            processBookData();
-        })
-        .catch(function(err) {
-            console.error('Error:', err);
-            if (chaptersList) {
-                chaptersList.innerHTML = '<div class="no-results">' +
-                    '<p>❌ Failed to load book</p>' +
-                    '<p style="font-size:12px;color:#888;margin-top:8px">' + err.message + '</p>' +
-                    '<button onclick="openBook(\'' + bookId + '\')">Retry</button>' +
-                '</div>';
-            }
-        });
+        }
+        
+        if (!response.ok) {
+            throw new Error('HTTP ' + response.status);
+        }
+        
+        var data = await response.json();
+        var elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+        console.log('Downloaded in', elapsed, 's');
+        
+        // Save to cache for next time
+        saveToCache(bookId, data, book.version || 1);
+        
+        currentBookData = data;
+        processBookData();
+        toast('✅ Loaded & cached for next time!');
+        
+        // Update books list to show cache badge
+        renderBooks();
+        
+    } catch (err) {
+        console.error('Load error:', err);
+        if (chaptersList) {
+            chaptersList.innerHTML = '<div class="no-results">' +
+                '<p>❌ Failed to load</p>' +
+                '<p style="font-size:12px;color:#888">' + err.message + '</p>' +
+                '<button onclick="openBook(\'' + bookId + '\')" class="retry-btn">Retry</button>' +
+            '</div>';
+        }
+    }
 }
 
 function processBookData() {
@@ -321,120 +443,77 @@ function processBookData() {
     var bookMeta = document.getElementById('bookMeta');
     
     if (bookTitle && currentBook) bookTitle.textContent = currentBook.name_en;
-    if (bookMeta) {
-        bookMeta.textContent = chapters.length + ' chapters • ' + currentBookData.length.toLocaleString() + ' hadiths';
-    }
+    if (bookMeta) bookMeta.textContent = chapters.length + ' chapters • ' + currentBookData.length.toLocaleString() + ' hadiths';
     
     renderChapters();
     showBottomNav();
 }
 
 // ==========================================
-// EXTRACT CHAPTERS (Using your fields: h1, h1_title, h1_title_en, h1_start, h1_count)
+// CHAPTERS
 // ==========================================
 function extractChapters() {
     var map = {};
     var order = [];
     
-    for (var i = 0; i < currentBookData.length; i++) {
-        var h = currentBookData[i];
-        var chapterId = h.h1 || ('ch_' + i);
-        var hadithNum = h._num || h.num || getHadithNum(h, i);
+    currentBookData.forEach(function(h, i) {
+        var chId = h.h1 || ('ch_' + i);
+        var num = h.num || extractNumFromRef(h.ref) || (i + 1);
         
-        if (!map[chapterId]) {
-            map[chapterId] = {
-                id: chapterId,
+        if (!map[chId]) {
+            map[chId] = {
+                id: chId,
                 num: h.h1 || '?',
                 title_ar: h.h1_title || '',
                 title_en: h.h1_title_en || '',
-                start: h.h1_start ? parseInt(h.h1_start) : hadithNum,
-                count: h.h1_count ? parseInt(h.h1_count) : 0,
+                start: h.h1_start ? parseInt(h.h1_start) : num,
                 hadiths: [],
-                startNum: 999999,
-                endNum: 0
+                startNum: Infinity,
+                endNum: -Infinity
             };
-            order.push(chapterId);
+            order.push(chId);
         }
         
-        var chapter = map[chapterId];
-        chapter.hadiths.push(h);
-        
-        if (hadithNum < chapter.startNum) chapter.startNum = hadithNum;
-        if (hadithNum > chapter.endNum) chapter.endNum = hadithNum;
-    }
+        var ch = map[chId];
+        ch.hadiths.push(h);
+        if (num < ch.startNum) ch.startNum = num;
+        if (num > ch.endNum) ch.endNum = num;
+    });
     
-    chapters = [];
-    for (var j = 0; j < order.length; j++) {
-        var ch = map[order[j]];
-        
-        // Use h1_start if available, otherwise use calculated
-        if (ch.start && ch.startNum === 999999) {
-            ch.startNum = ch.start;
-        }
-        if (ch.startNum === 999999) ch.startNum = 1;
-        
-        // Calculate end from start + count if available
-        if (ch.count > 0 && ch.endNum === 0) {
-            ch.endNum = ch.startNum + ch.count - 1;
-        }
-        if (ch.endNum === 0) ch.endNum = ch.startNum + ch.hadiths.length - 1;
-        
-        chapters.push(ch);
-    }
-    
-    console.log('Extracted', chapters.length, 'chapters');
+    chapters = order.map(function(id) {
+        var ch = map[id];
+        if (ch.startNum === Infinity) ch.startNum = ch.start || 1;
+        if (ch.endNum === -Infinity) ch.endNum = ch.startNum + ch.hadiths.length - 1;
+        return ch;
+    });
 }
 
 function renderChapters() {
     var list = document.getElementById('chaptersList');
     if (!list) return;
 
-    if (chapters.length === 0) {
+    if (!chapters.length) {
         list.innerHTML = '<div class="no-results"><p>No chapters found</p></div>';
         return;
     }
 
-    var html = '';
-    for (var i = 0; i < chapters.length; i++) {
-        var ch = chapters[i];
-        var count = ch.hadiths.length;
-        var rangeText = count > 0 ? ' (' + ch.startNum + ' - ' + ch.endNum + ')' : '';
-        
-        html += '<div class="chapter-item" data-chapter-id="' + ch.id + '">' +
+    list.innerHTML = chapters.map(function(ch) {
+        return '<div class="chapter-item" data-id="' + ch.id + '">' +
             '<div class="chapter-num">Chapter ' + ch.num + '</div>' +
             '<div class="chapter-title-ar">' + (ch.title_ar || 'بدون عنوان') + '</div>' +
             '<div class="chapter-title-en">' + (ch.title_en || '') + '</div>' +
-            '<div class="chapter-meta">' + count + ' hadith' + (count !== 1 ? 's' : '') + 
-                '<span class="range">' + rangeText + '</span></div>' +
+            '<div class="chapter-meta">' + ch.hadiths.length + ' hadiths <span class="range">(' + ch.startNum + ' - ' + ch.endNum + ')</span></div>' +
         '</div>';
-    }
-    list.innerHTML = html;
+    }).join('');
     
-    var items = list.querySelectorAll('.chapter-item');
-    for (var j = 0; j < items.length; j++) {
-        items[j].addEventListener('click', function() {
-            var chapterId = this.getAttribute('data-chapter-id');
-            openChapter(chapterId);
-        });
-    }
+    list.querySelectorAll('.chapter-item').forEach(function(item) {
+        item.addEventListener('click', function() { openChapter(this.dataset.id); });
+    });
 }
 
-// ==========================================
-// OPEN CHAPTER
-// ==========================================
 function openChapter(chapterId) {
-    var chapter = null;
-    for (var i = 0; i < chapters.length; i++) {
-        if (String(chapters[i].id) === String(chapterId)) {
-            chapter = chapters[i];
-            break;
-        }
-    }
-    
-    if (!chapter) {
-        toast('Chapter not found');
-        return;
-    }
+    var chapter = chapters.find(function(c) { return String(c.id) === String(chapterId); });
+    if (!chapter) { toast('Chapter not found'); return; }
 
     currentChapter = chapter;
     hadiths = chapter.hadiths;
@@ -447,99 +526,69 @@ function openChapter(chapterId) {
     if (pageTitle) pageTitle.textContent = 'Ch. ' + chapter.num;
     if (chapterNumber) chapterNumber.textContent = 'Chapter ' + chapter.num;
     if (chapterTitle) chapterTitle.textContent = chapter.title_en || chapter.title_ar || 'Chapter';
-    if (chapterMeta) {
-        var count = chapter.hadiths.length;
-        var range = count > 0 ? ' (' + chapter.startNum + ' - ' + chapter.endNum + ')' : '';
-        chapterMeta.textContent = count + ' hadith' + (count !== 1 ? 's' : '') + range;
-    }
+    if (chapterMeta) chapterMeta.textContent = chapter.hadiths.length + ' hadiths (' + chapter.startNum + ' - ' + chapter.endNum + ')';
 
     showView('hadiths');
     renderHadiths(hadiths, 'hadithsList');
 }
 
 // ==========================================
-// RENDER HADITHS
+// HADITHS LIST
 // ==========================================
-function renderHadiths(hadithsArray, containerId) {
+function renderHadiths(arr, containerId) {
     var list = document.getElementById(containerId);
     if (!list) return;
 
-    if (!hadithsArray || hadithsArray.length === 0) {
+    if (!arr || !arr.length) {
         list.innerHTML = '<div class="no-results"><p>No hadiths found</p></div>';
         return;
     }
 
-    var html = '';
-    for (var i = 0; i < hadithsArray.length; i++) {
-        var h = hadithsArray[i];
-        
-        // Get hadith number from various sources
-        var num = h.num || h._num || extractNumFromRef(h.ref) || (i + 1);
-        
+    list.innerHTML = arr.map(function(h, i) {
+        var num = h.num || extractNumFromRef(h.ref) || (i + 1);
         var grade = h.grade_grade_en || '';
-        var gradeClass = getGradeClass(grade);
-        var bodyAr = truncate(stripHtml(h.body), 80);
-        var bodyEn = truncate(stripHtml(h.body_en), 100);
         
-        html += '<div class="hadith-item" data-index="' + i + '" data-container="' + containerId + '">' +
+        return '<div class="hadith-item" data-index="' + i + '" data-container="' + containerId + '">' +
             '<div class="hadith-item-header">' +
                 '<span class="hadith-item-num">#' + num + '</span>' +
-                '<span class="hadith-item-grade ' + gradeClass + '">' + (grade || '?') + '</span>' +
+                '<span class="hadith-item-grade ' + getGradeClass(grade) + '">' + (grade || '?') + '</span>' +
             '</div>' +
-            '<div class="hadith-preview-ar">' + bodyAr + '</div>' +
-            '<div class="hadith-preview-en">' + bodyEn + '</div>' +
+            '<div class="hadith-preview-ar">' + truncate(stripHtml(h.body), 80) + '</div>' +
+            '<div class="hadith-preview-en">' + truncate(stripHtml(h.body_en), 100) + '</div>' +
         '</div>';
-    }
-    list.innerHTML = html;
+    }).join('');
     
-    var items = list.querySelectorAll('.hadith-item');
-    for (var j = 0; j < items.length; j++) {
-        items[j].addEventListener('click', function() {
-            var index = parseInt(this.getAttribute('data-index'));
-            var container = this.getAttribute('data-container');
-            openHadith(index, container);
+    list.querySelectorAll('.hadith-item').forEach(function(item) {
+        item.addEventListener('click', function() {
+            openHadith(parseInt(this.dataset.index), this.dataset.container);
         });
-    }
+    });
 }
 
-// ==========================================
-// OPEN HADITH
-// ==========================================
 function openHadith(index, source) {
-    var hadithsSource = source === 'searchResultsList' ? searchResults : hadiths;
-    
-    if (!hadithsSource || !hadithsSource[index]) {
-        toast('Hadith not found');
-        return;
-    }
+    var arr = source === 'searchResultsList' ? searchResults : hadiths;
+    if (!arr || !arr[index]) { toast('Hadith not found'); return; }
 
-    var hadith = hadithsSource[index];
-    
-    // Add computed num if missing
-    hadith._computedNum = hadith.num || hadith._num || extractNumFromRef(hadith.ref) || (index + 1);
+    var h = arr[index];
+    h._num = h.num || extractNumFromRef(h.ref) || (index + 1);
 
-    localStorage.setItem('currentHadith', JSON.stringify(hadith));
-    localStorage.setItem('currentBookId', currentBook ? currentBook.id : '');
-    localStorage.setItem('currentBookName', currentBook ? currentBook.name_en : (hadith.book_name_en || 'Unknown'));
-    localStorage.setItem('currentBookNameAr', currentBook ? currentBook.name_ar : (hadith.book_name || ''));
+    localStorage.setItem('currentHadith', JSON.stringify(h));
+    localStorage.setItem('currentBookId', currentBook?.id || '');
+    localStorage.setItem('currentBookName', currentBook?.name_en || h.book_name_en || 'Unknown');
+    localStorage.setItem('currentBookNameAr', currentBook?.name_ar || h.book_name || '');
     localStorage.setItem('hadithIndex', String(index));
-    localStorage.setItem('hadithsList', JSON.stringify(hadithsSource));
+    localStorage.setItem('hadithsList', JSON.stringify(arr));
 
     window.location.href = 'hadith-view.html';
 }
 
 // ==========================================
-// HADITH VIEW PAGE
+// HADITH VIEW PAGE (With Grader Info)
 // ==========================================
 function loadHadithView() {
     var data = localStorage.getItem('currentHadith');
-    
     if (!data) {
-        var loading = document.getElementById('loading');
-        if (loading) {
-            loading.innerHTML = '<p>No hadith found</p>' +
-                '<a href="hadith.html" style="color:var(--accent);margin-top:10px;display:inline-block;">Go to Library</a>';
-        }
+        document.getElementById('loading').innerHTML = '<p>No hadith</p><a href="hadith.html">Go back</a>';
         return;
     }
 
@@ -548,125 +597,122 @@ function loadHadithView() {
         var bookName = localStorage.getItem('currentBookName') || h.book_name_en || 'Unknown';
         var bookNameAr = localStorage.getItem('currentBookNameAr') || h.book_name || '';
         var index = parseInt(localStorage.getItem('hadithIndex') || '0');
-        var listData = localStorage.getItem('hadithsList');
-        var total = listData ? JSON.parse(listData).length : 0;
+        var list = JSON.parse(localStorage.getItem('hadithsList') || '[]');
 
-        populateHadithView(h, bookName, bookNameAr, index, total);
+        populateHadithView(h, bookName, bookNameAr, index, list.length);
     } catch (e) {
-        console.error('Error:', e);
-        toast('Error loading hadith');
+        console.error(e);
+        toast('Error loading');
     }
 }
 
 function populateHadithView(h, bookName, bookNameAr, index, total) {
-    // Get hadith number
-    var hadithNum = h._computedNum || h.num || h._num || extractNumFromRef(h.ref) || (index + 1);
+    var num = h._num || h.num || extractNumFromRef(h.ref) || (index + 1);
     
     // Header
-    var hadithRef = document.getElementById('hadithRef');
-    if (hadithRef) hadithRef.textContent = '#' + hadithNum;
-    
-    // Meta
-    var bookNameEl = document.getElementById('bookName');
-    var hadithNumEl = document.getElementById('hadithNum');
-    if (bookNameEl) bookNameEl.textContent = bookName;
-    if (hadithNumEl) hadithNumEl.textContent = '#' + hadithNum;
+    setText('hadithRef', '#' + num);
+    setText('bookName', bookName);
+    setText('hadithNum', '#' + num);
 
     // Chapter
     var chapterBox = document.getElementById('chapterBox');
-    var chapterAr = document.getElementById('chapterAr');
-    var chapterEn = document.getElementById('chapterEn');
-    
     if (h.h1_title || h.h1_title_en) {
-        if (chapterAr) chapterAr.textContent = h.h1_title || '';
-        if (chapterEn) chapterEn.textContent = h.h1_title_en || '';
+        setText('chapterAr', h.h1_title || '');
+        setText('chapterEn', h.h1_title_en || '');
     } else if (chapterBox) {
         chapterBox.style.display = 'none';
     }
 
     // Chain & Body
-    var chainAr = document.getElementById('chainAr');
-    var bodyAr = document.getElementById('bodyAr');
-    var chainEn = document.getElementById('chainEn');
-    var bodyEn = document.getElementById('bodyEn');
-    
-    if (chainAr) chainAr.innerHTML = h.chain || '<em style="color:#999">—</em>';
-    if (bodyAr) bodyAr.innerHTML = h.body || '<em style="color:#999">No text available</em>';
-    if (chainEn) chainEn.innerHTML = h.chain_en || '<em style="color:#999">—</em>';
-    if (bodyEn) bodyEn.innerHTML = h.body_en || '<em style="color:#999">No translation available</em>';
+    setHtml('chainAr', h.chain || '<em style="color:#999">—</em>');
+    setHtml('bodyAr', h.body || '<em style="color:#999">No text</em>');
+    setHtml('chainEn', h.chain_en || '<em style="color:#999">—</em>');
+    setHtml('bodyEn', h.body_en || '<em style="color:#999">No translation</em>');
 
     // Reference
-    var refValue = document.getElementById('refValue');
-    var refArabic = document.getElementById('refArabic');
-    var ref = h.ref || (bookName + ': ' + hadithNum);
-    
-    if (refValue) refValue.textContent = ref;
-    if (refArabic && bookNameAr) {
-        refArabic.textContent = bookNameAr + ': ' + toArabicNumerals(hadithNum);
-    }
+    setText('refValue', h.ref || (bookName + ': ' + num));
+    if (bookNameAr) setText('refArabic', bookNameAr + ': ' + toArabicNumerals(num));
 
     // Grade
-    var gradeValue = document.getElementById('gradeValue');
-    var gradeArabic = document.getElementById('gradeArabic');
-    if (gradeValue) gradeValue.textContent = h.grade_grade_en || h.grade_grades || 'Unknown';
-    if (gradeArabic) gradeArabic.textContent = h.grade_grade || '';
+    setText('gradeValue', h.grade_grade_en || 'Unknown');
+    setText('gradeArabic', h.grade_grade || '');
+    
+    // Grade details (grade_grades like "Albānī:Sound")
+    var gradeDetails = document.getElementById('gradeDetails');
+    if (gradeDetails && h.grade_grades) {
+        gradeDetails.textContent = h.grade_grades;
+        gradeDetails.style.display = 'inline';
+    }
 
-    // Grader - hide since we don't have this field
+    // Grader (NEW!)
     var graderBox = document.getElementById('graderBox');
-    if (graderBox) graderBox.style.display = 'none';
+    var graderValue = document.getElementById('graderValue');
+    var graderArabic = document.getElementById('graderArabic');
+    
+    if (h.grader_shortName_en || h.grader_shortName) {
+        if (graderBox) graderBox.style.display = 'flex';
+        if (graderValue) graderValue.textContent = h.grader_shortName_en || '';
+        if (graderArabic) graderArabic.textContent = h.grader_shortName || '';
+    } else if (graderBox) {
+        graderBox.style.display = 'none';
+    }
 
     // Navigation
-    var navCount = document.getElementById('navCount');
+    setText('navCount', (index + 1) + ' / ' + total);
     var prevBtn = document.getElementById('prevBtn');
     var nextBtn = document.getElementById('nextBtn');
-    
-    if (navCount) navCount.textContent = (index + 1) + ' / ' + total;
     if (prevBtn) prevBtn.disabled = index <= 0;
     if (nextBtn) nextBtn.disabled = index >= total - 1;
 
     // Show content
-    var loading = document.getElementById('loading');
-    var hadithArticle = document.getElementById('hadithArticle');
-    var readingNav = document.getElementById('readingNav');
-    
-    if (loading) loading.style.display = 'none';
-    if (hadithArticle) hadithArticle.classList.remove('hidden');
-    if (readingNav) readingNav.classList.remove('hidden');
+    hide('loading');
+    show('hadithArticle');
+    show('readingNav');
+}
+
+function setText(id, text) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = text;
+}
+
+function setHtml(id, html) {
+    var el = document.getElementById(id);
+    if (el) el.innerHTML = html;
+}
+
+function show(id) {
+    var el = document.getElementById(id);
+    if (el) el.classList.remove('hidden');
+}
+
+function hide(id) {
+    var el = document.getElementById(id);
+    if (el) el.style.display = 'none';
 }
 
 // Navigation
 function goPrev() {
     var index = parseInt(localStorage.getItem('hadithIndex') || '0');
-    if (index > 0) navigateToHadith(index - 1);
+    if (index > 0) navigateTo(index - 1);
 }
 
 function goNext() {
     var index = parseInt(localStorage.getItem('hadithIndex') || '0');
-    var listData = localStorage.getItem('hadithsList');
-    var total = listData ? JSON.parse(listData).length : 0;
-    if (index < total - 1) navigateToHadith(index + 1);
+    var list = JSON.parse(localStorage.getItem('hadithsList') || '[]');
+    if (index < list.length - 1) navigateTo(index + 1);
 }
 
-function navigateToHadith(newIndex) {
-    try {
-        var listData = localStorage.getItem('hadithsList');
-        if (!listData) return;
-        
-        var list = JSON.parse(listData);
-        if (list[newIndex]) {
-            list[newIndex]._computedNum = list[newIndex].num || extractNumFromRef(list[newIndex].ref) || (newIndex + 1);
-            localStorage.setItem('currentHadith', JSON.stringify(list[newIndex]));
-            localStorage.setItem('hadithIndex', String(newIndex));
-            location.reload();
-        }
-    } catch (e) {
-        console.error('Navigation error:', e);
+function navigateTo(newIndex) {
+    var list = JSON.parse(localStorage.getItem('hadithsList') || '[]');
+    if (list[newIndex]) {
+        list[newIndex]._num = list[newIndex].num || extractNumFromRef(list[newIndex].ref) || (newIndex + 1);
+        localStorage.setItem('currentHadith', JSON.stringify(list[newIndex]));
+        localStorage.setItem('hadithIndex', String(newIndex));
+        location.reload();
     }
 }
 
-function goBack() {
-    window.history.back();
-}
+function goBack() { history.back(); }
 
 // ==========================================
 // SEARCH
@@ -674,352 +720,222 @@ function goBack() {
 function toggleSearch() {
     var bar = document.getElementById('searchBar');
     if (!bar) return;
-    
-    if (bar.classList.contains('hidden')) {
-        bar.classList.remove('hidden');
+    bar.classList.toggle('hidden');
+    if (!bar.classList.contains('hidden')) {
         var input = document.getElementById('searchInput');
-        if (input) {
-            input.value = '';
-            input.focus();
-        }
-    } else {
-        bar.classList.add('hidden');
+        if (input) { input.value = ''; input.focus(); }
     }
 }
 
 function performSearch() {
-    var input = document.getElementById('searchInput');
-    if (!input) return;
-    
-    var query = input.value.trim();
-    var normalizedQuery = normalizeArabic(query);
-    
-    if (query.length < 2) {
-        toast('Enter at least 2 characters');
-        return;
-    }
+    var query = (document.getElementById('searchInput')?.value || '').trim();
+    if (query.length < 2) { toast('Enter 2+ characters'); return; }
+    if (!currentBookData.length) { toast('Select a book first'); return; }
 
-    if (!currentBookData || currentBookData.length === 0) {
-        toast('Please select a book first');
-        return;
-    }
-
-    console.log('Searching for:', query);
+    var nq = normalizeArabic(query);
+    var ql = query.toLowerCase();
     
-    searchResults = [];
-    for (var i = 0; i < currentBookData.length; i++) {
-        var h = currentBookData[i];
-        
-        var bodyAr = normalizeArabic(h.body || '');
-        var bodyEn = (h.body_en || '').toLowerCase();
-        var chainAr = normalizeArabic(h.chain || '');
-        var chainEn = (h.chain_en || '').toLowerCase();
-        
-        if (bodyAr.indexOf(normalizedQuery) !== -1 ||
-            bodyEn.indexOf(query.toLowerCase()) !== -1 ||
-            chainAr.indexOf(normalizedQuery) !== -1 ||
-            chainEn.indexOf(query.toLowerCase()) !== -1) {
-            searchResults.push(h);
-        }
-    }
+    searchResults = currentBookData.filter(function(h) {
+        return normalizeArabic(h.body || '').indexOf(nq) !== -1 ||
+               (h.body_en || '').toLowerCase().indexOf(ql) !== -1 ||
+               normalizeArabic(h.chain || '').indexOf(nq) !== -1 ||
+               (h.chain_en || '').toLowerCase().indexOf(ql) !== -1;
+    });
 
-    console.log('Found', searchResults.length, 'results');
-    
     hadiths = searchResults;
-    
-    var searchMeta = document.getElementById('searchMeta');
-    if (searchMeta) searchMeta.textContent = searchResults.length + ' result' + (searchResults.length !== 1 ? 's' : '');
-    
+    setText('searchMeta', searchResults.length + ' results');
     showView('search');
     renderHadiths(searchResults, 'searchResultsList');
-    
-    toast('Found ' + searchResults.length + ' results');
+    toast('Found ' + searchResults.length);
 }
 
 // ==========================================
-// COPY FUNCTIONS
+// COPY
 // ==========================================
-function showCopyModal() {
-    var modal = document.getElementById('copyModal');
-    if (modal) modal.classList.remove('hidden');
-}
-
-function hideCopyModal() {
-    var modal = document.getElementById('copyModal');
-    if (modal) modal.classList.add('hidden');
-}
+function showCopyModal() { document.getElementById('copyModal')?.classList.remove('hidden'); }
+function hideCopyModal() { document.getElementById('copyModal')?.classList.add('hidden'); }
 
 function copyWithOptions() {
-    var data = localStorage.getItem('currentHadith');
-    if (!data) {
-        toast('No hadith to copy');
-        return;
-    }
-    
-    var h = JSON.parse(data);
-    var bookName = localStorage.getItem('currentBookName') || h.book_name_en || '';
-    var bookNameAr = localStorage.getItem('currentBookNameAr') || h.book_name || '';
-    var hadithNum = h._computedNum || h.num || extractNumFromRef(h.ref) || '?';
+    var h = JSON.parse(localStorage.getItem('currentHadith') || '{}');
+    var bookName = localStorage.getItem('currentBookName') || '';
+    var bookNameAr = localStorage.getItem('currentBookNameAr') || '';
+    var num = h._num || h.num || '?';
     var text = '';
     
-    var copyArabicMatan = document.getElementById('copyArabicMatan');
-    var copyEnglishMatan = document.getElementById('copyEnglishMatan');
-    var copyArabicChain = document.getElementById('copyArabicChain');
-    var copyEnglishChain = document.getElementById('copyEnglishChain');
-    var copyRefEnglish = document.getElementById('copyRefEnglish');
-    var copyRefArabic = document.getElementById('copyRefArabic');
-    var copyGrade = document.getElementById('copyGrade');
-    
-    if (copyArabicMatan && copyArabicMatan.checked) {
-        text += stripHtml(h.body || '') + '\n\n';
-    }
-    if (copyEnglishMatan && copyEnglishMatan.checked) {
-        text += stripHtml(h.body_en || '') + '\n\n';
-    }
-    if (copyArabicChain && copyArabicChain.checked) {
-        text += 'السند: ' + stripHtml(h.chain || '') + '\n\n';
-    }
-    if (copyEnglishChain && copyEnglishChain.checked) {
-        text += 'Chain: ' + stripHtml(h.chain_en || '') + '\n\n';
-    }
-    if (copyRefEnglish && copyRefEnglish.checked) {
-        text += 'Reference: ' + (h.ref || (bookName + ': ' + hadithNum)) + '\n';
-    }
-    if (copyRefArabic && copyRefArabic.checked) {
-        text += 'المرجع: ' + bookNameAr + ': ' + toArabicNumerals(hadithNum) + '\n';
-    }
-    if (copyGrade && copyGrade.checked) {
-        text += 'Grade: ' + (h.grade_grade_en || '') + ' (' + (h.grade_grade || '') + ')\n';
+    if (document.getElementById('copyArabicMatan')?.checked) text += stripHtml(h.body || '') + '\n\n';
+    if (document.getElementById('copyEnglishMatan')?.checked) text += stripHtml(h.body_en || '') + '\n\n';
+    if (document.getElementById('copyArabicChain')?.checked) text += 'السند: ' + stripHtml(h.chain || '') + '\n\n';
+    if (document.getElementById('copyEnglishChain')?.checked) text += 'Chain: ' + stripHtml(h.chain_en || '') + '\n\n';
+    if (document.getElementById('copyRefEnglish')?.checked) text += 'Reference: ' + (h.ref || bookName + ': ' + num) + '\n';
+    if (document.getElementById('copyRefArabic')?.checked) text += 'المرجع: ' + bookNameAr + ': ' + toArabicNumerals(num) + '\n';
+    if (document.getElementById('copyGrade')?.checked) {
+        text += 'Grade: ' + (h.grade_grade_en || '') + ' (' + (h.grade_grade || '') + ')';
+        if (h.grader_shortName_en) text += ' - ' + h.grader_shortName_en;
+        text += '\n';
     }
     
-    copyToClipboard(text.trim());
-}
-
-function copyToClipboard(text) {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text)
-            .then(function() {
-                toast('✓ Copied!');
-                hideCopyModal();
-            })
-            .catch(function() {
-                fallbackCopy(text);
-            });
-    } else {
-        fallbackCopy(text);
-    }
-}
-
-function fallbackCopy(text) {
-    var textarea = document.createElement('textarea');
-    textarea.value = text;
-    textarea.style.position = 'fixed';
-    textarea.style.left = '-9999px';
-    document.body.appendChild(textarea);
-    textarea.focus();
-    textarea.select();
-    
-    try {
+    navigator.clipboard?.writeText(text.trim()).then(function() {
+        toast('✓ Copied!'); hideCopyModal();
+    }).catch(function() {
+        // Fallback
+        var ta = document.createElement('textarea');
+        ta.value = text.trim();
+        ta.style.cssText = 'position:fixed;left:-9999px';
+        document.body.appendChild(ta);
+        ta.select();
         document.execCommand('copy');
-        toast('✓ Copied!');
-        hideCopyModal();
-    } catch (e) {
-        toast('Failed to copy');
-    }
-    
-    document.body.removeChild(textarea);
+        document.body.removeChild(ta);
+        toast('✓ Copied!'); hideCopyModal();
+    });
 }
 
 function shareHadith() {
-    var data = localStorage.getItem('currentHadith');
-    if (!data) return;
-    
-    var h = JSON.parse(data);
+    var h = JSON.parse(localStorage.getItem('currentHadith') || '{}');
     var text = stripHtml(h.body_en || h.body || '') + '\n\n— ' + (h.ref || '');
     
     if (navigator.share) {
-        navigator.share({
-            title: 'Hadith',
-            text: text,
-            url: location.href
-        }).catch(function() {});
+        navigator.share({ title: 'Hadith', text: text, url: location.href });
     } else {
-        copyToClipboard(location.href);
-        toast('Link copied!');
+        navigator.clipboard?.writeText(location.href).then(function() { toast('Link copied!'); });
     }
 }
 
 // ==========================================
-// IMAGE GENERATOR
+// IMAGE GENERATOR (HD Quality!)
 // ==========================================
 function showImageModal() {
     var modal = document.getElementById('imageModal');
     if (modal) {
         modal.classList.remove('hidden');
-        
         imageCanvas = document.getElementById('imagePreviewCanvas');
-        if (imageCanvas) {
-            imageCtx = imageCanvas.getContext('2d');
-        }
-        
-        setTimeout(function() {
-            updateImagePreview();
-        }, 100);
+        if (imageCanvas) imageCtx = imageCanvas.getContext('2d');
+        setTimeout(updateImagePreview, 50);
     }
 }
 
-function hideImageModal() {
-    var modal = document.getElementById('imageModal');
-    if (modal) modal.classList.add('hidden');
-}
+function hideImageModal() { document.getElementById('imageModal')?.classList.add('hidden'); }
 
 function updateImagePreview() {
     if (!imageCanvas || !imageCtx) return;
     
-    var data = localStorage.getItem('currentHadith');
-    if (!data) return;
+    var h = JSON.parse(localStorage.getItem('currentHadith') || '{}');
+    var bookName = localStorage.getItem('currentBookName') || '';
+    var num = h._num || h.num || extractNumFromRef(h.ref) || '?';
     
-    var h = JSON.parse(data);
-    var bookName = localStorage.getItem('currentBookName') || h.book_name_en || '';
-    var hadithNum = h._computedNum || h.num || extractNumFromRef(h.ref) || '?';
+    // Options
+    var showArabic = document.getElementById('imgArabicMatan')?.checked ?? true;
+    var showEnglish = document.getElementById('imgEnglishMatan')?.checked ?? true;
+    var showRef = document.getElementById('imgReference')?.checked ?? true;
+    var showGrade = document.getElementById('imgGrade')?.checked ?? false;
     
-    // Get options
-    var imgArabicMatan = document.getElementById('imgArabicMatan');
-    var imgEnglishMatan = document.getElementById('imgEnglishMatan');
-    var imgReference = document.getElementById('imgReference');
-    var imgGrade = document.getElementById('imgGrade');
-    
-    var showArabic = imgArabicMatan ? imgArabicMatan.checked : true;
-    var showEnglish = imgEnglishMatan ? imgEnglishMatan.checked : true;
-    var showRef = imgReference ? imgReference.checked : true;
-    var showGrade = imgGrade ? imgGrade.checked : false;
-    
-    // Get ratio
-    var ratioInputs = document.querySelectorAll('input[name="imgRatio"]');
     var ratio = 'fit';
-    for (var i = 0; i < ratioInputs.length; i++) {
-        if (ratioInputs[i].checked) {
-            ratio = ratioInputs[i].value;
-            break;
-        }
-    }
+    document.querySelectorAll('input[name="imgRatio"]').forEach(function(r) {
+        if (r.checked) ratio = r.value;
+    });
     
-    // Get colors
-    var imgBgColor = document.getElementById('imgBgColor');
-    var imgArabicColor = document.getElementById('imgArabicColor');
-    var imgEnglishColor = document.getElementById('imgEnglishColor');
+    var bgColor = document.getElementById('imgBgColor')?.value || '#ffffff';
+    var arabicColor = document.getElementById('imgArabicColor')?.value || '#666666';
+    var englishColor = document.getElementById('imgEnglishColor')?.value || '#1a1a1a';
     
-    var bgColor = imgBgColor ? imgBgColor.value : '#ffffff';
-    var arabicColor = imgArabicColor ? imgArabicColor.value : '#666666';
-    var englishColor = imgEnglishColor ? imgEnglishColor.value : '#1a1a1a';
-    
-    // Get sizes
-    var imgArabicSize = document.getElementById('imgArabicSize');
-    var imgEnglishSize = document.getElementById('imgEnglishSize');
-    
-    var arabicSize = imgArabicSize ? parseInt(imgArabicSize.value) : 28;
-    var englishSize = imgEnglishSize ? parseInt(imgEnglishSize.value) : 18;
+    var arabicSize = parseInt(document.getElementById('imgArabicSize')?.value || 28);
+    var englishSize = parseInt(document.getElementById('imgEnglishSize')?.value || 18);
     
     // Update displays
-    var arabicSizeVal = document.getElementById('arabicSizeVal');
-    var englishSizeVal = document.getElementById('englishSizeVal');
-    if (arabicSizeVal) arabicSizeVal.textContent = arabicSize;
-    if (englishSizeVal) englishSizeVal.textContent = englishSize;
+    if (document.getElementById('arabicSizeVal')) document.getElementById('arabicSizeVal').textContent = arabicSize;
+    if (document.getElementById('englishSizeVal')) document.getElementById('englishSizeVal').textContent = englishSize;
     
     // Prepare text
     var arabicText = showArabic ? stripHtml(h.body || '') : '';
     var englishText = showEnglish ? stripHtml(h.body_en || '') : '';
-    var refText = showRef ? (h.ref || (bookName + ': ' + hadithNum)) : '';
-    var gradeText = showGrade ? ((h.grade_grade_en || '') + (h.grade_grade ? ' - ' + h.grade_grade : '')) : '';
+    var refText = showRef ? (h.ref || bookName + ': ' + num) : '';
+    var gradeText = showGrade ? ((h.grade_grade_en || '') + (h.grader_shortName_en ? ' - ' + h.grader_shortName_en : '')) : '';
     
-    // Canvas dimensions
-    var padding = 40;
-    var lineHeight = 1.7;
-    var baseWidth = 600;
+    // HD Scale
+    var scale = IMAGE_SCALE; // 3x for HD
+    var padding = 60 * scale;
+    var lineHeight = 1.8;
+    var baseWidth = 800;
     
-    // Wrap text
-    imageCtx.font = arabicSize + 'px Amiri, serif';
-    var arabicLines = wrapText(imageCtx, arabicText, baseWidth - padding * 2);
+    // Scaled sizes
+    var arSize = arabicSize * scale;
+    var enSize = englishSize * scale;
     
-    imageCtx.font = englishSize + 'px Inter, sans-serif';
-    var englishLines = wrapText(imageCtx, englishText, baseWidth - padding * 2);
+    // Calculate dimensions
+    imageCtx.font = arSize + 'px Amiri, serif';
+    var arabicLines = wrapText(imageCtx, arabicText, baseWidth * scale - padding * 2);
     
-    // Calculate height
-    var contentHeight = padding * 2 + 20;
-    if (showArabic && arabicLines.length > 0) {
-        contentHeight += arabicLines.length * arabicSize * lineHeight + 30;
-    }
-    if (showEnglish && englishLines.length > 0) {
-        contentHeight += englishLines.length * englishSize * lineHeight + 30;
-    }
-    if (showRef) contentHeight += englishSize * lineHeight + 20;
-    if (showGrade && gradeText) contentHeight += englishSize * lineHeight + 20;
+    imageCtx.font = enSize + 'px Inter, sans-serif';
+    var englishLines = wrapText(imageCtx, englishText, baseWidth * scale - padding * 2);
     
-    // Set dimensions
-    var width = baseWidth;
+    var contentHeight = padding * 2;
+    if (arabicLines.length) contentHeight += arabicLines.length * arSize * lineHeight + 40 * scale;
+    if (englishLines.length) contentHeight += englishLines.length * enSize * lineHeight + 40 * scale;
+    if (showRef) contentHeight += enSize * lineHeight + 30 * scale;
+    if (showGrade && gradeText) contentHeight += enSize * lineHeight + 20 * scale;
+    
+    // Canvas size based on ratio
+    var width = baseWidth * scale;
     var height = contentHeight;
     
-    if (ratio === '1:1') {
-        height = Math.max(width, contentHeight);
-        width = height;
-    } else if (ratio === '4:5') {
-        height = Math.max(width * 1.25, contentHeight);
-    } else if (ratio === '9:16') {
-        height = Math.max(width * (16/9), contentHeight);
-    } else if (ratio === '16:9') {
-        height = Math.max(width * (9/16), contentHeight);
-    }
+    if (ratio === '1:1') { height = Math.max(width, contentHeight); width = height; }
+    else if (ratio === '4:5') height = Math.max(width * 1.25, contentHeight);
+    else if (ratio === '9:16') height = Math.max(width * (16/9), contentHeight);
+    else if (ratio === '16:9') height = Math.max(width * (9/16), contentHeight);
     
     imageCanvas.width = width;
     imageCanvas.height = height;
+    
+    // Scale down for display
+    imageCanvas.style.width = (width / scale) + 'px';
+    imageCanvas.style.height = (height / scale) + 'px';
     
     // Draw background
     imageCtx.fillStyle = bgColor;
     imageCtx.fillRect(0, 0, width, height);
     
     // Draw content
-    var y = padding + arabicSize;
+    var y = padding + arSize;
     var extraSpace = height - contentHeight;
     if (extraSpace > 0) y += extraSpace / 2;
     
-    // Arabic
-    if (showArabic && arabicLines.length > 0) {
-        imageCtx.font = arabicSize + 'px Amiri, serif';
+    // Arabic text (right aligned)
+    if (arabicLines.length) {
+        imageCtx.font = arSize + 'px Amiri, serif';
         imageCtx.fillStyle = arabicColor;
         imageCtx.textAlign = 'right';
         
-        for (var j = 0; j < arabicLines.length; j++) {
-            imageCtx.fillText(arabicLines[j], width - padding, y);
-            y += arabicSize * lineHeight;
-        }
-        y += 20;
+        arabicLines.forEach(function(line) {
+            imageCtx.fillText(line, width - padding, y);
+            y += arSize * lineHeight;
+        });
+        y += 30 * scale;
     }
     
-    // English
-    if (showEnglish && englishLines.length > 0) {
-        imageCtx.font = englishSize + 'px Inter, sans-serif';
+    // English text (left aligned)
+    if (englishLines.length) {
+        imageCtx.font = enSize + 'px Inter, sans-serif';
         imageCtx.fillStyle = englishColor;
         imageCtx.textAlign = 'left';
         
-        for (var k = 0; k < englishLines.length; k++) {
-            imageCtx.fillText(englishLines[k], padding, y);
-            y += englishSize * lineHeight;
-        }
-        y += 20;
+        englishLines.forEach(function(line) {
+            imageCtx.fillText(line, padding, y);
+            y += enSize * lineHeight;
+        });
+        y += 30 * scale;
     }
     
-    // Reference
+    // Reference (centered)
     if (showRef && refText) {
-        imageCtx.font = (englishSize * 0.85) + 'px Inter, sans-serif';
+        imageCtx.font = (enSize * 0.85) + 'px Inter, sans-serif';
         imageCtx.fillStyle = englishColor;
         imageCtx.textAlign = 'center';
         imageCtx.fillText('— ' + refText + ' —', width / 2, y);
-        y += englishSize * lineHeight + 10;
+        y += enSize * lineHeight + 15 * scale;
     }
     
-    // Grade
+    // Grade (centered)
     if (showGrade && gradeText) {
-        imageCtx.font = (englishSize * 0.8) + 'px Inter, sans-serif';
+        imageCtx.font = (enSize * 0.8) + 'px Inter, sans-serif';
         imageCtx.fillStyle = arabicColor;
         imageCtx.textAlign = 'center';
         imageCtx.fillText(gradeText, width / 2, y);
@@ -1028,60 +944,43 @@ function updateImagePreview() {
 
 function wrapText(ctx, text, maxWidth) {
     if (!text) return [];
-    
     var words = text.split(/\s+/);
     var lines = [];
-    var currentLine = '';
+    var line = '';
     
-    for (var i = 0; i < words.length; i++) {
-        var testLine = currentLine ? currentLine + ' ' + words[i] : words[i];
-        var metrics = ctx.measureText(testLine);
-        
-        if (metrics.width > maxWidth && currentLine) {
-            lines.push(currentLine);
-            currentLine = words[i];
+    words.forEach(function(word) {
+        var test = line ? line + ' ' + word : word;
+        if (ctx.measureText(test).width > maxWidth && line) {
+            lines.push(line);
+            line = word;
         } else {
-            currentLine = testLine;
+            line = test;
         }
-    }
-    
-    if (currentLine) lines.push(currentLine);
+    });
+    if (line) lines.push(line);
     return lines;
 }
 
-function setColor(inputId, color) {
-    var input = document.getElementById(inputId);
-    if (input) {
-        input.value = color;
-        updateImagePreview();
-    }
+function setColor(id, color) {
+    var el = document.getElementById(id);
+    if (el) { el.value = color; updateImagePreview(); }
 }
 
 function downloadHadithImage() {
-    if (!imageCanvas) {
-        toast('Please wait for preview');
-        return;
-    }
+    if (!imageCanvas) { toast('Wait...'); return; }
     
-    try {
-        var data = localStorage.getItem('currentHadith');
-        var h = data ? JSON.parse(data) : {};
-        var bookName = localStorage.getItem('currentBookName') || h.book_name_en || 'hadith';
-        var num = h._computedNum || h.num || extractNumFromRef(h.ref) || 'unknown';
-        
-        var link = document.createElement('a');
-        link.download = bookName.replace(/\s+/g, '_') + '_' + num + '.png';
-        link.href = imageCanvas.toDataURL('image/png');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        
-        toast('✓ Image downloaded!');
-        hideImageModal();
-    } catch (e) {
-        console.error('Download error:', e);
-        toast('Failed to download');
-    }
+    var h = JSON.parse(localStorage.getItem('currentHadith') || '{}');
+    var name = (localStorage.getItem('currentBookName') || 'hadith').replace(/\s+/g, '_');
+    var num = h._num || h.num || extractNumFromRef(h.ref) || 'x';
+    
+    // Create high quality PNG
+    var link = document.createElement('a');
+    link.download = name + '_' + num + '_HD.png';
+    link.href = imageCanvas.toDataURL('image/png', 1.0);
+    link.click();
+    
+    toast('✓ HD Image saved!');
+    hideImageModal();
 }
 
 // ==========================================
@@ -1089,126 +988,63 @@ function downloadHadithImage() {
 // ==========================================
 function showView(view) {
     currentView = view;
-    
-    var views = ['booksView', 'chaptersView', 'hadithsView', 'searchView'];
-    for (var i = 0; i < views.length; i++) {
-        var el = document.getElementById(views[i]);
-        if (el) {
-            if (views[i] === view + 'View') {
-                el.classList.remove('hidden');
-            } else {
-                el.classList.add('hidden');
-            }
-        }
-    }
-    
-    var bookSearch = document.getElementById('bookSearch');
-    if (bookSearch) {
-        bookSearch.style.display = view === 'books' ? 'block' : 'none';
-    }
+    ['booksView', 'chaptersView', 'hadithsView', 'searchView'].forEach(function(v) {
+        var el = document.getElementById(v);
+        if (el) el.classList.toggle('hidden', v !== view + 'View');
+    });
+    var bs = document.getElementById('bookSearch');
+    if (bs) bs.style.display = view === 'books' ? 'block' : 'none';
 }
 
-function showBottomNav() {
-    var nav = document.getElementById('bottomNav');
-    if (nav) nav.classList.remove('hidden');
-}
+function showBottomNav() { document.getElementById('bottomNav')?.classList.remove('hidden'); }
 
 function handleBack() {
-    if (currentView === 'search') {
+    var pt = document.getElementById('pageTitle');
+    if (currentView === 'search' || currentView === 'hadiths') {
         showView('chapters');
-        var pageTitle = document.getElementById('pageTitle');
-        if (pageTitle && currentBook) pageTitle.textContent = currentBook.name_en;
-    } else if (currentView === 'hadiths') {
-        showView('chapters');
-        var pageTitle2 = document.getElementById('pageTitle');
-        if (pageTitle2 && currentBook) pageTitle2.textContent = currentBook.name_en;
+        if (pt && currentBook) pt.textContent = currentBook.name_en;
     } else if (currentView === 'chapters') {
         showView('books');
-        var pageTitle3 = document.getElementById('pageTitle');
-        if (pageTitle3) pageTitle3.textContent = 'Hadith Books';
-        
-        var bottomNav = document.getElementById('bottomNav');
-        if (bottomNav) bottomNav.classList.add('hidden');
-        
-        currentBook = null;
-        currentBookData = [];
-        chapters = [];
-        
-        var bookSearch = document.getElementById('bookSearch');
-        if (bookSearch) bookSearch.style.display = 'block';
+        if (pt) pt.textContent = 'Hadith Books';
+        document.getElementById('bottomNav')?.classList.add('hidden');
+        currentBook = null; currentBookData = []; chapters = [];
     } else {
-        window.location.href = 'library.html';
+        location.href = 'library.html';
     }
 }
 
-// ==========================================
-// JUMP MODAL
-// ==========================================
 function showJumpModal() {
-    var modal = document.getElementById('jumpModal');
-    if (modal) {
-        modal.classList.remove('hidden');
-        var input = document.getElementById('jumpInput');
-        if (input) {
-            input.value = '';
-            input.focus();
-        }
-    }
+    document.getElementById('jumpModal')?.classList.remove('hidden');
+    document.getElementById('jumpInput')?.focus();
 }
 
-function hideJumpModal() {
-    var modal = document.getElementById('jumpModal');
-    if (modal) modal.classList.add('hidden');
-}
+function hideJumpModal() { document.getElementById('jumpModal')?.classList.add('hidden'); }
 
 function handleModalClick(e) {
-    if (e.target.classList.contains('modal')) {
-        e.target.classList.add('hidden');
-    }
+    if (e.target.classList.contains('modal')) e.target.classList.add('hidden');
 }
 
 function jumpToHadith() {
-    var input = document.getElementById('jumpInput');
-    if (!input) return;
-    
-    var num = parseInt(input.value);
-    if (!num || num < 1) {
-        toast('Enter a valid number');
-        return;
-    }
-
-    if (!currentBookData || currentBookData.length === 0) {
-        toast('Select a book first');
-        hideJumpModal();
-        return;
-    }
-
-    var hadith = null;
-    var index = -1;
+    var num = parseInt(document.getElementById('jumpInput')?.value);
+    if (!num) { toast('Enter number'); return; }
+    if (!currentBookData.length) { toast('Select book first'); hideJumpModal(); return; }
     
     for (var i = 0; i < currentBookData.length; i++) {
         var h = currentBookData[i];
         var hNum = h.num || extractNumFromRef(h.ref);
-        
         if (parseInt(hNum) === num) {
-            hadith = h;
-            index = i;
-            break;
+            hadiths = currentBookData;
+            openHadith(i, 'hadithsList');
+            hideJumpModal();
+            return;
         }
     }
-    
-    if (hadith) {
-        hadiths = currentBookData;
-        openHadith(index, 'hadithsList');
-    } else {
-        toast('Hadith #' + num + ' not found');
-    }
-    
+    toast('Hadith #' + num + ' not found');
     hideJumpModal();
 }
 
 // ==========================================
-// EXPOSE FUNCTIONS GLOBALLY
+// GLOBAL EXPORTS
 // ==========================================
 window.openBook = openBook;
 window.openChapter = openChapter;
