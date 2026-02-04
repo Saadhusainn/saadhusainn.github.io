@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Hadith - Sijjeen</title>
+    <link rel="icon" type="image/png" href="assets/sijjeen-logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="hadith-style.css">
+</head>
+<body class="reading-mode">
+    <div class="app">
+        <!-- Header -->
+        <header class="app-header">
+            <button class="header-back" onclick="goBack()">←</button>
+            <h1 class="header-title" id="hadithRef">Hadith</h1>
+            <div class="header-actions">
+                <button class="header-btn" onclick="showCopyModal()" title="Copy">📋</button>
+                <button class="header-btn" onclick="shareHadith()" title="Share">↗️</button>
+                <button class="header-btn" onclick="showImageModal()" title="Image">🖼️</button>
+            </div>
+        </header>
+
+        <!-- Reading Content -->
+        <main class="reading-content" id="readingContent">
+            
+            <!-- Loading State -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Loading hadith...</p>
+            </div>
+
+            <!-- Hadith Content -->
+            <article class="hadith-article hidden" id="hadithArticle">
+                
+                <!-- Book & Number -->
+                <div class="hadith-meta">
+                    <span class="book-name" id="bookName">Book Name</span>
+                    <span class="hadith-num" id="hadithNum">#1</span>
+                </div>
+
+                <!-- Chapter Info -->
+                <div class="chapter-box" id="chapterBox">
+                    <p class="chapter-ar" id="chapterAr"></p>
+                    <p class="chapter-en" id="chapterEn"></p>
+                </div>
+
+                <!-- Arabic Text -->
+                <div class="text-box arabic-box">
+                    <p class="section-label">السند (Chain)</p>
+                    <div class="chain-text" id="chainAr"></div>
+                    <p class="section-label">المتن (Text)</p>
+                    <div class="body-text" id="bodyAr"></div>
+                </div>
+
+                <!-- English Text -->
+                <div class="text-box english-box">
+                    <p class="section-label">Chain</p>
+                    <div class="chain-text" id="chainEn"></div>
+                    <p class="section-label">Text</p>
+                    <div class="body-text" id="bodyEn"></div>
+                </div>
+
+                <!-- Reference -->
+                <div class="reference-box" id="referenceBox">
+                    <span class="ref-label">Reference:</span>
+                    <span class="ref-value" id="refValue">Book: 1</span>
+                    <span class="ref-arabic" id="refArabic"></span>
+                </div>
+
+                <!-- Grade -->
+                <div class="grade-box" id="gradeBox">
+                    <span class="grade-label">Grade:</span>
+                    <span class="grade-value" id="gradeValue">Unknown</span>
+                    <span class="grade-arabic" id="gradeArabic"></span>
+                </div>
+
+                <!-- Grader -->
+                <div class="grader-box" id="graderBox">
+                    <span class="grader-label">Graded by:</span>
+                    <span class="grader-value" id="graderValue"></span>
+                </div>
+
+            </article>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="reading-nav hidden" id="readingNav">
+            <button class="reading-nav-btn" id="prevBtn" onclick="goPrev()">← Prev</button>
+            <span class="reading-nav-count" id="navCount">1 / 1</span>
+            <button class="reading-nav-btn" id="nextBtn" onclick="goNext()">Next →</button>
+        </nav>
+    </div>
+
+    <!-- Copy Modal -->
+    <div class="modal hidden" id="copyModal" onclick="handleModalClick(event)">
+        <div class="modal-content modal-lg" onclick="event.stopPropagation()">
+            <h3>Copy Hadith</h3>
+            <p class="modal-subtitle">Select what to include:</p>
+            
+            <div class="checkbox-group">
+                <label class="checkbox-item">
+                    <input type="checkbox" id="copyArabicMatan" checked>
+                    <span>Arabic Text (المتن)</span>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" id="copyEnglishMatan" checked>
+                    <span>English Text</span>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" id="copyArabicChain">
+                    <span>Arabic Chain (السند)</span>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" id="copyEnglishChain">
+                    <span>English Chain</span>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" id="copyRefEnglish" checked>
+                    <span>Reference (English)</span>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" id="copyRefArabic">
+                    <span>Reference (العربية)</span>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" id="copyGrade" checked>
+                    <span>Grade</span>
+                </label>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="hideCopyModal()">Cancel</button>
+                <button class="btn-primary" onclick="copyWithOptions()">Copy</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Generator Modal -->
+    <div class="modal hidden" id="imageModal" onclick="handleModalClick(event)">
+        <div class="modal-content modal-xl" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3>Generate Image</h3>
+                <button class="modal-close" onclick="hideImageModal()">✕</button>
+            </div>
+
+            <div class="image-generator">
+                <!-- Options -->
+                <div class="image-options">
+                    
+                    <!-- Content -->
+                    <div class="option-section">
+                        <h4>Content</h4>
+                        <div class="checkbox-group compact">
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="imgArabicMatan" checked onchange="updateImagePreview()">
+                                <span>Arabic Text</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="imgEnglishMatan" checked onchange="updateImagePreview()">
+                                <span>English Text</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="imgReference" checked onchange="updateImagePreview()">
+                                <span>Reference</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="imgGrade" onchange="updateImagePreview()">
+                                <span>Grade</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Aspect Ratio -->
+                    <div class="option-section">
+                        <h4>Aspect Ratio</h4>
+                        <div class="radio-group">
+                            <label class="radio-item">
+                                <input type="radio" name="imgRatio" value="fit" checked onchange="updateImagePreview()">
+                                <span>Fit</span>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="imgRatio" value="1:1" onchange="updateImagePreview()">
+                                <span>1:1</span>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="imgRatio" value="4:5" onchange="updateImagePreview()">
+                                <span>4:5</span>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="imgRatio" value="9:16" onchange="updateImagePreview()">
+                                <span>9:16</span>
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="imgRatio" value="16:9" onchange="updateImagePreview()">
+                                <span>16:9</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Colors -->
+                    <div class="option-section">
+                        <h4>Colors</h4>
+                        <div class="color-options">
+                            <div class="color-row">
+                                <label>Background:</label>
+                                <input type="color" id="imgBgColor" value="#ffffff" onchange="updateImagePreview()">
+                                <div class="color-presets">
+                                    <button class="color-preset" style="background:#ffffff" onclick="setColor('imgBgColor','#ffffff')"></button>
+                                    <button class="color-preset" style="background:#f5f5dc" onclick="setColor('imgBgColor','#f5f5dc')"></button>
+                                    <button class="color-preset" style="background:#1a1a1a" onclick="setColor('imgBgColor','#1a1a1a')"></button>
+                                    <button class="color-preset" style="background:#2d5a45" onclick="setColor('imgBgColor','#2d5a45')"></button>
+                                </div>
+                            </div>
+                            <div class="color-row">
+                                <label>Arabic:</label>
+                                <input type="color" id="imgArabicColor" value="#666666" onchange="updateImagePreview()">
+                            </div>
+                            <div class="color-row">
+                                <label>English:</label>
+                                <input type="color" id="imgEnglishColor" value="#1a1a1a" onchange="updateImagePreview()">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Font Sizes -->
+                    <div class="option-section">
+                        <h4>Font Sizes</h4>
+                        <div class="slider-row">
+                            <label>Arabic: <span id="arabicSizeVal">28</span>px</label>
+                            <input type="range" id="imgArabicSize" min="16" max="48" value="28" oninput="updateImagePreview()">
+                        </div>
+                        <div class="slider-row">
+                            <label>English: <span id="englishSizeVal">18</span>px</label>
+                            <input type="range" id="imgEnglishSize" min="12" max="32" value="18" oninput="updateImagePreview()">
+                        </div>
+                    </div>
+
+                    <!-- Fonts -->
+                    <div class="option-section">
+                        <h4>Fonts</h4>
+                        <div class="font-row">
+                            <label>Arabic Font:</label>
+                            <select id="imgArabicFont" onchange="updateImagePreview()">
+                                <option value="default">Default (Amiri)</option>
+                            </select>
+                        </div>
+                        <div class="font-row">
+                            <label>English Font:</label>
+                            <select id="imgEnglishFont" onchange="updateImagePreview()">
+                                <option value="default">Default (Inter)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preview -->
+                <div class="image-preview-container">
+                    <h4>Preview</h4>
+                    <div class="image-preview-wrapper">
+                        <canvas id="imagePreviewCanvas"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="hideImageModal()">Cancel</button>
+                <button class="btn-primary" onclick="downloadHadithImage()">Download Image</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast hidden" id="toast"></div>
+
+    <script src="hadith-library.js"></script>
+</body>
+</html>
