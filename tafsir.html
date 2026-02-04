@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tafsir - Sijjeen</title>
+    <link rel="icon" type="image/png" href="assets/sijjeen-logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="tafsir-style.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="app-header">
+            <button class="header-back" onclick="goBack()">←</button>
+            <h1 class="header-title" id="pageTitle">Tafsir</h1>
+            <div class="header-spacer"></div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="app-content">
+            
+            <!-- Selector View -->
+            <div class="view" id="selectorView">
+                <!-- Greeting -->
+                <div class="greeting">
+                    <p class="greeting-arabic">ٱقْرَأْ بِٱسْمِ رَبِّكَ ٱلَّذِى خَلَقَ</p>
+                    <p class="greeting-text">Read in the name of your Lord who created</p>
+                </div>
+
+                <!-- Language Filter -->
+                <div class="filter-section">
+                    <label class="filter-label">Language</label>
+                    <div class="language-buttons" id="languageButtons"></div>
+                </div>
+
+                <!-- Tafsir Selection -->
+                <div class="selector-section">
+                    <label for="tafsirSelect" class="selector-label">Select Tafsir</label>
+                    <select id="tafsirSelect" class="selector-dropdown"></select>
+                </div>
+
+                <!-- Surah Selection -->
+                <div class="selector-section">
+                    <label for="surahSelect" class="selector-label">Select Surah</label>
+                    <select id="surahSelect" class="selector-dropdown"></select>
+                </div>
+
+                <!-- Ayah Selection -->
+                <div class="selector-section">
+                    <label for="ayahSelect" class="selector-label">Start from Ayah</label>
+                    <select id="ayahSelect" class="selector-dropdown"></select>
+                </div>
+
+                <!-- Start Button -->
+                <button id="startBtn" class="start-button" onclick="startReading()">
+                    📖 Start Reading
+                </button>
+
+                <!-- Recent Reads -->
+                <div id="recentReads" class="recent-section hidden"></div>
+            </div>
+
+            <!-- Reading View -->
+            <div class="view hidden" id="readingView">
+                <!-- Loading -->
+                <div class="loading" id="loadingState">
+                    <div class="spinner"></div>
+                    <p>Loading tafsir...</p>
+                </div>
+
+                <!-- Content -->
+                <div id="readingContent" class="hidden"></div>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>صلى الله عليه وسلم</p>
+        </footer>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast hidden" id="toast"></div>
+
+    <script src="tafsir-script.js"></script>
+</body>
+</html>
