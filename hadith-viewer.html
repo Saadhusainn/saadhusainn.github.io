@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hadith - Sijjeen</title>
+    <link rel="icon" type="image/png" href="assets/sijjeen-logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="hadith-style.css">
+</head>
+<body class="hadith-view-page">
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <button class="nav-back" onclick="goBack()">
+                ← Back
+            </button>
+            <div class="nav-actions">
+                <button class="action-btn" onclick="copyHadith()" title="Copy">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+                <button class="action-btn" onclick="shareHadith()" title="Share">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="hadith-view-main">
+        <!-- Loading State -->
+        <div class="loading-state" id="loadingState">
+            <div class="loading-spinner"></div>
+            <p>Loading hadith...</p>
+        </div>
+
+        <!-- Hadith Content -->
+        <article class="hadith-article hidden" id="hadithArticle">
+            <!-- Header -->
+            <header class="hadith-header">
+                <div class="book-badge" id="bookBadge">
+                    <span class="book-icon">📗</span>
+                    <span class="book-name" id="bookName">Sahih Bukhari</span>
+                </div>
+                <div class="hadith-number" id="hadithNumber">#1</div>
+            </header>
+
+            <!-- Chapter Info -->
+            <div class="chapter-info">
+                <div class="chapter-label">Chapter</div>
+                <h2 class="chapter-title-ar" id="chapterTitleAr" dir="rtl"></h2>
+                <h3 class="chapter-title-en" id="chapterTitleEn"></h3>
+            </div>
+
+            <!-- Sub-chapter Info (if exists) -->
+            <div class="subchapter-info hidden" id="subchapterInfo">
+                <div class="subchapter-label">Section</div>
+                <p class="subchapter-title-ar" id="subchapterTitleAr" dir="rtl"></p>
+                <p class="subchapter-title-en" id="subchapterTitleEn"></p>
+            </div>
+
+            <!-- Hadith Title (if exists) -->
+            <div class="hadith-title-section hidden" id="hadithTitleSection">
+                <h3 class="hadith-title-en" id="hadithTitleEn"></h3>
+            </div>
+
+            <!-- Chain of Narration -->
+            <div class="chain-section">
+                <div class="chain-label">Chain of Narration (Isnad)</div>
+                <p class="chain-ar" id="chainAr" dir="rtl"></p>
+                <p class="chain-en" id="chainEn"></p>
+            </div>
+
+            <!-- Main Text -->
+            <div class="body-section">
+                <div class="body-ar" id="bodyAr" dir="rtl"></div>
+                <div class="body-en" id="bodyEn"></div>
+            </div>
+
+            <!-- Grade -->
+            <div class="grade-section">
+                <div class="grade-badge" id="gradeBadge">
+                    <span class="grade-label">Grade:</span>
+                    <span class="grade-value" id="gradeValue">Sahih</span>
+                    <span class="grade-value-ar" id="gradeValueAr">صحيح</span>
+                </div>
+                <div class="grader-info">
+                    <span class="grader-label">Graded by:</span>
+                    <span class="grader-name" id="graderName">Imam Bukhari</span>
+                </div>
+            </div>
+
+            <!-- Reference -->
+            <div class="reference-section">
+                <span class="reference" id="reference">Bukhari: 1</span>
+            </div>
+        </article>
+
+        <!-- Navigation -->
+        <div class="hadith-navigation hidden" id="hadithNavigation">
+            <button class="nav-btn prev-btn" id="prevBtn" onclick="goToPrevious()">
+                ← Previous
+            </button>
+            <button class="nav-btn next-btn" id="nextBtn" onclick="goToNext()">
+                Next →
+            </button>
+        </div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div class="toast hidden" id="toast">
+        <span class="toast-message" id="toastMessage"></span>
+    </div>
+
+    <script src="hadith-library.js"></script>
+    <script>
+        // Initialize hadith view
+        document.addEventListener('DOMContentLoaded', () => {
+            loadHadithView();
+        });
+    </script>
+</body>
+</html>
