@@ -40,6 +40,16 @@ const BOOKS_MANIFEST = [
         icon: "assets/abudawud.png",
         count: 5274,
         version: 1
+   },
+   {
+        id: "tirmidhi",
+        file: "https://cdn.jsdelivr.net/gh/saadhusainn/saadhusainn.github.io@main/hadiths/tirmidhi.json",
+        localFile: "hadiths/tirmidhi.json",
+        name_en: "Jamiʿ al-Tirmidhī",
+        name_ar: "جَامِعُ التِّرْمِذِي",
+        icon: "assets/tirmidhi.png",
+        count: 3605,
+        version: 1
    }
     // Add more books with CDN URLs
 ];
