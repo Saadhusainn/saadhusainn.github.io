@@ -815,6 +815,40 @@ body {
     color: var(--text-secondary);
 }
 
+/* Footnote Box */
+.footnote-box {
+    margin: 16px 0;
+    padding: 14px;
+    background: #fffbeb;
+    border: 1px solid #fcd34d;
+    border-radius: var(--radius-sm);
+    border-left: 4px solid #f59e0b;
+}
+
+.footnote-box .section-label {
+    color: #b45309;
+    margin-bottom: 10px;
+}
+
+.footnote-ar {
+    font-family: var(--font-ar);
+    font-size: 14px;
+    line-height: 1.8;
+    color: #92400e;
+    margin-bottom: 8px;
+    text-align: right;
+}
+
+.footnote-en {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #78350f;
+}
+
+.footnote-box.hidden {
+    display: none;
+}
+
 /* Grader Box */
 .grader-box {
     display: flex;
