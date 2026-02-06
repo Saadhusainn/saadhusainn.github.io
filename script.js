@@ -374,9 +374,7 @@ function selectVolume(event, bookName, volumeName, volumeFile) {
             item.classList.remove('selected');
         });
         event.target.closest('.volume-item').classList.add('selected');
-        
-        // Show opening message
-        document.getElementById('bookOpeningMessage').textContent = `Opening ${book.name} - ${volumeName}...`;
+        showToast(`Opening ${book.name} - ${volumeName}...`, '📖');
         
         loadBookFile(volumeFile, `${book.name} - ${volumeName}`);
     }
@@ -392,9 +390,7 @@ function selectBook(book) {
         item.classList.remove('selected');
     });
     event.target.closest('.book-item').classList.add('selected');
-    
-    // Show opening message
-    document.getElementById('bookOpeningMessage').textContent = `Opening ${book.name}...`;
+    showToast(`Opening ${book.name}...`, '📖');
     
     loadBookFile(book.file, book.name);
 }
@@ -469,7 +465,6 @@ function viewVolume(bookName, volumeName, volumeFile) {
     
     setTimeout(() => {
         showSuccess(`✅ ${bookName} - ${volumeName} opened in Mozilla PDF viewer!`);
-        document.getElementById('bookOpeningMessage').textContent = '';
     }, 1000);
 }
 
@@ -510,9 +505,6 @@ async function loadBookFile(filePath, displayName) {
             behavior: 'smooth',
             block: 'start'
         });
-        
-        // Clear the opening message after successful load
-        document.getElementById('bookOpeningMessage').textContent = '';
         
         showSuccess('✅ Book loaded successfully! Preview generated automatically.');
         
@@ -606,8 +598,6 @@ async function updatePreview() {
         
         if (pageNumbers.length === 0) return;
         
-        showSuccess(`Loading pages: ${pageNumbers.join(', ')}...`);
-        
         // Load initial pages first
         if (!initialPagesLoaded) {
             const initialPageNumbers = pageNumbers.slice(0, pageCount);
@@ -672,8 +662,6 @@ async function updatePreview() {
         }
         
         document.getElementById('previewSection').classList.remove('hidden');
-        
-        showSuccess(`✅ Preview updated with pages: ${pageNumbers.join(', ')}`);
         
     } catch (error) {
         console.error('Error updating preview:', error);
@@ -742,6 +730,32 @@ async function sendTelegramNotification(bookName, volumeNum, pagesStr, filename,
         console.log('Telegram notification failed (but download worked)');
     }
 }
+
+// Toast notification function
+function showToast(message, icon = '📖', duration = 3000) {
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toastMessage');
+    const toastIcon = toast.querySelector('.toast-icon');
+    
+    // Set content
+    toastMessage.textContent = message;
+    toastIcon.textContent = icon;
+    
+    // Show toast
+    toast.classList.remove('hidden');
+    setTimeout(() => toast.classList.add('show'), 10);
+    
+    // Hide after duration
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.classList.add('hidden'), 400);
+    }, duration);
+}
+
+// Example usage - replace your old "opening book" message:
+// showToast('Opening Sahih Bukhari...', '📖');
+// showToast('Book loaded successfully!', '✅');
+// showToast('Error loading book', '❌');
 
 function sendBookActionNotification(action, bookName, additionalInfo = '') {
     const botToken = '8337207140:AAEYcvjIYPJIdgCNPi4Xy0N-fJbhHBpNuKc';
