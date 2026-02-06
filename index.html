@@ -10,9 +10,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <a href="library.html" class="nav-link">Library</a>
 </head>
 <body>
+    <a href="library.html" class="nav-link">Library</a>
+    
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">
+        <div class="toast-content">
+            <span class="toast-icon">📖</span>
+            <span id="toastMessage"></span>
+        </div>
+    </div>
+    
     <div class="container">
         <div class="header">
             <div class="title-section">
@@ -41,9 +50,6 @@
         </div>
         
         <h2 class="section-title">Available Books</h2>
-        
-        <!-- Book Opening Message -->
-        <div id="bookOpeningMessage" class="book-opening-message"></div>
         
         <div id="booksList" class="books-list">
             <div class="loading">
