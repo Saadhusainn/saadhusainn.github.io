@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Quran - Sijjeen</title>
+    <link rel="icon" type="image/png" href="assets/sijjeen-logo.png">
+    
+    <!-- PRELOAD FONTS - Critical for no flash -->
+    <link rel="preload" href="assets/HafsUthmanicScript.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="assets/JMN.ttf" as="font" type="font/ttf" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="hadith-style.css">
+    <link rel="stylesheet" href="quran-style.css">
+    
+    <!-- Inline critical font styles -->
+    <style>
+        @font-face {
+            font-family: 'Hafs Uthmanic';
+            src: url('assets/HafsUthmanicScript.ttf') format('truetype');
+            font-display: block;
+        }
+        @font-face {
+            font-family: 'JMN';
+            src: url('assets/JMN.ttf') format('truetype');
+            font-display: block;
+        }
+        .surah-name-ar, .header-subtitle, .bismillah-text, .verse-arabic, .surah-end-text {
+            font-family: 'Hafs Uthmanic', 'Amiri', serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="app-header">
+            <a href="library.html" class="header-back">←</a>
+            <h1 class="header-title">Quran</h1>
+            <button class="header-btn" onclick="showSettingsModal()">
+                <img src="assets/settings.png" alt="Settings" style="width:20px;height:20px">
+            </button>
+        </header>
+
+        <!-- Search/Filter -->
+        <div class="surah-search">
+            <input type="text" id="surahSearchInput" placeholder="Search surahs..." oninput="filterSurahs()">
+        </div>
+
+        <!-- Main Content -->
+        <main class="app-content" id="mainContent">
+            <!-- Loading placeholder -->
+            <div class="loading" id="initialLoading">
+                <div class="spinner"></div>
+                <p>Loading...</p>
+            </div>
+            
+            <div class="surah-list hidden" id="surahList">
+                <!-- Surahs rendered here -->
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>القرآن الكريم</p>
+        </footer>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal hidden" id="settingsModal" onclick="handleModalClick(event)">
+        <div class="modal-content modal-lg" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3>Settings</h3>
+                <button class="modal-close" onclick="hideSettingsModal()">✕</button>
+            </div>
+
+            <!-- Translation -->
+            <div class="settings-section">
+                <h4>Translation</h4>
+                <div class="settings-row">
+                    <select id="translationSelect">
+                        <option value="en.sahih">English - Saheeh International</option>
+                        <option value="ur.junagarhi">اردو - محمد جوناگڑھی</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Reciter -->
+            <div class="settings-section">
+                <h4>Reciter</h4>
+                <div class="settings-row">
+                    <select id="reciterSelect">
+                        <!-- Populated by JS -->
+                    </select>
+                </div>
+            </div>
+
+            <!-- Font Sizes -->
+            <div class="settings-section">
+                <h4>Font Sizes</h4>
+                <div class="slider-row">
+                    <label>Arabic: <span id="arabicFontSizeVal">20</span>px</label>
+                    <input type="range" id="arabicFontSize" min="16" max="40" value="20" oninput="updateFontSizePreview()">
+                </div>
+                <div class="slider-row">
+                    <label>Translation: <span id="transFontSizeVal">12</span>px</label>
+                    <input type="range" id="transFontSize" min="10" max="20" value="12" oninput="updateFontSizePreview()">
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="hideSettingsModal()">Cancel</button>
+                <button class="btn-primary" onclick="saveSettings()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast hidden" id="toast"></div>
+
+    <script src="quran-library.js"></script>
+</body>
+</html>
