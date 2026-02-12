@@ -1,47 +1,126 @@
 /* ==========================================
-   SIJJEEN QURAN LIBRARY
-   With Caching for Fast Loading
+   SIJJEEN QURAN LIBRARY - COMPLETE VERSION
+   With All Translations, Urdu Audio, Download Surah
+   Fixed Lazy Loading & Reciters API
    ========================================== */
 
 // ==========================================
 // CONFIGURATION
 // ==========================================
 const AUDIO_BASE = 'https://everyayah.com/data';
+const URDU_AUDIO_BASE = 'https://everyayah.com/data/translations/urdu_shamshad_ali_khan_46kbps';
 
+// FIXED: Correct raw GitHub URL (no refs/heads/)
+const SURAH_RECITERS_API = 'https://raw.githubusercontent.com/rn0x/Quran-Data/version-2.0/data/json/audio/audio_surah_';
+
+// All Translations
 const TRANSLATIONS = {
-    'en.sahih': {
-        file: 'quran/en.sahih.txt',
-        name: 'Saheeh International',
-        language: 'English',
-        dir: 'ltr'
-    },
-    'ur.junagarhi': {
-        file: 'quran/ur.junagarhi.txt',
-        name: 'محمد جوناگڑھی',
-        language: 'اردو',
-        dir: 'rtl'
-    }
+    // English
+    'en.sahih': { file: 'quran/en.sahih.txt', name: 'Saheeh International', language: 'English', dir: 'ltr' },
+    'en.ahmedali': { file: 'quran/en.ahmedali.txt', name: 'Ahmed Ali', language: 'English', dir: 'ltr' },
+    'en.ahmedraza': { file: 'quran/en.ahmedraza.txt', name: 'Ahmed Raza Khan', language: 'English', dir: 'ltr' },
+    'en.arberry': { file: 'quran/en.arberry.txt', name: 'Arberry', language: 'English', dir: 'ltr' },
+    'en.daryabadi': { file: 'quran/en.daryabadi.txt', name: 'Daryabadi', language: 'English', dir: 'ltr' },
+    'en.hilali': { file: 'quran/en.hilali.txt', name: 'Hilali & Khan', language: 'English', dir: 'ltr' },
+    'en.itani': { file: 'quran/en.itani.txt', name: 'Talal Itani', language: 'English', dir: 'ltr' },
+    'en.maududi': { file: 'quran/en.maududi.txt', name: 'Maududi', language: 'English', dir: 'ltr' },
+    'en.mubarakpuri': { file: 'quran/en.mubarakpuri.txt', name: 'Mubarakpuri', language: 'English', dir: 'ltr' },
+    'en.pickthall': { file: 'quran/en.pickthall.txt', name: 'Pickthall', language: 'English', dir: 'ltr' },
+    'en.qarai': { file: 'quran/en.qarai.txt', name: 'Ali Quli Qarai', language: 'English', dir: 'ltr' },
+    'en.qaribullah': { file: 'quran/en.qaribullah.txt', name: 'Qaribullah & Darwish', language: 'English', dir: 'ltr' },
+    'en.sarwar': { file: 'quran/en.sarwar.txt', name: 'Muhammad Sarwar', language: 'English', dir: 'ltr' },
+    'en.shakir': { file: 'quran/en.shakir.txt', name: 'Shakir', language: 'English', dir: 'ltr' },
+    'en.transliteration': { file: 'quran/en.transliteration.txt', name: 'Transliteration', language: 'English', dir: 'ltr' },
+    'en.wahiduddin': { file: 'quran/en.wahiduddin.txt', name: 'Wahiduddin Khan', language: 'English', dir: 'ltr' },
+    'en.yusufali': { file: 'quran/en.yusufali.txt', name: 'Yusuf Ali', language: 'English', dir: 'ltr' },
+    
+    // Urdu
+    'ur.junagarhi': { file: 'quran/ur.junagarhi.txt', name: 'محمد جوناگڑھی', language: 'اردو', dir: 'rtl' },
+    'ur.jalandhry': { file: 'quran/ur.jalandhry.txt', name: 'فتح محمد جالندھری', language: 'اردو', dir: 'rtl' },
+    'ur.qadri': { file: 'quran/ur.qadri.txt', name: 'طاہر القادری', language: 'اردو', dir: 'rtl' },
+    'ur.maududi': { file: 'quran/ur.maududi.txt', name: 'ابوالاعلی مودودی', language: 'اردو', dir: 'rtl' },
+    'ur.kanzuliman': { file: 'quran/ur.kanzuliman.txt', name: 'احمد رضا خان (کنز الایمان)', language: 'اردو', dir: 'rtl' },
+    'ur.jawadi': { file: 'quran/ur.jawadi.txt', name: 'علامہ جوادی', language: 'اردو', dir: 'rtl' },
+    'ur.najafi': { file: 'quran/ur.najafi.txt', name: 'محمد حسین نجفی', language: 'اردو', dir: 'rtl' },
+    
+    // Bengali
+    'bn.bengali': { file: 'quran/bn.bengali.txt', name: 'জহুরুল হক', language: 'Bengali', dir: 'ltr' },
+    'bn.hoque': { file: 'quran/bn.hoque.txt', name: 'মুহিউদ্দীন খান', language: 'Bengali', dir: 'ltr' },
+    
+    // German
+    'de.aburida': { file: 'quran/de.aburida.txt', name: 'Abu Rida', language: 'German', dir: 'ltr' },
+    'de.bubenheim': { file: 'quran/de.bubenheim.txt', name: 'Bubenheim & Elyas', language: 'German', dir: 'ltr' },
+    'de.khoury': { file: 'quran/de.khoury.txt', name: 'Khoury', language: 'German', dir: 'ltr' },
+    'de.zaidan': { file: 'quran/de.zaidan.txt', name: 'Zaidan', language: 'German', dir: 'ltr' },
+    
+    // Spanish
+    'es.bornez': { file: 'quran/es.bornez.txt', name: 'Raúl González Bórnez', language: 'Spanish', dir: 'ltr' },
+    'es.cortes': { file: 'quran/es.cortes.txt', name: 'Julio Cortes', language: 'Spanish', dir: 'ltr' },
+    'es.garcia': { file: 'quran/es.garcia.txt', name: 'Muhammad Isa García', language: 'Spanish', dir: 'ltr' },
+    
+    // French
+    'fr.hamidullah': { file: 'quran/fr.hamidullah.txt', name: 'Muhammad Hamidullah', language: 'French', dir: 'ltr' },
+    
+    // Persian
+    'fa.ansarian': { file: 'quran/fa.ansarian.txt', name: 'حسین انصاریان', language: 'فارسی', dir: 'rtl' },
+    'fa.ayati': { file: 'quran/fa.ayati.txt', name: 'آیتی', language: 'فارسی', dir: 'rtl' },
+    'fa.bahrampour': { file: 'quran/fa.bahrampour.txt', name: 'بهرام‌پور', language: 'فارسی', dir: 'rtl' },
+    'fa.fooladvand': { file: 'quran/fa.fooladvand.txt', name: 'فولادوند', language: 'فارسی', dir: 'rtl' },
+    'fa.gharaati': { file: 'quran/fa.gharaati.txt', name: 'قرائتی', language: 'فارسی', dir: 'rtl' },
+    'fa.ghomshei': { file: 'quran/fa.ghomshei.txt', name: 'الهی قمشه‌ای', language: 'فارسی', dir: 'rtl' },
+    'fa.khorramdel': { file: 'quran/fa.khorramdel.txt', name: 'خرمدل', language: 'فارسی', dir: 'rtl' },
+    'fa.khorramshahi': { file: 'quran/fa.khorramshahi.txt', name: 'خرمشاهی', language: 'فارسی', dir: 'rtl' },
+    'fa.makarem': { file: 'quran/fa.makarem.txt', name: 'مکارم شیرازی', language: 'فارسی', dir: 'rtl' },
+    'fa.moezzi': { file: 'quran/fa.moezzi.txt', name: 'معزی', language: 'فارسی', dir: 'rtl' },
+    'fa.mojtabavi': { file: 'quran/fa.mojtabavi.txt', name: 'مجتبوی', language: 'فارسی', dir: 'rtl' },
+    'fa.sadeqi': { file: 'quran/fa.sadeqi.txt', name: 'صادقی تهرانی', language: 'فارسی', dir: 'rtl' },
+    'fa.safavi': { file: 'quran/fa.safavi.txt', name: 'صفوی', language: 'فارسی', dir: 'rtl' },
+    
+    // Other Languages
+    'am.sadiq': { file: 'quran/am.sadiq.txt', name: 'ሳዲቅ & ሳኒ ሐቢብ', language: 'Amharic', dir: 'ltr' },
+    'az.mammadaliyev': { file: 'quran/az.mammadaliyev.txt', name: 'Məmmədəliyev & Bünyadov', language: 'Azerbaijani', dir: 'ltr' },
+    'az.musayev': { file: 'quran/az.musayev.txt', name: 'Musayev', language: 'Azerbaijani', dir: 'ltr' },
+    'ber.mensur': { file: 'quran/ber.mensur.txt', name: 'At Mensur', language: 'Amazigh', dir: 'ltr' },
+    'bg.theophanov': { file: 'quran/bg.theophanov.txt', name: 'Теофанов', language: 'Bulgarian', dir: 'ltr' },
+    'bs.korkut': { file: 'quran/bs.korkut.txt', name: 'Besim Korkut', language: 'Bosnian', dir: 'ltr' },
+    'bs.mlivo': { file: 'quran/bs.mlivo.txt', name: 'Mustafa Mlivo', language: 'Bosnian', dir: 'ltr' },
+    'cs.hrbek': { file: 'quran/cs.hrbek.txt', name: 'Hrbek', language: 'Czech', dir: 'ltr' },
+    'cs.nykl': { file: 'quran/cs.nykl.txt', name: 'Nykl', language: 'Czech', dir: 'ltr' },
+    'dv.divehi': { file: 'quran/dv.divehi.txt', name: 'ދިވެހި', language: 'Divehi', dir: 'rtl' }
 };
 
 const ARABIC_FILE = 'quran/arabic.txt';
 
+// Reciters for verse-by-verse
 const RECITORS = [
-    { id: 'Abdurrahmaan_As-Sudais_192kbps', name: 'Abdurrahmaan As-Sudais', bitrate: '192kbps' },
-    { id: 'Abdul_Basit_Murattal_192kbps', name: 'Abdul Basit (Murattal)', bitrate: '192kbps' },
-    { id: 'Abdul_Basit_Mujawwad_128kbps', name: 'Abdul Basit (Mujawwad)', bitrate: '128kbps' },
-    { id: 'Alafasy_128kbps', name: 'Mishary Rashid Alafasy', bitrate: '128kbps' },
-    { id: 'Abu_Bakr_Ash-Shaatree_128kbps', name: 'Abu Bakr Ash-Shaatree', bitrate: '128kbps' },
-    { id: 'Husary_128kbps', name: 'Mahmoud Khalil Al-Husary', bitrate: '128kbps' },
-    { id: 'MaherAlMuaiqly128kbps', name: 'Maher Al Muaiqly', bitrate: '128kbps' },
-    { id: 'Minshawy_Mujawwad_192kbps', name: 'Minshawy (Mujawwad)', bitrate: '192kbps' },
-    { id: 'Saood_ash-Shuraym_128kbps', name: 'Saood Ash-Shuraym', bitrate: '128kbps' }
+    { id: 'Abdurrahmaan_As-Sudais_192kbps', name: 'Abdurrahmaan As-Sudais' },
+    { id: 'Abdul_Basit_Murattal_192kbps', name: 'Abdul Basit (Murattal)' },
+    { id: 'Abdul_Basit_Mujawwad_128kbps', name: 'Abdul Basit (Mujawwad)' },
+    { id: 'Alafasy_128kbps', name: 'Mishary Rashid Alafasy' },
+    { id: 'Abu_Bakr_Ash-Shaatree_128kbps', name: 'Abu Bakr Ash-Shaatree' },
+    { id: 'Husary_128kbps', name: 'Mahmoud Khalil Al-Husary' },
+    { id: 'Husary_Muallim_128kbps', name: 'Husary (Muallim)' },
+    { id: 'MaherAlMuaiqly128kbps', name: 'Maher Al Muaiqly' },
+    { id: 'Minshawy_Mujawwad_192kbps', name: 'Minshawy (Mujawwad)' },
+    { id: 'Minshawy_Murattal_128kbps', name: 'Minshawy (Murattal)' },
+    { id: 'Saood_ash-Shuraym_128kbps', name: 'Saood Ash-Shuraym' },
+    { id: 'Muhammad_Ayyoub_128kbps', name: 'Muhammad Ayyoub' },
+    { id: 'Hudhaify_128kbps', name: 'Ali Al-Hudhaify' },
+    { id: 'Hani_Rifai_192kbps', name: 'Hani Ar-Rifai' },
+    { id: 'Nasser_Alqatami_128kbps', name: 'Nasser Al Qatami' },
+    { id: 'Yasser_Ad-Dussary_128kbps', name: 'Yasser Ad-Dussary' },
+    { id: 'Fares_Abbad_64kbps', name: 'Fares Abbad' }
 ];
+
+// Full Surah Reciters (loaded from API)
+let SURAH_RECITERS = [];
 
 const DEFAULT_SETTINGS = {
     translation: 'en.sahih',
     reciter: 'Abdurrahmaan_As-Sudais_192kbps',
     arabicFontSize: 20,
-    transFontSize: 12
+    transFontSize: 12,
+    urduAudioMode: 'none' // 'after', 'only', 'none'
 };
 
 const VERSES_PER_BATCH = 15;
@@ -178,13 +257,15 @@ let loadedVerses = 0;
 let isLoadingMore = false;
 let allVersesLoaded = false;
 
-// Audio
+// Audio state
 let audioPlayer = null;
+let urduAudioPlayer = null;
 let nextAudioPlayer = null;
 let currentPlayingVerse = 0;
 let isPlaying = false;
 let isContinuousPlay = false;
 let isRepeat = false;
+let isPlayingUrdu = false;
 
 // ==========================================
 // INITIALIZATION
@@ -203,17 +284,21 @@ function loadSettings() {
     try {
         const saved = localStorage.getItem('quranSettings');
         if (saved) settings = { ...DEFAULT_SETTINGS, ...JSON.parse(saved) };
-    } catch (e) {}
+    } catch (e) {
+        console.warn('Failed to load settings');
+    }
 }
 
 function saveSettingsToStorage() {
     try {
         localStorage.setItem('quranSettings', JSON.stringify(settings));
-    } catch (e) {}
+    } catch (e) {
+        console.warn('Failed to save settings');
+    }
 }
 
 // ==========================================
-// CACHING FUNCTIONS
+// CACHING
 // ==========================================
 function saveToCache(key, data) {
     try {
@@ -236,15 +321,10 @@ function getFromCache(key) {
 // SURAH LIST PAGE
 // ==========================================
 function initSurahList() {
-    // Render immediately
     renderSurahList();
     populateSettingsModal();
-    
-    // Hide loading, show list
     hide('initialLoading');
     show('surahList');
-    
-    // Preload data in background
     preloadQuranData();
 }
 
@@ -270,45 +350,26 @@ function renderSurahList() {
     `).join('');
 }
 
-// Preload data in background for faster surah loading
 async function preloadQuranData() {
-    // Check if already cached
     const cachedArabic = getFromCache('arabic');
-    const cachedTrans = getFromCache('trans_' + settings.translation);
-    
     if (!cachedArabic) {
         try {
             const response = await fetch(ARABIC_FILE);
             const text = await response.text();
-            const data = parseTxtFile(text);
-            saveToCache('arabic', data);
-            arabicData = data;
+            arabicData = parseTxtFile(text);
+            saveToCache('arabic', arabicData);
             console.log('✅ Arabic preloaded');
-        } catch (e) {}
+        } catch (e) {
+            console.warn('Preload failed');
+        }
     } else {
         arabicData = cachedArabic;
-    }
-    
-    if (!cachedTrans) {
-        try {
-            const trans = TRANSLATIONS[settings.translation];
-            const response = await fetch(trans.file);
-            const text = await response.text();
-            const data = parseTxtFile(text);
-            saveToCache('trans_' + settings.translation, data);
-            translationData = data;
-            currentTranslationId = settings.translation;
-            console.log('✅ Translation preloaded');
-        } catch (e) {}
-    } else {
-        translationData = cachedTrans;
-        currentTranslationId = settings.translation;
+        console.log('📦 Arabic from cache');
     }
 }
 
 function filterSurahs() {
     const query = (document.getElementById('surahSearchInput')?.value || '').toLowerCase().trim();
-    
     document.querySelectorAll('.surah-item').forEach((item, index) => {
         const surah = SURAHS[index];
         const matches = !query || 
@@ -329,6 +390,7 @@ function openSurah(number) {
 // ==========================================
 function initSurahView() {
     audioPlayer = document.getElementById('audioPlayer');
+    urduAudioPlayer = new Audio();
     nextAudioPlayer = new Audio();
     nextAudioPlayer.preload = 'auto';
     
@@ -337,10 +399,11 @@ function initSurahView() {
     
     setupSurahHeader();
     populateSettingsModal();
-    setupQuickTranslation();
+    populateTranslationDropdown();
     loadSurahData();
     setupScrollListener();
     setupAudioEvents();
+    loadSurahReciters();
 }
 
 function setupSurahHeader() {
@@ -352,7 +415,9 @@ function setupSurahHeader() {
     setText('totalVerseNum', currentSurah.verses);
     
     const bismillah = document.getElementById('bismillahContainer');
-    if (bismillah) bismillah.classList.toggle('hidden', currentSurah.number === 9);
+    if (bismillah) {
+        bismillah.classList.toggle('hidden', currentSurah.number === 9);
+    }
     
     updateSurahNavigation();
 }
@@ -371,14 +436,31 @@ function updateSurahNavigation() {
     setText('nextSurahName', nextSurah ? nextSurah.name_en : 'Next');
 }
 
-function setupQuickTranslation() {
+function populateTranslationDropdown() {
     const select = document.getElementById('quickTranslation');
-    if (select) select.value = settings.translation;
+    if (!select) return;
+    
+    // Group by language
+    const grouped = {};
+    Object.entries(TRANSLATIONS).forEach(([id, trans]) => {
+        if (!grouped[trans.language]) grouped[trans.language] = [];
+        grouped[trans.language].push({ id, ...trans });
+    });
+    
+    let html = '';
+    Object.entries(grouped).forEach(([lang, items]) => {
+        html += `<optgroup label="${lang}">`;
+        items.forEach(item => {
+            html += `<option value="${item.id}" ${item.id === settings.translation ? 'selected' : ''}>${item.name}</option>`;
+        });
+        html += '</optgroup>';
+    });
+    
+    select.innerHTML = html;
 }
 
 function getTranslatorName() {
-    const trans = TRANSLATIONS[settings.translation];
-    return trans ? trans.name : '';
+    return TRANSLATIONS[settings.translation]?.name || '';
 }
 
 function isRtlTranslation() {
@@ -408,11 +490,12 @@ function parseTxtFile(text) {
             }
         }
     }
+    
     return data;
 }
 
 // ==========================================
-// LOAD DATA (WITH CACHE)
+// LOAD DATA
 // ==========================================
 async function loadSurahData() {
     show('loading');
@@ -426,42 +509,51 @@ async function loadSurahData() {
     if (container) container.innerHTML = '';
     
     try {
-        // Try cache first
-        let cachedArabic = getFromCache('arabic');
-        let cachedTrans = getFromCache('trans_' + settings.translation);
-        
         // Load Arabic
+        let cachedArabic = getFromCache('arabic');
         if (cachedArabic) {
             arabicData = cachedArabic;
+            console.log('📦 Arabic from cache');
         } else {
             const response = await fetch(ARABIC_FILE);
             const text = await response.text();
             arabicData = parseTxtFile(text);
             saveToCache('arabic', arabicData);
+            console.log('✅ Arabic loaded');
         }
         
         // Load Translation
-        if (cachedTrans && currentTranslationId === settings.translation) {
+        let cachedTrans = getFromCache('trans_' + settings.translation);
+        if (cachedTrans) {
             translationData = cachedTrans;
+            currentTranslationId = settings.translation;
+            console.log('📦 Translation from cache');
         } else {
             const trans = TRANSLATIONS[settings.translation];
-            const response = await fetch(trans.file);
-            const text = await response.text();
-            translationData = parseTxtFile(text);
-            currentTranslationId = settings.translation;
-            saveToCache('trans_' + settings.translation, translationData);
+            if (trans) {
+                const response = await fetch(trans.file);
+                const text = await response.text();
+                translationData = parseTxtFile(text);
+                currentTranslationId = settings.translation;
+                saveToCache('trans_' + settings.translation, translationData);
+                console.log('✅ Translation loaded');
+            }
         }
         
+        // Render first batch
         renderVersesBatch();
+        
         hide('loading');
         show('versesContainer');
         
     } catch (error) {
-        console.error('Failed to load:', error);
+        console.error('Load error:', error);
+        const container = document.getElementById('versesContainer');
         if (container) {
             container.innerHTML = `
                 <div class="no-results">
-                    <p>❌ Failed to load</p>
+                    <p>❌ Failed to load verses</p>
+                    <p style="font-size:11px;color:#888">${error.message}</p>
                     <button onclick="loadSurahData()">Retry</button>
                 </div>
             `;
@@ -472,22 +564,34 @@ async function loadSurahData() {
 }
 
 // ==========================================
-// RENDER VERSES
+// RENDER VERSES - FIXED LAZY LOADING
 // ==========================================
 function renderVersesBatch() {
     const container = document.getElementById('versesContainer');
     if (!container) return;
+    
+    // Check if already loaded all
+    if (loadedVerses >= currentSurah.verses) {
+        allVersesLoaded = true;
+        show('surahEnd');
+        hide('loadMore');
+        console.log('✅ All verses loaded');
+        return;
+    }
     
     const surahArabic = arabicData[currentSurah.number] || {};
     const surahTrans = translationData[currentSurah.number] || {};
     const isRtl = isRtlTranslation();
     const translatorName = getTranslatorName();
     
-    const endIndex = Math.min(loadedVerses + VERSES_PER_BATCH, currentSurah.verses);
+    const startIndex = loadedVerses;
+    const endIndex = Math.min(startIndex + VERSES_PER_BATCH, currentSurah.verses);
+    
+    console.log(`📖 Rendering verses ${startIndex + 1} to ${endIndex}`);
     
     let html = '';
     
-    for (let i = loadedVerses; i < endIndex; i++) {
+    for (let i = startIndex; i < endIndex; i++) {
         const verseNum = i + 1;
         const arabicText = surahArabic[verseNum] || '';
         const transText = surahTrans[verseNum] || '';
@@ -518,6 +622,9 @@ function renderVersesBatch() {
     container.insertAdjacentHTML('beforeend', html);
     loadedVerses = endIndex;
     
+    console.log(`✅ Loaded ${loadedVerses}/${currentSurah.verses} verses`);
+    
+    // Check if all loaded
     if (loadedVerses >= currentSurah.verses) {
         allVersesLoaded = true;
         show('surahEnd');
@@ -526,34 +633,30 @@ function renderVersesBatch() {
 }
 
 // ==========================================
-// SCROLL LISTENER - IMPROVED
+// SCROLL LISTENER - FIXED
 // ==========================================
 function setupScrollListener() {
     const content = document.getElementById('readingContent');
     if (!content) return;
     
-    let ticking = false;
-    
-    content.addEventListener('scroll', function() {
-        if (!ticking) {
-            requestAnimationFrame(function() {
-                checkScroll(content);
-                ticking = false;
-            });
-            ticking = true;
-        }
-    });
+    content.addEventListener('scroll', handleScroll, { passive: true });
+    console.log('📜 Scroll listener attached');
 }
 
-function checkScroll(content) {
+function handleScroll() {
     if (isLoadingMore || allVersesLoaded) return;
+    
+    const content = document.getElementById('readingContent');
+    if (!content) return;
     
     const scrollTop = content.scrollTop;
     const scrollHeight = content.scrollHeight;
     const clientHeight = content.clientHeight;
+    const distanceFromBottom = scrollHeight - scrollTop - clientHeight;
     
-    // Load more when near bottom
-    if (scrollTop + clientHeight >= scrollHeight - 100) {
+    // Load more when within 150px of bottom
+    if (distanceFromBottom < 150) {
+        console.log('📜 Near bottom, loading more...');
         loadMoreVerses();
     }
 }
@@ -562,11 +665,17 @@ function loadMoreVerses() {
     if (isLoadingMore || allVersesLoaded) return;
     
     isLoadingMore = true;
+    show('loadMore');
     
-    // Immediately render more verses
-    renderVersesBatch();
-    
-    isLoadingMore = false;
+    // Small delay for visual feedback
+    setTimeout(() => {
+        renderVersesBatch();
+        isLoadingMore = false;
+        
+        if (!allVersesLoaded) {
+            hide('loadMore');
+        }
+    }, 50);
 }
 
 // ==========================================
@@ -583,7 +692,6 @@ async function onTranslationChange() {
     hide('versesContainer');
     
     try {
-        // Check cache
         const cached = getFromCache('trans_' + settings.translation);
         
         if (cached) {
@@ -599,13 +707,17 @@ async function onTranslationChange() {
         currentTranslationId = settings.translation;
         loadedVerses = 0;
         allVersesLoaded = false;
-        document.getElementById('versesContainer').innerHTML = '';
         
+        const container = document.getElementById('versesContainer');
+        if (container) container.innerHTML = '';
+        
+        hide('surahEnd');
         renderVersesBatch();
         hide('loading');
         show('versesContainer');
         
     } catch (e) {
+        console.error(e);
         toast('Failed to load translation');
         hide('loading');
         show('versesContainer');
@@ -613,7 +725,7 @@ async function onTranslationChange() {
 }
 
 // ==========================================
-// AUDIO
+// AUDIO PLAYER
 // ==========================================
 function setupAudioEvents() {
     if (!audioPlayer) return;
@@ -628,16 +740,13 @@ function setupAudioEvents() {
         isPlaying = false;
         updatePlayPauseButton();
     });
-    audioPlayer.addEventListener('canplay', () => {
-        if (isContinuousPlay && currentPlayingVerse < currentSurah.verses) {
-            preloadNextVerse(currentPlayingVerse + 1);
-        }
-    });
     audioPlayer.addEventListener('error', () => {
         isPlaying = false;
         updatePlayPauseButton();
         toast('Audio not available');
     });
+    
+    urduAudioPlayer.addEventListener('ended', onUrduAudioEnded);
 }
 
 function getAudioUrl(surah, verse) {
@@ -646,10 +755,22 @@ function getAudioUrl(surah, verse) {
     return `${AUDIO_BASE}/${settings.reciter}/${s}${v}.mp3`;
 }
 
+function getUrduAudioUrl(surah, verse) {
+    const s = String(surah).padStart(3, '0');
+    const v = String(verse).padStart(3, '0');
+    return `${URDU_AUDIO_BASE}/${s}${v}.mp3`;
+}
+
 function preloadNextVerse(verseNum) {
     if (verseNum > currentSurah.verses) return;
-    nextAudioPlayer.src = getAudioUrl(currentSurah.number, verseNum);
+    
+    if (settings.urduAudioMode === 'only') {
+        nextAudioPlayer.src = getUrduAudioUrl(currentSurah.number, verseNum);
+    } else {
+        nextAudioPlayer.src = getAudioUrl(currentSurah.number, verseNum);
+    }
     nextAudioPlayer.load();
+    console.log('⏳ Preloading verse', verseNum);
 }
 
 function playBismillah() {
@@ -659,11 +780,17 @@ function playBismillah() {
 
 function playVerse(verseNum) {
     currentPlayingVerse = verseNum;
+    isPlayingUrdu = false;
     
-    if (nextAudioPlayer.src.includes(`${String(verseNum).padStart(3, '0')}.mp3`)) {
-        audioPlayer.src = nextAudioPlayer.src;
+    // Check mode
+    if (settings.urduAudioMode === 'only') {
+        audioPlayer.src = getUrduAudioUrl(currentSurah.number, verseNum);
     } else {
-        audioPlayer.src = getAudioUrl(currentSurah.number, verseNum);
+        if (nextAudioPlayer.src && nextAudioPlayer.src.includes(`${String(verseNum).padStart(3, '0')}.mp3`)) {
+            audioPlayer.src = nextAudioPlayer.src;
+        } else {
+            audioPlayer.src = getAudioUrl(currentSurah.number, verseNum);
+        }
     }
     
     audioPlayer.play().then(() => {
@@ -674,7 +801,50 @@ function playVerse(verseNum) {
         if (isContinuousPlay && verseNum < currentSurah.verses) {
             preloadNextVerse(verseNum + 1);
         }
-    }).catch(e => toast('Failed to play'));
+    }).catch(e => {
+        console.error('Play error:', e);
+        toast('Failed to play');
+    });
+}
+
+function onAudioEnded() {
+    // Check if we should play Urdu after Arabic
+    if (settings.urduAudioMode === 'after' && !isPlayingUrdu) {
+        isPlayingUrdu = true;
+        urduAudioPlayer.src = getUrduAudioUrl(currentSurah.number, currentPlayingVerse);
+        urduAudioPlayer.play().catch(() => onUrduAudioEnded());
+        return;
+    }
+    
+    proceedToNextVerse();
+}
+
+function onUrduAudioEnded() {
+    isPlayingUrdu = false;
+    proceedToNextVerse();
+}
+
+function proceedToNextVerse() {
+    if (isRepeat) {
+        playVerse(currentPlayingVerse);
+    } else if (isContinuousPlay && currentPlayingVerse < currentSurah.verses) {
+        // Make sure next verse is loaded
+        if (currentPlayingVerse >= loadedVerses) {
+            renderVersesBatch();
+        }
+        playVerse(currentPlayingVerse + 1);
+    } else {
+        isPlaying = false;
+        updatePlayPauseButton();
+        clearHighlight();
+    }
+}
+
+function onAudioTimeUpdate() {
+    if (!audioPlayer.duration) return;
+    const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+    const bar = document.getElementById('audioProgress');
+    if (bar) bar.style.width = `${progress}%`;
 }
 
 function togglePlayPause() {
@@ -698,29 +868,15 @@ function updatePlayPauseButton() {
 }
 
 function previousVerse() {
-    if (currentPlayingVerse > 1) playVerse(currentPlayingVerse - 1);
-}
-
-function nextVerse() {
-    if (currentPlayingVerse < currentSurah.verses) playVerse(currentPlayingVerse + 1);
-}
-
-function onAudioEnded() {
-    if (isRepeat) {
-        playVerse(currentPlayingVerse);
-    } else if (isContinuousPlay && currentPlayingVerse < currentSurah.verses) {
-        if (currentPlayingVerse >= loadedVerses) renderVersesBatch();
-        playVerse(currentPlayingVerse + 1);
-    } else {
-        clearHighlight();
+    if (currentPlayingVerse > 1) {
+        playVerse(currentPlayingVerse - 1);
     }
 }
 
-function onAudioTimeUpdate() {
-    if (!audioPlayer.duration) return;
-    const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
-    const bar = document.getElementById('audioProgress');
-    if (bar) bar.style.width = `${progress}%`;
+function nextVerse() {
+    if (currentPlayingVerse < currentSurah.verses) {
+        playVerse(currentPlayingVerse + 1);
+    }
 }
 
 function seekAudio(event) {
@@ -763,11 +919,13 @@ function scrollToVerse(verseNum) {
 }
 
 // ==========================================
-// DOWNLOAD AUDIO
+// DOWNLOAD VERSE AUDIO
 // ==========================================
 function downloadVerseAudio(verseNum) {
     const url = getAudioUrl(currentSurah.number, verseNum);
     const filename = `${currentSurah.name_en.replace(/[^a-zA-Z0-9]/g, '_')}_${verseNum}.mp3`;
+    
+    toast('Starting download...');
     
     fetch(url)
         .then(r => r.blob())
@@ -777,7 +935,7 @@ function downloadVerseAudio(verseNum) {
             a.download = filename;
             a.click();
             URL.revokeObjectURL(a.href);
-            toast('✓ Downloading...');
+            toast('✓ Downloaded!');
         })
         .catch(() => {
             window.open(url, '_blank');
@@ -785,17 +943,125 @@ function downloadVerseAudio(verseNum) {
 }
 
 // ==========================================
-// COPY
+// DOWNLOAD SURAH MP3 (Full Surah)
+// ==========================================
+async function loadSurahReciters() {
+    try {
+        const url = `${SURAH_RECITERS_API}${currentSurah.number}.json`;
+        console.log('🔊 Loading reciters from:', url);
+        
+        const response = await fetch(url);
+        if (response.ok) {
+            SURAH_RECITERS = await response.json();
+            console.log('✅ Loaded', SURAH_RECITERS.length, 'reciters');
+        } else {
+            console.error('❌ Failed to load reciters:', response.status);
+        }
+    } catch (e) {
+        console.error('❌ Error loading reciters:', e);
+    }
+}
+
+function showDownloadSurahModal() {
+    const modal = document.getElementById('downloadSurahModal');
+    const list = document.getElementById('recitersList');
+    
+    if (!modal || !list) return;
+    
+    // Show loading
+    list.innerHTML = `
+        <div class="loading">
+            <div class="spinner"></div>
+            <p>Loading reciters...</p>
+        </div>
+    `;
+    
+    modal.classList.remove('hidden');
+    
+    // Load reciters if not already loaded
+    if (SURAH_RECITERS.length === 0) {
+        loadSurahReciters().then(() => {
+            renderRecitersList();
+        });
+    } else {
+        renderRecitersList();
+    }
+}
+
+function renderRecitersList() {
+    const list = document.getElementById('recitersList');
+    if (!list) return;
+    
+    if (SURAH_RECITERS.length === 0) {
+        list.innerHTML = '<p class="no-results">No reciters available. Try again later.</p>';
+        return;
+    }
+    
+    list.innerHTML = SURAH_RECITERS.map((r, i) => `
+        <div class="reciter-item" onclick="downloadSurahFromReciter(${i})">
+            <div class="reciter-info">
+                <span class="reciter-name-en">${r.reciter.en}</span>
+                <span class="reciter-name-ar">${r.reciter.ar}</span>
+            </div>
+            <button class="reciter-download-btn">
+                <img src="assets/download.png" alt="Download">
+            </button>
+        </div>
+    `).join('');
+}
+
+function downloadSurahFromReciter(index) {
+    const reciter = SURAH_RECITERS[index];
+    if (!reciter) return;
+    
+    const url = reciter.link;
+    const filename = `${currentSurah.name_en.replace(/[^a-zA-Z0-9]/g, '_')}_${reciter.reciter.en.replace(/[^a-zA-Z0-9]/g, '_')}.mp3`;
+    
+    toast('Starting download...');
+    
+    fetch(url)
+        .then(r => r.blob())
+        .then(blob => {
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(a.href);
+            hideDownloadSurahModal();
+            toast('✓ Downloaded!');
+        })
+        .catch(() => {
+            window.open(url, '_blank');
+            hideDownloadSurahModal();
+        });
+}
+
+function hideDownloadSurahModal() {
+    document.getElementById('downloadSurahModal')?.classList.add('hidden');
+}
+
+function filterReciters() {
+    const query = (document.getElementById('reciterSearchInput')?.value || '').toLowerCase();
+    document.querySelectorAll('.reciter-item').forEach(item => {
+        const name = item.textContent.toLowerCase();
+        item.style.display = name.includes(query) ? 'flex' : 'none';
+    });
+}
+
+// ==========================================
+// COPY VERSE
 // ==========================================
 function copyVerse(verseNum) {
     const arabic = arabicData[currentSurah.number]?.[verseNum] || '';
     const trans = translationData[currentSurah.number]?.[verseNum] || '';
+    const translator = getTranslatorName();
     
-    const text = `${arabic}\n\n${trans}\n\n— ${currentSurah.name_en} ${currentSurah.number}:${verseNum}\n${getTranslatorName()}`;
+    const text = `${arabic}\n\n${trans}\n\n— ${currentSurah.name_en} (${currentSurah.name_ar}) ${currentSurah.number}:${verseNum}\nTranslation: ${translator}`;
     
     navigator.clipboard?.writeText(text).then(() => toast('✓ Copied!')).catch(() => {
         const ta = document.createElement('textarea');
         ta.value = text;
+        ta.style.cssText = 'position:fixed;left:-9999px';
         document.body.appendChild(ta);
         ta.select();
         document.execCommand('copy');
@@ -808,7 +1074,10 @@ function copyVerse(verseNum) {
 // NAVIGATION
 // ==========================================
 function goBack() {
-    if (audioPlayer) { audioPlayer.pause(); audioPlayer.src = ''; }
+    if (audioPlayer) {
+        audioPlayer.pause();
+        audioPlayer.src = '';
+    }
     window.location.href = 'quran.html';
 }
 
@@ -829,7 +1098,7 @@ function goToNextSurah() {
 }
 
 // ==========================================
-// SETTINGS
+// SETTINGS MODAL
 // ==========================================
 function showSettingsModal() {
     populateSettingsModal();
@@ -841,9 +1110,27 @@ function hideSettingsModal() {
 }
 
 function populateSettingsModal() {
+    // Translation select
     const transSelect = document.getElementById('translationSelect');
-    if (transSelect) transSelect.value = settings.translation;
+    if (transSelect) {
+        const grouped = {};
+        Object.entries(TRANSLATIONS).forEach(([id, trans]) => {
+            if (!grouped[trans.language]) grouped[trans.language] = [];
+            grouped[trans.language].push({ id, ...trans });
+        });
+        
+        let html = '';
+        Object.entries(grouped).forEach(([lang, items]) => {
+            html += `<optgroup label="${lang}">`;
+            items.forEach(item => {
+                html += `<option value="${item.id}" ${item.id === settings.translation ? 'selected' : ''}>${item.name}</option>`;
+            });
+            html += '</optgroup>';
+        });
+        transSelect.innerHTML = html;
+    }
     
+    // Reciter select
     const reciterSelect = document.getElementById('reciterSelect');
     if (reciterSelect) {
         reciterSelect.innerHTML = RECITORS.map(r => 
@@ -851,12 +1138,21 @@ function populateSettingsModal() {
         ).join('');
     }
     
-    if (document.getElementById('arabicFontSize')) {
-        document.getElementById('arabicFontSize').value = settings.arabicFontSize;
-    }
-    if (document.getElementById('transFontSize')) {
-        document.getElementById('transFontSize').value = settings.transFontSize;
-    }
+    // Urdu audio mode
+    const urduAfter = document.getElementById('urduAudioAfter');
+    const urduOnly = document.getElementById('urduAudioOnly');
+    const urduNone = document.getElementById('urduAudioNone');
+    
+    if (urduAfter) urduAfter.checked = settings.urduAudioMode === 'after';
+    if (urduOnly) urduOnly.checked = settings.urduAudioMode === 'only';
+    if (urduNone) urduNone.checked = settings.urduAudioMode === 'none';
+    
+    // Font sizes
+    const arabicSize = document.getElementById('arabicFontSize');
+    const transSize = document.getElementById('transFontSize');
+    
+    if (arabicSize) arabicSize.value = settings.arabicFontSize;
+    if (transSize) transSize.value = settings.transFontSize;
     
     updateFontSizePreview();
 }
@@ -872,20 +1168,36 @@ function saveSettings() {
     settings.arabicFontSize = parseInt(document.getElementById('arabicFontSize')?.value || 20);
     settings.transFontSize = parseInt(document.getElementById('transFontSize')?.value || 12);
     
+    // Urdu audio mode
+    if (document.getElementById('urduAudioAfter')?.checked) {
+        settings.urduAudioMode = 'after';
+    } else if (document.getElementById('urduAudioOnly')?.checked) {
+        settings.urduAudioMode = 'only';
+    } else {
+        settings.urduAudioMode = 'none';
+    }
+    
     saveSettingsToStorage();
     hideSettingsModal();
     
-    document.querySelectorAll('.verse-arabic').forEach(el => el.style.fontSize = `${settings.arabicFontSize}px`);
-    document.querySelectorAll('.verse-translation').forEach(el => el.style.fontSize = `${settings.transFontSize}px`);
+    // Apply font sizes
+    document.querySelectorAll('.verse-arabic').forEach(el => {
+        el.style.fontSize = `${settings.arabicFontSize}px`;
+    });
+    document.querySelectorAll('.verse-translation').forEach(el => {
+        el.style.fontSize = `${settings.transFontSize}px`;
+    });
     
+    // Update quick translation dropdown
     const quickTrans = document.getElementById('quickTranslation');
     if (quickTrans) quickTrans.value = settings.translation;
     
+    // Reload if translation changed
     if (currentTranslationId !== settings.translation) {
         onTranslationChange();
     }
     
-    toast('✓ Saved');
+    toast('✓ Settings saved');
 }
 
 // ==========================================
@@ -905,7 +1217,9 @@ function hide(id) {
 }
 
 function handleModalClick(e) {
-    if (e.target.classList.contains('modal')) e.target.classList.add('hidden');
+    if (e.target.classList.contains('modal')) {
+        e.target.classList.add('hidden');
+    }
 }
 
 function toast(msg) {
@@ -923,7 +1237,7 @@ function toast(msg) {
 }
 
 // ==========================================
-// EXPORTS
+// GLOBAL EXPORTS
 // ==========================================
 window.openSurah = openSurah;
 window.filterSurahs = filterSurahs;
@@ -945,5 +1259,9 @@ window.toggleContinuousPlay = toggleContinuousPlay;
 window.seekAudio = seekAudio;
 window.copyVerse = copyVerse;
 window.downloadVerseAudio = downloadVerseAudio;
+window.showDownloadSurahModal = showDownloadSurahModal;
+window.hideDownloadSurahModal = hideDownloadSurahModal;
+window.downloadSurahFromReciter = downloadSurahFromReciter;
+window.filterReciters = filterReciters;
 window.handleModalClick = handleModalClick;
 window.loadSurahData = loadSurahData;
