@@ -658,6 +658,173 @@
 }
 
 /* ==========================================
+   DOWNLOAD SURAH BUTTON
+   ========================================== */
+.translation-bar {
+    display: flex;
+    gap: 8px;
+    padding: 8px 12px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+}
+
+.translation-bar select {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 13px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg-secondary);
+}
+
+.download-surah-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.download-surah-btn img {
+    width: 14px;
+    height: 14px;
+    filter: brightness(0) invert(1);
+}
+
+.download-surah-btn:active {
+    background: var(--accent-dark);
+}
+
+/* ==========================================
+   RECITERS LIST MODAL
+   ========================================== */
+.reciter-search {
+    margin-bottom: 12px;
+}
+
+.reciter-search input {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg-secondary);
+}
+
+.reciters-list {
+    max-height: 50vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.reciter-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.reciter-item:active {
+    background: var(--accent-light);
+}
+
+.reciter-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.reciter-name-en {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+}
+
+.reciter-name-ar {
+    font-family: 'Hafs Uthmanic', 'Amiri', serif;
+    font-size: 13px;
+    color: var(--accent);
+}
+
+.reciter-download-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.reciter-download-btn img {
+    width: 16px;
+    height: 16px;
+    filter: brightness(0) invert(1);
+}
+
+/* ==========================================
+   URDU AUDIO RADIO BUTTONS
+   ========================================== */
+.radio-group-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.radio-item-full {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+}
+
+.radio-item-full input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
+}
+
+.radio-item-full span {
+    font-size: 14px;
+    color: var(--text);
+}
+
+/* ==========================================
+   SETTINGS SELECT FULL WIDTH
+   ========================================== */
+.settings-section select {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg-secondary);
+}
+
+.settings-section select optgroup {
+    font-weight: 600;
+    color: var(--accent);
+}
+
+/* ==========================================
    SETTINGS
    ========================================== */
 .settings-section {
