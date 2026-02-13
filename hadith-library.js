@@ -50,6 +50,16 @@ const BOOKS_MANIFEST = [
         icon: "assets/tirmidhi.png",
         count: 3605,
         version: 1
+   },
+      {
+        id: "nasai",
+        file: "https://cdn.jsdelivr.net/gh/saadhusainn/saadhusainn.github.io@main/hadiths/nasai.json",
+        localFile: "hadiths/nasai.json",
+        name_en: "Sunan al-Nasāʾī",
+        name_ar: "سُنَنُ النَّسَائِي",
+        icon: "assets/nasai.png",
+        count: 5758,
+        version: 1
    }
     // Add more books with CDN URLs
 ];
