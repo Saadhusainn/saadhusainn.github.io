@@ -561,6 +561,19 @@ body {
     transform: rotate(180deg);
 }
 
+/* Style for disabled "no tafsirs" option */
+.custom-select option:disabled {
+    color: var(--text-light);
+    font-style: italic;
+    background-color: var(--bg-secondary);
+}
+
+/* Improve dropdown option styling */
+.custom-select option {
+    padding: 12px;
+    font-size: 14px;
+}
+
 /* Ayah Content */
 .ayah-content {
     max-height: 0;
@@ -633,6 +646,38 @@ body {
 .lang-badge.kurdish {
     background: #fed7aa;
     color: #9a3412;
+}
+
+/* ==========================================
+   URDU FONT STYLES - FIXED
+   ========================================== */
+.ayah-text.urdu-font {
+    font-family: var(--font-ur) !important; /* Force Urdu font */
+    font-size: calc(var(--ayah-font-size) + 4px); /* Larger for Nastaleeq */
+    line-height: 2.4; /* More line spacing for Nastaleeq */
+    font-weight: normal;
+    word-spacing: 2px;
+    letter-spacing: 0.5px;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Specific override for Urdu tafsir cards */
+.ayah-card .ayah-text.urdu-font {
+    font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif !important;
+}
+
+/* Fallback for when JMN.ttf is not loaded */
+@supports not (font-family: 'Jameel Noori Nastaleeq') {
+    .ayah-text.urdu-font {
+        font-family: 'Noto Nastaliq Urdu', 'AlQalam Taj Nastaleeq', serif;
+    }
+}
+
+/* Ensure proper RTL rendering */
+.ayah-text[style*="direction: rtl"] {
+    unicode-bidi: embed;
 }
 
 /* ==========================================
