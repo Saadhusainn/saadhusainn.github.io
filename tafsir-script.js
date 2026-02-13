@@ -173,9 +173,23 @@ var CDN_BASE = 'https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir';
 // ==========================================
 document.addEventListener('DOMContentLoaded', function() {
     loadFromStorage();
+    
+    // Load saved language filter
+    var savedLang = localStorage.getItem('tafsir_language_filter');
+    if (savedLang) {
+        currentLanguage = savedLang;
+        // Update button states
+        document.querySelectorAll('.lang-btn').forEach(function(btn) {
+            btn.classList.toggle('active', btn.dataset.lang === savedLang);
+        });
+    }
+    
     populateTafsirDropdown();
     populateSurahDropdown();
     renderRecentCards();
+    
+    // Reset any stuck states
+    resetStartButton();
 });
 
 // ==========================================
@@ -259,7 +273,7 @@ function toggleBookmark(surahNum, ayahNum) {
 }
 
 // ==========================================
-// LANGUAGE FILTER
+// LANGUAGE FILTER - FIXED
 // ==========================================
 function filterByLanguage(lang) {
     currentLanguage = lang;
@@ -270,23 +284,47 @@ function filterByLanguage(lang) {
     });
 
     populateTafsirDropdown();
+    
+    // Save filter preference
+    localStorage.setItem('tafsir_language_filter', lang);
 }
 
 // ==========================================
-// POPULATE DROPDOWNS
+// POPULATE TAFSIR DROPDOWN - FIXED
 // ==========================================
 function populateTafsirDropdown() {
     var select = document.getElementById('tafsirSelect');
-    var filtered = currentLanguage === 'all' 
-        ? TAFSIRS 
-        : TAFSIRS.filter(function(t) { return t.language_name === currentLanguage; });
+    
+    // Filter logic - FIXED: Compare with lowercase 'language' field, not 'language_name'
+    var filtered;
+    if (currentLanguage === 'all') {
+        filtered = TAFSIRS;
+    } else {
+        filtered = TAFSIRS.filter(function(t) { 
+            return t.language === currentLanguage; // Use 'language' field, not 'language_name'
+        });
+    }
 
+    // Build dropdown options
     var html = '<option value="">Select a Tafsir...</option>';
-    filtered.forEach(function(tafsir) {
-        html += '<option value="' + tafsir.id + '">' + tafsir.name + ' (' + tafsir.author + ')</option>';
-    });
+    
+    if (filtered.length === 0) {
+        // Show a message if no tafsirs found
+        html += '<option value="" disabled>No tafsirs available in this language</option>';
+    } else {
+        filtered.forEach(function(tafsir) {
+            html += '<option value="' + tafsir.id + '">' + 
+                    tafsir.name + ' — ' + tafsir.author + '</option>';
+        });
+    }
 
     select.innerHTML = html;
+    
+    // Reset selections when language changes
+    selectedTafsir = null;
+    document.getElementById('surahSelect').disabled = true;
+    document.getElementById('ayahSelect').disabled = true;
+    updateStartButton();
 }
 
 function populateSurahDropdown() {
@@ -439,19 +477,28 @@ function displayReadingView(tafsirId, surahNum, ayahNum) {
 }
 
 // ==========================================
-// POPULATE TAFSIR SWITCHER WITH BADGES
+// POPULATE TAFSIR SWITCHER - FIXED
 // ==========================================
 function populateTafsirSwitcher(currentTafsirId) {
     var select = document.getElementById('tafsirSwitchSelect');
     select.innerHTML = '';
     
-    TAFSIRS.forEach(function(t) {
+    // Sort tafsirs by language for better organization
+    var sortedTafsirs = [...TAFSIRS].sort(function(a, b) {
+        if (a.language < b.language) return -1;
+        if (a.language > b.language) return 1;
+        return 0;
+    });
+    
+    sortedTafsirs.forEach(function(t) {
         var option = document.createElement('option');
         option.value = t.id;
         
-        // Add language badge
-        var langBadge = ' [' + t.language_name.charAt(0).toUpperCase() + t.language_name.slice(1) + ']';
-        option.textContent = t.name + langBadge;
+        // Add language indicator in brackets
+        option.textContent = t.name + ' [' + t.language_name + ']';
+        
+        // Add data attribute for language (useful for styling)
+        option.setAttribute('data-language', t.language);
         
         if (t.id === currentTafsirId) option.selected = true;
         select.appendChild(option);
@@ -459,7 +506,7 @@ function populateTafsirSwitcher(currentTafsirId) {
 }
 
 // ==========================================
-// RENDER AYAHS (FIXED NUMERIC SORTING!)
+// RENDER AYAHS - FIXED URDU FONT SUPPORT
 // ==========================================
 function renderAyahs(tafsirId, scrollToAyah) {
     var container = document.getElementById('ayahsContainer');
@@ -471,8 +518,21 @@ function renderAyahs(tafsirId, scrollToAyah) {
 
     var tafsir = TAFSIRS.find(function(t) { return t.id === tafsirId; });
     var fontClass = '';
-    if (tafsir && tafsir.language_name === 'urdu') {
-        fontClass = ' urdu';
+    var direction = 'rtl';
+    var textAlign = 'right';
+    
+    // Check if it's Urdu and apply special font
+    if (tafsir && tafsir.language === 'urdu') {
+        fontClass = ' urdu-font';  // Changed class name for clarity
+    }
+    
+    // Also check Bengali and other RTL/LTR languages
+    if (tafsir && (tafsir.language === 'arabic' || tafsir.language === 'urdu' || tafsir.language === 'kurdish')) {
+        direction = 'rtl';
+        textAlign = 'right';
+    } else {
+        direction = 'ltr';
+        textAlign = 'left';
     }
 
     // FIXED: Convert keys to integers and sort numerically
@@ -504,7 +564,9 @@ function renderAyahs(tafsirId, scrollToAyah) {
                 '</div>' +
             '</div>' +
             '<div class="ayah-content">' +
-                '<div class="ayah-text' + fontClass + '">' + ayah.text + '</div>' +
+                '<div class="ayah-text' + fontClass + '" style="direction: ' + direction + '; text-align: ' + textAlign + ';">' + 
+                ayah.text + 
+                '</div>' +
             '</div>' +
         '</div>';
     });
