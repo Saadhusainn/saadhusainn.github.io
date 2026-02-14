@@ -17,7 +17,7 @@ const BOOKS_MANIFEST = [
         localFile: "hadiths/bukhari.json",
         name_en: "Ṣaḥīḥ al-Bukhārī",
         name_ar: "صحيح البخاري",
-        icon: "assets/sahihalbukhari.png",
+        icon: "assets/bukhari.png",
         count: 7563,
         version: 1
     },
@@ -27,7 +27,7 @@ const BOOKS_MANIFEST = [
         localFile: "hadiths/muslim.json",
         name_en: "Ṣaḥīḥ Muslim",
         name_ar: "صحيح مسلم",
-        icon: "assets/sahihmuslim.png",
+        icon: "assets/muslim.png",
         count: 7500,
         version: 1
     },
