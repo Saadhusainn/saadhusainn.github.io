@@ -514,6 +514,103 @@ body {
 }
 
 /* ==========================================
+   NEW FIELD STYLES
+   ========================================== */
+
+/* Hadith Title */
+.title-box {
+    background: #fff8e1;
+    padding: 14px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 18px;
+    border-left: 4px solid #ffa000;
+}
+
+.title-ar {
+    font-family: var(--font-ar);
+    font-size: 17px;
+    line-height: 1.8;
+    direction: rtl;
+    text-align: right;
+    color: var(--text);
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.title-en {
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+/* Chapter Intro */
+.chapter-intro {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed rgba(45, 90, 69, 0.3);
+}
+
+.chapter-intro-ar {
+    font-family: var(--font-ar);
+    font-size: 14px;
+    line-height: 1.8;
+    direction: rtl;
+    text-align: right;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+}
+
+.chapter-intro-en {
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--text-light);
+}
+
+/* Subchapter h2 */
+.subchapter-box {
+    background: #e3f2fd;
+    padding: 14px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 18px;
+    border-left: 4px solid #1976d2;
+}
+
+.subchapter-ar {
+    font-family: var(--font-ar);
+    font-size: 15px;
+    line-height: 1.8;
+    direction: rtl;
+    text-align: right;
+    color: var(--text);
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.subchapter-en {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.subchapter-intro-ar {
+    font-family: var(--font-ar);
+    font-size: 13px;
+    line-height: 1.7;
+    direction: rtl;
+    text-align: right;
+    color: var(--text-secondary);
+    margin-top: 8px;
+}
+
+.subchapter-intro-en {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--text-light);
+    margin-top: 4px;
+}
+
+/* ==========================================
    HADITH ITEMS (List View)
    ========================================== */
 .hadith-item {
