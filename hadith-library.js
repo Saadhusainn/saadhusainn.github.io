@@ -60,6 +60,26 @@ const BOOKS_MANIFEST = [
         icon: "assets/nasai.png",
         count: 5758,
         version: 1
+   },
+      {
+        id: "ibnmajah",
+        file: "https://cdn.jsdelivr.net/gh/saadhusainn/saadhusainn.github.io@main/hadiths/ibnmajah.json",
+        localFile: "hadiths/ibnmajah.json",
+        name_en: "Sunan Ibn Mājah",
+        name_ar: "سُنَنُ ابِنِ مَاجَة",
+        icon: "assets/ibnmajah.png",
+        count: 4341,
+        version: 1
+   },
+      {
+        id: "darimi",
+        file: "https://cdn.jsdelivr.net/gh/saadhusainn/saadhusainn.github.io@main/hadiths/darimi.json",
+        localFile: "hadiths/darimi.json",
+        name_en: "Sunan al-Dārimī",
+        name_ar: "سُنَنُ الدَّارِمِي",
+        icon: "assets/darimi.png",
+        count: 3546,
+        version: 1
    }
     // Add more books with CDN URLs
 ];
