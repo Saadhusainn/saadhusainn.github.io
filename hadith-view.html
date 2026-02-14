@@ -39,10 +39,32 @@
                     <span class="hadith-num" id="hadithNum">#1</span>
                 </div>
 
+                <!-- Hadith Title (NEW!) -->
+                <div class="title-box" id="titleBox" style="display:none;">
+                    <p class="section-label">Title</p>
+                    <div class="title-ar" id="titleAr"></div>
+                    <div class="title-en" id="titleEn"></div>
+                </div>
+
                 <!-- Chapter Info -->
                 <div class="chapter-box" id="chapterBox">
                     <p class="chapter-ar" id="chapterAr"></p>
                     <p class="chapter-en" id="chapterEn"></p>
+                    
+                    <!-- Chapter Intro (NEW!) -->
+                    <div class="chapter-intro" id="chapterIntro" style="display:none;">
+                        <div class="chapter-intro-ar" id="chapterIntroAr"></div>
+                        <div class="chapter-intro-en" id="chapterIntroEn"></div>
+                    </div>
+                </div>
+
+                <!-- Subchapter h2 (NEW!) -->
+                <div class="subchapter-box" id="subchapterBox" style="display:none;">
+                    <p class="section-label">Subchapter</p>
+                    <div class="subchapter-ar" id="subchapterAr"></div>
+                    <div class="subchapter-en" id="subchapterEn"></div>
+                    <div class="subchapter-intro-ar" id="subchapterIntroAr"></div>
+                    <div class="subchapter-intro-en" id="subchapterIntroEn"></div>
                 </div>
 
                 <!-- Arabic Text -->
@@ -61,12 +83,12 @@
                     <div class="body-text" id="bodyEn"></div>
                 </div>
 
-                <!-- Footnotes Section (after body, before reference) -->
-<div class="footnote-box hidden" id="footnoteBox">
-    <p class="section-label">Footnotes</p>
-    <div class="footnote-ar" id="footnoteAr" dir="rtl"></div>
-    <div class="footnote-en" id="footnoteEn"></div>
-</div>
+                <!-- Footnotes Section -->
+                <div class="footnote-box hidden" id="footnoteBox">
+                    <p class="section-label">Footnotes</p>
+                    <div class="footnote-ar" id="footnoteAr" dir="rtl"></div>
+                    <div class="footnote-en" id="footnoteEn"></div>
+                </div>
                 
                 <!-- Reference -->
                 <div class="reference-box" id="referenceBox">
@@ -74,20 +96,21 @@
                     <span class="ref-value" id="refValue">Book: 1</span>
                     <span class="ref-arabic" id="refArabic"></span>
                 </div>
-<!-- Grade Box (updated) -->
-<div class="grade-box" id="gradeBox">
-    <span class="grade-label">Grade:</span>
-    <span class="grade-value" id="gradeValue">Unknown</span>
-    <span class="grade-arabic" id="gradeArabic"></span>
-    <span class="grade-details" id="gradeDetails" style="display:none; font-size:11px; color:#888;"></span>
-</div>
 
-<!-- Grader Box (NEW!) -->
-<div class="grader-box" id="graderBox" style="display:none;">
-    <span class="grader-label">Graded by:</span>
-    <span class="grader-value" id="graderValue"></span>
-    <span class="grader-arabic" id="graderArabic"></span>
-</div>
+                <!-- Grade Box -->
+                <div class="grade-box" id="gradeBox">
+                    <span class="grade-label">Grade:</span>
+                    <span class="grade-value" id="gradeValue">Unknown</span>
+                    <span class="grade-arabic" id="gradeArabic"></span>
+                    <span class="grade-details" id="gradeDetails" style="display:none; font-size:11px; color:#888;"></span>
+                </div>
+
+                <!-- Grader Box -->
+                <div class="grader-box" id="graderBox" style="display:none;">
+                    <span class="grader-label">Graded by:</span>
+                    <span class="grader-value" id="graderValue"></span>
+                    <span class="grader-arabic" id="graderArabic"></span>
+                </div>
 
             </article>
         </main>
@@ -124,9 +147,9 @@
                     <span>English Chain</span>
                 </label>
                 <label class="checkbox-item">
-    <input type="checkbox" id="copyFootnote">
-    <span>Footnotes</span>
-</label>
+                    <input type="checkbox" id="copyFootnote">
+                    <span>Footnotes</span>
+                </label>
                 <label class="checkbox-item">
                     <input type="checkbox" id="copyRefEnglish" checked>
                     <span>Reference (English)</span>
@@ -177,9 +200,9 @@
                                 <span>Reference</span>
                             </label>
                             <label class="checkbox-item">
-    <input type="checkbox" id="imgFootnote" onchange="updateImagePreview()">
-    <span>Footnotes</span>
-</label>
+                                <input type="checkbox" id="imgFootnote" onchange="updateImagePreview()">
+                                <span>Footnotes</span>
+                            </label>
                             <label class="checkbox-item">
                                 <input type="checkbox" id="imgGrade" onchange="updateImagePreview()">
                                 <span>Grade</span>
