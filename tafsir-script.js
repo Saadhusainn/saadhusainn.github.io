@@ -6,7 +6,7 @@
 // DATA - 27 Tafsirs
 // ==========================================
 var TAFSIRS = [
-    { id: 'ar-tafseer-al-saadi', name: 'Tafsīr Al-Saʿdī', author: 'Al-Saʿdī', language: 'arabic', language_name: 'العربية' },
+    { id: 'ar-tafseer-al-saddi', name: 'Tafsīr Al-Saʿdī', author: 'Al-Saʿdī', language: 'arabic', language_name: 'العربية' },
     { id: 'ar-tafsir-ibn-kathir', name: 'Tafsīr Ibn Kathīr', author: 'Ḥāfiẓ Ibn Kathīr', language: 'arabic', language_name: 'العربية' },
     { id: 'ar-tafsir-al-baghawi', name: 'Tafsīr Al-Baghawī', author: 'Al-Baghawī', language: 'arabic', language_name: 'العربية' },
     { id: 'ar-tafseer-tanwir-al-miqbas', name: 'Tafsīr Tanwīr al-Miqbās', author: 'Tanwīr', language: 'arabic', language_name: 'العربية' },
