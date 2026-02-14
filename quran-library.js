@@ -400,8 +400,8 @@ function initSurahView() {
     setupSurahHeader();
     populateSettingsModal();
     populateTranslationDropdown();
-    loadSurahData();
-    setupScrollListener();
+    loadSurahData(); // This will now load all verses at once
+    // REMOVED: setupScrollListener();
     setupAudioEvents();
     loadSurahReciters();
 }
@@ -502,6 +502,7 @@ async function loadSurahData() {
     hide('versesContainer');
     hide('surahEnd');
     
+    // Reset loading state
     loadedVerses = 0;
     allVersesLoaded = false;
     
@@ -540,11 +541,12 @@ async function loadSurahData() {
             }
         }
         
-        // Render first batch
-        renderVersesBatch();
+        // Render ALL verses at once
+        renderAllVerses();
         
         hide('loading');
         show('versesContainer');
+        show('surahEnd'); // Show end immediately since all verses are loaded
         
     } catch (error) {
         console.error('Load error:', error);
@@ -566,33 +568,19 @@ async function loadSurahData() {
 // ==========================================
 // RENDER VERSES - FIXED LAZY LOADING
 // ==========================================
-function renderVersesBatch() {
+function renderAllVerses() {
     const container = document.getElementById('versesContainer');
     if (!container) return;
-    
-    // Check if already loaded all
-    if (loadedVerses >= currentSurah.verses) {
-        allVersesLoaded = true;
-        show('surahEnd');
-        hide('loadMore');
-        console.log('✅ All verses loaded');
-        return;
-    }
     
     const surahArabic = arabicData[currentSurah.number] || {};
     const surahTrans = translationData[currentSurah.number] || {};
     const isRtl = isRtlTranslation();
     const translatorName = getTranslatorName();
     
-    const startIndex = loadedVerses;
-    const endIndex = Math.min(startIndex + VERSES_PER_BATCH, currentSurah.verses);
-    
-    console.log(`📖 Rendering verses ${startIndex + 1} to ${endIndex}`);
-    
     let html = '';
     
-    for (let i = startIndex; i < endIndex; i++) {
-        const verseNum = i + 1;
+    // Render ALL verses from 1 to total verses
+    for (let verseNum = 1; verseNum <= currentSurah.verses; verseNum++) {
         const arabicText = surahArabic[verseNum] || '';
         const transText = surahTrans[verseNum] || '';
         
@@ -619,63 +607,11 @@ function renderVersesBatch() {
         `;
     }
     
-    container.insertAdjacentHTML('beforeend', html);
-    loadedVerses = endIndex;
+    container.innerHTML = html;
+    loadedVerses = currentSurah.verses;
+    allVersesLoaded = true;
     
-    console.log(`✅ Loaded ${loadedVerses}/${currentSurah.verses} verses`);
-    
-    // Check if all loaded
-    if (loadedVerses >= currentSurah.verses) {
-        allVersesLoaded = true;
-        show('surahEnd');
-        hide('loadMore');
-    }
-}
-
-// ==========================================
-// SCROLL LISTENER - FIXED
-// ==========================================
-function setupScrollListener() {
-    const content = document.getElementById('readingContent');
-    if (!content) return;
-    
-    content.addEventListener('scroll', handleScroll, { passive: true });
-    console.log('📜 Scroll listener attached');
-}
-
-function handleScroll() {
-    if (isLoadingMore || allVersesLoaded) return;
-    
-    const content = document.getElementById('readingContent');
-    if (!content) return;
-    
-    const scrollTop = content.scrollTop;
-    const scrollHeight = content.scrollHeight;
-    const clientHeight = content.clientHeight;
-    const distanceFromBottom = scrollHeight - scrollTop - clientHeight;
-    
-    // Load more when within 150px of bottom
-    if (distanceFromBottom < 150) {
-        console.log('📜 Near bottom, loading more...');
-        loadMoreVerses();
-    }
-}
-
-function loadMoreVerses() {
-    if (isLoadingMore || allVersesLoaded) return;
-    
-    isLoadingMore = true;
-    show('loadMore');
-    
-    // Small delay for visual feedback
-    setTimeout(() => {
-        renderVersesBatch();
-        isLoadingMore = false;
-        
-        if (!allVersesLoaded) {
-            hide('loadMore');
-        }
-    }, 50);
+    console.log(`✅ Loaded all ${currentSurah.verses} verses`);
 }
 
 // ==========================================
@@ -705,16 +641,13 @@ async function onTranslationChange() {
         }
         
         currentTranslationId = settings.translation;
-        loadedVerses = 0;
-        allVersesLoaded = false;
         
-        const container = document.getElementById('versesContainer');
-        if (container) container.innerHTML = '';
+        // Render all verses with new translation
+        renderAllVerses();
         
-        hide('surahEnd');
-        renderVersesBatch();
         hide('loading');
         show('versesContainer');
+        show('surahEnd');
         
     } catch (e) {
         console.error(e);
@@ -722,7 +655,7 @@ async function onTranslationChange() {
         hide('loading');
         show('versesContainer');
     }
-}
+}	
 
 // ==========================================
 // AUDIO PLAYER
@@ -828,10 +761,7 @@ function proceedToNextVerse() {
     if (isRepeat) {
         playVerse(currentPlayingVerse);
     } else if (isContinuousPlay && currentPlayingVerse < currentSurah.verses) {
-        // Make sure next verse is loaded
-        if (currentPlayingVerse >= loadedVerses) {
-            renderVersesBatch();
-        }
+        // REMOVED: if (currentPlayingVerse >= loadedVerses) { renderVersesBatch(); }
         playVerse(currentPlayingVerse + 1);
     } else {
         isPlaying = false;
