@@ -270,6 +270,15 @@ async function preloadBook(book) {
 // ==========================================
 // UTILITIES
 // ==========================================
+function isValidField(value) {
+    if (!value) return false;
+    var str = String(value).trim().toLowerCase();
+    return str !== '' && 
+           str !== 'null' && 
+           str !== 'none' && 
+           str !== 'undefined';
+}
+
 function extractNumFromRef(ref) {
     if (!ref) return null;
     var match = String(ref).match(/[:\s](\d+)/);
@@ -478,32 +487,52 @@ function extractChapters() {
     
     currentBookData.forEach(function(h, i) {
         var chId = h.h1 || ('ch_' + i);
-        var num = h.num || extractNumFromRef(h.ref) || (i + 1);
         
         if (!map[chId]) {
+            var start = h.h1_start ? parseInt(h.h1_start) : null;
+            var count = h.h1_count ? parseInt(h.h1_count) : 0;
+            
             map[chId] = {
                 id: chId,
                 num: h.h1 || '?',
                 title_ar: h.h1_title || '',
                 title_en: h.h1_title_en || '',
-                start: h.h1_start ? parseInt(h.h1_start) : num,
-                hadiths: [],
-                startNum: Infinity,
-                endNum: -Infinity
+                intro_ar: h.h1_intro || '',
+                intro_en: h.h1_intro_en || '',
+                start: start,
+                count: count,
+                hadiths: []
             };
             order.push(chId);
         }
         
-        var ch = map[chId];
-        ch.hadiths.push(h);
-        if (num < ch.startNum) ch.startNum = num;
-        if (num > ch.endNum) ch.endNum = num;
+        map[chId].hadiths.push(h);
     });
     
     chapters = order.map(function(id) {
         var ch = map[id];
-        if (ch.startNum === Infinity) ch.startNum = ch.start || 1;
-        if (ch.endNum === -Infinity) ch.endNum = ch.startNum + ch.hadiths.length - 1;
+        
+        // Use h1_start and h1_count if available
+        if (ch.start && ch.count) {
+            ch.startNum = ch.start;
+            ch.endNum = ch.start + ch.count - 1;
+        } else {
+            // Fallback: calculate from actual hadiths
+            ch.startNum = Infinity;
+            ch.endNum = -Infinity;
+            ch.hadiths.forEach(function(h) {
+                var num = h.num || extractNumFromRef(h.ref);
+                if (num) {
+                    num = parseInt(num);
+                    if (num < ch.startNum) ch.startNum = num;
+                    if (num > ch.endNum) ch.endNum = num;
+                }
+            });
+            
+            if (ch.startNum === Infinity) ch.startNum = 1;
+            if (ch.endNum === -Infinity) ch.endNum = ch.hadiths.length;
+        }
+        
         return ch;
     });
 }
@@ -518,11 +547,23 @@ function renderChapters() {
     }
 
     list.innerHTML = chapters.map(function(ch) {
+        var intro = '';
+        if (isValidField(ch.intro_en) || isValidField(ch.intro_ar)) {
+            intro = '<div class="chapter-intro">';
+            if (isValidField(ch.intro_ar)) intro += '<div class="chapter-intro-ar">' + ch.intro_ar + '</div>';
+            if (isValidField(ch.intro_en)) intro += '<div class="chapter-intro-en">' + ch.intro_en + '</div>';
+            intro += '</div>';
+        }
+        
+        var titleAr = isValidField(ch.title_ar) ? ch.title_ar : 'بدون عنوان';
+        var titleEn = isValidField(ch.title_en) ? ch.title_en : '';
+        
         return '<div class="chapter-item" data-id="' + ch.id + '">' +
             '<div class="chapter-num">Chapter ' + ch.num + '</div>' +
-            '<div class="chapter-title-ar">' + (ch.title_ar || 'بدون عنوان') + '</div>' +
-            '<div class="chapter-title-en">' + (ch.title_en || '') + '</div>' +
-            '<div class="chapter-meta">' + ch.hadiths.length + ' hadiths <span class="range">(' + ch.startNum + ' - ' + ch.endNum + ')</span></div>' +
+            '<div class="chapter-title-ar">' + titleAr + '</div>' +
+            (titleEn ? '<div class="chapter-title-en">' + titleEn + '</div>' : '') +
+            intro +
+            '<div class="chapter-meta">' + ch.hadiths.length + ' hadiths <span class="range">(#' + ch.startNum + ' - #' + ch.endNum + ')</span></div>' +
         '</div>';
     }).join('');
     
@@ -566,15 +607,18 @@ function renderHadiths(arr, containerId) {
 
     list.innerHTML = arr.map(function(h, i) {
         var num = h.num || extractNumFromRef(h.ref) || (i + 1);
-        var grade = h.grade_grade_en || '';
+        var grade = isValidField(h.grade_grade_en) ? h.grade_grade_en : '';
+        
+        var bodyAr = isValidField(h.body) ? stripHtml(h.body) : 'No text';
+        var bodyEn = isValidField(h.body_en) ? stripHtml(h.body_en) : 'No translation';
         
         return '<div class="hadith-item" data-index="' + i + '" data-container="' + containerId + '">' +
             '<div class="hadith-item-header">' +
                 '<span class="hadith-item-num">#' + num + '</span>' +
-                '<span class="hadith-item-grade ' + getGradeClass(grade) + '">' + (grade || '?') + '</span>' +
+                (grade ? '<span class="hadith-item-grade ' + getGradeClass(grade) + '">' + grade + '</span>' : '') +
             '</div>' +
-            '<div class="hadith-preview-ar">' + truncate(stripHtml(h.body), 80) + '</div>' +
-            '<div class="hadith-preview-en">' + truncate(stripHtml(h.body_en), 100) + '</div>' +
+            '<div class="hadith-preview-ar">' + truncate(bodyAr, 80) + '</div>' +
+            '<div class="hadith-preview-en">' + truncate(bodyEn, 100) + '</div>' +
         '</div>';
     }).join('');
     
@@ -627,67 +671,138 @@ function loadHadithView() {
 }
 
 function populateHadithView(h, bookName, bookNameAr, index, total) {
-    var num = h._num || h.num || extractNumFromRef(h.ref) || (index + 1);
+    var num = h.num || extractNumFromRef(h.ref) || (index + 1);
     
     // Header
     setText('hadithRef', '#' + num);
     setText('bookName', bookName);
     setText('hadithNum', '#' + num);
 
+    // Hadith Title
+    var titleBox = document.getElementById('titleBox');
+    if (isValidField(h.title_en) || isValidField(h.title)) {
+        if (titleBox) {
+            titleBox.style.display = 'block';
+            if (isValidField(h.title)) setHtml('titleAr', h.title);
+            if (isValidField(h.title_en)) setHtml('titleEn', h.title_en);
+        }
+    } else if (titleBox) {
+        titleBox.style.display = 'none';
+    }
+
     // Chapter
     var chapterBox = document.getElementById('chapterBox');
-    if (h.h1_title || h.h1_title_en) {
-        setText('chapterAr', h.h1_title || '');
-        setText('chapterEn', h.h1_title_en || '');
+    if (isValidField(h.h1_title) || isValidField(h.h1_title_en)) {
+        if (chapterBox) chapterBox.style.display = 'block';
+        if (isValidField(h.h1_title)) setHtml('chapterAr', h.h1_title);
+        if (isValidField(h.h1_title_en)) setHtml('chapterEn', h.h1_title_en);
+        
+        // Chapter intro
+        var chapterIntro = document.getElementById('chapterIntro');
+        if (isValidField(h.h1_intro) || isValidField(h.h1_intro_en)) {
+            if (chapterIntro) {
+                chapterIntro.style.display = 'block';
+                if (isValidField(h.h1_intro)) setHtml('chapterIntroAr', h.h1_intro);
+                if (isValidField(h.h1_intro_en)) setHtml('chapterIntroEn', h.h1_intro_en);
+            }
+        } else if (chapterIntro) {
+            chapterIntro.style.display = 'none';
+        }
     } else if (chapterBox) {
         chapterBox.style.display = 'none';
     }
 
-    // Chain & Body
-    setHtml('chainAr', h.chain || '<em style="color:#999">—</em>');
-    setHtml('bodyAr', h.body || '<em style="color:#999">No text</em>');
-    setHtml('chainEn', h.chain_en || '<em style="color:#999">—</em>');
-    setHtml('bodyEn', h.body_en || '<em style="color:#999">No translation</em>');
+    // Subchapter h2
+    var subchapterBox = document.getElementById('subchapterBox');
+    if (isValidField(h.h2_title) || isValidField(h.h2_title_en)) {
+        if (subchapterBox) {
+            subchapterBox.style.display = 'block';
+            if (isValidField(h.h2_title)) setHtml('subchapterAr', h.h2_title);
+            if (isValidField(h.h2_title_en)) setHtml('subchapterEn', h.h2_title_en);
+            if (isValidField(h.h2_intro)) setHtml('subchapterIntroAr', h.h2_intro);
+            if (isValidField(h.h2_intro_en)) setHtml('subchapterIntroEn', h.h2_intro_en);
+        }
+    } else if (subchapterBox) {
+        subchapterBox.style.display = 'none';
+    }
 
-    // Footnotes (NEW!)
+    // Chain & Body
+    if (isValidField(h.chain)) {
+        setHtml('chainAr', h.chain);
+    } else {
+        setHtml('chainAr', '<em style="color:#999">—</em>');
+    }
+    
+    if (isValidField(h.body)) {
+        setHtml('bodyAr', h.body);
+    } else {
+        setHtml('bodyAr', '<em style="color:#999">No text</em>');
+    }
+    
+    if (isValidField(h.chain_en)) {
+        setHtml('chainEn', h.chain_en);
+    } else {
+        setHtml('chainEn', '<em style="color:#999">—</em>');
+    }
+    
+    if (isValidField(h.body_en)) {
+        setHtml('bodyEn', h.body_en);
+    } else {
+        setHtml('bodyEn', '<em style="color:#999">No translation</em>');
+    }
+
+    // Footnotes
     var footnoteBox = document.getElementById('footnoteBox');
     var footnoteAr = document.getElementById('footnoteAr');
     var footnoteEn = document.getElementById('footnoteEn');
 
-    var hasFootnoteAr = h.footnote && 
-                        h.footnote.toLowerCase() !== 'none' && 
-                        h.footnote.toLowerCase() !== 'null' &&
-                        h.footnote.trim() !== '';
-    var hasFootnoteEn = h.footnote_en && 
-                        h.footnote_en.toLowerCase() !== 'none' && 
-                        h.footnote_en.toLowerCase() !== 'null' &&
-                        h.footnote_en.trim() !== '';
+    var hasFootnoteAr = isValidField(h.footnote);
+    var hasFootnoteEn = isValidField(h.footnote_en);
 
     if (hasFootnoteAr || hasFootnoteEn) {
         if (footnoteBox) footnoteBox.classList.remove('hidden');
-        if (footnoteAr) footnoteAr.innerHTML = hasFootnoteAr ? h.footnote : '';
-        if (footnoteEn) footnoteEn.innerHTML = hasFootnoteEn ? h.footnote_en : '';
-        
-        // Hide individual elements if empty
-        if (footnoteAr) footnoteAr.style.display = hasFootnoteAr ? 'block' : 'none';
-        if (footnoteEn) footnoteEn.style.display = hasFootnoteEn ? 'block' : 'none';
+        if (footnoteAr) {
+            footnoteAr.innerHTML = hasFootnoteAr ? h.footnote : '';
+            footnoteAr.style.display = hasFootnoteAr ? 'block' : 'none';
+        }
+        if (footnoteEn) {
+            footnoteEn.innerHTML = hasFootnoteEn ? h.footnote_en : '';
+            footnoteEn.style.display = hasFootnoteEn ? 'block' : 'none';
+        }
     } else {
         if (footnoteBox) footnoteBox.classList.add('hidden');
     }
 
     // Reference
-    setText('refValue', h.ref || (bookName + ': ' + num));
-    if (bookNameAr) setText('refArabic', bookNameAr + ': ' + toArabicNumerals(num));
+    if (isValidField(h.ref)) {
+        setText('refValue', h.ref);
+    } else {
+        setText('refValue', bookName + ': ' + num);
+    }
+    
+    if (bookNameAr) {
+        setText('refArabic', bookNameAr + ': ' + toArabicNumerals(num));
+    }
 
     // Grade
-    setText('gradeValue', h.grade_grade_en || 'Unknown');
-    setText('gradeArabic', h.grade_grade || '');
+    if (isValidField(h.grade_grade_en)) {
+        setText('gradeValue', h.grade_grade_en);
+    } else {
+        setText('gradeValue', 'Unknown');
+    }
     
-    // Grade details
+    if (isValidField(h.grade_grade)) {
+        setText('gradeArabic', h.grade_grade);
+    } else {
+        setText('gradeArabic', '');
+    }
+    
     var gradeDetails = document.getElementById('gradeDetails');
-    if (gradeDetails && h.grade_grades) {
+    if (gradeDetails && isValidField(h.grade_grades)) {
         gradeDetails.textContent = h.grade_grades;
         gradeDetails.style.display = 'inline';
+    } else if (gradeDetails) {
+        gradeDetails.style.display = 'none';
     }
 
     // Grader
@@ -695,10 +810,15 @@ function populateHadithView(h, bookName, bookNameAr, index, total) {
     var graderValue = document.getElementById('graderValue');
     var graderArabic = document.getElementById('graderArabic');
     
-    if (h.grader_shortName_en || h.grader_shortName) {
+    var graderNameEn = isValidField(h.grader_name_en) ? h.grader_name_en : 
+                       (isValidField(h.grader_shortName_en) ? h.grader_shortName_en : '');
+    var graderNameAr = isValidField(h.grader_name) ? h.grader_name : 
+                       (isValidField(h.grader_shortName) ? h.grader_shortName : '');
+    
+    if (graderNameEn || graderNameAr) {
         if (graderBox) graderBox.style.display = 'flex';
-        if (graderValue) graderValue.textContent = h.grader_shortName_en || '';
-        if (graderArabic) graderArabic.textContent = h.grader_shortName || '';
+        if (graderValue) graderValue.textContent = graderNameEn;
+        if (graderArabic) graderArabic.textContent = graderNameAr;
     } else if (graderBox) {
         graderBox.style.display = 'none';
     }
@@ -710,11 +830,11 @@ function populateHadithView(h, bookName, bookNameAr, index, total) {
     if (prevBtn) prevBtn.disabled = index <= 0;
     if (nextBtn) nextBtn.disabled = index >= total - 1;
 
-    // Show content
     hide('loading');
     show('hadithArticle');
     show('readingNav');
 }
+
 function setText(id, text) {
     var el = document.getElementById(id);
     if (el) el.textContent = text;
@@ -808,43 +928,39 @@ function copyWithOptions() {
     var text = '';
     
     // Arabic text
-    if (document.getElementById('copyArabicMatan')?.checked) {
-        text += stripHtml(h.body || '') + '\n\n';
+    if (document.getElementById('copyArabicMatan')?.checked && isValidField(h.body)) {
+        text += stripHtml(h.body) + '\n\n';
     }
     
     // English text
-    if (document.getElementById('copyEnglishMatan')?.checked) {
-        text += stripHtml(h.body_en || '') + '\n\n';
+    if (document.getElementById('copyEnglishMatan')?.checked && isValidField(h.body_en)) {
+        text += stripHtml(h.body_en) + '\n\n';
     }
     
     // Arabic chain
-    if (document.getElementById('copyArabicChain')?.checked) {
-        text += 'السند: ' + stripHtml(h.chain || '') + '\n\n';
+    if (document.getElementById('copyArabicChain')?.checked && isValidField(h.chain)) {
+        text += 'السند: ' + stripHtml(h.chain) + '\n\n';
     }
     
     // English chain
-    if (document.getElementById('copyEnglishChain')?.checked) {
-        text += 'Chain: ' + stripHtml(h.chain_en || '') + '\n\n';
+    if (document.getElementById('copyEnglishChain')?.checked && isValidField(h.chain_en)) {
+        text += 'Chain: ' + stripHtml(h.chain_en) + '\n\n';
     }
     
-    // Footnotes (NEW!)
+    // Footnotes
     if (document.getElementById('copyFootnote')?.checked) {
-        var fnAr = h.footnote && 
-                   h.footnote.toLowerCase() !== 'none' && 
-                   h.footnote.toLowerCase() !== 'null' &&
-                   h.footnote.trim() !== '' ? h.footnote : '';
-        var fnEn = h.footnote_en && 
-                   h.footnote_en.toLowerCase() !== 'none' && 
-                   h.footnote_en.toLowerCase() !== 'null' &&
-                   h.footnote_en.trim() !== '' ? h.footnote_en : '';
-        
-        if (fnAr) text += 'حاشية: ' + stripHtml(fnAr) + '\n\n';
-        if (fnEn) text += 'Footnote: ' + stripHtml(fnEn) + '\n\n';
+        if (isValidField(h.footnote)) {
+            text += 'حاشية: ' + stripHtml(h.footnote) + '\n\n';
+        }
+        if (isValidField(h.footnote_en)) {
+            text += 'Footnote: ' + stripHtml(h.footnote_en) + '\n\n';
+        }
     }
     
     // English reference
     if (document.getElementById('copyRefEnglish')?.checked) {
-        text += 'Reference: ' + (h.ref || bookName + ': ' + num) + '\n';
+        var ref = isValidField(h.ref) ? h.ref : (bookName + ': ' + num);
+        text += 'Reference: ' + ref + '\n';
     }
     
     // Arabic reference
@@ -854,10 +970,16 @@ function copyWithOptions() {
     
     // Grade
     if (document.getElementById('copyGrade')?.checked) {
-        text += 'Grade: ' + (h.grade_grade_en || '');
-        if (h.grade_grade) text += ' (' + h.grade_grade + ')';
-        if (h.grader_shortName_en) text += ' - ' + h.grader_shortName_en;
-        text += '\n';
+        if (isValidField(h.grade_grade_en)) {
+            text += 'Grade: ' + h.grade_grade_en;
+            if (isValidField(h.grade_grade)) text += ' (' + h.grade_grade + ')';
+            if (isValidField(h.grader_name_en)) {
+                text += ' - ' + h.grader_name_en;
+            } else if (isValidField(h.grader_shortName_en)) {
+                text += ' - ' + h.grader_shortName_en;
+            }
+            text += '\n';
+        }
     }
     
     // Copy to clipboard
@@ -876,6 +998,7 @@ function copyWithOptions() {
         hideCopyModal();
     });
 }
+
 function shareHadith() {
     var h = JSON.parse(localStorage.getItem('currentHadith') || '{}');
     var text = stripHtml(h.body_en || h.body || '') + '\n\n— ' + (h.ref || '');
@@ -1142,23 +1265,57 @@ function handleModalClick(e) {
     if (e.target.classList.contains('modal')) e.target.classList.add('hidden');
 }
 
+// ==========================================
+// JUMP TO HADITH - FIXED VERSION
+// ==========================================
 function jumpToHadith() {
-    var num = parseInt(document.getElementById('jumpInput')?.value);
-    if (!num) { toast('Enter number'); return; }
-    if (!currentBookData.length) { toast('Select book first'); hideJumpModal(); return; }
+    var input = document.getElementById('jumpInput');
+    if (!input) return;
     
+    var num = parseInt(input.value);
+    if (!num || isNaN(num)) { 
+        toast('Enter a valid number'); 
+        return; 
+    }
+    
+    if (!currentBookData || !currentBookData.length) { 
+        toast('Select a book first'); 
+        hideJumpModal(); 
+        return; 
+    }
+    
+    // Search through current book data
+    var found = false;
     for (var i = 0; i < currentBookData.length; i++) {
         var h = currentBookData[i];
         var hNum = h.num || extractNumFromRef(h.ref);
-        if (parseInt(hNum) === num) {
-            hadiths = currentBookData;
-            openHadith(i, 'hadithsList');
+        
+        if (hNum && parseInt(hNum) === num) {
+            // Found the hadith
+            found = true;
+            
+            // Prepare data for hadith view
+            h._num = num;
+            localStorage.setItem('currentHadith', JSON.stringify(h));
+            localStorage.setItem('currentBookId', currentBook?.id || '');
+            localStorage.setItem('currentBookName', currentBook?.name_en || h.book_name_en || 'Unknown');
+            localStorage.setItem('currentBookNameAr', currentBook?.name_ar || h.book_name || '');
+            localStorage.setItem('hadithIndex', String(i));
+            localStorage.setItem('hadithsList', JSON.stringify(currentBookData));
+            
             hideJumpModal();
+            
+            // Navigate to hadith view
+            window.location.href = 'hadith-view.html';
             return;
         }
     }
-    toast('Hadith #' + num + ' not found');
-    hideJumpModal();
+    
+    if (!found) {
+        toast('Hadith #' + num + ' not found in ' + (currentBook?.name_en || 'this book'));
+        input.value = '';
+        input.focus();
+    }
 }
 
 // ==========================================
