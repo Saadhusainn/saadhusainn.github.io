@@ -71,6 +71,251 @@ body {
 }
 
 /* ==========================================
+   SKELETON LOADING STATES
+   ========================================== */
+
+/* Base Skeleton */
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--bg-secondary) 0%,
+        var(--bg-tertiary) 50%,
+        var(--bg-secondary) 100%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+    border-radius: 4px;
+}
+
+@keyframes skeleton-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.skeleton-text {
+    height: 14px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+}
+
+.skeleton-title {
+    height: 20px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+}
+
+.skeleton-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+}
+
+/* Chapter Skeleton */
+.chapter-skeleton {
+    padding: 14px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 10px;
+}
+
+.chapter-skeleton-label {
+    width: 80px;
+    height: 12px;
+    margin-bottom: 8px;
+}
+
+.chapter-skeleton-title-ar {
+    width: 100%;
+    height: 18px;
+    margin-bottom: 8px;
+}
+
+.chapter-skeleton-title-en {
+    width: 85%;
+    height: 14px;
+    margin-bottom: 8px;
+}
+
+.chapter-skeleton-meta {
+    width: 120px;
+    height: 12px;
+}
+
+/* Hadith Item Skeleton */
+.hadith-skeleton {
+    padding: 14px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 10px;
+}
+
+.hadith-skeleton-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.hadith-skeleton-num {
+    width: 50px;
+    height: 16px;
+}
+
+.hadith-skeleton-grade {
+    width: 60px;
+    height: 20px;
+    border-radius: 12px;
+}
+
+.hadith-skeleton-preview-ar {
+    width: 100%;
+    height: 16px;
+    margin-bottom: 6px;
+}
+
+.hadith-skeleton-preview-ar:last-of-type {
+    width: 70%;
+}
+
+.hadith-skeleton-preview-en {
+    width: 90%;
+    height: 14px;
+    margin-bottom: 6px;
+    margin-top: 8px;
+}
+
+.hadith-skeleton-preview-en:last-of-type {
+    width: 65%;
+}
+
+/* Book Skeleton */
+.book-skeleton {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 10px;
+}
+
+.book-skeleton-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+}
+
+.book-skeleton-info {
+    flex: 1;
+}
+
+.book-skeleton-name {
+    width: 60%;
+    height: 16px;
+    margin-bottom: 6px;
+}
+
+.book-skeleton-name-ar {
+    width: 50%;
+    height: 14px;
+    margin-bottom: 4px;
+}
+
+.book-skeleton-count {
+    width: 80px;
+    height: 12px;
+}
+
+/* Hadith View Skeleton */
+.hadith-view-skeleton {
+    background: var(--bg);
+    border-radius: var(--radius);
+    padding: 18px;
+    box-shadow: var(--shadow);
+}
+
+.skeleton-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.skeleton-book-name {
+    width: 120px;
+    height: 14px;
+}
+
+.skeleton-hadith-num {
+    width: 50px;
+    height: 16px;
+}
+
+.skeleton-chapter-box {
+    background: var(--accent-light);
+    padding: 14px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 18px;
+    border-left: 4px solid var(--accent);
+}
+
+.skeleton-chapter-ar {
+    width: 100%;
+    height: 18px;
+    margin-bottom: 8px;
+}
+
+.skeleton-chapter-en {
+    width: 80%;
+    height: 14px;
+}
+
+.skeleton-section {
+    margin-bottom: 18px;
+}
+
+.skeleton-label {
+    width: 60px;
+    height: 12px;
+    margin-bottom: 10px;
+}
+
+.skeleton-chain {
+    width: 100%;
+    height: 14px;
+    margin-bottom: 6px;
+}
+
+.skeleton-chain:last-of-type {
+    width: 60%;
+    margin-bottom: 12px;
+}
+
+.skeleton-body {
+    width: 100%;
+    height: 16px;
+    margin-bottom: 8px;
+}
+
+.skeleton-body:nth-child(4) {
+    width: 95%;
+}
+
+.skeleton-body:nth-child(5) {
+    width: 90%;
+}
+
+.skeleton-body:last-of-type {
+    width: 75%;
+}
+
+/* ==========================================
    HEADER
    ========================================== */
 .app-header {
