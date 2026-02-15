@@ -241,6 +241,97 @@ async function getFromCache(bookId, requiredVersion) {
 }
 
 // ==========================================
+// SKELETON TEMPLATES
+// ==========================================
+
+function getChapterSkeletons(count) {
+    count = count || 5;
+    var html = '';
+    for (var i = 0; i < count; i++) {
+        html += '<div class="chapter-skeleton">' +
+            '<div class="skeleton skeleton-text chapter-skeleton-label"></div>' +
+            '<div class="skeleton skeleton-text chapter-skeleton-title-ar"></div>' +
+            '<div class="skeleton skeleton-text chapter-skeleton-title-en"></div>' +
+            '<div class="skeleton skeleton-text chapter-skeleton-meta"></div>' +
+        '</div>';
+    }
+    return html;
+}
+
+function getHadithSkeletons(count) {
+    count = count || 5;
+    var html = '';
+    for (var i = 0; i < count; i++) {
+        html += '<div class="hadith-skeleton">' +
+            '<div class="hadith-skeleton-header">' +
+                '<div class="skeleton hadith-skeleton-num"></div>' +
+                '<div class="skeleton hadith-skeleton-grade"></div>' +
+            '</div>' +
+            '<div class="skeleton skeleton-text hadith-skeleton-preview-ar"></div>' +
+            '<div class="skeleton skeleton-text hadith-skeleton-preview-ar"></div>' +
+            '<div class="skeleton skeleton-text hadith-skeleton-preview-en"></div>' +
+            '<div class="skeleton skeleton-text hadith-skeleton-preview-en"></div>' +
+        '</div>';
+    }
+    return html;
+}
+
+function getBookSkeletons(count) {
+    count = count || 5;
+    var html = '';
+    for (var i = 0; i < count; i++) {
+        html += '<div class="book-skeleton">' +
+            '<div class="skeleton book-skeleton-icon"></div>' +
+            '<div class="book-skeleton-info">' +
+                '<div class="skeleton skeleton-text book-skeleton-name"></div>' +
+                '<div class="skeleton skeleton-text book-skeleton-name-ar"></div>' +
+                '<div class="skeleton skeleton-text book-skeleton-count"></div>' +
+            '</div>' +
+        '</div>';
+    }
+    return html;
+}
+
+function getHadithViewSkeleton() {
+    return '<div class="hadith-view-skeleton">' +
+        '<div class="skeleton-meta">' +
+            '<div class="skeleton skeleton-book-name"></div>' +
+            '<div class="skeleton skeleton-hadith-num"></div>' +
+        '</div>' +
+        '<div class="skeleton-chapter-box">' +
+            '<div class="skeleton skeleton-chapter-ar"></div>' +
+            '<div class="skeleton skeleton-chapter-en"></div>' +
+        '</div>' +
+        '<div class="skeleton-section">' +
+            '<div class="skeleton skeleton-label"></div>' +
+            '<div class="skeleton skeleton-text skeleton-chain"></div>' +
+            '<div class="skeleton skeleton-text skeleton-chain"></div>' +
+        '</div>' +
+        '<div class="skeleton-section">' +
+            '<div class="skeleton skeleton-label"></div>' +
+            '<div class="skeleton skeleton-text skeleton-body"></div>' +
+            '<div class="skeleton skeleton-text skeleton-body"></div>' +
+            '<div class="skeleton skeleton-text skeleton-body"></div>' +
+            '<div class="skeleton skeleton-text skeleton-body"></div>' +
+            '<div class="skeleton skeleton-text skeleton-body"></div>' +
+            '<div class="skeleton skeleton-text skeleton-body"></div>' +
+        '</div>' +
+        '<div class="skeleton-section">' +
+            '<div class="skeleton skeleton-label"></div>' +
+            '<div class="skeleton skeleton-text skeleton-chain"></div>' +
+            '<div class="skeleton skeleton-text skeleton-chain"></div>' +
+        '</div>' +
+        '<div class="skeleton-section">' +
+            '<div class="skeleton skeleton-label"></div>' +
+            '<div class="skeleton skeleton-text skeleton-body"></div>' +
+            '<div class="skeleton skeleton-text skeleton-body"></div>' +
+            '<div class="skeleton skeleton-text skeleton-body"></div>' +
+            '<div class="skeleton skeleton-text skeleton-body"></div>' +
+        '</div>' +
+    '</div>';
+}
+
+// ==========================================
 // INITIALIZATION
 // ==========================================
 document.addEventListener('DOMContentLoaded', function() {
@@ -444,9 +535,9 @@ async function openBook(bookId) {
     var bookSearch = document.getElementById('bookSearch');
     if (bookSearch) bookSearch.style.display = 'none';
 
-    // Show loading
+    // Show skeleton loading ⚡
     if (chaptersList) {
-        chaptersList.innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading...</p></div>';
+        chaptersList.innerHTML = getChapterSkeletons(8);
     }
 
     // Try cache first (instant!)
@@ -465,14 +556,10 @@ async function openBook(bookId) {
     var startTime = Date.now();
 
     try {
-        // Try CDN first, then local fallback
         var response = await fetch(book.file);
         
-        if (!response.ok) {
-            // Try local fallback
-            if (book.localFile) {
-                response = await fetch(book.localFile);
-            }
+        if (!response.ok && book.localFile) {
+            response = await fetch(book.localFile);
         }
         
         if (!response.ok) {
@@ -483,14 +570,12 @@ async function openBook(bookId) {
         var elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
         console.log('Downloaded in', elapsed, 's');
         
-        // Save to cache for next time
         saveToCache(bookId, data, book.version || 1);
         
         currentBookData = data;
         processBookData();
-        toast('✅ Loaded & cached for next time!');
+        toast('✅ Loaded & cached!');
         
-        // Update books list to show cache badge
         renderBooks();
         
     } catch (err) {
@@ -630,7 +715,17 @@ function openChapter(chapterId) {
     if (chapterMeta) chapterMeta.textContent = chapter.hadiths.length + ' hadiths (' + chapter.startNum + ' - ' + chapter.endNum + ')';
 
     showView('hadiths');
-    renderHadiths(hadiths, 'hadithsList');
+    
+    // Show skeleton loading ⚡
+    var hadithsList = document.getElementById('hadithsList');
+    if (hadithsList) {
+        hadithsList.innerHTML = getHadithSkeletons(6);
+    }
+    
+    // Small delay to show skeleton, then render
+    setTimeout(function() {
+        renderHadiths(hadiths, 'hadithsList');
+    }, 100);
 }
 
 // ==========================================
@@ -696,6 +791,12 @@ function loadHadithView() {
         return;
     }
 
+    // Show skeleton
+    var loading = document.getElementById('loading');
+    if (loading) {
+        loading.innerHTML = getHadithViewSkeleton();
+    }
+
     try {
         var h = JSON.parse(data);
         var bookName = localStorage.getItem('currentBookName') || h.book_name_en || 'Unknown';
@@ -703,7 +804,11 @@ function loadHadithView() {
         var index = parseInt(localStorage.getItem('hadithIndex') || '0');
         var list = JSON.parse(localStorage.getItem('hadithsList') || '[]');
 
-        populateHadithView(h, bookName, bookNameAr, index, list.length);
+        // Small delay to show skeleton
+        setTimeout(function() {
+            populateHadithView(h, bookName, bookNameAr, index, list.length);
+        }, 150);
+        
     } catch (e) {
         console.error(e);
         toast('Error loading');
@@ -940,18 +1045,28 @@ function performSearch() {
     var nq = normalizeArabic(query);
     var ql = query.toLowerCase();
     
-    searchResults = currentBookData.filter(function(h) {
-        return normalizeArabic(h.body || '').indexOf(nq) !== -1 ||
-               (h.body_en || '').toLowerCase().indexOf(ql) !== -1 ||
-               normalizeArabic(h.chain || '').indexOf(nq) !== -1 ||
-               (h.chain_en || '').toLowerCase().indexOf(ql) !== -1;
-    });
-
-    hadiths = searchResults;
-    setText('searchMeta', searchResults.length + ' results');
     showView('search');
-    renderHadiths(searchResults, 'searchResultsList');
-    toast('Found ' + searchResults.length);
+    
+    // Show skeleton while searching
+    var searchResultsList = document.getElementById('searchResultsList');
+    if (searchResultsList) {
+        searchResultsList.innerHTML = getHadithSkeletons(5);
+    }
+    
+    // Simulate search delay for UX
+    setTimeout(function() {
+        searchResults = currentBookData.filter(function(h) {
+            return normalizeArabic(h.body || '').indexOf(nq) !== -1 ||
+                   (h.body_en || '').toLowerCase().indexOf(ql) !== -1 ||
+                   normalizeArabic(h.chain || '').indexOf(nq) !== -1 ||
+                   (h.chain_en || '').toLowerCase().indexOf(ql) !== -1;
+        });
+
+        hadiths = searchResults;
+        setText('searchMeta', searchResults.length + ' results');
+        renderHadiths(searchResults, 'searchResultsList');
+        toast('Found ' + searchResults.length);
+    }, 200);
 }
 
 // ==========================================
