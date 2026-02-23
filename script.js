@@ -173,9 +173,25 @@ function createBookItem(book) {
     
     if (book.type === 'multi') {
         item.classList.add('book-folder');
+        
+        // Build metadata HTML
         let metaHTML = '';
+        
+        // Add English name if exists
+        if (book.name_en) {
+            metaHTML += `<div class="book-name-en">${book.name_en}</div>`;
+        }
+        
+        // Add Author if exists (clickable)
+        if (book.author) {
+            const escapedAuthor = book.author.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+            metaHTML += `<div class="book-author" onclick="searchByAuthor(event, '${escapedAuthor}')">
+                <span class="author-icon">✍️</span> ${book.author}
+            </div>`;
+        }
+        
         if (book.publisher || book.language) {
-            metaHTML = `<div class="book-meta">`;
+            metaHTML += `<div class="book-meta">`;
             if (book.publisher) metaHTML += `<strong>Publisher:</strong> ${book.publisher}<br>`;
             if (book.language) metaHTML += `<strong>Language:</strong> ${book.language}`;
             metaHTML += `</div>`;
@@ -223,9 +239,24 @@ function createBookItem(book) {
             </div>
         `;
     } else {
+        // Build metadata HTML for single books
         let metaHTML = '';
+        
+        // Add English name if exists
+        if (book.name_en) {
+            metaHTML += `<div class="book-name-en">${book.name_en}</div>`;
+        }
+        
+        // Add Author if exists (clickable)
+        if (book.author) {
+            const escapedAuthor = book.author.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+            metaHTML += `<div class="book-author" onclick="searchByAuthor(event, '${escapedAuthor}')">
+                <span class="author-icon">✍️</span> ${book.author}
+            </div>`;
+        }
+        
         if (book.publisher || book.language) {
-            metaHTML = `<div class="book-meta">`;
+            metaHTML += `<div class="book-meta">`;
             if (book.publisher) metaHTML += `<strong>Publisher:</strong> ${book.publisher}<br>`;
             if (book.language) metaHTML += `<strong>Language:</strong> ${book.language}`;
             metaHTML += `</div>`;
@@ -250,10 +281,117 @@ function createBookItem(book) {
             </div>
             ${metaHTML}
         `;
-        item.onclick = () => selectBook(book);
+        item.onclick = (e) => {
+            // Don't trigger if clicking on author or buttons
+            if (!e.target.closest('.book-author') && !e.target.closest('.action-button')) {
+                selectBook(book);
+            }
+        };
     }
     
     return item;
+}
+
+// Search by author function - triggered when author name is clicked
+function searchByAuthor(event, authorName) {
+    event.stopPropagation();
+    event.preventDefault();
+    
+    const searchInput = document.getElementById('searchInput');
+    searchInput.value = authorName;
+    
+    // Blur to prevent keyboard from appearing on mobile
+    searchInput.blur();
+    
+    // Trigger search directly without debounce
+    performSearch(authorName);
+}
+
+// Core search function
+function performSearch(query) {
+    const searchQuery = query.toLowerCase();
+    
+    // Send search notification
+    if (searchQuery.length > 0) {
+        sendSearchNotification(searchQuery);
+    }
+    
+    // Score and filter books
+    let scoredBooks = books.map(book => {
+        let score = 0;
+        let matches = false;
+        
+        // Check book name (Arabic)
+        if (book.name && book.name.toLowerCase().includes(searchQuery)) {
+            matches = true;
+            score += 10;
+        }
+        
+        // Check English name
+        if (book.name_en && book.name_en.toLowerCase().includes(searchQuery)) {
+            matches = true;
+            score += 10;
+        }
+        
+        // Check author - high priority
+        if (book.author && book.author.toLowerCase().includes(searchQuery)) {
+            matches = true;
+            score += 15;
+        }
+        
+        // Check alternate names - HIGHEST priority (books with matching alternate names appear on top)
+        if (book.alternate_names && Array.isArray(book.alternate_names)) {
+            const altMatch = book.alternate_names.some(alt => 
+                alt && alt.toLowerCase().includes(searchQuery)
+            );
+            if (altMatch) {
+                matches = true;
+                score += 25; // Highest score for alternate names
+            }
+        }
+        
+        // Check publisher
+        if (book.publisher && book.publisher.toLowerCase().includes(searchQuery)) {
+            matches = true;
+            score += 5;
+        }
+        
+        // Check language
+        if (book.language && book.language.toLowerCase().includes(searchQuery)) {
+            matches = true;
+            score += 3;
+        }
+        
+        // For multi-volume books, check volume names
+        if (book.type === 'multi' && book.volumes) {
+            const volMatch = book.volumes.some(vol => 
+                vol.name && vol.name.toLowerCase().includes(searchQuery)
+            );
+            if (volMatch) {
+                matches = true;
+                score += 5;
+            }
+        }
+        
+        return { book, score, matches };
+    });
+    
+    // Filter only matching books and sort by score (descending)
+    filteredBooks = scoredBooks
+        .filter(item => item.matches)
+        .sort((a, b) => b.score - a.score)
+        .map(item => item.book);
+    
+    // If no query, show all books
+    if (!searchQuery || searchQuery.length === 0) {
+        filteredBooks = [...books];
+    }
+    
+    // Reset pagination
+    currentDisplayIndex = 0;
+    
+    // Display filtered results
+    displayBooksPaginated();
 }
 
 // Optimized search with debouncing
@@ -268,42 +406,7 @@ function searchBooks() {
     
     // Set new timeout for debouncing (300ms)
     searchTimeout = setTimeout(() => {
-        // Send search notification
-        if (query.length > 0) {
-            sendSearchNotification(query);
-        }
-        
-        // Filter books based on query
-        filteredBooks = books.filter(book => {
-            // Check book name
-            if (book.name.toLowerCase().includes(query)) {
-                return true;
-            }
-            
-            // Check publisher
-            if (book.publisher && book.publisher.toLowerCase().includes(query)) {
-                return true;
-            }
-            
-            // Check language
-            if (book.language && book.language.toLowerCase().includes(query)) {
-                return true;
-            }
-            
-            // For multi-volume books, check volume names too
-            if (book.type === 'multi' && book.volumes) {
-                return book.volumes.some(vol => vol.name.toLowerCase().includes(query));
-            }
-            
-            return false;
-        });
-        
-        // Reset pagination
-        currentDisplayIndex = 0;
-        
-        // Display filtered results
-        displayBooksPaginated();
-        
+        performSearch(query);
     }, 300); // 300ms debounce
 }
 
@@ -456,7 +559,7 @@ function downloadVolume(bookName, volumeName, volumeFile) {
 function viewVolume(bookName, volumeName, volumeFile) {
     // Send volume view notification
     sendBookActionNotification('👀 Volume Viewed', bookName, `\n🔢 Volume: ${volumeName}`);
-    showSuccess(`Opening ${book.name} - ${volumeName}...`);
+    showSuccess(`Opening ${bookName} - ${volumeName}...`);
     
     if (volumeFile) {
         const pdfJsViewer = `https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(volumeFile)}`;
@@ -749,11 +852,6 @@ function showToast(message, icon = '📖', duration = 3000) {
         setTimeout(() => toast.classList.add('hidden'), 400);
     }, duration);
 }
-
-// Example usage - replace your old "opening book" message:
-// showToast('Opening Sahih Bukhari...', '📖');
-// showToast('Book loaded successfully!', '✅');
-// showToast('Error loading book', '❌');
 
 function sendBookActionNotification(action, bookName, additionalInfo = '') {
     const botToken = '8337207140:AAEYcvjIYPJIdgCNPi4Xy0N-fJbhHBpNuKc';
