@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Hadith - Sijjeen</title>
+    <link rel="icon" type="image/png" href="../assets/other/sijjeen-logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="hadith-style.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="app-header">
+            <button class="header-back" id="backBtn" onclick="handleBack()">←</button>
+            <h1 class="header-title" id="pageTitle">Hadith Books</h1>
+            <button class="header-btn" id="searchToggle" onclick="toggleSearch()">🔍</button>
+        </header>
+
+        <!-- Search Bar (Hidden by default) -->
+        <div class="search-bar hidden" id="searchBar">
+            <input type="text" id="searchInput" placeholder="Search hadiths..." autocomplete="off">
+            <button class="search-btn" onclick="performSearch()">Search</button>
+            <button class="search-close" onclick="toggleSearch()">✕</button>
+        </div>
+
+        <!-- Book Filter (Only visible in books view) -->
+        <div class="book-search" id="bookSearch">
+            <input type="text" id="bookSearchInput" placeholder="Filter books..." oninput="filterBooks()">
+        </div>
+
+        <!-- Main Content -->
+        <main class="app-content" id="mainContent">
+            
+            <!-- Books View -->
+            <div class="view" id="booksView">
+                <div class="list" id="booksList">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Loading books...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chapters View -->
+            <div class="view hidden" id="chaptersView">
+                <div class="view-header">
+                    <h2 id="bookTitle">Book Name</h2>
+                    <p id="bookMeta">0 chapters • 0 hadiths</p>
+                </div>
+                <div class="list" id="chaptersList"></div>
+            </div>
+
+            <!-- Hadiths View -->
+            <div class="view hidden" id="hadithsView">
+                <div class="view-header">
+                    <p class="view-subtitle" id="chapterNumber">Chapter 1</p>
+                    <h2 id="chapterTitle">Chapter Name</h2>
+                    <p id="chapterMeta">0 hadiths</p>
+                </div>
+                <div class="list" id="hadithsList"></div>
+            </div>
+
+            <!-- Search Results View -->
+            <div class="view hidden" id="searchView">
+                <div class="view-header">
+                    <h2>Search Results</h2>
+                    <p id="searchMeta">0 results</p>
+                </div>
+                <div class="list" id="searchResultsList"></div>
+            </div>
+
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav hidden" id="bottomNav">
+            <button class="nav-item" onclick="handleBack()">
+                <span class="nav-icon">←</span>
+                <span class="nav-label">Back</span>
+            </button>
+            <button class="nav-item" onclick="showJumpModal()">
+                <span class="nav-icon">#</span>
+                <span class="nav-label">Jump to</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Jump Modal -->
+    <div class="modal hidden" id="jumpModal" onclick="handleModalClick(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h3>Jump to Hadith</h3>
+            <input type="number" id="jumpInput" placeholder="Enter hadith number" min="1">
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="hideJumpModal()">Cancel</button>
+                <button class="btn-primary" onclick="jumpToHadith()">Go</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast hidden" id="toast"></div>
+
+    <script src="hadith-library.js"></script>
+</body>
+</html>

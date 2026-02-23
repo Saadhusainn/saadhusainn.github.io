@@ -1,0 +1,800 @@
+/* ==========================================
+   SIJJEEN TAFSIR - Mobile-First CSS
+   ========================================== */
+
+/* Fonts */
+@font-face {
+    font-family: 'Helvetica Arabic';
+    src: url('../assets/fonts/helvetica.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Jameel Noori Nastaleeq';
+    src: url('../assets/fonts/JMN.ttf') format('truetype');
+}
+
+/* Variables */
+:root {
+    --bg: #ffffff;
+    --bg-secondary: #f9f9f9;
+    --bg-tertiary: #f0f0f0;
+    --text: #1a1a1a;
+    --text-secondary: #666666;
+    --text-light: #999999;
+    --accent: #2d5a45;
+    --accent-light: #e8f0ec;
+    --accent-dark: #1e3d2f;
+    --border: #eeeeee;
+    --shadow: 0 2px 8px rgba(0,0,0,0.06);
+    --shadow-lg: 0 4px 20px rgba(0,0,0,0.12);
+    
+    --font-en: 'Inter', -apple-system, sans-serif;
+    --font-ar: 'Helvetica Arabic', 'Amiri', 'Traditional Arabic', serif;
+    --font-ur: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+    
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-lg: 16px;
+    
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    
+    /* Font size variable for dynamic control */
+    --ayah-font-size: 16px;
+}
+
+/* Reset */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--font-en);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    overflow-x: hidden;
+}
+
+/* App Container */
+.app {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==========================================
+   HEADER
+   ========================================== */
+.app-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    min-height: 52px;
+}
+
+.header-back {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: var(--accent);
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.header-back:active {
+    background: var(--accent-light);
+}
+
+.header-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    flex: 1;
+    text-align: center;
+}
+
+.header-spacer {
+    width: 40px;
+}
+
+/* ==========================================
+   MAIN CONTENT
+   ========================================== */
+.app-content {
+    flex: 1;
+    padding: 12px;
+    padding-bottom: calc(20px + var(--safe-bottom));
+    overflow-y: auto;
+}
+
+/* Greeting */
+.greeting {
+    text-align: center;
+    padding: 20px 12px;
+    margin-bottom: 20px;
+}
+
+.greeting-arabic {
+    font-family: var(--font-ar);
+    font-size: 22px;
+    color: var(--accent);
+    margin-bottom: 6px;
+    line-height: 1.8;
+}
+
+.greeting-text {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* ==========================================
+   LANGUAGE FILTER
+   ========================================== */
+.language-filter {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 8px 0;
+    margin-bottom: 20px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.language-filter::-webkit-scrollbar {
+    display: none;
+}
+
+.lang-btn {
+    flex-shrink: 0;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.lang-btn.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+.lang-btn:active {
+    transform: scale(0.95);
+}
+
+/* ==========================================
+   SELECTOR SECTION
+   ========================================== */
+.selector-section {
+    background: var(--bg);
+    border-radius: var(--radius);
+    padding: 18px;
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+}
+
+.selector-group {
+    margin-bottom: 18px;
+}
+
+.selector-group:last-of-type {
+    margin-bottom: 20px;
+}
+
+.selector-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+/* Custom Select Styling */
+.custom-select {
+    width: 100%;
+    padding: 14px 40px 14px 14px;
+    font-size: 15px;
+    font-family: var(--font-en);
+    color: var(--text);
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%232d5a45' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.custom-select:hover:not(:disabled) {
+    border-color: var(--accent);
+}
+
+.custom-select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+.custom-select:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: var(--bg-secondary);
+}
+
+.custom-select.compact {
+    padding: 10px 36px 10px 12px;
+    font-size: 14px;
+    background-position: right 10px center;
+}
+
+/* Start Button */
+.start-btn {
+    width: 100%;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: var(--font-en);
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: var(--shadow);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.start-btn:hover:not(:disabled) {
+    background: var(--accent-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+}
+
+.start-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.start-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-icon {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+/* ==========================================
+   RECENT READS
+   ========================================== */
+.recent-section {
+    margin-top: 30px;
+}
+
+.section-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 12px;
+}
+
+.recent-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.recent-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.recent-card:active {
+    background: var(--bg-secondary);
+    transform: scale(0.98);
+}
+
+.recent-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.recent-tafsir {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.recent-time {
+    font-size: 11px;
+    color: var(--text-light);
+}
+
+.recent-surah {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+}
+
+.recent-ayah {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* ==========================================
+   READING VIEW
+   ========================================== */
+.reading-view {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-secondary);
+}
+
+.reading-view.hidden {
+    display: none;
+}
+
+/* Surah Header */
+.surah-header {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: white;
+    padding: 24px 18px;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+.surah-number {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.9;
+    margin-bottom: 8px;
+}
+
+.surah-name-ar {
+    font-family: var(--font-ar);
+    font-size: 28px;
+    margin-bottom: 6px;
+    line-height: 1.4;
+}
+
+.surah-name-en {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.surah-meta {
+    font-size: 13px;
+    opacity: 0.85;
+}
+
+/* Controls Bar */
+.controls-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+}
+
+.tafsir-switcher {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 200px;
+}
+
+.switcher-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.font-controls {
+    display: flex;
+    gap: 6px;
+}
+
+.font-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.font-btn:active {
+    background: var(--accent-light);
+    border-color: var(--accent);
+    transform: scale(0.95);
+}
+
+.font-btn img {
+    width: 18px;
+    height: 18px;
+}
+
+/* Ayahs Container */
+.ayahs-container {
+    flex: 1;
+    padding: 12px;
+    padding-bottom: calc(20px + var(--safe-bottom));
+    overflow-y: auto;
+}
+
+/* Ayah Card */
+.ayah-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: all 0.2s;
+}
+
+.ayah-card.highlight {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+.ayah-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.ayah-header:active {
+    background: var(--bg-secondary);
+}
+
+.ayah-number {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.ayah-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.action-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--text-secondary);
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.action-btn:active {
+    background: var(--accent-light);
+    color: var(--accent);
+}
+
+.action-btn.bookmarked {
+    color: #f59e0b;
+}
+
+.action-btn img {
+    width: 16px;
+    height: 16px;
+}
+
+.expand-icon {
+    font-size: 12px;
+    color: var(--text-light);
+    transition: transform 0.2s;
+}
+
+.ayah-card.expanded .expand-icon {
+    transform: rotate(180deg);
+}
+
+/* Style for disabled "no tafsirs" option */
+.custom-select option:disabled {
+    color: var(--text-light);
+    font-style: italic;
+    background-color: var(--bg-secondary);
+}
+
+/* Improve dropdown option styling */
+.custom-select option {
+    padding: 12px;
+    font-size: 14px;
+}
+
+/* Ayah Content */
+.ayah-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.ayah-card.expanded .ayah-content {
+    max-height: 5000px;
+}
+
+.ayah-text {
+    padding: 0 16px 16px 16px;
+    font-size: var(--ayah-font-size);
+    line-height: 1.9;
+    color: var(--text);
+    font-family: var(--font-ar);
+    direction: rtl;
+    text-align: right;
+}
+
+/* Urdu Font */
+.ayah-text.urdu {
+    font-family: var(--font-ur);
+    font-size: calc(var(--ayah-font-size) + 2px);
+    line-height: 2.2;
+}
+
+/* Language Badges (in tafsir switcher dropdown) */
+.tafsir-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.lang-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 12px;
+    text-transform: uppercase;
+}
+
+.lang-badge.english {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.lang-badge.arabic {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.lang-badge.bengali {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.lang-badge.urdu {
+    background: #fce7f3;
+    color: #9f1239;
+}
+
+.lang-badge.russian {
+    background: #e0e7ff;
+    color: #3730a3;
+}
+
+.lang-badge.kurdish {
+    background: #fed7aa;
+    color: #9a3412;
+}
+
+/* ==========================================
+   URDU FONT STYLES - FIXED
+   ========================================== */
+.ayah-text.urdu-font {
+    font-family: var(--font-ur) !important; /* Force Urdu font */
+    font-size: calc(var(--ayah-font-size) + 4px); /* Larger for Nastaleeq */
+    line-height: 2.4; /* More line spacing for Nastaleeq */
+    font-weight: normal;
+    word-spacing: 2px;
+    letter-spacing: 0.5px;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Specific override for Urdu tafsir cards */
+.ayah-card .ayah-text.urdu-font {
+    font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif !important;
+}
+
+/* Fallback for when JMN.ttf is not loaded */
+@supports not (font-family: 'Jameel Noori Nastaleeq') {
+    .ayah-text.urdu-font {
+        font-family: 'Noto Nastaliq Urdu', 'AlQalam Taj Nastaleeq', serif;
+    }
+}
+
+/* Ensure proper RTL rendering */
+.ayah-text[style*="direction: rtl"] {
+    unicode-bidi: embed;
+}
+
+/* ==========================================
+   MIT LICENSE FOOTER
+   ========================================== */
+.license-footer {
+    margin: 20px 12px;
+    padding: 14px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 9px;
+    color: var(--text-secondary);
+    font-family: 'Courier New', monospace;
+}
+
+.license-footer summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text);
+    user-select: none;
+    padding: 4px 0;
+}
+
+.license-footer pre {
+    margin-top: 12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    line-height: 1.5;
+}
+
+/* ==========================================
+   LOADING STATE
+   ========================================== */
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 20px;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 14px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading p {
+    margin: 4px 0;
+    font-size: 14px;
+}
+
+/* ==========================================
+   TOAST NOTIFICATION
+   ========================================== */
+.toast {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 9999;
+    max-width: 90%;
+    text-align: center;
+    white-space: nowrap;
+    box-shadow: var(--shadow-lg);
+    animation: toastIn 0.3s ease;
+}
+
+.toast.hidden {
+    display: none !important;
+}
+
+@keyframes toastIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ==========================================
+   UTILITIES
+   ========================================== */
+.hidden {
+    display: none !important;
+}
+
+/* ==========================================
+   DESKTOP ENHANCEMENTS
+   ========================================== */
+@media (min-width: 600px) {
+    .app {
+        max-width: 600px;
+        margin: 0 auto;
+        box-shadow: 0 0 40px rgba(0,0,0,0.08);
+    }
+    
+    .ayah-card:hover {
+        border-color: var(--accent);
+    }
+    
+    .recent-card:hover {
+        border-color: var(--accent);
+        box-shadow: var(--shadow);
+    }
+}

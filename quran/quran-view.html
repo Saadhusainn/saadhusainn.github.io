@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Quran - Sijjeen</title>
+    <link rel="icon" type="image/png" href="../assets/other/sijjeen-logo.png">
+    <link rel="preload" href="../assets/fonts/HafsUthmanicScript.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="../assets/fonts/JMN.ttf" as="font" type="font/ttf" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../hadith/hadith-style.css">
+    <link rel="stylesheet" href="quran-style.css">
+    <style>
+        @font-face { font-family: 'Hafs Uthmanic'; src: url('../assets/fonts/HafsUthmanicScript.ttf') format('truetype'); font-display: block; }
+        @font-face { font-family: 'JMN'; src: url('../assets/fonts/JMN.ttf') format('truetype'); font-display: block; }
+    </style>
+</head>
+<body class="quran-reading-mode">
+    <div class="app">
+        <!-- Header -->
+        <header class="app-header quran-header">
+            <button class="header-back" onclick="goBack()">←</button>
+            <div class="header-center">
+                <h1 class="header-title" id="surahTitle">Al-Fatihah</h1>
+                <p class="header-subtitle" id="surahSubtitle">الفاتحة</p>
+            </div>
+            <button class="header-btn" onclick="showSettingsModal()">
+                <img src="../assets/icons/settings.png" alt="Settings">
+            </button>
+        </header>
+
+        <!-- Translation + Download Bar -->
+        <div class="translation-bar">
+            <select id="quickTranslation" onchange="onTranslationChange()"></select>
+            <button class="download-surah-btn" onclick="showDownloadSurahModal()" title="Download Surah MP3">
+                <img src="../assets/icons/download.png" alt="Download">
+                <span>Download</span>
+            </button>
+        </div>
+
+        <!-- Surah Info Banner -->
+        <div class="surah-info-banner">
+            <div class="surah-number" id="surahNumberBadge">1</div>
+            <div class="surah-details">
+                <span class="surah-verses" id="surahVersesInfo">7 verses</span>
+                <span class="surah-type" id="surahTypeInfo">Meccan</span>
+            </div>
+        </div>
+
+        <!-- Bismillah -->
+        <div class="bismillah-container" id="bismillahContainer">
+            <p class="bismillah-text">بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</p>
+            <button class="bismillah-play" onclick="playBismillah()">
+                <img src="../assets/icons/play.png" alt="Play">
+            </button>
+        </div>
+
+        <!-- Reading Content -->
+        <main class="reading-content quran-content" id="readingContent">
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Loading verses...</p>
+            </div>
+            <div class="verses-container hidden" id="versesContainer"></div>
+            <div class="load-more hidden" id="loadMore">
+                <div class="spinner small"></div>
+            </div>
+            <div class="surah-end hidden" id="surahEnd">
+                <p class="surah-end-text">صدق الله العظيم</p>
+                <p class="surah-end-sub">End of Surah</p>
+            </div>
+        </main>
+
+        <!-- Audio Player Bar -->
+        <div class="audio-player-bar">
+            <div class="audio-progress-container" onclick="seekAudio(event)">
+                <div class="audio-progress" id="audioProgress"></div>
+            </div>
+            <div class="audio-controls">
+                <button class="audio-btn skip-btn" onclick="previousVerse()">
+                    <img src="../assets/icons/previous.png" alt="Previous">
+                </button>
+                <button class="audio-btn play-pause-btn" onclick="togglePlayPause()">
+                    <img src="../assets/icons/play.png" alt="Play" id="playPauseIcon">
+                </button>
+                <button class="audio-btn skip-btn" onclick="nextVerse()">
+                    <img src="../assets/icons/next.png" alt="Next">
+                </button>
+                <div class="audio-info">
+                    <span id="currentVerseNum">0</span>/<span id="totalVerseNum">0</span>
+                </div>
+                <button class="audio-btn" id="repeatBtn" onclick="toggleRepeat()">
+                    <img src="../assets/icons/repeat.png" alt="Repeat">
+                    <span class="audio-btn-label">Repeat</span>
+                </button>
+                <button class="audio-btn" id="continuousBtn" onclick="toggleContinuousPlay()">
+                    <img src="../assets/icons/continuous.png" alt="Continuous">
+                    <span class="audio-btn-label">Continuous</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Surah Navigation -->
+        <nav class="surah-nav">
+            <button class="surah-nav-btn" id="prevSurahBtn" onclick="goToPrevSurah()">
+                <img src="../assets/icons/previous.png" alt="">
+                <span id="prevSurahName">Previous</span>
+            </button>
+            <button class="surah-nav-btn" id="nextSurahBtn" onclick="goToNextSurah()">
+                <span id="nextSurahName">Next</span>
+                <img src="../assets/icons/next.png" alt="">
+            </button>
+        </nav>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal hidden" id="settingsModal" onclick="handleModalClick(event)">
+        <div class="modal-content modal-lg" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3>Settings</h3>
+                <button class="modal-close" onclick="hideSettingsModal()">✕</button>
+            </div>
+
+            <div class="settings-section">
+                <h4>Translation</h4>
+                <select id="translationSelect"></select>
+            </div>
+
+            <div class="settings-section">
+                <h4>Reciter (Verse by Verse)</h4>
+                <select id="reciterSelect"></select>
+            </div>
+
+            <div class="settings-section">
+                <h4>Urdu Translation Audio</h4>
+                <div class="radio-group-vertical">
+                    <label class="radio-item-full">
+                        <input type="radio" name="urduAudio" id="urduAudioAfter" value="after">
+                        <span>Play Urdu after Arabic verse</span>
+                    </label>
+                    <label class="radio-item-full">
+                        <input type="radio" name="urduAudio" id="urduAudioOnly" value="only">
+                        <span>Only Urdu Translation</span>
+                    </label>
+                    <label class="radio-item-full">
+                        <input type="radio" name="urduAudio" id="urduAudioNone" value="none" checked>
+                        <span>Don't play Translation</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h4>Font Sizes</h4>
+                <div class="slider-row">
+                    <label>Arabic: <span id="arabicFontSizeVal">20</span>px</label>
+                    <input type="range" id="arabicFontSize" min="16" max="40" value="20" oninput="updateFontSizePreview()">
+                </div>
+                <div class="slider-row">
+                    <label>Translation: <span id="transFontSizeVal">12</span>px</label>
+                    <input type="range" id="transFontSize" min="10" max="20" value="12" oninput="updateFontSizePreview()">
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="hideSettingsModal()">Cancel</button>
+                <button class="btn-primary" onclick="saveSettings()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Download Surah Modal -->
+    <div class="modal hidden" id="downloadSurahModal" onclick="handleModalClick(event)">
+        <div class="modal-content modal-lg" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3>Download Surah MP3</h3>
+                <button class="modal-close" onclick="hideDownloadSurahModal()">✕</button>
+            </div>
+            <p class="modal-subtitle">Select a reciter to download the full surah</p>
+            <div class="reciter-search">
+                <input type="text" id="reciterSearchInput" placeholder="Search reciters..." oninput="filterReciters()">
+            </div>
+            <div class="reciters-list" id="recitersList">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Loading reciters...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast hidden" id="toast"></div>
+    <audio id="audioPlayer" preload="none"></audio>
+    <script src="quran-library.js"></script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sijjeen</title>
+    <link rel="icon" type="image/png" href="assets/other/sijjeen-logo.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <a href="library.html" class="nav-link">Library</a>
+    
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">
+        <div class="toast-content">
+            <span class="toast-icon">📖</span>
+            <span id="toastMessage"></span>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <div class="title-section">
+                <img src="assets/other/sijjeen-logo.png" alt="Sijjeen Logo" class="site-logo">
+                <div class="title">SIJJEEN</div>
+            </div>
+        </div>
+        
+        <!-- Upload Section -->
+        <div class="upload-section">
+            <input type="file" id="uploadInput" accept=".pdf" style="display: none;">
+            <button class="styled-button" onclick="document.getElementById('uploadInput').click()">
+                <span class="button-top">
+                    <img src="assets/icons/upload-pdf.png" alt="Upload" class="button-icon">
+                    Upload Your Own PDF
+                </span>
+            </button>
+        </div>
+        
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search books..." oninput="searchBooks()">
+            <span class="search-icon">🔍</span>
+        </div>
+        
+        <h2 class="section-title">Available Books</h2>
+        
+        <div id="booksList" class="books-list">
+            <div class="loading">
+                <div class="book-loader">
+                    <div class="book-page"></div>
+                    <div class="book-page"></div>
+                    <div class="book-page"></div>
+                </div>
+                Loading books...
+            </div>
+        </div>
+        
+        <!-- Show More Button -->
+        <button id="showMoreBtn" class="styled-button show-more-btn hidden" onclick="loadMoreBooks()">
+            <span class="button-top">📚 Show More Books</span>
+        </button>
+        
+        <!-- Book Request Section -->
+        <div id="bookRequestSection" class="book-request hidden">
+            <p style="color: var(--text-primary);">Can't find the book you're looking for?</p>
+            <button class="styled-button" onclick="showRequestForm()">
+                <span class="button-top">📚 Request a Book</span>
+            </button>
+            
+            <div id="requestForm" class="request-form hidden">
+                <input type="text" id="bookRequestInput" class="request-input" placeholder="Enter book name">
+                <button class="styled-button" onclick="sendBookRequest()">
+                    <span class="button-top">Send Request</span>
+                </button>
+            </div>
+        </div>
+        
+        <div id="errorContainer"></div>
+        
+        <div id="collageSettings" class="collage-settings hidden">
+            <div class="setting-group">
+                <label>How many pages do you want in your collage?</label>
+                <div class="page-count-selector" id="pageCountWrapper">
+                    <label class="page-count-option">
+                        <input type="radio" name="pageCount" value="2" checked>
+                        <span>2 Pages</span>
+                    </label>
+                    <label class="page-count-option">
+                        <input type="radio" name="pageCount" value="3">
+                        <span>3 Pages</span>
+                    </label>
+                    <label class="page-count-option">
+                        <input type="radio" name="pageCount" value="4">
+                        <span>4 Pages</span>
+                    </label>
+                    <label class="page-count-option">
+                        <input type="radio" name="pageCount" value="5">
+                        <span>5 Pages</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label>Select page numbers:</label>
+                <div id="pageInputs" class="page-inputs"></div>
+            </div>
+            
+            <p class="info-text" id="pageInfo"></p>
+        </div>
+        
+        <!-- Watermark Section -->
+        <div id="watermarkSection" class="watermark-section hidden">
+            <div class="setting-group">
+                <label>
+                    <img src="assets/other/watermark.png" alt="Watermark" class="setting-icon">
+                    Add Watermark
+                </label>
+                <div class="watermark-controls">
+                    <input type="file" id="watermarkInput" accept="image/*" style="display: none;">
+                    <button class="styled-button" onclick="document.getElementById('watermarkInput').click()">
+                        <span class="button-top">
+                            <img src="assets/icons/upload-pdf.png" alt="Upload" class="button-icon">
+                            Upload Watermark
+                        </span>
+                    </button>
+                    <div class="watermark-slider">
+                        <span>Opacity:</span>
+                        <input type="range" id="watermarkOpacity" min="0" max="100" value="14" oninput="updateWatermarkOpacity()">
+                        <span id="opacityValue">14%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="previewSection" class="preview-section hidden">
+            <h2 class="section-title">Preview</h2>
+            <div class="preview-container">
+                <canvas id="previewCanvas" class="preview-canvas"></canvas>
+            </div>
+            <div class="preview-actions">
+                <button class="styled-button" onclick="downloadCollage()">
+                    <span class="button-top">
+                        <img src="assets/icons/download.png" alt="Download" class="button-icon">
+                        Download Collage
+                    </span>
+                </button>
+                <button class="styled-button highlight-btn" onclick="openCollageEditor()">
+                    <span class="button-top">
+                        <img src="assets/icons/highlighter.png" alt="Highlight" class="button-icon">
+                        Proceed to Highlight
+                    </span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Contact Section -->
+        <div class="contact-section">
+            <div class="contact-header">
+                <img src="assets/icons/contact-us.png" alt="Contact Us" class="contact-title-icon">
+                <h3 class="contact-title">Get in Touch</h3>
+            </div>
+            <p class="contact-subtitle">Have questions or suggestions? Reach out to us!</p>
+            <div class="contact-grid">
+                <a href="https://t.me/DancingDinosaurs" target="_blank" class="contact-card">
+                    <div class="contact-card-icon">
+                        <img src="assets/icons/telegram.png" alt="Telegram">
+                    </div>
+                    <div class="contact-card-content">
+                        <h4>Telegram</h4>
+                        <p>@DancingDinosaurs</p>
+                        <span class="contact-card-link">Send Message →</span>
+                    </div>
+                </a>
+                <a href="https://instagram.com/sijjeen_" target="_blank" class="contact-card">
+                    <div class="contact-card-icon">
+                        <img src="assets/icons/instagram.png" alt="Instagram">
+                    </div>
+                    <div class="contact-card-content">
+                        <h4>Instagram</h4>
+                        <p>@sijjeen_</p>
+                        <span class="contact-card-link">Follow Us →</span>
+                    </div>
+                </a>
+                <a href="mailto:sijjeen@proton.me" class="contact-card">
+                    <div class="contact-card-icon">
+                        <img src="assets/icons/email.png" alt="Email">
+                    </div>
+                    <div class="contact-card-content">
+                        <h4>Email</h4>
+                        <p>sijjeen@proton.me</p>
+                        <span class="contact-card-link">Send Email →</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="hadith/books-index.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

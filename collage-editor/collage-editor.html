@@ -1,0 +1,1848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sijjeen - Collage Editor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #e9ecef;
+            --text-primary: #212529;
+            --text-secondary: #495057;
+            --text-muted: #6c757d;
+            --border-color: #dee2e6;
+            --accent-color: #6c63ff;
+            --accent-hover: #5a52d5;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Amiri', 'Scheherazade New', serif;
+            background: var(--bg-primary);
+            min-height: 100vh;
+            padding: 0;
+            touch-action: none;
+            font-size: 14px;
+            color: var(--text-primary);
+            overflow: hidden;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background: var(--bg-secondary);
+            border-bottom: 2px solid var(--border-color);
+            flex-shrink: 0;
+            height: 60px;
+        }
+
+        .header-title {
+            color: var(--accent-color);
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* Buttons */
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            padding: 8px;
+            background: var(--accent-color);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 1001;
+            position: relative;
+        }
+
+        .icon-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .icon-btn:active {
+            transform: translateY(0);
+        }
+
+        .icon-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
+
+        .download-btn {
+            background: #28a745;
+        }
+
+        .download-btn:hover {
+            background: #218838;
+        }
+
+        .back-btn {
+            background: #6c757d;
+        }
+
+        .back-btn:hover {
+            background: #5a6268;
+        }
+
+        /* Main Content */
+        .content {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Desktop Toolbar */
+        .desktop-toolbar {
+            width: 220px;
+            background: var(--bg-secondary);
+            border-right: 2px solid var(--border-color);
+            padding: 15px;
+            overflow-y: auto;
+            flex-shrink: 0;
+            display: none;
+            z-index: 100;
+        }
+
+        .toolbar-section {
+            margin-bottom: 20px;
+        }
+
+        .toolbar-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent-color);
+            font-size: 1em;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .toolbar-title img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .tool-btn {
+            padding: 10px;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 12px;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .tool-btn:hover {
+            border-color: var(--accent-color);
+            background: var(--bg-secondary);
+        }
+
+        .tool-btn.active {
+            border-color: var(--accent-color);
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .tool-btn img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .color-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .color-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .color-btn.active {
+            border-color: var(--text-primary);
+            transform: scale(1.2);
+        }
+
+        .highlight-yellow { background-color: #ffff00; }
+        .highlight-red { background-color: #ff0000; }
+        .highlight-cyan { background-color: #00ffff; }
+        .highlight-lime { background-color: #00ff00; }
+        .highlight-blue { background-color: #007bff; }
+        .highlight-pink { background-color: #e83e8c; }
+        .highlight-purple { background-color: #6f42c1; }
+        .highlight-orange { background-color: #fd7e14; }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-family: 'Amiri', 'Scheherazade New', serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .action-btn img {
+            width: 16px;
+            height: 16px;
+        }
+
+        .undo-btn { background: #ffc107; color: black; }
+        .undo-btn:hover { background: #e0a800; }
+        .redo-btn { background: #17a2b8; color: white; }
+        .redo-btn:hover { background: #138496; }
+        .clear-btn { background: #dc3545; color: white; }
+        .clear-btn:hover { background: #c82333; }
+
+        .tips-text {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            margin-top: 10px;
+        }
+
+        /* Mobile Toolbar */
+        .mobile-toolbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-secondary);
+            border-top: 2px solid var(--border-color);
+            padding: 10px;
+            z-index: 1000;
+            display: none;
+        }
+
+        .mobile-toolbar-top {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 10px;
+        }
+
+        .mobile-tool-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 11px;
+            color: var(--text-primary);
+            transition: all 0.3s;
+            min-width: 70px;
+        }
+
+        .mobile-tool-btn:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .mobile-tool-btn.active {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .mobile-tool-btn img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .mobile-toolbar-bottom {
+            display: flex;
+            gap: 10px;
+            justify-content: space-around;
+        }
+
+        .mobile-action-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            max-width: 120px;
+        }
+
+        .mobile-action-btn img {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Color Picker Popup */
+        .color-picker-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            z-index: 1003;
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+            min-width: 320px;
+            max-width: 90vw;
+            border: 2px solid var(--border-color);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .color-picker-popup.show {
+            display: flex;
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        .popup-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .popup-title {
+            color: var(--accent-color);
+            font-size: 1.3em;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .popup-title img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .popup-close {
+            background: var(--bg-tertiary);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--text-muted);
+            transition: all 0.3s;
+        }
+
+        .popup-close:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .color-picker-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 10px 0;
+        }
+
+        .popup-color-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            border: 4px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .popup-color-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .popup-color-btn.active {
+            border-color: var(--accent-color);
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .popup-color-btn.active::after {
+            content: '✓';
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .custom-color-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .custom-color-label {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .custom-color-input {
+            width: 100%;
+            height: 40px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0 15px;
+            font-size: 14px;
+            font-family: 'Amiri', 'Scheherazade New', serif;
+            color: var(--text-primary);
+            background: var(--bg-tertiary);
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .custom-color-input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
+        }
+
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1002;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .popup-overlay.show {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Canvas Container */
+        .canvas-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-tertiary);
+        }
+
+        #collageCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: crosshair;
+            transform-origin: 0 0;
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Zoom Controls - FIXED POSITIONING */
+        .zoom-controls {
+            position: fixed; /* Changed from absolute to fixed */
+            bottom: 140px; /* Position above mobile toolbar */
+            right: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1002; /* Higher than canvas */
+        }
+
+        .zoom-control-btn {
+            width: 55px;
+            height: 55px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--text-primary);
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+            z-index: 1003;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .zoom-control-btn img {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0) saturate(100%);
+        }
+
+        .zoom-control-btn:active {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+            transform: scale(0.95);
+        }
+
+        .zoom-control-btn:active img {
+            filter: brightness(0) invert(1);
+        }
+
+        .zoom-display {
+            position: fixed; /* Changed from absolute to fixed */
+            bottom: 140px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
+            z-index: 1002;
+            border: 1px solid var(--border-color);
+        }
+
+        .info-message {
+            position: fixed;
+            top: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
+            z-index: 1002;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            border: 1px solid var(--border-color);
+            max-width: 90%;
+            text-align: center;
+        }
+
+        .info-message.show {
+            opacity: 1;
+        }
+
+        .cursor-coordinates {
+            position: fixed;
+            top: 70px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
+            z-index: 1002;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Responsive Design */
+        @media (min-width: 769px) {
+            .desktop-toolbar {
+                display: block;
+            }
+            
+            .mobile-toolbar {
+                display: none !important;
+            }
+            
+            .zoom-controls {
+                bottom: 30px;
+                right: 30px;
+            }
+            
+            .zoom-display {
+                bottom: 30px;
+                left: 30px;
+            }
+            
+            .cursor-coordinates {
+                top: 80px;
+                right: 30px;
+            }
+            
+            .info-message {
+                top: 80px;
+            }
+            
+            .color-picker-popup {
+                min-width: 400px;
+            }
+            
+            .popup-color-btn {
+                width: 70px;
+                height: 70px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .desktop-toolbar {
+                display: none;
+            }
+            
+            .mobile-toolbar {
+                display: block;
+                height: auto;
+            }
+            
+            .canvas-container {
+                margin-bottom: 140px;
+            }
+            
+            .zoom-controls {
+                bottom: 150px;
+                right: 15px;
+            }
+            
+            .zoom-display {
+                bottom: 150px;
+                left: 15px;
+            }
+            
+            .cursor-coordinates {
+                top: 70px;
+                right: 15px;
+                font-size: 10px;
+                padding: 6px 12px;
+            }
+            
+            .info-message {
+                top: 70px;
+                font-size: 12px;
+                padding: 8px 16px;
+            }
+            
+            .header {
+                padding: 10px;
+                height: 50px;
+            }
+            
+            .header-title {
+                font-size: 1em;
+            }
+            
+            .icon-btn {
+                width: 36px;
+                height: 36px;
+                padding: 6px;
+            }
+            
+            .zoom-control-btn {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .color-picker-popup {
+                min-width: 300px;
+                padding: 20px;
+            }
+            
+            .popup-color-btn {
+                width: 55px;
+                height: 55px;
+            }
+        }
+
+        /* Utilities */
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Prevent text selection */
+        .no-select {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-title">Collage Editor</div>
+            <div class="header-actions">
+                <button class="icon-btn back-btn" onclick="window.close()">
+                    <img src="../assets/icons/back-button.png" alt="Back">
+                </button>
+                <button class="icon-btn download-btn" onclick="downloadEditedCollage()">
+                    <img src="../assets/icons/download.png" alt="Download">
+                </button>
+            </div>
+        </div>
+        
+        <div class="content">
+            <!-- Desktop Toolbar -->
+            <div class="desktop-toolbar">
+                <div class="toolbar-section">
+                    <div class="toolbar-title">
+                        <img src="../assets/icons/tools.png" alt="Tools">
+                        <span>Tools</span>
+                    </div>
+                    <div class="tools-grid">
+                        <button class="tool-btn active" onclick="setTool('highlight')">
+                            <img src="../assets/icons/highlighter.png" alt="Highlight">
+                            <span>Highlight</span>
+                        </button>
+                        <button class="tool-btn" onclick="setTool('pan')">
+                            <img src="../assets/icons/pan.png" alt="Pan">
+                            <span>Pan</span>
+                        </button>
+                        <button class="tool-btn" onclick="zoomIn()">
+                            <img src="../assets/icons/zoom-in.png" alt="Zoom In">
+                            <span>Zoom In</span>
+                        </button>
+                        <button class="tool-btn" onclick="zoomOut()">
+                            <img src="../assets/icons/zoom-out.png" alt="Zoom Out">
+                            <span>Zoom Out</span>
+                        </button>
+                        <button class="tool-btn" onclick="resetView()">
+                            <img src="../assets/icons/reset.png" alt="Reset">
+                            <span>Reset</span>
+                        </button>
+                        <button class="tool-btn" onclick="toggleGrid()">
+                            <img src="../assets/icons/grid.png" alt="Grid">
+                            <span>Grid</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="toolbar-section">
+                    <div class="toolbar-title">
+                        <img src="../assets/icons/colors.png" alt="Colors">
+                        <span>Colors</span>
+                    </div>
+                    <div class="color-palette">
+                        <div class="color-btn highlight-yellow active" data-color="#ffff00" onclick="setHighlightColor(this)"></div>
+                        <div class="color-btn highlight-red" data-color="#ff0000" onclick="setHighlightColor(this)"></div>
+                        <div class="color-btn highlight-cyan" data-color="#00ffff" onclick="setHighlightColor(this)"></div>
+                        <div class="color-btn highlight-lime" data-color="#00ff00" onclick="setHighlightColor(this)"></div>
+                        <div class="color-btn highlight-blue" data-color="#007bff" onclick="setHighlightColor(this)"></div>
+                        <div class="color-btn highlight-pink" data-color="#e83e8c" onclick="setHighlightColor(this)"></div>
+                        <div class="color-btn highlight-purple" data-color="#6f42c1" onclick="setHighlightColor(this)"></div>
+                        <div class="color-btn highlight-orange" data-color="#fd7e14" onclick="setHighlightColor(this)"></div>
+                    </div>
+                </div>
+                
+                <div class="toolbar-section">
+                    <div class="toolbar-title">
+                        <img src="../assets/icons/tools.png" alt="Actions">
+                        <span>Actions</span>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="action-btn undo-btn" id="undoBtn" onclick="undoHighlight()" disabled>
+                            <img src="../assets/icons/undo.png" alt="Undo">
+                            <span>Undo</span>
+                        </button>
+                        <button class="action-btn redo-btn" id="redoBtn" onclick="redoHighlight()" disabled>
+                            <img src="../assets/icons/redo.png" alt="Redo">
+                            <span>Redo</span>
+                        </button>
+                    </div>
+                    <button class="action-btn clear-btn" onclick="clearHighlights()" style="margin-top: 8px;">
+                        <img src="../assets/icons/clear-all.png" alt="Clear All">
+                        <span>Clear All</span>
+                    </button>
+                </div>
+                
+                <div class="toolbar-section">
+                    <div class="toolbar-title">
+                        <img src="../assets/icons/tips.png" alt="Tips">
+                        <span>Tips</span>
+                    </div>
+                    <div class="tips-text">
+                        • <strong>Highlight:</strong> Click and drag<br>
+                        • <strong>Pan:</strong> Drag with hand tool<br>
+                        • <strong>Zoom:</strong> Use buttons or scroll<br>
+                        • <strong>Undo/Redo:</strong> Ctrl+Z / Ctrl+Y<br>
+                        • Click on highlights to select
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Canvas Container -->
+            <div class="canvas-container" id="canvasContainer">
+                <canvas id="collageCanvas"></canvas>
+                <div class="zoom-display" id="zoomDisplay">100%</div>
+                <div class="info-message" id="infoMessage"></div>
+                <div class="cursor-coordinates" id="cursorCoordinates">X: 0, Y: 0</div>
+                <div class="zoom-controls">
+                    <button class="zoom-control-btn" id="zoomInBtn" onclick="zoomIn()">
+                        <img src="../assets/icons/zoom-in.png" alt="Zoom In">
+                    </button>
+                    <button class="zoom-control-btn" id="zoomOutBtn" onclick="zoomOut()">
+                        <img src="../assets/icons/zoom-out.png" alt="Zoom Out">
+                    </button>
+                    <button class="zoom-control-btn" id="resetViewBtn" onclick="resetView()">
+                        <img src="../assets/icons/reset.png" alt="Reset View">
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Toolbar -->
+            <div class="mobile-toolbar">
+                <div class="mobile-toolbar-top">
+                    <button class="mobile-tool-btn active" onclick="setMobileTool('highlight')">
+                        <img src="../assets/icons/highlighter.png" alt="Highlight">
+                        <span>Highlight</span>
+                    </button>
+                    <button class="mobile-tool-btn" onclick="setMobileTool('pan')">
+                        <img src="../assets/icons/pan.png" alt="Pan">
+                        <span>Pan</span>
+                    </button>
+                    <button class="mobile-tool-btn" onclick="openColorPicker()">
+                        <img src="../assets/icons/colors.png" alt="Colors">
+                        <span>Colors</span>
+                    </button>
+                    <button class="mobile-tool-btn" onclick="toggleGrid()">
+                        <img src="../assets/icons/grid.png" alt="Grid">
+                        <span>Grid</span>
+                    </button>
+                </div>
+                <div class="mobile-toolbar-bottom">
+                    <button class="mobile-action-btn undo-btn" id="mobileUndoBtn" onclick="undoHighlight()" disabled>
+                        <img src="../assets/icons/undo.png" alt="Undo">
+                        <span>Undo</span>
+                    </button>
+                    <button class="mobile-action-btn redo-btn" id="mobileRedoBtn" onclick="redoHighlight()" disabled>
+                        <img src="../assets/icons/redo.png" alt="Redo">
+                        <span>Redo</span>
+                    </button>
+                    <button class="mobile-action-btn clear-btn" onclick="clearHighlights()">
+                        <img src="../assets/icons/clear-all.png" alt="Clear All">
+                        <span>Clear</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Color Picker Popup Overlay -->
+            <div class="popup-overlay" id="popupOverlay" onclick="closeColorPicker()"></div>
+            
+            <!-- Color Picker Popup -->
+            <div class="color-picker-popup" id="colorPickerPopup">
+                <div class="popup-header">
+                    <div class="popup-title">
+                        <img src="../assets/icons/colors.png" alt="Colors">
+                        <span>Choose Highlight Color</span>
+                    </div>
+                    <button class="popup-close" onclick="closeColorPicker()">×</button>
+                </div>
+                
+                <div class="color-picker-grid">
+                    <div class="popup-color-btn highlight-yellow active" data-color="#ffff00" onclick="selectPopupColor(this)"></div>
+                    <div class="popup-color-btn highlight-red" data-color="#ff0000" onclick="selectPopupColor(this)"></div>
+                    <div class="popup-color-btn highlight-cyan" data-color="#00ffff" onclick="selectPopupColor(this)"></div>
+                    <div class="popup-color-btn highlight-lime" data-color="#00ff00" onclick="selectPopupColor(this)"></div>
+                    <div class="popup-color-btn highlight-blue" data-color="#007bff" onclick="selectPopupColor(this)"></div>
+                    <div class="popup-color-btn highlight-pink" data-color="#e83e8c" onclick="selectPopupColor(this)"></div>
+                    <div class="popup-color-btn highlight-purple" data-color="#6f42c1" onclick="selectPopupColor(this)"></div>
+                    <div class="popup-color-btn highlight-orange" data-color="#fd7e14" onclick="selectPopupColor(this)"></div>
+                </div>
+                
+                <div class="custom-color-section">
+                    <label class="custom-color-label">Custom Color (Hex):</label>
+                    <input type="text" 
+                           id="customColorInput" 
+                           class="custom-color-input" 
+                           placeholder="#ff0000" 
+                           maxlength="7"
+                           oninput="handleCustomColorInput(this)">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State management
+        let collageImage = null;
+        let highlights = [];
+        let highlightHistory = [];
+        let historyIndex = -1;
+        let currentTool = 'highlight';
+        let currentHighlightColor = "#ffff00";
+        let isDrawing = false;
+        let currentRect = null;
+        let startX, startY;
+        let selectedRectIndex = -1;
+        let isPanning = false;
+        let panStartX, panStartY;
+        let scale = 1;
+        let offsetX = 0;
+        let offsetY = 0;
+        let canvas = null;
+        let ctx = null;
+        let lastRenderTime = 0;
+        let showGrid = false;
+        let isResizing = false;
+        let resizeHandle = -1;
+        let isMoving = false;
+        let initialPinchDistance = null;
+        let initialPinchScale = 1;
+
+        // Initialize editor
+        function initEditor() {
+            canvas = document.getElementById('collageCanvas');
+            ctx = canvas.getContext('2d');
+            
+            // Prevent default touch behaviors
+            canvas.addEventListener('touchstart', (e) => {
+                if (e.touches.length > 1) {
+                    e.preventDefault(); // Prevent zoom on pinch
+                }
+            }, { passive: false });
+            
+            // Load collage from localStorage
+            const collageDataUrl = localStorage.getItem('collageDataUrl');
+            if (!collageDataUrl) {
+                showMessage('No collage found! Please go back and generate one.', true);
+                return;
+            }
+            
+            collageImage = new Image();
+            collageImage.onload = function() {
+                setupCanvas();
+                render();
+                setupEventListeners();
+                updateMobileUndoRedoButtons();
+                setupZoomButtons();
+                setupColorPicker();
+            };
+            collageImage.src = collageDataUrl;
+        }
+
+        function setupCanvas() {
+            const container = document.getElementById('canvasContainer');
+            canvas.width = collageImage.width;
+            canvas.height = collageImage.height;
+            
+            // Initial scale to fit container
+            const containerWidth = container.clientWidth;
+            const containerHeight = container.clientHeight;
+            const scaleX = containerWidth / canvas.width;
+            const scaleY = containerHeight / canvas.height;
+            scale = Math.min(scaleX, scaleY, 1);
+            
+            // Center the image
+            offsetX = (containerWidth - canvas.width * scale) / 2;
+            offsetY = (containerHeight - canvas.height * scale) / 2;
+            
+            updateCanvasTransform();
+            updateZoomDisplay();
+        }
+
+        function updateCanvasTransform() {
+            canvas.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
+        }
+
+        function updateZoomDisplay() {
+            document.getElementById('zoomDisplay').textContent = `${Math.round(scale * 100)}%`;
+        }
+
+        function showMessage(message, isError = false) {
+            const messageDiv = document.getElementById('infoMessage');
+            messageDiv.textContent = message;
+            messageDiv.style.backgroundColor = isError ? 'rgba(255, 0, 0, 0.9)' : 'rgba(255, 255, 255, 0.9)';
+            messageDiv.classList.add('show');
+            
+            setTimeout(() => {
+                messageDiv.classList.remove('show');
+            }, 2000);
+        }
+
+        function updateCursorCoordinates(clientX, clientY) {
+            const container = document.getElementById('canvasContainer');
+            const rect = container.getBoundingClientRect();
+            const x = clientX - rect.left;
+            const y = clientY - rect.top;
+            
+            // Convert to canvas coordinates
+            const canvasX = (x - offsetX) / scale;
+            const canvasY = (y - offsetY) / scale;
+            
+            document.getElementById('cursorCoordinates').textContent = 
+                `X: ${Math.round(canvasX)}, Y: ${Math.round(canvasY)}`;
+        }
+
+        function setTool(tool) {
+            currentTool = tool;
+            
+            // Update active tool button
+            document.querySelectorAll('.tool-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            if (event && event.target.closest('.tool-btn')) {
+                event.target.closest('.tool-btn').classList.add('active');
+            }
+            
+            // Update cursor
+            updateCursorForTool();
+            
+            showMessage(`${tool === 'pan' ? 'Pan' : 'Highlight'} tool selected`);
+        }
+
+        function setMobileTool(tool) {
+            currentTool = tool;
+            
+            // Update active mobile tool button
+            document.querySelectorAll('.mobile-tool-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.closest('.mobile-tool-btn').classList.add('active');
+            
+            // Update cursor
+            updateCursorForTool();
+            
+            showMessage(`${tool === 'pan' ? 'Pan' : 'Highlight'} tool selected`);
+        }
+
+        function updateCursorForTool() {
+            if (currentTool === 'pan') {
+                canvas.style.cursor = 'grab';
+            } else if (currentTool === 'highlight') {
+                canvas.style.cursor = 'crosshair';
+            } else {
+                canvas.style.cursor = 'default';
+            }
+        }
+
+        // Color Picker Functions
+        function setupColorPicker() {
+            // Initialize popup with current color selected
+            updatePopupColorSelection();
+        }
+
+        function openColorPicker() {
+            const popup = document.getElementById('colorPickerPopup');
+            const overlay = document.getElementById('popupOverlay');
+            
+            // Update popup to show current selected color
+            updatePopupColorSelection();
+            
+            // Show popup and overlay
+            popup.classList.add('show');
+            overlay.classList.add('show');
+            
+            // Add escape key listener
+            document.addEventListener('keydown', handleEscapeKey);
+        }
+
+        function closeColorPicker() {
+            const popup = document.getElementById('colorPickerPopup');
+            const overlay = document.getElementById('popupOverlay');
+            
+            // Hide popup and overlay
+            popup.classList.remove('show');
+            overlay.classList.remove('show');
+            
+            // Remove escape key listener
+            document.removeEventListener('keydown', handleEscapeKey);
+        }
+
+        function handleEscapeKey(e) {
+            if (e.key === 'Escape') {
+                closeColorPicker();
+            }
+        }
+
+        function updatePopupColorSelection() {
+            // Update all color buttons to show active state for current color
+            document.querySelectorAll('.popup-color-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-color').toLowerCase() === currentHighlightColor.toLowerCase()) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Also update desktop and mobile color buttons
+            document.querySelectorAll('.color-btn, .mobile-color-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-color').toLowerCase() === currentHighlightColor.toLowerCase()) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        function selectPopupColor(button) {
+            const newColor = button.getAttribute('data-color');
+            currentHighlightColor = newColor;
+            
+            // Update all UI elements
+            updatePopupColorSelection();
+            
+            // Close the popup
+            setTimeout(() => {
+                closeColorPicker();
+                showMessage(`Color changed to ${newColor}`);
+            }, 300);
+        }
+
+        function handleCustomColorInput(input) {
+            let value = input.value.trim();
+            
+            // Add # if missing
+            if (value && !value.startsWith('#')) {
+                value = '#' + value;
+                input.value = value;
+            }
+            
+            // Validate hex color
+            const hexColorRegex = /^#([0-9A-Fa-f]{3}){1,2}$/;
+            if (hexColorRegex.test(value)) {
+                // Update color immediately
+                currentHighlightColor = value;
+                updatePopupColorSelection();
+                showMessage(`Custom color set: ${value}`);
+            }
+        }
+
+        function setHighlightColor(button) {
+            const newColor = button.getAttribute('data-color');
+            currentHighlightColor = newColor;
+            updatePopupColorSelection();
+            showMessage(`Color changed`);
+        }
+
+        function setupZoomButtons() {
+            // Ensure zoom buttons are clickable
+            const zoomInBtn = document.getElementById('zoomInBtn');
+            const zoomOutBtn = document.getElementById('zoomOutBtn');
+            const resetViewBtn = document.getElementById('resetViewBtn');
+            
+            if (zoomInBtn) {
+                zoomInBtn.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    zoomIn();
+                }, { passive: false });
+                
+                zoomInBtn.addEventListener('mousedown', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    zoomIn();
+                });
+            }
+            
+            if (zoomOutBtn) {
+                zoomOutBtn.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    zoomOut();
+                }, { passive: false });
+                
+                zoomOutBtn.addEventListener('mousedown', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    zoomOut();
+                });
+            }
+            
+            if (resetViewBtn) {
+                resetViewBtn.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    resetView();
+                }, { passive: false });
+                
+                resetViewBtn.addEventListener('mousedown', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    resetView();
+                });
+            }
+        }
+
+        function getCanvasCoordinates(clientX, clientY) {
+            const container = document.getElementById('canvasContainer');
+            const rect = container.getBoundingClientRect();
+            return {
+                x: (clientX - rect.left - offsetX) / scale,
+                y: (clientY - rect.top - offsetY) / scale
+            };
+        }
+
+        function setupEventListeners() {
+            const container = document.getElementById('canvasContainer');
+            
+            // Mouse events
+            container.addEventListener('mousedown', handleMouseDown);
+            container.addEventListener('mousemove', handleMouseMove);
+            container.addEventListener('mouseup', handleMouseUp);
+            container.addEventListener('wheel', handleWheel);
+            
+            // Touch events for mobile
+            container.addEventListener('touchstart', handleTouchStart, { passive: false });
+            container.addEventListener('touchmove', handleTouchMove, { passive: false });
+            container.addEventListener('touchend', handleTouchEnd);
+            
+            // Prevent context menu
+            container.addEventListener('contextmenu', (e) => e.preventDefault());
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', handleKeyDown);
+            
+            // Update cursor coordinates
+            container.addEventListener('mousemove', (e) => {
+                updateCursorCoordinates(e.clientX, e.clientY);
+            });
+            
+            container.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 1) {
+                    const touch = e.touches[0];
+                    updateCursorCoordinates(touch.clientX, touch.clientY);
+                }
+            });
+            
+            // Close color picker when clicking outside
+            document.addEventListener('click', (e) => {
+                const popup = document.getElementById('colorPickerPopup');
+                const overlay = document.getElementById('popupOverlay');
+                
+                if (popup.classList.contains('show') && 
+                    !e.target.closest('.color-picker-popup') && 
+                    !e.target.closest('.mobile-tool-btn[onclick*="openColorPicker"]') &&
+                    !e.target.closest('.color-btn')) {
+                    closeColorPicker();
+                }
+            });
+        }
+
+        function handleMouseDown(e) {
+            e.preventDefault();
+            const coords = getCanvasCoordinates(e.clientX, e.clientY);
+            
+            if (currentTool === 'pan') {
+                isPanning = true;
+                panStartX = e.clientX - offsetX;
+                panStartY = e.clientY - offsetY;
+                canvas.style.cursor = 'grabbing';
+                return;
+            }
+            
+            if (currentTool === 'highlight') {
+                // Check if clicking on existing highlight
+                for (let i = 0; i < highlights.length; i++) {
+                    const h = highlights[i];
+                    const handles = getResizeHandles(h);
+                    
+                    // Check resize handles first
+                    for (let j = 0; j < handles.length; j++) {
+                        if (isPointInRect(coords.x, coords.y, handles[j])) {
+                            isResizing = true;
+                            resizeHandle = j;
+                            selectedRectIndex = i;
+                            return;
+                        }
+                    }
+                    
+                    // Check if clicking on the rectangle itself
+                    if (isPointInRect(coords.x, coords.y, h)) {
+                        isMoving = true;
+                        selectedRectIndex = i;
+                        startX = coords.x;
+                        startY = coords.y;
+                        return;
+                    }
+                }
+                
+                // Create new highlight
+                isDrawing = true;
+                startX = coords.x;
+                startY = coords.y;
+                currentRect = {
+                    x: coords.x,
+                    y: coords.y,
+                    width: 0,
+                    height: 0,
+                    color: currentHighlightColor
+                };
+                highlights.push(currentRect);
+                selectedRectIndex = highlights.length - 1;
+                saveHighlightState();
+            }
+        }
+
+        function handleMouseMove(e) {
+            e.preventDefault();
+            const coords = getCanvasCoordinates(e.clientX, e.clientY);
+            
+            if (isPanning) {
+                offsetX = e.clientX - panStartX;
+                offsetY = e.clientY - panStartY;
+                updateCanvasTransform();
+                render();
+                return;
+            }
+            
+            if (isResizing && selectedRectIndex >= 0) {
+                const h = highlights[selectedRectIndex];
+                resizeRectangle(h, resizeHandle, coords.x, coords.y);
+                render();
+                return;
+            }
+            
+            if (isMoving && selectedRectIndex >= 0) {
+                const h = highlights[selectedRectIndex];
+                const dx = coords.x - startX;
+                const dy = coords.y - startY;
+                h.x += dx;
+                h.y += dy;
+                startX = coords.x;
+                startY = coords.y;
+                render();
+                return;
+            }
+            
+            if (isDrawing && currentRect) {
+                currentRect.width = coords.x - startX;
+                currentRect.height = coords.y - startY;
+                render();
+            }
+        }
+
+        function handleMouseUp(e) {
+            e.preventDefault();
+            
+            if (isPanning) {
+                isPanning = false;
+                canvas.style.cursor = 'grab';
+            }
+            
+            if (isDrawing || isResizing || isMoving) {
+                isDrawing = false;
+                isResizing = false;
+                isMoving = false;
+                resizeHandle = -1;
+                saveHighlightState();
+            }
+        }
+
+        function handleTouchStart(e) {
+            e.preventDefault();
+            
+            if (e.touches.length === 2) {
+                // Pinch zoom start
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                initialPinchDistance = Math.hypot(
+                    touch2.clientX - touch1.clientX,
+                    touch2.clientY - touch1.clientY
+                );
+                initialPinchScale = scale;
+                return;
+            }
+            
+            if (e.touches.length === 1) {
+                const touch = e.touches[0];
+                handleMouseDown({ 
+                    clientX: touch.clientX, 
+                    clientY: touch.clientY, 
+                    preventDefault: () => {} 
+                });
+            }
+        }
+
+        function handleTouchMove(e) {
+            e.preventDefault();
+            
+            if (e.touches.length === 2 && initialPinchDistance !== null) {
+                // Pinch zoom
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                const currentDistance = Math.hypot(
+                    touch2.clientX - touch1.clientX,
+                    touch2.clientY - touch1.clientY
+                );
+                
+                const zoomFactor = currentDistance / initialPinchDistance;
+                scale = initialPinchScale * zoomFactor;
+                scale = Math.max(0.1, Math.min(5, scale));
+                
+                updateCanvasTransform();
+                updateZoomDisplay();
+                render();
+                return;
+            }
+            
+            if (e.touches.length === 1) {
+                const touch = e.touches[0];
+                handleMouseMove({ 
+                    clientX: touch.clientX, 
+                    clientY: touch.clientY, 
+                    preventDefault: () => {} 
+                });
+            }
+        }
+
+        function handleTouchEnd(e) {
+            e.preventDefault();
+            
+            if (e.touches.length === 0) {
+                initialPinchDistance = null;
+                handleMouseUp({ preventDefault: () => {} });
+            }
+        }
+
+        function handleWheel(e) {
+            e.preventDefault();
+            
+            const zoomFactor = 0.1;
+            const container = document.getElementById('canvasContainer');
+            const rect = container.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+            
+            // Calculate mouse position in canvas coordinates before zoom
+            const canvasX = (mouseX - offsetX) / scale;
+            const canvasY = (mouseY - offsetY) / scale;
+            
+            // Update scale
+            if (e.deltaY < 0) {
+                // Zoom in
+                scale *= (1 + zoomFactor);
+            } else {
+                // Zoom out
+                scale *= (1 - zoomFactor);
+            }
+            
+            // Clamp scale
+            scale = Math.max(0.1, Math.min(5, scale));
+            
+            // Adjust offset so the point under the mouse stays in the same position
+            offsetX = mouseX - canvasX * scale;
+            offsetY = mouseY - canvasY * scale;
+            
+            updateCanvasTransform();
+            updateZoomDisplay();
+            render();
+        }
+
+        function handleKeyDown(e) {
+            // Ctrl+Z for undo
+            if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
+                e.preventDefault();
+                undoHighlight();
+            }
+            
+            // Ctrl+Y for redo
+            if ((e.ctrlKey || e.metaKey) && e.key === 'y') {
+                e.preventDefault();
+                redoHighlight();
+            }
+            
+            // Escape to close popup
+            if (e.key === 'Escape') {
+                const popup = document.getElementById('colorPickerPopup');
+                if (popup.classList.contains('show')) {
+                    closeColorPicker();
+                }
+            }
+            
+            // Delete key to remove selected highlight
+            if (e.key === 'Delete' && selectedRectIndex >= 0) {
+                e.preventDefault();
+                highlights.splice(selectedRectIndex, 1);
+                selectedRectIndex = -1;
+                saveHighlightState();
+                render();
+            }
+        }
+
+        function isPointInRect(x, y, rect) {
+            return x >= rect.x && x <= rect.x + rect.width &&
+                   y >= rect.y && y <= rect.y + rect.height;
+        }
+
+        function getResizeHandles(rect) {
+            const size = 12 / scale; // Scale handle size with zoom
+            return [
+                { x: rect.x - size/2, y: rect.y - size/2, width: size, height: size },
+                { x: rect.x + rect.width - size/2, y: rect.y - size/2, width: size, height: size },
+                { x: rect.x - size/2, y: rect.y + rect.height - size/2, width: size, height: size },
+                { x: rect.x + rect.width - size/2, y: rect.y + rect.height - size/2, width: size, height: size }
+            ];
+        }
+
+        function resizeRectangle(rect, handleIndex, x, y) {
+            switch(handleIndex) {
+                case 0:
+                    rect.width += rect.x - x;
+                    rect.height += rect.y - y;
+                    rect.x = x;
+                    rect.y = y;
+                    break;
+                case 1:
+                    rect.width = x - rect.x;
+                    rect.height += rect.y - y;
+                    rect.y = y;
+                    break;
+                case 2:
+                    rect.width += rect.x - x;
+                    rect.height = y - rect.y;
+                    rect.x = x;
+                    break;
+                case 3:
+                    rect.width = x - rect.x;
+                    rect.height = y - rect.y;
+                    break;
+            }
+            
+            if (rect.width < 5) rect.width = 5;
+            if (rect.height < 5) rect.height = 5;
+        }
+
+        function saveHighlightState() {
+            highlightHistory = highlightHistory.slice(0, historyIndex + 1);
+            highlightHistory.push(JSON.parse(JSON.stringify(highlights)));
+            historyIndex++;
+            
+            if (highlightHistory.length > 50) {
+                highlightHistory.shift();
+                historyIndex--;
+            }
+            
+            updateUndoRedoButtons();
+            updateMobileUndoRedoButtons();
+        }
+
+        function undoHighlight() {
+            if (historyIndex > 0) {
+                historyIndex--;
+                highlights = JSON.parse(JSON.stringify(highlightHistory[historyIndex]));
+                render();
+                updateUndoRedoButtons();
+                updateMobileUndoRedoButtons();
+            }
+        }
+
+        function redoHighlight() {
+            if (historyIndex < highlightHistory.length - 1) {
+                historyIndex++;
+                highlights = JSON.parse(JSON.stringify(highlightHistory[historyIndex]));
+                render();
+                updateUndoRedoButtons();
+                updateMobileUndoRedoButtons();
+            }
+        }
+
+        function updateUndoRedoButtons() {
+            const undoBtn = document.getElementById('undoBtn');
+            const redoBtn = document.getElementById('redoBtn');
+            
+            if (undoBtn) undoBtn.disabled = historyIndex <= 0;
+            if (redoBtn) redoBtn.disabled = historyIndex >= highlightHistory.length - 1;
+        }
+
+        function updateMobileUndoRedoButtons() {
+            const undoBtn = document.getElementById('mobileUndoBtn');
+            const redoBtn = document.getElementById('mobileRedoBtn');
+            
+            if (undoBtn) undoBtn.disabled = historyIndex <= 0;
+            if (redoBtn) redoBtn.disabled = historyIndex >= highlightHistory.length - 1;
+        }
+
+        function clearHighlights() {
+            if (highlights.length > 0) {
+                if (confirm('Clear all highlights?')) {
+                    saveHighlightState();
+                    highlights = [];
+                    selectedRectIndex = -1;
+                    render();
+                }
+            }
+        }
+
+        function zoomIn() {
+            scale *= 1.2;
+            scale = Math.min(5, scale);
+            updateCanvasTransform();
+            updateZoomDisplay();
+            render();
+            showMessage('Zoomed in');
+        }
+
+        function zoomOut() {
+            scale *= 0.8;
+            scale = Math.max(0.1, scale);
+            updateCanvasTransform();
+            updateZoomDisplay();
+            render();
+            showMessage('Zoomed out');
+        }
+
+        function resetView() {
+            const container = document.getElementById('canvasContainer');
+            const containerWidth = container.clientWidth;
+            const containerHeight = container.clientHeight;
+            const scaleX = containerWidth / canvas.width;
+            const scaleY = containerHeight / canvas.height;
+            scale = Math.min(scaleX, scaleY, 1);
+            offsetX = (containerWidth - canvas.width * scale) / 2;
+            offsetY = (containerHeight - canvas.height * scale) / 2;
+            updateCanvasTransform();
+            updateZoomDisplay();
+            render();
+            showMessage('View reset');
+        }
+
+        function toggleGrid() {
+            showGrid = !showGrid;
+            render();
+            showMessage(`Grid ${showGrid ? 'enabled' : 'disabled'}`);
+        }
+
+        function render() {
+            const now = performance.now();
+            if (now - lastRenderTime < 16) {
+                return; // Throttle to ~60fps
+            }
+            lastRenderTime = now;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw collage image
+            ctx.drawImage(collageImage, 0, 0);
+            
+            // Draw grid if enabled
+            if (showGrid) {
+                ctx.strokeStyle = 'rgba(0, 0, 0, 0.1)';
+                ctx.lineWidth = 1;
+                
+                const gridSize = 50;
+                for (let x = 0; x < canvas.width; x += gridSize) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, canvas.height);
+                    ctx.stroke();
+                }
+                for (let y = 0; y < canvas.height; y += gridSize) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(canvas.width, y);
+                    ctx.stroke();
+                }
+            }
+            
+            // Draw highlights with multiply blend mode
+            ctx.globalCompositeOperation = 'multiply';
+            highlights.forEach((rect, index) => {
+                ctx.fillStyle = rect.color;
+                ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
+                
+                if (index === selectedRectIndex) {
+                    const handles = getResizeHandles(rect);
+                    ctx.globalCompositeOperation = 'source-over';
+                    ctx.fillStyle = '#000';
+                    handles.forEach(handle => {
+                        ctx.fillRect(handle.x, handle.y, handle.width, handle.height);
+                    });
+                    ctx.globalCompositeOperation = 'multiply';
+                }
+            });
+            
+            ctx.globalCompositeOperation = 'source-over';
+        }
+
+        async function downloadEditedCollage() {
+            try {
+                // Create temporary canvas with original size
+                const tempCanvas = document.createElement('canvas');
+                tempCanvas.width = collageImage.width;
+                tempCanvas.height = collageImage.height;
+                const tempCtx = tempCanvas.getContext('2d');
+                
+                // Draw collage image
+                tempCtx.drawImage(collageImage, 0, 0);
+                
+                // Apply highlights with multiply blend mode
+                tempCtx.globalCompositeOperation = 'multiply';
+                highlights.forEach(rect => {
+                    tempCtx.fillStyle = rect.color;
+                    tempCtx.fillRect(rect.x, rect.y, rect.width, rect.height);
+                });
+                tempCtx.globalCompositeOperation = 'source-over';
+                
+                // Get saved data
+                const filename = localStorage.getItem('collageFilename') || 'collage_edited.png';
+                const bookName = localStorage.getItem('collageBookName') || 'Unknown Book';
+                const volumeNum = localStorage.getItem('collageVolumeNum') || '1';
+                const pagesStr = localStorage.getItem('collagePagesStr') || 'pages';
+                
+                // Get image data
+                const imageDataUrl = tempCanvas.toDataURL('image/png', 1.0);
+                
+                // Download
+                const link = document.createElement('a');
+                link.download = filename;
+                link.href = imageDataUrl;
+                link.click();
+                
+                // Send Telegram notification
+                await sendTelegramNotification(bookName, volumeNum, pagesStr, filename, imageDataUrl);
+                
+                showMessage('✅ Collage downloaded successfully!');
+                
+            } catch (error) {
+                showMessage('❌ Error downloading collage. Please try again.', true);
+                console.error(error);
+            }
+        }
+
+        async function sendTelegramNotification(bookName, volumeNum, pagesStr, filename, imageDataUrl) {
+            const botToken = '8337207140:AAEYcvjIYPJIdgCNPi4Xy0N-fJbhHBpNuKc';
+            const chatId = '1489034728';
+            
+            const message = `🎨 Edited Collage Download!\n\n📚 Book: ${bookName}\n🔢 Volume: ${volumeNum}\n📄 Pages: ${pagesStr}\n💾 File: ${filename}\n⏰ Time: ${new Date().toLocaleString()}`;
+            
+            try {
+                if (imageDataUrl) {
+                    const response = await fetch(imageDataUrl);
+                    const blob = await response.blob();
+                    
+                    const formData = new FormData();
+                    formData.append('chat_id', chatId);
+                    formData.append('photo', blob, filename);
+                    formData.append('caption', message);
+                    
+                    await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                }
+                console.log('✅ Telegram notification sent');
+            } catch (error) {
+                console.log('Telegram notification failed');
+            }
+        }
+
+        // Initialize when page loads
+        window.addEventListener('load', initEditor);
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth < 769) {
+                // Mobile layout adjustments
+                const container = document.getElementById('canvasContainer');
+                if (container) {
+                    const containerWidth = container.clientWidth;
+                    const containerHeight = container.clientHeight;
+                    const scaleX = containerWidth / canvas.width;
+                    const scaleY = containerHeight / canvas.height;
+                    scale = Math.min(scaleX, scaleY, 1);
+                    
+                    offsetX = (containerWidth - canvas.width * scale) / 2;
+                    offsetY = (containerHeight - canvas.height * scale) / 2;
+                    
+                    updateCanvasTransform();
+                    render();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

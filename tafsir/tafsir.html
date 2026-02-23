@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tafsir - Sijjeen</title>
+    <link rel="icon" type="image/png" href="../assets/other/sijjeen-logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="tafsir-style.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="app-header">
+            <button class="header-back" onclick="goBack()">←</button>
+            <h1 class="header-title" id="pageTitle">Tafsir</h1>
+            <div class="header-spacer"></div>
+        </header>
+
+        <!-- Selector View -->
+        <main class="app-content" id="selectorView">
+            <!-- Greeting -->
+            <div class="greeting">
+                <p class="greeting-arabic">ٱقْرَأْ بِٱسْمِ رَبِّكَ ٱلَّذِى خَلَقَ</p>
+                <p class="greeting-text">Read in the name of your Lord who created</p>
+            </div>
+
+            <!-- Language Filter -->
+            <div class="language-filter">
+                <button class="lang-btn active" data-lang="all" onclick="filterByLanguage('all')">All</button>
+                <button class="lang-btn" data-lang="english" onclick="filterByLanguage('english')">English</button>
+                <button class="lang-btn" data-lang="arabic" onclick="filterByLanguage('arabic')">Arabic</button>
+                <button class="lang-btn" data-lang="bengali" onclick="filterByLanguage('bengali')">Bengali</button>
+                <button class="lang-btn" data-lang="urdu" onclick="filterByLanguage('urdu')">Urdu</button>
+                <button class="lang-btn" data-lang="russian" onclick="filterByLanguage('russian')">Russian</button>
+                <button class="lang-btn" data-lang="kurdish" onclick="filterByLanguage('kurdish')">Kurdish</button>
+            </div>
+
+            <!-- Dropdowns -->
+            <div class="selector-section">
+                <div class="selector-group">
+                    <label class="selector-label">Select Tafsir</label>
+                    <select id="tafsirSelect" class="custom-select" onchange="onTafsirChange()">
+                        <option value="">Select a Tafsir...</option>
+                    </select>
+                </div>
+
+                <div class="selector-group">
+                    <label class="selector-label">Select Surah</label>
+                    <select id="surahSelect" class="custom-select" onchange="onSurahChange()" disabled>
+                        <option value="">Select a Surah...</option>
+                    </select>
+                </div>
+
+                <div class="selector-group">
+                    <label class="selector-label">Starting Ayah</label>
+                    <select id="ayahSelect" class="custom-select" disabled>
+                        <option value="1">Ayah 1</option>
+                    </select>
+                </div>
+
+                <button class="start-btn" id="startBtn" onclick="startReading()" disabled>
+                    <span id="startBtnText">
+                        <img src="../assets/icons/book.png" alt="" class="btn-icon">
+                        Start Reading
+                    </span>
+                </button>
+            </div>
+
+            <!-- Recent Reads -->
+            <div class="recent-section" id="recentSection" style="display:none;">
+                <h3 class="section-title">Recent Reads</h3>
+                <div class="recent-cards" id="recentCards"></div>
+            </div>
+        </main>
+
+        <!-- Reading View -->
+        <div class="reading-view hidden" id="readingView">
+            <!-- Surah Header -->
+            <div class="surah-header">
+                <div class="surah-number" id="surahNumber">Surah 1</div>
+                <h2 class="surah-name-ar" id="surahNameAr">الفاتحة</h2>
+                <h3 class="surah-name-en" id="surahNameEn">Al-Fatihah</h3>
+                <p class="surah-meta" id="surahMeta">7 verses • Meccan</p>
+            </div>
+
+            <!-- Tafsir Switcher & Font Controls -->
+            <div class="controls-bar">
+                <div class="tafsir-switcher">
+                    <label class="switcher-label">Switch Tafsir:</label>
+                    <select id="tafsirSwitchSelect" class="custom-select compact" onchange="switchTafsir()"></select>
+                </div>
+                
+                <div class="font-controls">
+                    <button class="font-btn" onclick="decreaseFontSize()" title="Decrease font size">
+                        <img src="../assets/icons/font-size-decrease.png" alt="A-">
+                    </button>
+                    <button class="font-btn" onclick="increaseFontSize()" title="Increase font size">
+                        <img src="../assets/icons/font-size-increase.png" alt="A+">
+                    </button>
+                </div>
+            </div>
+
+            <!-- Ayahs Container -->
+            <div class="ayahs-container" id="ayahsContainer">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Loading ayahs...</p>
+                </div>
+            </div>
+
+            <!-- MIT License Footer -->
+            <details class="license-footer">
+                <summary>MIT License</summary>
+                <pre>MIT License
+
+Copyright (c) 2023 Spark
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</pre>
+            </details>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast hidden" id="toast"></div>
+
+    <script src="tafsir-script.js"></script>
+</body>
+</html>
