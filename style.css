@@ -481,6 +481,149 @@ body {
     margin-left: 10px;
 }
 
+/* ============================================
+   BOOK ENGLISH NAME STYLES
+   ============================================ */
+.book-name-en {
+    font-size: 1.15em;
+    color: #6b7280;
+    margin-top: 8px;
+    margin-bottom: 4px;
+    font-style: italic;
+    line-height: 1.4;
+    padding-left: 5px;
+    border-left: 3px solid #e5e7eb;
+}
+
+/* Dark mode */
+body.dark-mode .book-name-en {
+    color: #9ca3af;
+    border-left-color: #4b5563;
+}
+
+/* ============================================
+   BOOK AUTHOR STYLES
+   ============================================ */
+.book-author {
+    font-size: 1.15em;
+    color: #2563eb;
+    margin-top: 6px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    transition: all 0.3s ease;
+    font-weight: 500;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.book-author:hover {
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    color: #1d4ed8;
+    transform: translateX(5px);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+}
+
+.book-author:active {
+    transform: translateX(5px) scale(0.98);
+}
+
+.book-author .author-icon {
+    font-size: 1em;
+    transition: transform 0.3s ease;
+}
+
+.book-author:hover .author-icon {
+    transform: scale(1.1);
+}
+
+/* Dark mode author styles */
+body.dark-mode .book-author {
+    color: #60a5fa;
+    background: linear-gradient(135deg, #1e3a5f 0%, #1e40af20 100%);
+}
+
+body.dark-mode .book-author:hover {
+    background: linear-gradient(135deg, #1e40af30 0%, #1e40af50 100%);
+    color: #93c5fd;
+    box-shadow: 0 2px 8px rgba(96, 165, 250, 0.3);
+}
+
+/* ============================================
+   SEARCH MATCH INDICATORS
+   ============================================ */
+.book-item.alternate-match {
+    border-left: 4px solid #10b981;
+}
+
+.book-item.alternate-match::before {
+    content: "🔍 Found via alternate name";
+    display: block;
+    font-size: 0.75em;
+    color: #10b981;
+    margin-bottom: 5px;
+    font-style: italic;
+}
+
+/* ============================================
+   BOOK META ADJUSTMENTS
+   ============================================ */
+.book-meta {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed #e5e7eb;
+}
+
+body.dark-mode .book-meta {
+    border-top-color: #4b5563;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+@media (max-width: 768px) {
+    .book-name-en {
+        font-size: 1.05em;
+    }
+    
+    .book-author {
+        font-size: 1.05em;
+        padding: 5px 10px;
+    }
+}
+
+/* ============================================
+   RTL SUPPORT FOR ARABIC AUTHORS
+   ============================================ */
+.book-author[dir="rtl"],
+.book-author:lang(ar) {
+    direction: rtl;
+}
+
+/* Auto-detect Arabic text and apply RTL */
+.book-author {
+    unicode-bidi: plaintext;
+}
+
+/* ============================================
+   AUTHOR CHIP ANIMATION
+   ============================================ */
+@keyframes authorPulse {
+    0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
+    70% { box-shadow: 0 0 0 6px rgba(37, 99, 235, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+}
+
+.book-author:focus {
+    outline: none;
+    animation: authorPulse 1s ease-out;
+}
+
 /* Collage Settings */
 .collage-settings {
     background: var(--bg-tertiary);
