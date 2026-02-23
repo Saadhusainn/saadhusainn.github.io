@@ -485,7 +485,7 @@ body {
    BOOK ENGLISH NAME STYLES
    ============================================ */
 .book-name-en {
-    font-size: 1.15em;
+    font-size: 1em;
     color: #6b7280;
     margin-top: 8px;
     margin-bottom: 4px;
@@ -505,7 +505,7 @@ body.dark-mode .book-name-en {
    BOOK AUTHOR STYLES
    ============================================ */
 .book-author {
-    font-size: 1.15em;
+    font-size: .85em;
     color: #2563eb;
     margin-top: 6px;
     margin-bottom: 8px;
@@ -588,11 +588,11 @@ body.dark-mode .book-meta {
    ============================================ */
 @media (max-width: 768px) {
     .book-name-en {
-        font-size: 1.05em;
+        font-size: 1em;
     }
     
     .book-author {
-        font-size: 1.05em;
+        font-size: 1em;
         padding: 5px 10px;
     }
 }
