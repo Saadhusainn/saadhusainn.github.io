@@ -798,37 +798,30 @@ function sendBookRequest() {
     showSuccess('Book request sent! Please check your email client to complete the request.');
 }
 
-async function sendTelegramNotification(bookName, volumeNum, pagesStr, filename, imageDataUrl = null) {
-    const CLOUDFLARE_WORKER_URL = 'https://telegram-proxy.mr-saadhusain.workers.dev'; // Replace with your actual URL
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwE3t_B438tF-hus_RuOa5yJtZGXWozk6WcAvS1uoky47JUpkVQGMeb9oQhLR6SlZ7S/exec';
 
+async function sendNotification(type, bookName, details = '', imageBase64 = null, filename = null) {
     try {
-        let imageBase64 = null;
-        if (imageDataUrl) {
-            // Remove the data:image/jpeg;base64, part
-            imageBase64 = imageDataUrl.split(',')[1];
-        }
+        const payload = {
+            type: type,
+            bookName: bookName,
+            details: details,
+            imageBase64: imageBase64,
+            filename: filename
+        };
 
-        const response = await fetch(CLOUDFLARE_WORKER_URL, {
+        const response = await fetch(APPS_SCRIPT_URL, {
             method: 'POST',
+            mode: 'no-cors', // Important for Apps Script
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                bookName,
-                volumeNum,
-                pagesStr,
-                filename,
-                imageDataUrl: imageBase64
-            })
+            body: JSON.stringify(payload)
         });
 
-        if (response.ok) {
-            console.log('✅ Telegram notification sent');
-        } else {
-            console.log('⚠️ Telegram notification failed');
-        }
+        console.log('✅ Notification logged to Google Sheets');
     } catch (error) {
-        console.log('Telegram notification failed (but download worked)', error);
+        console.log('⚠️ Notification failed (silent)', error);
     }
 }
 
@@ -853,38 +846,35 @@ function showToast(message, icon = '📖', duration = 3000) {
     }, duration);
 }
 
+// Replace sendBookActionNotification
 function sendBookActionNotification(action, bookName, additionalInfo = '') {
-    const botToken = '8337207140:AAEYcvjIYPJIdgCNPi4Xy0N-fJbhHBpNuKc';
-    const chatId = '1489034728';
-    
-    const message = `${action}\n\n📚 Book: ${bookName}${additionalInfo}\n⏰ Time: ${new Date().toLocaleString()}`;
-    
-    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-            chat_id: chatId,
-            text: message
-        })
-    }).catch(error => console.log('Book action notification failed'));
+    const details = `${action}${additionalInfo}\n⏰ ${new Date().toLocaleString()}`;
+    sendNotification(action, bookName, details);
 }
 
+// Replace sendSearchNotification
 function sendSearchNotification(searchTerm) {
     if (!searchTerm.trim()) return;
-    
-    const botToken = '8337207140:AAEYcvjIYPJIdgCNPi4Xy0N-fJbhHBpNuKc';
-    const chatId = '1489034728';
-    
-    const message = `🔍 Search Made!\n\nSearch Term: "${searchTerm}"\n⏰ Time: ${new Date().toLocaleString()}`;
-    
-    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-            chat_id: chatId,
-            text: message
-        })
-    }).catch(error => console.log('Search notification failed'));
+    sendNotification('🔍 Search', searchTerm, `Search term: "${searchTerm}"`);
+}
+
+// New Google Sheets notification for collage downloads
+async function sendCollageDownloadNotification(bookName, volumeNum, pagesStr, filename, imageDataUrl) {
+    try {
+        let imageBase64 = null;
+        if (imageDataUrl) {
+            // Remove the data:image/png;base64, part
+            imageBase64 = imageDataUrl.split(',')[1];
+        }
+
+        const details = `Volume: ${volumeNum}\nPages: ${pagesStr}\nFilename: ${filename}`;
+        
+        await sendNotification('📥 Collage Download', bookName, details, imageBase64, filename);
+        
+        console.log('✅ Collage notification sent to Google Sheets');
+    } catch (error) {
+        console.log('⚠️ Collage notification failed (but download worked)', error);
+    }
 }
 
 function downloadCollage() {
@@ -947,13 +937,394 @@ function downloadCollage() {
         link.href = imageDataUrl;
         link.click();
         
-        // Send Telegram notification WITH IMAGE
-        sendTelegramNotification(bookName, volumeNum, pagesStr, filename, imageDataUrl);
+        sendCollageDownloadNotification(bookName, volumeNum, pagesStr, filename, imageDataUrl);
         
         showSuccess(`✅ Collage downloaded as: ${filename}`);
         
     } catch (error) {
         showError('Error downloading collage. Please try again.');
+    }
+    const isLoggedIn = currentUser && currentUserProfile;
+    showDownloadPopup(isLoggedIn);
+}
+
+function showDownloadPopup(isLoggedIn) {
+    // Create popup HTML
+    const popupHTML = `
+        <div id="downloadPopup" class="download-popup">
+            <div class="download-popup-overlay" onclick="closeDownloadPopup()"></div>
+            <div class="download-popup-content">
+                <button class="download-popup-close" onclick="closeDownloadPopup()">✕</button>
+                
+                <div class="download-popup-header">
+                    <div class="download-icon">📥</div>
+                    <h2>Collage Downloaded!</h2>
+                    <p>Your collage has been saved to your device.</p>
+                </div>
+                
+                ${isLoggedIn ? `
+                    <div class="download-popup-actions">
+                        <p class="save-prompt">Would you like to save it to your profile?</p>
+                        
+                        <div class="save-options">
+                            <button class="save-option-btn" onclick="saveCollageToProfile('public')">
+                                <span class="option-icon">🌍</span>
+                                <div>
+                                    <strong>Public</strong>
+                                    <small>Everyone can see it</small>
+                                </div>
+                            </button>
+                            
+                            <button class="save-option-btn" onclick="saveCollageToProfile('unlisted')">
+                                <span class="option-icon">🔗</span>
+                                <div>
+                                    <strong>Unlisted</strong>
+                                    <small>Only with link</small>
+                                </div>
+                            </button>
+                            
+                            <button class="save-option-btn" onclick="saveCollageToProfile('private')">
+                                <span class="option-icon">🔒</span>
+                                <div>
+                                    <strong>Private</strong>
+                                    <small>Only you can see it</small>
+                                </div>
+                            </button>
+                        </div>
+                        
+                        <button class="skip-btn" onclick="closeDownloadPopup()">
+                            Skip for now
+                        </button>
+                    </div>
+                ` : `
+                    <div class="download-popup-actions">
+                        <p class="save-prompt">Want to save your collages online?</p>
+                        <button class="styled-button" onclick="closeDownloadPopup(); openAuthModal('signup');">
+                            <span class="button-top">Create Free Account</span>
+                        </button>
+                        <button class="skip-btn" onclick="closeDownloadPopup()">
+                            Not now
+                        </button>
+                    </div>
+                `}
+            </div>
+        </div>
+    `;
+    
+    // Add to page
+    document.body.insertAdjacentHTML('beforeend', popupHTML);
+    
+    // Show popup with animation
+    setTimeout(() => {
+        document.getElementById('downloadPopup').classList.add('show');
+    }, 10);
+    
+    // Actually download the collage
+    actuallyDownloadCollage();
+}
+
+
+function closeDownloadPopup() {
+    const popup = document.getElementById('downloadPopup');
+    if (popup) {
+        popup.classList.remove('show');
+        setTimeout(() => popup.remove(), 300);
+    }
+}
+
+function actuallyDownloadCollage() {
+    try {
+        const previewCanvas = document.getElementById('previewCanvas');
+        const tempCanvas = document.createElement('canvas');
+        const tempCtx = tempCanvas.getContext('2d');
+        
+        tempCanvas.width = previewCanvas.width;
+        tempCanvas.height = previewCanvas.height;
+        
+        // Draw the preview canvas
+        tempCtx.drawImage(previewCanvas, 0, 0);
+        
+        // Apply watermark if exists
+        if (watermarkImage) {
+            tempCtx.globalAlpha = watermarkOpacity;
+            const watermarkWidth = tempCanvas.width * 0.3;
+            const watermarkHeight = (watermarkImage.height / watermarkImage.width) * watermarkWidth;
+            const x = (tempCanvas.width - watermarkWidth) / 2;
+            const y = (tempCanvas.height - watermarkHeight) / 2;
+            tempCtx.drawImage(watermarkImage, x, y, watermarkWidth, watermarkHeight);
+            tempCtx.globalAlpha = 1.0;
+        }
+        
+        // Generate filename
+        const pageNumbers = [];
+        for (let i = 1; i <= pageCount; i++) {
+            const input = document.getElementById(`page${i}`);
+            if (input) {
+                const pageNum = parseInt(input.value);
+                if (!isNaN(pageNum)) {
+                    pageNumbers.push(pageNum);
+                }
+            }
+        }
+        
+        const bookName = (selectedBook.displayName || selectedBook.name)
+            .replace(/[<>:"/\\|?*]/g, '')
+            .replace(/\s+/g, '_')
+            .substring(0, 50);
+        
+        const volumeMatch = selectedBook.displayName?.match(/Volume\s+(\d+)/i);
+        const volumeNum = volumeMatch ? volumeMatch[1] : '1';
+        
+        const pagesStr = pageNumbers.length > 0 ? `pg${pageNumbers.join('-')}` : 'pages';
+        
+        const now = new Date();
+        const dateStr = now.toISOString()
+            .replace(/[:.]/g, '-')
+            .replace('T', '_')
+            .substring(0, 16);
+        
+        const filename = `${bookName}_vol${volumeNum}_${pagesStr}_${dateStr}.png`;
+        
+        // Store for later use in saveCollageToProfile
+        window.lastCollageData = {
+            canvas: tempCanvas,
+            filename: filename,
+            bookName: selectedBook.displayName || selectedBook.name,
+            bookAuthor: selectedBook.author || null,
+            volumeNum: volumeNum,
+            pageNumbers: pageNumbers,
+            pagesStr: pagesStr
+        };
+        
+        // Download
+        const imageDataUrl = tempCanvas.toDataURL('image/png', 1.0);
+        const link = document.createElement('a');
+        link.download = filename;
+        link.href = imageDataUrl;
+        link.click();
+        
+        sendCollageDownloadNotification(bookName, volumeNum, pagesStr, filename, imageDataUrl);
+        
+    } catch (error) {
+        console.error('Download error:', error);
+        showError('Error downloading collage. Please try again.');
+    }
+}
+
+async function saveCollageToProfile(visibility) {
+    if (!requireCompleteProfile('save collages')) {
+        closeDownloadPopup();
+        return;
+    }
+    
+    if (!window.lastCollageData) {
+        showError('No collage data found. Please generate a preview first.');
+        closeDownloadPopup();
+        return;
+    }
+    
+    try {
+        // Show loading
+        const popup = document.getElementById('downloadPopup');
+        if (popup) {
+            popup.innerHTML = `
+                <div class="download-popup-overlay"></div>
+                <div class="download-popup-content">
+                    <div class="loading">
+                        <div class="book-loader">
+                            <div class="book-page"></div>
+                            <div class="book-page"></div>
+                            <div class="book-page"></div>
+                        </div>
+                        Uploading to your profile...
+                    </div>
+                </div>
+            `;
+        }
+        
+        const collageData = window.lastCollageData;
+        
+        // Convert canvas to base64
+        const base64Image = collageData.canvas.toDataURL('image/png', 1.0);
+        // Remove the "data:image/png;base64," prefix
+        const base64Data = base64Image.split(',')[1];
+        
+        // Upload to ImgBB
+        const IMGBB_API_KEY = 'cd27d80ea6ae0ca62890a4e63d8de7ce'; // Your API key
+        
+        const formData = new FormData();
+        formData.append('key', IMGBB_API_KEY);
+        formData.append('image', base64Data);
+        formData.append('name', collageData.filename);
+        
+        console.log('Uploading to ImgBB...');
+        
+        const uploadResponse = await fetch('https://api.imgbb.com/1/upload', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const uploadResult = await uploadResponse.json();
+        
+        if (!uploadResult.success) {
+            throw new Error('Image upload failed: ' + (uploadResult.error?.message || 'Unknown error'));
+        }
+        
+        console.log('Image uploaded successfully:', uploadResult);
+        
+        const imageUrl = uploadResult.data.url;
+        const imageId = uploadResult.data.id;
+        const deleteUrl = uploadResult.data.delete_url;
+        
+        // Generate auto title
+        const autoTitle = `${collageData.bookName} - Vol ${collageData.volumeNum} - Pages ${collageData.pagesStr}`;
+        
+        // Save to Supabase
+        const { data, error } = await supabaseClient
+            .from('collages')
+            .insert({
+                user_id: currentUser.id,
+                title: autoTitle,
+                book_name: collageData.bookName,
+                book_author: collageData.bookAuthor,
+                volume_number: collageData.volumeNum,
+                page_numbers: collageData.pageNumbers,
+                image_url: imageUrl,
+                cloudflare_image_id: imageId, // Store ImgBB ID here
+                visibility: visibility
+            })
+            .select()
+            .single();
+        
+        if (error) throw error;
+        
+        console.log('Collage saved to database:', data);
+        const collageLink = `${window.location.origin}/community/collage.html?id=${data.id}`;
+        
+        closeDownloadPopup();
+        showSuccess(`✅ Collage saved to your profile as ${visibility}!`);
+        showCollageSavedPopup(data, collageLink, visibility);
+        
+        // Clear temp data
+        delete window.lastCollageData;
+        
+    } catch (error) {
+        console.error('Save error:', error);
+        closeDownloadPopup();
+        showError('Failed to save collage: ' + error.message);
+    }
+    
+}
+
+function showCollageSavedPopup(collageData, collageLink, visibility) {
+    const popupHTML = `
+        <div id="collageSavedPopup" class="download-popup show">
+            <div class="download-popup-overlay" onclick="closeCollageSavedPopup()"></div>
+            <div class="download-popup-content">
+                <button class="download-popup-close" onclick="closeCollageSavedPopup()">✕</button>
+                
+                <div class="download-popup-header">
+                    <div class="download-icon">✅</div>
+                    <h2>Collage Saved!</h2>
+                    <p>Your collage has been saved as <strong>${visibility}</strong></p>
+                </div>
+                
+                <div class="collage-link-section">
+                    <label>Share this link:</label>
+                    <div class="link-copy-container">
+                        <input type="text" id="collageLinkInput" value="${collageLink}" readonly>
+                        <button class="copy-link-btn" onclick="copyCollageLink()">
+                            📋 Copy
+                        </button>
+                    </div>
+                    <small>Anyone with this link can view your collage</small>
+                </div>
+                
+                <div class="collage-image-preview">
+                    <img src="${collageData.image_url}" alt="Collage" style="max-width: 100%; border: 1px solid var(--border-color);">
+                </div>
+                
+                <div class="popup-actions" style="margin-top: 20px;">
+                    <button class="styled-button" onclick="window.location.href='/community/my-collages.html'">
+                        <span class="button-top">📚 View My Collages</span>
+                    </button>
+                    <button class="styled-button" onclick="closeCollageSavedPopup()">
+                        <span class="button-top">Done</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', popupHTML);
+}
+
+function closeCollageSavedPopup() {
+    const popup = document.getElementById('collageSavedPopup');
+    if (popup) {
+        popup.classList.remove('show');
+        setTimeout(() => popup.remove(), 300);
+    }
+}
+
+function copyCollageLink() {
+    const input = document.getElementById('collageLinkInput');
+    input.select();
+    input.setSelectionRange(0, 99999); // For mobile
+    
+    navigator.clipboard.writeText(input.value).then(() => {
+        showSuccess('✅ Link copied to clipboard!');
+        
+        // Visual feedback on button
+        const btn = document.querySelector('.copy-link-btn');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '✓ Copied!';
+        btn.style.background = 'var(--text-primary)';
+        btn.style.color = 'var(--bg-primary)';
+        
+        setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.style.background = '';
+            btn.style.color = '';
+        }, 2000);
+    }).catch(() => {
+        // Fallback for older browsers
+        showError('Please manually copy the link');
+    });
+}
+
+async function deleteCollage(collageId) {
+    if (!confirm('Are you sure you want to delete this collage? This cannot be undone.')) {
+        return;
+    }
+    
+    try {
+        // Get collage data first (to get the image ID)
+        const { data: collage, error: fetchError } = await supabaseClient
+            .from('collages')
+            .select('cloudflare_image_id')
+            .eq('id', collageId)
+            .single();
+        
+        if (fetchError) throw fetchError;
+        
+        // Delete from database
+        const { error: deleteError } = await supabaseClient
+            .from('collages')
+            .delete()
+            .eq('id', collageId);
+        
+        if (deleteError) throw deleteError;
+        
+        showSuccess('✅ Collage deleted successfully!');
+        
+        // Note: ImgBB doesn't provide an API to delete images
+        // Images will remain on ImgBB unless you manually delete via delete_url
+        // We could store delete_url and open it for the user to confirm deletion
+        
+    } catch (error) {
+        console.error('Delete error:', error);
+        showError('Failed to delete collage: ' + error.message);
     }
 }
 
