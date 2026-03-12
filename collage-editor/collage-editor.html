@@ -1782,8 +1782,8 @@
                 link.href = imageDataUrl;
                 link.click();
                 
-                // Send Telegram notification
-                await sendTelegramNotification(bookName, volumeNum, pagesStr, filename, imageDataUrl);
+                // Send Google Sheets notification
+                await sendCollageNotification(bookName, volumeNum, pagesStr, filename, imageDataUrl);
                 
                 showMessage('✅ Collage downloaded successfully!');
                 
@@ -1793,32 +1793,40 @@
             }
         }
 
-        async function sendTelegramNotification(bookName, volumeNum, pagesStr, filename, imageDataUrl) {
-            const botToken = '8337207140:AAEYcvjIYPJIdgCNPi4Xy0N-fJbhHBpNuKc';
-            const chatId = '1489034728';
-            
-            const message = `🎨 Edited Collage Download!\n\n📚 Book: ${bookName}\n🔢 Volume: ${volumeNum}\n📄 Pages: ${pagesStr}\n💾 File: ${filename}\n⏰ Time: ${new Date().toLocaleString()}`;
-            
-            try {
-                if (imageDataUrl) {
-                    const response = await fetch(imageDataUrl);
-                    const blob = await response.blob();
-                    
-                    const formData = new FormData();
-                    formData.append('chat_id', chatId);
-                    formData.append('photo', blob, filename);
-                    formData.append('caption', message);
-                    
-                    await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
-                        method: 'POST',
-                        body: formData
-                    });
-                }
-                console.log('✅ Telegram notification sent');
-            } catch (error) {
-                console.log('Telegram notification failed');
-            }
+async function sendCollageNotification(bookName, volumeNum, pagesStr, filename, imageDataUrl) {
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwE3t_B438tF-hus_RuOa5yJtZGXWozk6WcAvS1uoky47JUpkVQGMeb9oQhLR6SlZ7S/exec';
+    
+    try {
+        let imageBase64 = null;
+        if (imageDataUrl) {
+            // Remove the data:image/png;base64, part
+            imageBase64 = imageDataUrl.split(',')[1];
         }
+
+        const details = `🎨 Edited Collage\nVolume: ${volumeNum}\nPages: ${pagesStr}\nFilename: ${filename}\n⏰ ${new Date().toLocaleString()}`;
+        
+        const payload = {
+            type: '🎨 Edited Collage Download',
+            bookName: bookName,
+            details: details,
+            imageBase64: imageBase64,
+            filename: filename
+        };
+
+        await fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload)
+        });
+
+        console.log('✅ Collage notification sent to Google Sheets');
+    } catch (error) {
+        console.log('⚠️ Notification failed (but download worked)', error);
+    }
+}
 
         // Initialize when page loads
         window.addEventListener('load', initEditor);
