@@ -43,7 +43,7 @@ const BOOKS_MANIFEST = [
    },
    {
         id: "tirmidhi",
-        file: "https://cdn.jsdelivr.net/gh/saadhusainn/saadhusainn.github.io/hadith/data/tirmidhi.json",
+        file: "https://cdn.jsdelivr.net/gh/HadithDatabase/data/tirmidhi.json",
         localFile: "data/tirmidhi.json",
         name_en: "Jamiʿ al-Tirmidhī",
         name_ar: "جَامِعُ التِّرْمِذِي",
