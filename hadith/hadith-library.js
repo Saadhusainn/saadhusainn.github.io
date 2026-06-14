@@ -12,7 +12,7 @@ const BOOKS_MANIFEST = [
     {
         id: "bukhari",
         // USE CDN URL for fast loading!
-        file: "https://cdn.jsdelivr.net/gh/HadithDatabase/data/hadith-data/bukhari.json",
+        file: "https://cdn.jsdelivr.net/gh/HadithDatabase/data/bukhari.json",
         // Fallback local file
         localFile: "data/bukhari.json",
         name_en: "Ṣaḥīḥ al-Bukhārī",
@@ -23,7 +23,7 @@ const BOOKS_MANIFEST = [
     },
     {
         id: "muslim",
-        file: "https://cdn.jsdelivr.net/gh/HadithDatabase/data/hadith-data/muslim.json",
+        file: "https://cdn.jsdelivr.net/gh/HadithDatabase/data/muslim.json",
         localFile: "data/muslim.json",
         name_en: "Ṣaḥīḥ Muslim",
         name_ar: "صحيح مسلم",
@@ -33,7 +33,7 @@ const BOOKS_MANIFEST = [
     },
    {
         id: "abudawud",
-        file: "https://cdn.jsdelivr.net/gh/HadithDatabase/data/hadith-data/abudawud.json",
+        file: "https://cdn.jsdelivr.net/gh/HadithDatabase/data/abudawud.json",
         localFile: "data/abudawud.json",
         name_en: "Sunan Abū Dāwūd",
         name_ar: "سُنَنُ أَبِي دَاوُد",
@@ -43,7 +43,7 @@ const BOOKS_MANIFEST = [
    },
    {
         id: "tirmidhi",
-        file: "https://cdn.jsdelivr.net/gh/HadithDatabase/data/hadith-data/tirmidhi.json",
+        file: "https://cdn.jsdelivr.net/gh/HadithDatabase/data/tirmidhi.json",
         localFile: "data/tirmidhi.json",
         name_en: "Jamiʿ al-Tirmidhī",
         name_ar: "جَامِعُ التِّرْمِذِي",
@@ -53,7 +53,7 @@ const BOOKS_MANIFEST = [
    },
       {
         id: "nasai",
-        file: "https://cdn.jsdelivr.net/gh/HadithDatabase/data/hadith-data/nasai.json",
+        file: "https://cdn.jsdelivr.net/gh/HadithDatabase/data/nasai.json",
         localFile: "data/nasai.json",
         name_en: "Sunan al-Nasāʾī",
         name_ar: "سُنَنُ النَّسَائِي",
@@ -63,7 +63,7 @@ const BOOKS_MANIFEST = [
    },
       {
         id: "ibnmajah",
-        file: "https://cdn.jsdelivr.net/gh/HadithDatabase/data/hadith-data/ibnmajah.json",
+        file: "https://cdn.jsdelivr.net/gh/HadithDatabase/data/ibnmajah.json",
         localFile: "data/ibnmajah.json",
         name_en: "Sunan Ibn Mājah",
         name_ar: "سُنَنُ ابِنِ مَاجَة",
@@ -73,7 +73,7 @@ const BOOKS_MANIFEST = [
    },
       {
         id: "darimi",
-        file: "https://cdn.jsdelivr.net/gh/HadithDatabase/data/hadith-data/darimi.json",
+        file: "https://cdn.jsdelivr.net/gh/HadithDatabase/data/darimi.json",
         localFile: "data/darimi.json",
         name_en: "Sunan al-Dārimī",
         name_ar: "سُنَنُ الدَّارِمِي",
@@ -83,7 +83,7 @@ const BOOKS_MANIFEST = [
    },
       {
         id: "malik",
-        file: "https://cdn.jsdelivr.net/gh/HadithDatabase/data/hadith-data/malik.json",
+        file: "https://cdn.jsdelivr.net/gh/HadithDatabase/data/malik.json",
         localFile: "data/malik.json",
         name_en: "Muwaṭṭaʾ Mālik",
         name_ar: "مُوَطَّأُ مَالِك",
@@ -93,7 +93,7 @@ const BOOKS_MANIFEST = [
    },
       {
         id: "ibnhibban",
-        file: "https://cdn.jsdelivr.net/gh/HadithDatabase/data/hadith-data/ibnhibban.json",
+        file: "https://cdn.jsdelivr.net/gh/HadithDatabase/data/ibnhibban.json",
         localFile: "data/ibnhibban.json",
         name_en: "Ṣaḥīḥ Ibn Ḥibbān",
         name_ar: "صحيح ابن حبّان",
