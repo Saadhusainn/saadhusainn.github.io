@@ -12,7 +12,7 @@ const BOOKS_MANIFEST = [
     {
         id: "bukhari",
         // USE CDN URL for fast loading!
-        file: "https://raw.githubusercontent.com/HadithDatabase/data/master/bukhari.json",
+        file: "https://cdn.jsdelivr.net/gh/HadithDatabase/data@master/bukhari.json",
         // Fallback local file
         localFile: "data/bukhari.json",
         name_en: "Ṣaḥīḥ al-Bukhārī",
