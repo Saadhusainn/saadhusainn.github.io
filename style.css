@@ -546,12 +546,13 @@ body {
 
 .page-count-selector {
     display: flex;
-    gap: 6px;
+    gap: 6px;               /* you can lower this to 4px if you want them even tighter */
+    flex-wrap: wrap;        /* optional – keeps them nice on very small screens */
 }
 
 .page-count-option {
     display: block;
-    flex: 1;
+    flex: 0 0 auto;         /* ← stop them from growing */
 }
 
 .page-count-option input {
@@ -562,7 +563,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 6px 4px;
+    padding: 6px 12px;      /* a bit more horizontal padding looks better when they’re compact */
+    /* … rest of your existing styles … */
     background: var(--bg-primary);
     border: 1px solid var(--border-color);
     text-align: center;
