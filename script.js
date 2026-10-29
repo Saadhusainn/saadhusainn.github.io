@@ -585,7 +585,13 @@ async function loadBookFile(filePath, displayName) {
             </div>
         `;
         
-        pdfDocument = await pdfjsLib.getDocument(filePath).promise;
+        // Aggressive range-request mode – only downloads what is needed
+        pdfDocument = await pdfjsLib.getDocument({
+            url: filePath,
+            disableAutoFetch: true,   // critical
+            disableStream: false,
+            rangeChunkSize: 65536
+        }).promise;
         
         selectedBook = {
             ...selectedBook,
@@ -615,7 +621,6 @@ async function loadBookFile(filePath, displayName) {
         showError(`Error loading book: ${error.message}. Please check if the file exists.`);
     }
 }
-
 // Page count radio button functionality
 document.querySelectorAll('input[name="pageCount"]').forEach(radio => {
     radio.addEventListener('change', function() {
